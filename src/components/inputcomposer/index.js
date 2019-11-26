@@ -138,6 +138,7 @@ class InputComposer extends React.PureComponent {
         }
         <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignAddFileIcon">
           <Upload
+            accept="image/*"
             showUploadList={false}
             beforeUpload={beforeUpload}
             onRemove={onRemove}

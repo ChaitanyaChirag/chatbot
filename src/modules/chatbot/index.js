@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_client_info } from '../../data/config/urls';
-import { LOCAL_STORAGE, isAndroid, getDefaultMessages, scrollToBottom, fileToBase64 } from '../../data/config/utils';
+import { LOCAL_STORAGE, isAndroid, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 
 import './index.scss';
@@ -170,13 +170,14 @@ class ChatBot extends Component {
 
   beforeFileUpload = file => {
     console.log('file', file);
-    fileToBase64(file).then(fileUrl => {
-      this.setState({
-        file,
-        fileUrl,
-        show_file_preview: true
-      });
-    })
+    if (file && file.name && checkImageTypeFile(file.name))
+      fileToBase64(file).then(fileUrl => {
+        this.setState({
+          file,
+          fileUrl,
+          show_file_preview: true
+        });
+      })
     return false;
   };
 
