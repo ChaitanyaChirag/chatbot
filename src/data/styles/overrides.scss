@@ -1,0 +1,59 @@
+@import "./colors.scss";
+@import "./variables.scss";
+
+//------------------------ TAG CLASSES ----------------------------
+
+.ori-tag-primary {
+    color: $primary !important;
+    background-color: $primary-bg-light !important;
+    border: 1px solid transparent !important;
+    cursor: default !important;
+    height: auto !important;
+    line-height: unset !important;
+}
+
+//------------------------ BUTTON CLASSES -------------------------
+
+.ori-btn-default {
+    &:hover, &:focus {
+        color: $primary !important;
+        border: 1px solid $primary !important;
+    }
+}
+
+.ori-btn-ghost-primary {
+    color: $primary !important;
+    border: 1px solid $primary !important;
+    height: auto !important;
+    line-height: unset !important;
+
+    &:hover, &:focus {
+        background-color: $primary-bg-light !important;
+        border: 1px solid transparent !important;
+    }
+}
+
+.ori-btn-fill-primary {
+    color: $white !important;
+    background-color: $primary !important;
+    border-color: $primary !important;
+
+    &:hover, &:focus, &.active {
+        background-color: $primary-light !important;
+        border-color: $primary-light !important;
+    }
+}
+
+.ori-btn-tag-primary {
+    color: $primary !important;
+    background-color: $primary-bg-light !important;
+    border: 1px solid transparent !important;
+    height: auto !important;
+    line-height: unset !important;
+
+    &:hover, &:focus {
+        border-color: $primary !important;
+        background-color: $primary !important;
+        color: $white !important;
+    }
+}

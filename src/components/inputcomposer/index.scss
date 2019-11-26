@@ -1,0 +1,73 @@
+@import "../../data//styles/colors.scss";
+
+.oriInputComposerContainer {
+    .inputField {
+        resize: none !important;
+        border: none !important;
+        background-color: $chatbot-footer-bg !important;
+        color: $chatbot-font-color !important;
+
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .alignMenuIcon {
+        z-index: 99993;
+        bottom: -4px;
+        left: -32px;
+        color: $font-color-light;
+
+        &:hover {
+            color: $font-color;
+        }
+    }
+
+    .alignAddFileIcon {
+        z-index: 99993;
+        bottom: -4px;
+        right: -60px;
+    }
+
+    .alignCircleDotIcon {
+        z-index: 99993;
+        bottom: -4px;
+        left: -20px;
+        color: $font-color-light;
+
+        &:hover {
+            color: $font-color;
+        }
+    }
+
+    .alignSendButton {
+        z-index: 99993;
+        bottom: -4px;
+        right: -32px;
+        border: none !important;
+        background-color: $chatbot-footer-bg !important;
+        height: auto !important;
+
+        &:focus, &:active {
+            outline: none !important;
+            border-radius: 50%;
+        }
+
+        &:hover {
+            color: $primary !important;
+        }
+    }
+
+    .sendBtnActive {
+        color: $primary !important;
+    }
+
+    .btnIcon {
+        color: $font-color-light;
+
+        &:hover {
+            color: $font-color;
+        }
+    }
+}

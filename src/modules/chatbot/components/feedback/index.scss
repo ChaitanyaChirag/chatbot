@@ -1,0 +1,46 @@
+@import "../../../../data/styles/colors.scss";
+@import "../../../../data/styles/mixins.scss";
+
+.oriFeedbackOverlayContainer {
+    background-color: $popup_bg;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99996;
+
+    .feedbackContainer {
+        width: 80%;
+
+        .alignFeedbackClose {
+            top: -23px;
+            right: -23px;
+            cursor: pointer;
+        }
+
+        .avatarContainer {
+            @include create-circle(50px, 50px);
+
+            left: calc(50% - 25px);
+            top: -25px;
+            z-index: 1;
+            border: 2px solid $white;
+            overflow: hidden;
+        }
+
+        .ratingStar {
+            margin-right: 5px;
+
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+
+        .feedbackCommentInput {
+            &:hover, &:focus {
+                border-color: $primary !important;
+                box-shadow: 0 0 0 2px $primary-bg-light !important;
+            }
+        }
+    }
+}

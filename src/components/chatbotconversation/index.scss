@@ -1,0 +1,179 @@
+@import "../../data/styles/colors.scss";
+@import "../../data/styles/mixins.scss";
+@import "../../data/styles/variables.scss";
+
+.oriChatBotConversationContainer {
+    height: auto;
+
+    .tagTimeBox {
+        padding: 1px 10px 1px 10px;
+        background-color: $primary-bg-light;
+        color: $primary;
+        text-transform: capitalize;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    .msgContainer {
+        max-width: 100%;
+        .defaultMsgBox {
+            box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.09);
+        }
+
+        .notificationMsgBox {
+            box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.15);
+        }
+
+        .notificationStackMsgBox {
+            box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.15);
+            background-color: $notification_stack_bubble_bg;
+            color: $notification_stack_bubble_font;
+        }
+
+        .msgBox {
+            word-break: break-word;
+            font-size: 13px;
+            max-width: 100%;
+
+            .uploadButton {
+                background: $primary;
+                color: $white;
+                border-color: $primary;
+
+                &:hover {
+                    background: $primary-light;
+                }
+            }
+
+            .buttonsContainer {
+                .ori-mt-btn {
+                    color: $primary !important;
+                    height: auto !important;
+                    line-height: 1 !important;
+                    font-size: $font-size-xxs;
+                    padding: 3px 8px;
+                    border-radius: 10px;
+                }
+
+                .ori-mt-btn-ghost {
+                    border: 1px solid $primary !important;
+
+                    &:hover, &:focus {
+                        background-color: $primary-bg-light !important;
+                        border: 1px solid transparent !important;
+                    }
+                }
+
+                .ori-mt-tag {
+                    background-color: $primary-bg-light !important;
+                    border: 1px solid transparent !important;
+                }
+            }
+        }
+
+        .oriOffers {
+            .radioBtnContainer {
+                padding-top: 2px;
+            }
+        }
+
+        .oriRechargeHistory {
+            .ant-pagination-item-active {
+                border-color: $primary !important;
+
+                a {
+                    color: $primary !important;
+                }
+            }
+        }
+
+        .oriCarousel {
+            padding: 5px 7px;
+
+            .ori-mt-CarouselContainer {
+                .slick-next, .slick-prev {
+                    &:hover, &:focus {
+                        color: $primary !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .receiverMsgContainer {
+        padding: 0px 5px 0px 35px;
+
+        .defaultMsgBox {
+            background-color: $chatbot-server-bubble-bg;
+            color: $chatbot-server-bubble-font;
+        }
+
+        .notificationMsgBox {
+            background-color: $notification_bot_server_bubble_bg;
+            color: $notification_bot_server_bubble_font;
+        }
+
+        .msgAvatar {
+            top: 20px;
+            left: -10px;
+        }
+
+        .bubbleIndicatorDefault {
+            .bubbleIndicator {
+                &:after {
+                    border-right-color: $chatbot-server-bubble-bg;
+                }
+            }
+        }
+
+        .bubbleIndicatorNotification {
+            .bubbleIndicator {
+                &:after {
+                    border-right-color: $notification_bot_server_bubble_bg;
+                }
+            }
+        }
+
+        .bubbleIndicatorStack {
+            .bubbleIndicator {
+                &:after {
+                    border-right-color: $notification_stack_bubble_bg;
+                }
+            }
+        }
+
+        .bubbleIndicator {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 15px;
+                left: 0;
+                border-left: 0;
+                margin-left: -16px;
+                width: 0;
+                height: 0;
+                border: 8px solid transparent;
+                border-bottom: 0;
+            }
+        }   
+    }
+
+    .senderMsgContainer {
+        padding: 0px 5px 0px 35px;
+        width: 100%;
+        justify-content: flex-end;
+
+        .defaultMsgBox {
+            background-color: $chatbot-sender-bubble-bg;
+            color: $chatbot-sender-bubble-font;
+        }
+
+        .notificationMsgBox {
+            background-color: $notification_bot_sender_bubble_bg;
+            color: $notification_bot_sender_bubble_font;
+        }
+    }
+}

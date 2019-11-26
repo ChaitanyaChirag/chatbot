@@ -1,0 +1,17 @@
+@import "../../../../data//styles/colors.scss";
+
+.oriNotificationBotHeaderContainer {
+    height: 45px;
+    overflow: hidden;
+
+    .alignHeaderCloseButton {
+        top: 10px;
+        right: 20px;
+    }
+
+    .headerItem {
+        &:hover {
+            background-color: $black-light;
+        }
+    }
+}

@@ -1,0 +1,68 @@
+@import "./mixins.scss";
+
+//---------------------- DISHTV -----------------------
+
+$dishtv-primary: #f15a23;
+$dishtv-primary-dark: #434343;
+
+//---------------------- VODAFONE -----------------------
+
+$vodafone-primary: #ed3837;
+$vodafone-primary-dark: #666;
+
+//---------------------- PRIMARY -----------------------
+
+$primary: $vodafone-primary !default;
+$primary-bg-light: tint($primary, 90%);
+$notification_stack_bg: $vodafone-primary-dark;
+
+//--------------------------------------------------------
+
+$white: #ffffff;
+$black: #000000;
+
+$default: #f7f7f9;
+$default-light: #f9f9fc;
+$font-color: #1b1d1f;
+$font-color-light: #abaeb2;
+$font-chat: #344050;
+$popup_bg: rgba(0, 0, 0, 0.3);
+$border-light: #efeff4;
+
+//---------------------- GENERAL COLORS ----------------------
+
+$info: #4da1ff !default;
+$success: #90b900 !default;
+$warning: #f5a623 !default;
+$danger: #ff6d4a !default;
+$green: #35cd4a;
+$yellow: #ffcb00;
+
+$primary-light: tint($primary, 30%);
+$black-light: tint($black, 30%);
+
+$green-bg-light: tint($green, 85%);
+$black-bg-light: tint($black, 85%);
+
+$primary-dark: shade($primary, 15%);
+$black-dark: shade($black, 15%);
+
+$primary-lighter: tint($primary, 40%);
+$primary-darker: shade($primary, 20%);
+
+//---------------------- CHATBOT SPECIFIC COLORS ----------------------
+
+$chatbot-header-bg: $white;
+$chatbot-body-bg: $default;
+$chatbot-footer-bg: $white;
+$chatbot-font-color: $font-chat;
+$chatbot-server-bubble-bg: $white;
+$chatbot-server-bubble-font: $font-chat;
+$chatbot-sender-bubble-bg: $primary;
+$chatbot-sender-bubble-font: $white;
+$notification_bot_server_bubble_bg: $default;
+$notification_bot_server_bubble_font: $font-chat;
+$notification_bot_sender_bubble_bg: $primary;
+$notification_bot_sender_bubble_font: $white;
+$notification_stack_bubble_bg: $notification_stack_bg;
+$notification_stack_bubble_font: $white;

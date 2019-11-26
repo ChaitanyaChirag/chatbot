@@ -1,0 +1,105 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import CloseIcon from 'react-icons/lib/md/close';
+
+import './index.scss';
+
+import { chatbot_client_info } from '../../data/config/urls';
+import { scrollToBottom, LOCAL_STORAGE } from '../../data/config/utils';
+
+import NotificationBotHeader from './components/notificationbotheader';
+import ChatBotConversation from '../../components/chatbotconversation';
+import InputComposer from '../../components/inputcomposer';
+
+class NotificationBot extends React.PureComponent {
+    state = {
+        show_header: false,
+    };
+
+    setNotificationContainerRef = el => { 
+        this.notificationsContainer = el; 
+    };
+
+    showHeader = () => {
+        this.setState({
+            show_header: true
+        });
+    };
+
+    hideHeader = () => {
+        this.setState({
+            show_header: false
+        });
+    };
+
+    scrollContainerToBottom = () => {
+        scrollToBottom(this.notificationsContainer);
+    };
+
+    handleNotificationBotClose = () => {
+        const { actions } = this.props;
+        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
+        actions.updateState('unseen_messages', []);
+    };
+
+    handleViewMore = () => {
+        const { actions } = this.props;
+        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
+        actions.updateState('unseen_messages', []);
+        actions.handleChatbotInterface(true);
+    };
+
+    onClickStackBubble = () => { 
+        if(this.props.stack_view) 
+            this.handleViewMore(); 
+    };
+
+    render() {
+        const { page_details, chat_details, sendTextToServer, handleMsgBtnClick, handleOfferSelection, stack_view, actions } = this.props;
+        const { show_header } = this.state;
+        const mobile = page_details.device_data.screen_width && page_details.device_data.screen_width < 481;
+        return (
+            <div className="ori-fixed  oriNotificationBotContainer" style={{ bottom: mobile ? `${chatbot_client_info.trigger.mobile_icon_width + 20 + 20}px` : `${chatbot_client_info.trigger.icon_width + 20 + 10}px` }}>
+                <div className={ classNames("ori-relative ori-flex-column  oriNotificationBotContentContainer",{"ori-no-tb-pad": stack_view})} style={{ maxHeight: mobile ? `calc(100vh - ${chatbot_client_info.trigger.mobile_icon_width + 20 + 20 + 20}px)` : `calc(100vh - ${chatbot_client_info.trigger.icon_width + 20 + 20 + 20}px)` }} onMouseOver={this.showHeader} onMouseOut={this.hideHeader}>
+                    {
+                        !stack_view &&
+                        <div className={classNames("ori-absolute notificationBotHeader", { "ori-display-none": !show_header })}>
+                            <NotificationBotHeader handleNotificationBotClose={this.handleNotificationBotClose} handleViewMore={this.handleViewMore} />
+                        </div>
+                    }
+                    {
+                        stack_view &&
+                        <div className="ori-absolute ori-animated ori-zoom-in ori-cursor-ptr ori-font-white stackCloseContainer" onClick={this.handleNotificationBotClose}>
+                            <CloseIcon size={16} className="ori-border-circle ori-bg-black-light alignStackClose" />
+                        </div>
+                    }
+                    <div className={classNames("ori-full-flex ori-full-parent-height conversationContainer", { "ori-cursor-ptr": stack_view })} ref={this.setNotificationContainerRef} onClick={this.onClickStackBubble} >
+                        <ChatBotConversation messages={chat_details.unseen_messages} messageVotingSuccess={actions.onMessageVoting} handleMsgBtnClick={handleMsgBtnClick} handleOfferSelection={handleOfferSelection} messagesContainer={this.notificationsContainer} is_typing={chat_details.is_typing} typing_text={chat_details.typing_text} stack_view={stack_view} bubble_animation={stack_view ? "ori-fade-in-right" : "ori-fade-in-up"} notification_bot />
+                    </div>
+                    <div className={classNames("ori-absolute oriNotificationFooter", { "ori-display-none": stack_view })}>
+                        <div className={"inputComposerContainer"}>
+                            <InputComposer psid={chat_details.psid} sendTextToServer={sendTextToServer} is_online={chat_details.is_socket_connected} is_input_lock={chat_details.is_input_lock} input_lock_text={chat_details.input_lock_text} onInputFocus={this.scrollContainerToBottom} emitCustomEvent={actions.emitCustomEvent} notification_bot />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+NotificationBot.propTypes = {
+    chat_details: PropTypes.object,
+    page_details: PropTypes.object,
+    actions: PropTypes.object,
+    sendTextToServer: PropTypes.func,
+    handleMsgBtnClick: PropTypes.func,
+    handleOfferSelection: PropTypes.func,
+    stack_view: PropTypes.bool
+};
+
+NotificationBot.defaultProps = {
+    stack_view: false,
+};
+
+export default NotificationBot;

@@ -1,0 +1,79 @@
+@import "./keyframes.scss";
+
+.ori-animated {
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.ori-infinite {
+    -webkit-animation-iteration-count: infinite !important;
+    animation-iteration-count: infinite !important;
+}
+
+.ori-ripple {
+    @include animation(ori-ripple 1.5s);
+}
+
+.ori-pulse {
+    @include animation(ori-pulse 1s);
+}
+
+.ori-rotate {
+    @include animation(ori-rotate 1s);
+}
+
+.ori-translate-down {
+    @include animation(ori-translate-down 1s);
+}
+
+.ori-fade-in {
+    @include animation(ori-fade-in 1s);
+}
+
+// .ori-fade-in-left {
+//     @include animation(ori-fade-in-left 1s);
+// }
+
+// .ori-fade-in-right {
+//     @include animation(ori-fade-in-right 1s);
+// }
+
+.ori-fade-in-up {
+    @include animation(ori-fade-in-up 1s);
+}
+
+.ori-fade-out {
+    @include animation(ori-fade-out 1s);
+}
+
+.ori-fade-out-left {
+    @include animation(ori-fade-out-left 1s);
+}
+
+// .ori-fade-out-right {
+//     @include animation(ori-fade-out-right 1s);
+// }
+
+.ori-fade-out-down {
+    @include animation(ori-fade-out-down 1s);
+}
+
+// .ori-fade-out-up {
+//     @include animation(ori-fade-out-up 1s);
+// }
+
+.ori-zoom-in {
+    @include animation(ori-zoom-in 1s);
+}
+
+.ori-zoom-out {
+    @include animation(ori-zoom-out 1s);
+}
+
+.ori-zoom-in-bottom-left {
+    @include animation(ori-zoom-in-bottom-left 1s);
+}
+
+.ori-zoom-out-bottom-left {
+    @include animation(ori-zoom-out-bottom-left 1s);
+}

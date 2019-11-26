@@ -1,0 +1,19 @@
+@import "../data/styles/colors.scss";
+
+.oriAppContainer {
+    z-index: 99990;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+
+    .notificationBadge {
+        top: -18px;
+        right: 24px;
+
+        .ant-badge-count {
+            z-index: 99993;
+            background-color: $green;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.11);
+        }
+    }
+}

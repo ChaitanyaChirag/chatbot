@@ -1,0 +1,12 @@
+@import "./common.scss";
+@import "./colors.scss";
+@import "./variables.scss";
+@import "./overrides.scss";
+@import "./animations.scss";
+@import "./antdesign/index.scss";
+
+.ori-app-container {
+    @import url("https://fonts.googleapis.com/css?family=Roboto");
+
+    @import "../../../node_modules/chatbot-message-types/build/css/index";
+}

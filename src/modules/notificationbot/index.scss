@@ -1,0 +1,82 @@
+@import "../../data/styles/colors.scss";
+
+@media only screen and (max-width: 480px) {
+    .oriNotificationBotContainer {
+        left: 10px;
+        right: 0;
+
+        .oriNotificationBotContentContainer {
+            .oriNotificationFooter {
+                padding: 0px 27px 5px 17px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    .oriNotificationBotContainer {
+        width: 375px;
+        right: 0;
+
+        .oriNotificationBotContentContainer {
+            .oriNotificationFooter {
+                padding: 0px 25px 5px 50px;
+            }
+        }
+    }
+}
+
+.oriNotificationBotContainer {
+    z-index: 99992;
+    color: $chatbot-font-color !important;
+
+    .oriNotificationBotContentContainer {
+        width: 100%;
+        overflow: hidden;
+        padding: 45px 0px 50px 0px;
+
+        .notificationBotHeader {
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .stackCloseContainer {
+            top: 0px;
+            right: 10px;
+
+            .alignStackClose {
+                padding: 2px;
+
+                &:hover {
+                    background-color: $black-light;
+                }
+            }
+        }
+
+        // .notificationBotBody {
+            
+
+            .conversationContainer {
+                overflow-x: hidden;
+                overflow-y: auto;
+                // padding: 45px 0px 50px 0px;
+            }
+        // }
+
+        .oriNotificationFooter {
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            .inputComposerContainer {
+                min-height: 45px;
+                max-height: 110px;
+                border-radius: 5px;
+                padding: 12px 45px 11px 25px;
+                background-color: $chatbot-footer-bg;
+                box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.15);
+            }
+        }
+    }
+}

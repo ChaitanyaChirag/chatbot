@@ -1,0 +1,699 @@
+@import "./colors.scss";
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.ori-app-container {
+    /*---------------------  BASE RULE FOR PROJECT  ---------------------*/
+
+    font-family: $font-family !important;
+    max-width: 100vw;
+    color: $font-color !important;
+    font-size: 14px !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5;
+
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: $font-color-light;
+    }
+
+    p {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    /*---------------------  BASIC COMMON CLASSES -------------------- */
+
+    .ori-rotate-180 {
+        transform: rotate(180deg);
+    }
+
+    .ori-z-index-99990 {
+        z-index: 99990;
+    }
+
+    .ori-z-index-99992 {
+        z-index: 99992;
+    }
+
+    .ori-z-index-99993 {
+        z-index: 99993;
+    }
+
+    .ori-z-index-99994 {
+        z-index: 99994;
+    }
+
+    .ori-z-index-99995 {
+        z-index: 99995;
+    }
+
+    .ori-block-text-overflow-dotted {
+        display: block; /* Fallback for non-webkit */
+        display: -webkit-box;
+        margin: 0 auto;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ori-dotted-after-xs-3 {
+        font-size: $font-size-xs;
+        line-height: 1.3;
+        -webkit-line-clamp: 4;
+        height: $font-size-xs * 1.3 * 4;
+    }
+
+    .ori-placeholder-primary ::placeholder {
+        color: $primary !important;
+    }
+
+    .ori-overflow-y-auto {
+        overflow-y: auto;
+    }
+
+    .ori-overflow-x-hidden {
+        overflow-x: hidden;
+    }
+
+    .ori-line-height-1 {
+        line-height: 1 !important;
+    }
+
+    .ori-bg-gradient-primary-to-light {
+        background: linear-gradient(135deg, $primary-darker 0%, $primary-lighter 100%);
+    }
+
+    .ori-bg-white {
+        background-color: $white !important;
+    }
+
+    .ori-bg-default {
+        background-color: $default;
+    }
+
+    .ori-bg-header {
+        background-color: $chatbot-header-bg;
+    }
+
+    .ori-bg-primary {
+        background-color: $primary;
+    }
+
+    .ori-bg-black-light {
+        background-color: $popup_bg;
+    }
+
+    .ori-primary-bg-light {
+        background-color: $primary-bg-light;
+    }
+
+    .ori-bg-size-cover {
+        background-size: cover;
+    }
+
+    .ori-bg-no-repeat {
+        background-repeat: no-repeat;
+    }
+
+    .ori-bg-position-center {
+        background-position: center;
+    }
+
+    .ori-font-light-hover-default {
+        color: $font-color-light;
+
+        &:hover {
+            color: $font-color;
+        }
+    }
+
+    .ori-font-white {
+        color: $white;
+    }
+
+    .ori-font-primary {
+        color: $primary !important;
+    }
+
+    .ori-font-green {
+        color: $green !important;
+    }
+
+    .ori-font-warning {
+        color: $warning !important;
+    }
+
+    .ori-font-danger {
+        color: $danger !important;
+    }
+
+    .ori-font-info {
+        color: $info !important;
+    }
+
+    .ori-font-yellow {
+        color: $yellow !important;
+    }
+
+    .ori-font-default {
+        color: $font-color !important;
+    }
+
+    .ori-font-light {
+        color: $font-color-light;
+    }
+
+    .ori-font-default-hover-white {
+        color: $font-color !important;
+
+        &:hover {
+            color: $white !important;
+        }
+    }
+
+    .ori-font-default-hover-primary {
+        color: $font-color;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .ori-text-center {
+        text-align: center;
+    }
+
+    .ori-cursor-ptr {
+        cursor: pointer !important;
+    }
+
+    .ori-uppercase {
+        text-transform: uppercase;
+    }
+
+    .ori-capitalize {
+        text-transform: capitalize;
+    }
+
+    .ori-capitalize-first::first-letter {
+        text-transform: capitalize;
+    }
+
+    .ori-full-width {
+        width: 100% !important;
+    }
+
+    .ori-full-height {
+        height: 100vh !important;
+    }
+
+    .ori-full-parent-height {
+        height: 100% !important;
+    }
+
+    .ori-height-10 {
+        height: 10px;
+    }
+
+    .ori-overflow-hidden {
+        overflow: hidden;
+    }
+
+    .ori-display-none {
+        display: none !important;
+    }
+
+    .ori-relative {
+        position: relative !important;
+    }
+
+    .ori-absolute {
+        position: absolute !important;
+    }
+
+    .ori-fixed {
+        position: fixed !important;
+    }
+
+    .ori-align-top-4 {
+        top: 4px;
+    }
+
+    .ori-align-bottom {
+        bottom: 0;
+    }
+
+    .ori-align-left {
+        left: 0;
+    }
+
+    .ori-align-right {
+        right: 0;
+    }
+
+    .ori-align-full {
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .ori-word-break {
+        word-break: break-word !important;
+    }
+
+    .ori-img-contain {
+        width: 100%;
+        height: 100%;
+    }
+
+    .ori-box-shadow {
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.11);
+    }
+
+    .ori-box-shadow-dark {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .ori-border-radius-3 {
+        border-radius: 3px;
+    }
+
+    .ori-border-radius-5 {
+        border-radius: 5px;
+    }
+
+    .ori-border-radius-10 {
+        border-radius: 10px;
+    }
+
+    .ori-border-radius-20 {
+        border-radius: 20px;
+    }
+
+    .ori-border-circle {
+        border-radius: 50% !important;
+    }
+
+    .ori-b-border-light {
+        border-bottom: 1px solid $border-light;
+    }
+
+    .ori-border-light {
+        border: 1px solid $border-light;
+    }
+
+    .ori-animation-half {
+        animation-duration: 0.5s !important;
+    }
+
+    /*---------------------- FONT CLASSES -----------------------*/
+
+    .ori-font-thin {
+        font-weight: $font-thin; //300
+   
+    }
+
+    .ori-font-normal {
+        font-weight: $font-normal; //400
+   
+    }
+
+    .ori-font-medium {
+        font-weight: $font-medium; //500
+   
+    }
+
+    .ori-font-bold {
+        font-weight: $font-bold; //700
+   
+    }
+
+    .ori-font-ultra-bold {
+        font-weight: $font-ultra-bold; //900
+   
+    }
+
+    .ori-font-xxs {
+        font-size: $font-size-xxs !important; //10px
+   
+    }
+
+    .ori-font-11 {
+        font-size: 11px !important;
+    }
+
+    .ori-font-xs {
+        font-size: $font-size-xs !important; //12px
+   
+    }
+
+    .ori-font-13 {
+        font-size: 13px;
+    }
+
+    .ori-font-sm {
+        font-size: $font-size-sm !important; //14px
+   
+    }
+
+    .ori-font-md {
+        font-size: $font-size-md !important; //16px
+   
+    }
+
+    .ori-font-lg {
+        font-size: $font-size-lg !important; //20px
+   
+    }
+
+    .ori-font-xl {
+        font-size: $font-size-xl !important; //24px
+   
+    }
+
+    .ori-font-xll {
+        font-size: $font-size-xll !important; //30px
+   
+    }
+
+    /*---------------------- COMMON FLEX CLASSES --------------------- */
+
+    .ori-flex {
+        display: flex;
+    }
+
+    .ori-flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .ori-flex-row {
+        display: flex !important;
+        flex-direction: row;
+    }
+
+    .ori-flex-column {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .ori-flex-center {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ori-flex-ac { //flex-align-center
+        align-items: center;
+    }
+
+    .ori-flex-jc { //flex-justify-center
+        justify-content: center;
+    }
+
+    .ori-flex-jsb { //flex-justify-space-between
+        justify-content: space-between;
+    }
+
+    .ori-flex-jsa { //flex-justify-space-around
+        justify-content: space-around;
+    }
+
+    .ori-flex-jfe { //flex-justify-flex-end
+        justify-content: flex-end;
+    }
+
+    .ori-full-flex {
+        flex: 1;
+    }
+
+    /*---------------------- COMMON PADDING CLASSES----------------------*/
+    //pad -> padding
+    //l -> left
+    //r -> right
+    //t -> top
+    //b -> bottom
+
+    //---------------- padding-X -------------------
+
+    .ori-no-pad {
+        padding: 0px !important;
+    }
+
+    .ori-pad-3 {
+        padding: 3px !important;
+    }
+
+    .ori-pad-5 {
+        padding: 5px !important;
+    }
+
+    .ori-pad-7 {
+        padding: 7px;
+    }
+
+    .ori-pad-10 {
+        padding: 10px !important;
+    }
+
+    .ori-pad-12 {
+        padding: 12px !important;
+    }
+
+    .ori-pad-15 {
+        padding: 15px !important;
+    }
+
+    .ori-pad-20 {
+        padding: 20px !important;
+    }
+
+    //---------------- left-right-padding-X -------------------
+
+    .ori-lr-pad-5 {
+        @include lr-padding(5px);
+    }
+
+    .ori-lr-pad-8 {
+        @include lr-padding(8px);
+    }
+
+    .ori-lr-pad-10 {
+        @include lr-padding(10px);
+    }
+
+    .ori-lr-pad-15 {
+        @include lr-padding(15px);
+    }
+
+    .ori-lr-pad-20 {
+        @include lr-padding(20px);
+    }
+
+    .ori-lr-pad-30 {
+        @include lr-padding(30px);
+    }
+
+    //---------------- top-bottom-padding-X --------------------
+
+    .ori-no-tb-pad {
+        @include tb-padding(0px);
+    }
+
+    .ori-tb-pad-3 {
+        @include tb-padding(3px);
+    }
+
+    .ori-tb-pad-5 {
+        @include tb-padding(5px);
+    }
+
+    .ori-tb-pad-10 {
+        @include tb-padding(10px);
+    }
+
+    .ori-tb-pad-20 {
+        @include tb-padding(20px);
+    }
+
+    //----------------- left-padding-X -------------------
+
+    .ori-l-pad-5 {
+        padding-left: 5px;
+    }
+
+    .ori-l-pad-10 {
+        padding-left: 10px !important;
+    }
+
+    .ori-l-pad-15 {
+        padding-left: 15px !important;
+    }
+
+    .ori-l-pad-20 {
+        padding-left: 20px;
+    }
+
+    .ori-l-pad-25 {
+        padding-left: 25px;
+    }
+
+    //----------------- right-padding-X -------------------
+    .ori-r-pad-5 {
+        padding-right: 5px;
+    }
+
+    .ori-r-pad-10 {
+        padding-right: 10px;
+    }
+
+    .ori-r-pad-20 {
+        padding-right: 20px;
+    }
+
+    .ori-r-pad-40 {
+        padding-right: 40px;
+    }
+
+    //----------------- top-padding-X -------------------
+
+    .ori-t-pad-5 {
+        padding-top: 5px;
+    }
+
+    .ori-t-pad-15 {
+        padding-top: 15px;
+    }
+
+    .ori-t-pad-20 {
+        padding-top: 20px;
+    }
+
+    //----------------- bottom-padding-X -------------------
+
+    .ori-no-b-pad {
+        padding-bottom: 0px !important;
+    }
+
+    .ori-b-pad-5 {
+        padding-bottom: 5px !important;
+    }
+
+    .ori-b-pad-15 {
+        padding-bottom: 15px;
+    }
+
+    .ori-b-pad-25 {
+        padding-bottom: 25px;
+    }
+
+    .ori-b-pad-40 {
+        padding-bottom: 40px !important;
+    }
+
+    /*---------------------------- COMMON MARGIN CLASSES-----------------------------*/
+    //mrgn -> margin
+    //l -> left
+    //r -> right
+    //t -> top
+    //b -> bottom
+
+    .ori-no-b-mrgn {
+        margin-bottom: 0px !important;
+    }
+
+    .ori-b-mrgn-10 {
+        margin-bottom: 10px !important;
+    }
+
+    //---------------- left-right-margin-X -------------------
+
+    .ori-lr-mrgn-5 {
+        @include lr-margin(5px);
+    }
+
+    .ori-lr-mrgn-10 {
+        @include lr-margin(10px);
+    }
+
+    //---------------- top-bottom-margin-X --------------------
+
+    .ori-tb-mrgn-5 {
+        @include tb-margin(5px);
+    }
+
+    //------------------- left-margin-X ---------------------
+
+    .ori-l-mrgn-5 {
+        margin-left: 5px !important;
+    }
+
+    .ori-l-mrgn-10 {
+        margin-left: 10px;
+    }
+
+    .ori-l-mrgn-15 {
+        margin-left: 15px;
+    }
+
+    //-------------------- right-margin-X ---------------------
+
+    .ori-r-mrgn-15 {
+        margin-right: 15px;
+    }
+
+    //----------------------- top-margin-X ----------------------
+
+    .ori-t-mrgn-3 {
+        margin-top: 3px;
+    }
+
+    .ori-t-mrgn-10 {
+        margin-top: 10px;
+    }
+
+    .ori-t-mrgn-15 {
+        margin-top: 15px;
+    }
+
+    //------------------------- bottom-margin-X -----------------------
+
+    .ori-b-mrgn-4 {
+        margin-bottom: 4px;
+    }
+
+    .ori-b-mrgn-5 {
+        margin-bottom: 5px;
+    }
+
+    .ori-b-mrgn-7 {
+        margin-bottom: 7px;
+    }
+
+    .ori-b-mrgn-10 {
+        margin-bottom: 10px;
+    }
+
+    //---------------- margin-X -------------------
+
+    .ori-mrgn-10 {
+        margin: 10px;
+    }
+
+    .ori-mrgn-20 {
+        margin: 20px;
+    }
+}
+
+// .ori-z-index-99995 {
+//     z-index: 99977795;
+// }

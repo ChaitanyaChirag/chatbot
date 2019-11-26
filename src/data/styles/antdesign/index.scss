@@ -1,0 +1,25 @@
+@import "./antdesign_index.scss";
+
+.ori-ant-design-container {
+    @import "~antd/lib/button/style/index";
+    @import "~antd/lib/table/style/index";
+    @import "~antd/lib/tooltip/style/index";
+    @import "~antd/lib/pagination/style/index";
+    @import "~antd/lib/badge/style/index";
+    @import "~antd/lib/form/style/index";
+    @import "~antd/lib/input/style/index";
+    @import "~antd/lib/carousel/style/index";
+    @import "~antd/lib/upload/style/index";
+    @import "~antd/lib/avatar/style/index";
+
+    @import "~antd/lib/select/style/index";
+
+    // @import "~antd/lib/dropdown/style/index";
+    @import "~antd/lib/menu/style/index";
+
+    /*
+    * import ant-design component css here, when ever you use any ant design component in chatbot or chatbot-message-types library.
+    * also check antd folder in node_modules. if required component is dependent on other component then add other component css 
+    * eq: i have used table in chatbot-message-types so i have used table component css. but table component is using pagination component and tooltip component so i have also added css for both oagination and tooltip even i am not using pagination any where seperately. 
+    */
+}
