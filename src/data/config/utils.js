@@ -1,3 +1,4 @@
+import message from 'antd/lib/message';
 import { default_messages, android_default_messages } from './constants';
 
 const s4 = () => {
@@ -21,6 +22,17 @@ export const uniqueId = () => {
 export const log = (str, value) => {
   if (DEV_VAR.ENABLE_CONSOLE) {
     value ? console.log(str, value) : console.log(str);
+  }
+};
+
+export const showMessage = (type, msg) => {
+  const node = document.getElementById('chatbotContainer');
+  if (node) {
+    message.config({
+      top: 75,
+      getContainer: () => node,
+    });
+    message[type](msg);
   }
 };
 

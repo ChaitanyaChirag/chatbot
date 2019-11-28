@@ -1,6 +1,10 @@
 @import "./colors.scss";
 @import "./variables.scss";
 
+.ant-message {
+    position: absolute !important;
+}
+
 //------------------------ TAG CLASSES ----------------------------
 
 .ori-tag-primary {
