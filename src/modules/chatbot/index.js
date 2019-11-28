@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_client_info } from '../../data/config/urls';
-import { LOCAL_STORAGE, isAndroid, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile } from '../../data/config/utils';
+import { LOCAL_STORAGE, isAndroid, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile, showMessage } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 
 import './index.scss';
@@ -170,7 +170,7 @@ class ChatBot extends Component {
 
   beforeFileUpload = file => {
     console.log('file', file);
-    if (file && file.name && checkImageTypeFile(file.name))
+    if (file && file.name && checkImageTypeFile(file.name)) {
       fileToBase64(file).then(fileUrl => {
         this.setState({
           file,
@@ -178,6 +178,10 @@ class ChatBot extends Component {
           show_file_preview: true
         });
       })
+    } else {
+      console.log('selected file is not an image');
+      showMessage('warning', 'selected file is not an image');
+    }
     return false;
   };
 
@@ -214,7 +218,7 @@ class ChatBot extends Component {
     }
     return (
       <div className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer", { "ori-fade-in-up": !chatbot_client_info.trigger.show_close_icon, "ori-fade-in": chatbot_client_info.trigger.show_close_icon })} style={containerStyle}>
-        <div className="ori-relative ori-flex-column chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
+        <div id="chatbotContentContainer" className="ori-relative ori-flex-column chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
           <Suspense fallback={null}>
             <EndChat
               isMounted={chat_details.end_chat.visible}

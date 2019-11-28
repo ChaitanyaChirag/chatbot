@@ -26,7 +26,7 @@ export const log = (str, value) => {
 };
 
 export const showMessage = (type, msg) => {
-  const node = document.getElementById('chatbotContainer');
+  const node = document.getElementById('chatbotContentContainer');
   if (node) {
     message.config({
       top: 75,
