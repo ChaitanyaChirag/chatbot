@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-// import { init } from '@sentry/browser';
+import { init } from '@sentry/browser';
 
 import createStore from './data/redux/store';
 import * as serviceWorker from './serviceWorker';
 
-// import { chatbot_client_info } from './data/config/urls';
+import { chatbot_client_info } from './data/config/urls';
 
 import './data/styles/index.scss';
 
 import AppContainer from './modules';
 
-// init({ dsn: chatbot_client_info.sentry_dsn });
+init({ dsn: chatbot_client_info.sentry_dsn });
 
 const store = createStore();
 

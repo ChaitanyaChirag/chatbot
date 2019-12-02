@@ -1,4 +1,5 @@
 import message from 'antd/lib/message';
+
 import { default_messages, android_default_messages } from './constants';
 
 const s4 = () => {

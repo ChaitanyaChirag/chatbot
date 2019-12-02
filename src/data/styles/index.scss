@@ -8,5 +8,5 @@
 .ori-app-container {
     @import url("https://fonts.googleapis.com/css?family=Roboto");
 
-    @import "../../../node_modules/chatbot-message-types/build/css/index";
+    @import "~chatbot-message-types/build/css/index";
 }
