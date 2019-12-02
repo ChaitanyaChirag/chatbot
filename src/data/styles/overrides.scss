@@ -61,3 +61,51 @@
         color: $white !important;
     }
 }
+
+//------------------------------- CHATBOT-MESSAGE-TYPES -----------------------------
+
+.ori-mt-CarouselContainer {
+    .slick-arrow {
+        background: none !important;
+        font-size: 10px !important;
+        color: $font-color-light !important;
+        width: auto !important;
+        top: unset !important;
+        bottom: -28px !important;
+        z-index: 1 !important;
+    }
+
+    .slick-next {
+        right: 10px !important;
+
+        &:hover, &:focus {
+            color: $font-color !important;
+        }
+
+        &::before {
+            content: "" !important;
+        }
+    }
+
+    .slick-prev {
+        left: 10px !important;
+
+        &:hover, &:focus {
+            color: $font-color !important;
+        }
+
+        &::before {
+            content: "" !important;
+        }
+    }
+
+    .slick-dots {
+        bottom: -10px !important;
+
+        li, .slick-active {
+            button {
+                background-color: $font-color !important;
+            }
+        }
+    }
+}

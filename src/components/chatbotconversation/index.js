@@ -7,7 +7,7 @@ import DeliverIcon from 'react-icons/lib/io/android-done-all';
 import SeenIcon from 'react-icons/lib/md/remove-red-eye';
 import SendingIcon from 'react-icons/lib/md/rotate-right';
 import Avatar from 'antd/lib/avatar';
-import { TextMessage, TextWithMedia, CarouselWithButtons, PromptMsg, CheckboxWithMedia, ListMessage, UploadFile, Recharge, RechargeDetails, Offers, RechargeHistory } from 'chatbot-message-types';
+import { TextMessage, TextWithMedia, CarouselWithButtons, PromptMsg, CheckboxWithMedia, ListMessage, UploadFile, Recharge, RechargeDetails, Offers, RechargeHistory } from 'message-types';
 
 import './index.scss';
 
