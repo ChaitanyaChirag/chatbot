@@ -20,6 +20,8 @@ const QuickReply = React.lazy(() => import('./components/quickreply'));
 const Feedback = React.lazy(() => import('./components/feedback'));
 const EndChat = React.lazy(() => import('./components/endchat'));
 const PreviewFile = React.lazy(() => import('./components/previewfile'));
+const DownTime = React.lazy(() => import('./components/downtime'));
+const CustomModal = React.lazy(() => import('../../components/custommodal'));
 
 
 const androidTabletStyle = {
@@ -219,6 +221,13 @@ class ChatBot extends Component {
     return (
       <div className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer", { "ori-fade-in-up": !chatbot_client_info.trigger.show_close_icon, "ori-fade-in": chatbot_client_info.trigger.show_close_icon })} style={containerStyle}>
         <div id="chatbotContentContainer" className="ori-relative ori-flex-column chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
+          <Suspense fallback={null}>
+            <CustomModal isMounted={false} delayUnmountTime={400}>
+              <div className="ori-pad-10 ori-bg-white ori-border-radius-3">
+                <DownTime />
+              </div>
+            </CustomModal>
+          </Suspense>
           <Suspense fallback={null}>
             <EndChat
               isMounted={chat_details.end_chat.visible}
