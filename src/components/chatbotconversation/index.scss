@@ -72,12 +72,6 @@
             }
         }
 
-        .oriOffers {
-            .radioBtnContainer {
-                padding-top: 2px;
-            }
-        }
-
         .oriRechargeHistory {
             .ant-pagination-item-active {
                 border-color: $primary !important;
@@ -90,14 +84,6 @@
 
         .oriCarousel {
             padding: 5px 7px;
-
-            .ori-mt-CarouselContainer {
-                .slick-next, .slick-prev {
-                    &:hover, &:focus {
-                        color: $primary !important;
-                    }
-                }
-            }
         }
     }
 

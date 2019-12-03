@@ -627,6 +627,10 @@
 
     //---------------- top-bottom-margin-X --------------------
 
+    .ori-tb-mrgn-3 {
+        @include tb-margin(3px);
+    }
+
     .ori-tb-mrgn-5 {
         @include tb-margin(5px);
     }
@@ -648,8 +652,8 @@
     //-------------------- right-margin-X ---------------------
 
     .ori-r-mrgn-10 {
-      margin-right: 10px;
-  }
+        margin-right: 10px;
+    }
 
     .ori-r-mrgn-15 {
         margin-right: 15px;
@@ -697,4 +701,3 @@
         margin: 20px;
     }
 }
-
