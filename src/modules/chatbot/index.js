@@ -209,8 +209,8 @@ class ChatBot extends Component {
 
   onDowntimeComplete = () => {
     const { actions } = this.props;
-    actions.updateState('downtime',{});
-    actions.makeSocketConnection();
+    actions.updateState('downtime', {});
+    setTimeout(actions.makeSocketConnection, 1000);
   };
 
   render() {

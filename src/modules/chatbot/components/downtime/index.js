@@ -37,7 +37,7 @@ class DownTime extends React.PureComponent {
         </div>
         {
           downtime.title &&
-          <p className="ori-b-mrgn-10 ori-text-center">{downtime.title}</p>
+          <p className="ori-b-mrgn-10 ori-text-center ori-font-md">{downtime.title}</p>
         }
         {
           downtime.message &&
@@ -46,7 +46,7 @@ class DownTime extends React.PureComponent {
         <div className="ori-flex-row ori-flex-jc">
           {
             loading ? <DotsLoader /> :
-              <div className="ori-font-xs ori-font-light ori-text-center">we will try to fix it before <span className="ori-font-bold ori-font-default">{formatDate(downtime.timestamp, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>. sorry for the inconvenience.</div>
+              <div className="ori-font-xs ori-font-light ori-text-center">we will try to fix it before <span className="ori-font-bold ori-font-default"> {formatDate(downtime.timestamp, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>. sorry for the inconvenience.</div>
           }
         </div>
       </div>
