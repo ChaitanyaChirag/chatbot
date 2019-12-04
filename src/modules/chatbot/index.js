@@ -207,6 +207,12 @@ class ChatBot extends Component {
     this.onFilePreviewCancel();
   };
 
+  onDowntimeComplete = () => {
+    const { actions } = this.props;
+    actions.updateState('downtime',{});
+    actions.makeSocketConnection();
+  };
+
   render() {
     const { show_menu, show_feedback, show_file_preview, file, fileUrl } = this.state;
     const { is_adster_bot, chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions } = this.props;
@@ -222,9 +228,9 @@ class ChatBot extends Component {
       <div className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer", { "ori-fade-in-up": !chatbot_client_info.trigger.show_close_icon, "ori-fade-in": chatbot_client_info.trigger.show_close_icon })} style={containerStyle}>
         <div id="chatbotContentContainer" className="ori-relative ori-flex-column chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
           <Suspense fallback={null}>
-            <CustomModal isMounted={false} delayUnmountTime={400}>
+            <CustomModal isMounted={chat_details.downtime.isDownTime} delayUnmountTime={400}>
               <div className="ori-pad-10 ori-bg-white ori-border-radius-3">
-                <DownTime />
+                <DownTime downtime={chat_details.downtime} onDowntimeComplete={this.onDowntimeComplete} />
               </div>
             </CustomModal>
           </Suspense>

@@ -19,11 +19,12 @@ const states = {
   chat_details: {
     is_socket_connected: false,
     is_internet_connected: false,
-    psid,
     messages: isAndroid() ? getDefaultMessages() : messages,
+    psid,
     unseen_messages,
     notification_count,
     is_chat_open,
+    downtime: {},
     is_typing: false,
     typing_text: "",
     quick_replies: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].quickReplies ? messages[messages.length - 1].quickReplies : [],

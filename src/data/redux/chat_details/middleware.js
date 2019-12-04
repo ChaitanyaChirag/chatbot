@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import { EVENTS, MESSAGE_READ_STATUS } from '../../config/constants';
 import { getSocketUrl, chatbot_setting, chatbot_client_info } from '../../config/urls';
 import { log, getCookie, getDefaultMessages, uniqueId } from '../../config/utils';
-import { updateState, emitCustomEvent } from './actions';
+import { updateState, emitCustomEvent, socketDisconnect } from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
@@ -52,6 +52,15 @@ const registerSocketListener = (store, socket) => {
       socket.connect();
     }
     store.dispatch(updateState('is_socket_connected', socket.connected));
+  });
+
+  socket.on(EVENTS.DOWN_TIME, res => {
+    log('downtime res', res);
+    if (res.downTime){
+      store.dispatch(updateState('downtime', res.downTime));
+      if(res.downTime.isDownTime)
+        store.dispatch(socketDisconnect());
+    } 
   });
 
   socket.on(EVENTS.RESPONSE, res => {
