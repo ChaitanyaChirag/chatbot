@@ -26,7 +26,6 @@ class AppContainer extends Component {
     window.androidObj = function AndroidClass() { };
     props.actions.setDeviceData(checkDevice.deviceStatus());
     this.timeout = false;
-
     this.state = {
       selected_checkbox_values: [],
       selected_offer: {
@@ -122,7 +121,7 @@ class AppContainer extends Component {
     if (condition === 'online') {
       const webPing = setInterval(
         () => {
-          fetch('//google.com', {
+          fetch('https//:google.com', {
             mode: 'no-cors',
           }).then(() => {
             actions.updateState('is_internet_connected', true);

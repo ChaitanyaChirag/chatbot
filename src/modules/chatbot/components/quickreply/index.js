@@ -93,7 +93,7 @@ export default class QuickReply extends React.PureComponent {
             {
               quick_replies.map((reply, index) => {
                 return (
-                  <div className="ori-animated ori-fade-in ori-flex ori-full-parent-height ori-lr-pad-5" key={index}>
+                  <div className="ori-animated ori-fade-in ori-full-parent-height ori-lr-pad-5 ori-flex-column ori-flex-jc" key={index}>
                     <Button className="ori-lr-pad-5 ori-btn-ghost-primary ori-font-xs" onClick={() => { sendTextToServer(reply); }}>{reply}</Button>
                   </div>
                 );
