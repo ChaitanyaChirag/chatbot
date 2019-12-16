@@ -2,8 +2,8 @@ import { getPsid, getPlatform } from './utils';
 import { MESSAGE_TYPES } from './constants';
 
 const version = 1.1;
-const brandName = 'vodafone';
-// const brandName = 'dishtv';
+// const brandName = 'vodafone';
+const brandName = 'dishtv';
 
 // const url = "https://webtest.vodafone-elb.oriserve.in";
 // const url = "https://dishtestbackend.oriserve.in";

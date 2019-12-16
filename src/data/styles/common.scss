@@ -101,6 +101,10 @@
         background-color: $default;
     }
 
+    .ori-bg-card {
+      background-color: $card-bg;
+    }
+
     .ori-bg-header {
         background-color: $chatbot-header-bg;
     }
@@ -570,6 +574,10 @@
         padding-top: 5px;
     }
 
+    .ori-t-pad-10 {
+      padding-top: 10px;
+  }
+
     .ori-t-pad-15 {
         padding-top: 15px;
     }
@@ -587,6 +595,10 @@
     .ori-b-pad-5 {
         padding-bottom: 5px !important;
     }
+
+    .ori-b-pad-10 {
+      padding-bottom: 10px;
+  }
 
     .ori-b-pad-15 {
         padding-bottom: 15px;
