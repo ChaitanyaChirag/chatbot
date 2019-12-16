@@ -6,7 +6,6 @@
     "@sentry/browser": "^5.9.1",
     "antd": "3.3.0",
     "babel-plugin-import": "^1.12.2",
-    "chatbot-message-types": "git+git@bitbucket.org:oriserve1/chatbot-message-types.git",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "message-types": "^1.5.1",
