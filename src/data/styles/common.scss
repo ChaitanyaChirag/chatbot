@@ -102,7 +102,7 @@
     }
 
     .ori-bg-card {
-      background-color: $card-bg;
+        background-color: $card-bg;
     }
 
     .ori-bg-header {
@@ -307,6 +307,10 @@
 
     .ori-border-circle {
         border-radius: 50% !important;
+    }
+
+    .ori-t-border-light {
+        border-top: 1px solid $border-light;
     }
 
     .ori-b-border-light {
@@ -575,8 +579,8 @@
     }
 
     .ori-t-pad-10 {
-      padding-top: 10px;
-  }
+        padding-top: 10px;
+    }
 
     .ori-t-pad-15 {
         padding-top: 15px;
@@ -597,8 +601,8 @@
     }
 
     .ori-b-pad-10 {
-      padding-bottom: 10px;
-  }
+        padding-bottom: 10px;
+    }
 
     .ori-b-pad-15 {
         padding-bottom: 15px;

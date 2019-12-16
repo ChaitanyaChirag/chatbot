@@ -244,11 +244,11 @@ class AppContainer extends Component {
           text: selected_offer.offer_id,
           cmid
         };
-        const data = {
+        const payload_data = {
           payload: { text: selected_offer.offer_name },
           cmid,
         };
-        this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, data);
+        this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, payload_data);
         this.emitResponseToServer(response);
         if (selected_offer.offer_id) {
           this.setDefaultOfferState();
