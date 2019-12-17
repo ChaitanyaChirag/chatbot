@@ -387,12 +387,7 @@ class AppContainer extends Component {
         <Badge count={chat_details.notification_count} overflowCount={9} className="ori-animated ori-fade-in notificationBadge">
           <TriggerChatBot is_chat_open={chat_details.is_chat_open} handleSocketConnection={this.handleSocketConnection} />
         </Badge>
-        <Suspense fallback={
-          <div>
-            <SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />
-          </div>
-        }
-        >
+        <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
           {
             chat_details.is_chat_open &&
             <ChatBot is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />

@@ -19,7 +19,7 @@ const chat_details = (state = states.chat_details, action) => {
         ...state.end_chat,
         ...action.payload
       };
-      setDataInLocalStorage(LOCAL_STORAGE.END_CHAT, end_chat)
+      setDataInLocalStorage(LOCAL_STORAGE.END_CHAT, end_chat);
       return {
         ...state,
         end_chat
