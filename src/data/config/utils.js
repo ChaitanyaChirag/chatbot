@@ -110,8 +110,17 @@ export const getDataFromLocalStorage = (key, undefined_return_value) => {
 };
 
 export const setDataInLocalStorage = (key, data) => {
-  const json_data = JSON.stringify(data);
-  localStorage.setItem(key, json_data);
+  try {
+    const json_data = JSON.stringify(data);
+    localStorage.setItem(key, json_data);
+  }
+  catch (e) {
+    if (e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' ||
+      e.name === 'NS_ERROR_DOM_QUOTA_REACHED')) {
+      localStorage.removeItem(key);
+      console.log('localStorage error:-', e.code, e.name);
+    }
+  }
 };
 
 export const getDefaultMessages = () => {

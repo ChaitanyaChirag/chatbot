@@ -198,7 +198,7 @@ class ChatBotConversation extends React.PureComponent {
                           }
                           {
                             show_uploadfile &&
-                            <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled} handleFileUpload={handleFileUpload} disabled={stack_view || index !== (messages.length - 1)} />
+                            <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={ btn_disabled} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
                           }
                           {
                             (message.timestamp || message.chatlogId) &&

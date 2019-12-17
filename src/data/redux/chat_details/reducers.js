@@ -27,7 +27,7 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.HANDLE_CHATBOT_INTERFACE: {
-      localStorage.setItem(LOCAL_STORAGE.IS_CHAT_OPEN, JSON.stringify(action.payload));
+      setDataInLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN, action.payload);
       localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
       localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT);
       return {
@@ -39,14 +39,14 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.PUSH_SENDER_MESSAGE: {
-      localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([...state.messages, action.payload.message]));
+      setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), [...state.messages, action.payload.message]);
       let unseen_messages = [...state.unseen_messages];
       let notification_count = state.notification_count;
       if (!state.is_chat_open) {
         unseen_messages = [...state.unseen_messages, action.payload.message];
         notification_count = 0;
-        localStorage.setItem(LOCAL_STORAGE.UNSEEN_MESSAGES, JSON.stringify(unseen_messages));
-        localStorage.setItem(LOCAL_STORAGE.NOTIFICATION_COUNT, JSON.stringify(notification_count));
+        setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, unseen_messages);
+        setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, notification_count);
       }
 
       return {
@@ -64,14 +64,14 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.PUSH_RESPONSE_MESSAGE: {
-      localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([...state.messages, action.payload.message]));
+      setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), [...state.messages, action.payload.message]);
       let notification_count = state.notification_count;
       let unseen_messages = [...state.unseen_messages];
       if (!state.is_chat_open) {
         notification_count++;
         unseen_messages = [...state.unseen_messages, action.payload.message];
-        localStorage.setItem(LOCAL_STORAGE.UNSEEN_MESSAGES, JSON.stringify(unseen_messages));
-        localStorage.setItem(LOCAL_STORAGE.NOTIFICATION_COUNT, JSON.stringify(notification_count));
+        setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, unseen_messages);
+        setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, notification_count);
       }
 
       return {
@@ -132,7 +132,7 @@ const chat_details = (state = states.chat_details, action) => {
           },
           ...messages.slice(index + 1)
         ];
-        localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(messages));
+        setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), messages);
       }
       return {
         ...state,
@@ -153,7 +153,7 @@ const chat_details = (state = states.chat_details, action) => {
           },
           ...messages.slice(index + 1)
         ];
-        localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(messages));
+        setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), messages);
       }
       return {
         ...state,

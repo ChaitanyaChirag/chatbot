@@ -57,6 +57,12 @@
         z-index: 99995;
     }
 
+    .ori-text-overflow-dotted {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
     .ori-block-text-overflow-dotted {
         display: block; /* Fallback for non-webkit */
         display: -webkit-box;
@@ -319,6 +325,10 @@
 
     .ori-border-light {
         border: 1px solid $border-light;
+    }
+
+    .ori-border-dashed-default {
+        border: 1px dashed $font-color;
     }
 
     .ori-animation-half {
