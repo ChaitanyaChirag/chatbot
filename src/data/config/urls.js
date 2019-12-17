@@ -2,16 +2,16 @@ import { getPsid, getPlatform } from './utils';
 import { MESSAGE_TYPES } from './constants';
 
 const version = 1.1;
-// const brandName = 'vodafone';
-const brandName = 'dishtv';
+const brandName = 'vodafone';
+// const brandName = 'dishtv';
 
 // const url = "https://webtest.vodafone-elb.oriserve.in";
 // const url = "https://dishtestbackend.oriserve.in";
 // const url = "https://tata-altroz-staging-backend.oriserve.in";
 // const url = "http://localhost:8095";
-const url = "https://piramal-backend.oriserve.in";
+// const url = "https://piramal-backend.oriserve.in";
 // const url = "https://dishtv-testing-backend.oriserve.in";
-// const url = "https://vodafone-dev.oriserve.in";
+const url = "https://vodafone-dev.oriserve.in";
 
 export const getSocketUrl = () => {
     const socket_url = `${url}/liveConversations?psid=${getPsid()}&ver=${version}&role=user&brandName=${brandName}&botName=${brandName}&channelName=${getPlatform()}`;
