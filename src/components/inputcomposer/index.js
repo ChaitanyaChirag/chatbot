@@ -149,7 +149,7 @@ class InputComposer extends React.PureComponent {
         <Form onSubmit={this.handleMessageSend}>
           <TextArea
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
-            className="ori-font-sm ori-line-height-1 inputField"
+            className="ori-font-md ori-line-height-1 inputField"
             autosize={{ minRows: 1, maxRows: android ? 1 : 3 }}
             value={input_message}
             name="input_message"
