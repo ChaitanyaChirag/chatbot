@@ -17,6 +17,7 @@
 
     .msgContainer {
         max-width: 100%;
+
         .defaultMsgBox {
             box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.09);
         }
@@ -43,31 +44,6 @@
 
                 &:hover {
                     background: $primary-light;
-                }
-            }
-
-            .buttonsContainer {
-                .ori-mt-btn {
-                    color: $primary !important;
-                    height: auto !important;
-                    line-height: 1 !important;
-                    font-size: $font-size-xxs;
-                    padding: 3px 8px;
-                    border-radius: 10px;
-                }
-
-                .ori-mt-btn-ghost {
-                    border: 1px solid $primary !important;
-
-                    &:hover, &:focus {
-                        background-color: $primary-bg-light !important;
-                        border: 1px solid transparent !important;
-                    }
-                }
-
-                .ori-mt-tag {
-                    background-color: $primary-bg-light !important;
-                    border: 1px solid transparent !important;
                 }
             }
         }
@@ -102,7 +78,7 @@
 
         .msgAvatar {
             top: 20px;
-            left: -10px;
+            left: -8px;
         }
 
         .bubbleIndicatorDefault {
@@ -144,7 +120,7 @@
                 border: 8px solid transparent;
                 border-bottom: 0;
             }
-        }   
+        }
     }
 
     .senderMsgContainer {

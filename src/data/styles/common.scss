@@ -123,8 +123,8 @@
         background-color: $popup_bg;
     }
 
-    .ori-primary-bg-light {
-        background-color: $primary-bg-light;
+    .ori-bg-primary-light {
+        background-color: $primary-bg-light !important;
     }
 
     .ori-bg-size-cover {
@@ -323,8 +323,16 @@
         border-bottom: 1px solid $border-light;
     }
 
+    .ori-border-none {
+      border: none !important;
+    }
+
     .ori-border-light {
         border: 1px solid $border-light;
+    }
+
+    .ori-border-primary {
+        border: 1px solid $primary !important;
     }
 
     .ori-border-dashed-default {
