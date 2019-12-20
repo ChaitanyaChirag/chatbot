@@ -49,16 +49,8 @@ class AppContainer extends Component {
     this.handleConnectionChange();
     window.addEventListener('online', this.handleConnectionChange);
     window.addEventListener('offline', this.handleConnectionChange);
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === 'visible' && self.props.chat_details.is_chat_open) {
-        const payload = {
-          clientPsid: self.props.chat_details.psid,
-          senderPsid: self.props.chat_details.psid,
-        };
-        self.props.actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
-      }
-    });
-
+    document.addEventListener("visibilitychange", this.onScreenVisibilityChange);
+    document.addEventListener("focusin", this.onScreenVisibilityChange);
     if (android) {
       window.androidObj.updateFromAndroid = (type, data) => {
         if (type.toLowerCase() === PLATFORM.ANDROID) {
@@ -112,7 +104,20 @@ class AppContainer extends Component {
     const { actions } = this.props;
     window.removeEventListener('online', this.handleConnectionChange);
     window.removeEventListener('offline', this.handleConnectionChange);
+    document.removeEventListener("visibilitychange", this.onScreenVisibilityChange);
+    document.removeEventListener("focusin", this.onScreenVisibilityChange);
     actions.socketDisconnect();
+  }
+
+  onScreenVisibilityChange = () => {
+    const { chat_details, actions } = this.props;
+    if (document.visibilityState === 'visible' && chat_details.is_chat_open) {
+      const payload = {
+        clientPsid: chat_details.psid,
+        senderPsid: chat_details.psid,
+      };
+      actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
+    }
   }
 
   handleConnectionChange = () => {

@@ -80,7 +80,7 @@ const registerSocketListener = (store, socket) => {
             chatlogId: res.chatlogId
           };
           socket.emit(EVENTS.UPDATE_ADMIN_MESSAGE, updated_message_data, err => {
-            if (!err && document.visibilityState === 'visible' && chat_details.is_chat_open) {
+            if (!err && document.visibilityState === 'visible' && chat_details.is_chat_open && document.hasFocus()) {
               const message_seen_payload = {
                 clientPsid: chat_details.psid,
                 senderPsid: chat_details.psid,
