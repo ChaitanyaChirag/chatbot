@@ -126,7 +126,7 @@ class AppContainer extends Component {
     if (condition === 'online') {
       const webPing = setInterval(
         () => {
-          fetch('https//:google.com', {
+          fetch('https://www.google.com', {
             mode: 'no-cors',
           }).then(() => {
             actions.updateState('is_internet_connected', true);
