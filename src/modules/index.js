@@ -122,20 +122,7 @@ class AppContainer extends Component {
 
   handleConnectionChange = () => {
     const { actions } = this.props;
-    const condition = navigator.onLine ? 'online' : 'offline';
-    if (condition === 'online') {
-      const webPing = setInterval(
-        () => {
-          fetch('https://www.google.com', {
-            mode: 'no-cors',
-          }).then(() => {
-            actions.updateState('is_internet_connected', true);
-            clearInterval(webPing)
-          }).catch(() => actions.updateState('is_internet_connected', false))
-        }, 1500);
-      return;
-    }
-    return actions.updateState('is_internet_connected', false);
+    actions.updateState('is_internet_connected', navigator.onLine);
   }
 
   botPopup = (case_data, params) => {
