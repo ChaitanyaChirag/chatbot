@@ -37,7 +37,7 @@ class EndChat extends React.PureComponent {
       return (
         <div className="ori-pad-15 ori-bg-white ori-box-shadow ori-border-radius-5 ori-tb-mrgn-5">
           {
-            end_chat.form.map((form_item, index) => {
+            end_chat.form && end_chat.form.map((form_item, index) => {
               switch (form_item.input_type) {
                 case "input":
                   return (

@@ -178,7 +178,7 @@ const middleware = () => {
 
       case actionTypes.EMIT_CUSTOM_EVENT: {
         if (socket && action.event) {
-          log('emit custom event', action.payload);
+          log(`emit custom event- ${action.event}:`, action.payload);
           if (action.callback)
             socket.emit(action.event, action.payload, action.callback);
           else

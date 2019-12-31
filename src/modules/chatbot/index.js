@@ -59,7 +59,9 @@ class ChatBot extends Component {
   };
 
   closeMenu = () => {
-    this.setState({ show_menu: false });
+    const { show_menu } = this.state;
+    if (show_menu)
+      this.setState({ show_menu: false });
   };
 
   scrollContainerToBottom = () => {
@@ -140,19 +142,21 @@ class ChatBot extends Component {
     };
     actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload, (err, res) => {
       console.log(payload, err, res);
-      if (!err && res && res.data && res.data.formData) {
+      if (!err) {
         this.handleResetChat();
-        const data = {
-          show_confirmation_card: false,
-          show_resolved_card: false,
-          show_form_card: true,
-          form: res.data.formData,
-          description: res.data.formTitle ? res.data.formTitle : null,
-        };
-        actions.updateEndChat(data);
-      } else {
-        actions.handleChatbotInterface(false);
-        this.onClickCloseIcon();
+        if (res && res.data && res.data.formData) {
+          const data = {
+            show_confirmation_card: false,
+            show_resolved_card: false,
+            show_form_card: true,
+            form: res.data.formData,
+            description: res.data.formTitle ? res.data.formTitle : null,
+          };
+          actions.updateEndChat(data);
+        } else {
+          actions.handleChatbotInterface(false);
+          this.onClickCloseIcon();
+        }
       }
     });
   };
