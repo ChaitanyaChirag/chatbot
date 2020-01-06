@@ -103,10 +103,10 @@ export const LOCAL_STORAGE = {
   END_CHAT: "end_chat"
 };
 
-export const hasAndroidInterface = () => { //the java JS interface exists for android
-  let android = localStorage.getItem(LOCAL_STORAGE.ANDROID) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.ANDROID)) : false;
-  return (android);
-};
+// export const hasAndroidInterface = () => { //the java JS interface exists for android
+//   let android = localStorage.getItem(LOCAL_STORAGE.ANDROID) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.ANDROID)) : false;
+//   return (android);
+// };
 
 export const getDataFromLocalStorage = (key, undefined_return_value) => {
   const data = localStorage.getItem(key);
