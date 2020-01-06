@@ -13,7 +13,7 @@ import * as pageActions from '../data/redux/page_details/actions';
 
 import { MESSAGE_TYPES, BUTTON_TYPES, BUTTON_SUB_TYPES, MESSAGE_SENDER, MESSAGE_READ_STATUS, EVENTS } from '../data/config/constants';
 import { chatbot_client_info, chatbot_setting } from '../data/config/urls';
-import { LOCAL_STORAGE, checkDevice, isAndroid, PLATFORM, getDefaultMessages, uniqueId } from '../data/config/utils';
+import { LOCAL_STORAGE, checkDevice, isAndroid, isIOS, PLATFORM, getDefaultMessages, uniqueId } from '../data/config/utils';
 
 import TriggerChatBot from '../components/triggerchatbot';
 
@@ -38,6 +38,7 @@ class AppContainer extends Component {
   componentDidMount() {
     const { chat_details, actions } = this.props;
     const android = isAndroid();
+    const ios = isIOS();
     let self = this;
     window.bot_popup = this.botPopup;
     window.addEventListener("resize", () => {
@@ -51,11 +52,17 @@ class AppContainer extends Component {
     window.addEventListener('offline', this.handleConnectionChange);
     document.addEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.addEventListener("focusin", this.onScreenVisibilityChange);
-    if (android) {
+    if (android || ios) {
       window.androidObj.updateFromAndroid = (type, data) => {
-        if (type.toLowerCase() === PLATFORM.ANDROID) {
-          localStorage.setItem(LOCAL_STORAGE.ANDROID, JSON.stringify(true));
-        } else if (type.toLowerCase() === 'psid') {
+        const update_type = type.toLowerCase();
+        if (update_type === PLATFORM.ANDROID) {
+          localStorage.removeItem(PLATFORM.IOS);
+        } else if (update_type === PLATFORM.IOS) {
+          localStorage.removeItem(PLATFORM.ANDROID);
+        }
+        if (update_type === PLATFORM.ANDROID || update_type === PLATFORM.IOS) {
+          localStorage.setItem(update_type, JSON.stringify(true));
+        } else if (update_type === 'psid') {
           data = JSON.parse(data);
           if (data.psid) {
             localStorage.setItem(LOCAL_STORAGE.PSID, data.psid);
@@ -138,6 +145,7 @@ class AppContainer extends Component {
   handleSocketConnection = bool => {
     const { chat_details, actions } = this.props;
     const android = isAndroid();
+    const ios = isIOS();
     actions.handleChatbotInterface(bool);
     if (bool && chat_details.is_socket_connected) {
       const payload = {
@@ -146,7 +154,7 @@ class AppContainer extends Component {
       };
       actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
     }
-    if (bool && !chat_details.is_socket_connected && !android) {
+    if (bool && !chat_details.is_socket_connected && !android && !ios) {
       actions.makeSocketConnection();
     }
   };
@@ -178,6 +186,7 @@ class AppContainer extends Component {
   emitResponseToServer = response => {
     const { chat_details, actions } = this.props;
     const android = isAndroid();
+    const ios = isIOS();
     const data = {
       ...response,
       sender_id: chatbot_client_info.sender_id,
@@ -188,14 +197,13 @@ class AppContainer extends Component {
       sendVariableToLS: chat_details.sendVariableToLS,
       skipLS: chat_details.skipLS
     };
-    if (android && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
+    if (android && ios && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
       data.lockedParams = JSON.parse(localStorage.getItem(LOCAL_STORAGE.APP_PARAMS));
       localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS);
     }
     actions.emitNewMessageToServer(data);
     let emit_time = new Date().getTime();
     localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, JSON.stringify(emit_time));
-
   };
 
   pushSenderNewMsgToChatbot = (type, data) => {
@@ -281,8 +289,9 @@ class AppContainer extends Component {
       switch (data.button.type) {
         case BUTTON_TYPES.LINK:
           if (data.button.url && data.button.url.trim().length > 0) {
-            const android = localStorage.getItem(LOCAL_STORAGE.ANDROID) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.ANDROID)) : false;
-            if (android) {
+            const android = isAndroid();
+            const ios = isIOS();
+            if (android || ios) {
               window.androidObj.textToAndroid(JSON.stringify(data));
             } else {
               window.open(data.button.url, '_blank');

@@ -58,22 +58,26 @@ export const getCookie = (name) => {
 
 export const PLATFORM = {
   ANDROID: "android",
+  IOS: "ios",
   WEBSITE: "website",
 };
 
 export const getPlatform = () => {
-  let platform = null;
-  if (window.ori_platform && window.ori_platform !== undefined && window.ori_platform.toLowerCase() === PLATFORM.ANDROID) {
-    platform = PLATFORM.ANDROID;
-  } else {
-    platform = PLATFORM.WEBSITE;
+  let platform = PLATFORM.WEBSITE;
+  if (window.ori_platform && window.ori_platform !== undefined) {
+    platform = window.ori_platform.toLowerCase();
   }
   return platform;
 };
 
 export const isAndroid = () => {
   let platform = getPlatform();
-  return (platform && platform.toLowerCase() === PLATFORM.ANDROID);
+  return (platform === PLATFORM.ANDROID);
+};
+
+export const isIOS = () => {
+  let platform = getPlatform();
+  return (platform === PLATFORM.IOS);
 };
 
 export const getPsid = () => {
