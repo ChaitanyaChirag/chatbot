@@ -108,8 +108,6 @@ class InputComposer extends React.PureComponent {
     }
   };
 
-
-
   onRemove = file => {
     this.setState({
       file: null,
@@ -121,7 +119,6 @@ class InputComposer extends React.PureComponent {
     const { is_input_lock, input_lock_text, onClickMenu, onInputFocus, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
     const { input_message } = this.state;
     const android = isAndroid();
-
     return (
       <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
         {
@@ -136,16 +133,14 @@ class InputComposer extends React.PureComponent {
             <CircleDotIcon size={18} className="ori-animated ori-ripple ori-infinite" />
           </div>
         }
-        <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignAddFileIcon">
-          <Upload
-            accept="image/*"
-            showUploadList={false}
-            beforeUpload={beforeUpload}
-            onRemove={onRemove}
-          >
-            <AddFileIcon size={20} className="ori-font-light-hover-default" />
-          </Upload>
-        </div>
+        {
+          !notification_bot &&
+          <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignAddFileIcon">
+            <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
+              <AddFileIcon size={20} className="ori-font-light-hover-default" />
+            </Upload>
+          </div>
+        }
         <Form onSubmit={this.handleMessageSend}>
           <TextArea
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
