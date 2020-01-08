@@ -197,7 +197,7 @@ class AppContainer extends Component {
       sendVariableToLS: chat_details.sendVariableToLS,
       skipLS: chat_details.skipLS
     };
-    if (android && ios && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
+    if ((android || ios) && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
       data.lockedParams = JSON.parse(localStorage.getItem(LOCAL_STORAGE.APP_PARAMS));
       localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS);
     }
