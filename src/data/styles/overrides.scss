@@ -84,6 +84,8 @@
 
         &::before {
             content: "" !important;
+            display: unset !important; // idea specific css changes
+       
         }
     }
 
@@ -96,6 +98,8 @@
 
         &::before {
             content: "" !important;
+            display: unset !important; // idea specific css changes
+       
         }
     }
 
@@ -103,15 +107,27 @@
         bottom: -10px !important;
 
         li, .slick-active {
+            width: unset !important; // idea specific css changes
+
             button {
                 background-color: $font-color !important;
+
+                &::before {
+                    font-size: unset !important; // idea specific css changes
+               
+                }
             }
         }
+    }
+
+    //------------- idea specific css changes ----------------
+    .slick-slide {
+        margin: 0 !important;
     }
 }
 
 .ori-mt-fileUploaderContainer {
-  .ant-upload {
-    width: 100%;
-  }
+    .ant-upload {
+        width: 100%;
+    }
 }
