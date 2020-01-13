@@ -290,7 +290,7 @@ class ChatBot extends Component {
               </div>
             }
             {
-              !android && !is_adster_bot &&
+              !is_adster_bot &&
               <div className="ori-lr-pad-5 ori-cursor-ptr chatIcons" onClick={this.onClickCloseIcon}>
                 {
                   chat_details.end_chat.visible ?
