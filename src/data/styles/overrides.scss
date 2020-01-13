@@ -105,6 +105,7 @@
 
     .slick-dots {
         bottom: -10px !important;
+        overflow-x: hidden;
 
         li, .slick-active {
             width: unset !important; // idea specific css changes
