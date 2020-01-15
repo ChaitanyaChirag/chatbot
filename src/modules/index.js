@@ -53,7 +53,8 @@ class AppContainer extends Component {
     document.addEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.addEventListener("focusin", this.onScreenVisibilityChange);
     if (android || ios) {
-      window.androidObj.updateFromAndroid = (type, data) => {
+      window.androidObj.updateFromAndroid = (type, data, callbackToAndroid) => {
+        console.log('updateFromAndroid called', type, data, callbackToAndroid);
         const update_type = type.toLowerCase();
         if (update_type === PLATFORM.ANDROID) {
           localStorage.removeItem(PLATFORM.IOS);
@@ -80,7 +81,6 @@ class AppContainer extends Component {
       actions.handleChatbotInterface(true);
     } else if (!chat_details.is_socket_connected) {
       let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
-
       if (last_emit) {
         let current_time = new Date().getTime();
         let time_gap = (current_time - last_emit) / 1000;
