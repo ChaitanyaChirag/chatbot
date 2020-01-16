@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_client_info } from '../../data/config/urls';
-import { LOCAL_STORAGE, isAndroid, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile, showMessage } from '../../data/config/utils';
+import { LOCAL_STORAGE, isAndroid, isIOS, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile, showMessage } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 
 import './index.scss';
@@ -154,6 +154,10 @@ class ChatBot extends Component {
           };
           actions.updateEndChat(data);
         } else {
+          const is_app = isAndroid() || isIOS();
+          if (is_app && window.androidObj && window.androidObj.updateFromWeb) {
+            window.androidObj.updateFromWeb('endChatSubmit');
+          }
           actions.handleChatbotInterface(false);
           this.onClickCloseIcon();
         }
@@ -169,6 +173,10 @@ class ChatBot extends Component {
       formData: end_chat_form_data
     };
     actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
+      const is_app = isAndroid() || isIOS();
+      if (is_app && window.androidObj && window.androidObj.updateFromWeb) {
+        window.androidObj.updateFromWeb('endChatSubmit');
+      }
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
     });

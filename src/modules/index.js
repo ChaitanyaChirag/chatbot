@@ -77,7 +77,7 @@ class AppContainer extends Component {
             actions.makeSocketConnection();
             actions.setDefaultState();
           }
-        } else if(update_type === 'endchat' && this.chatbotRef && this.chatbotRef.current && this.chatbotRef.current.onClickCloseIcon){
+        } else if (update_type === 'endchat' && this.chatbotRef && this.chatbotRef.current && this.chatbotRef.current.onClickCloseIcon) {
           this.chatbotRef.current.onClickCloseIcon();
         }
       }
@@ -292,9 +292,8 @@ class AppContainer extends Component {
       switch (data.button.type) {
         case BUTTON_TYPES.LINK:
           if (data.button.url && data.button.url.trim().length > 0) {
-            const android = isAndroid();
-            const ios = isIOS();
-            if (android || ios) {
+            const is_app = isAndroid() || isIOS();
+            if (is_app && window.androidObj && window.androidObj.textToAndroid) {
               window.androidObj.textToAndroid(JSON.stringify(data));
             } else {
               window.open(data.button.url, '_blank');
