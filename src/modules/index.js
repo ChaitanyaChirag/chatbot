@@ -26,6 +26,7 @@ class AppContainer extends Component {
     window.androidObj = function AndroidClass() { };
     props.actions.setDeviceData(checkDevice.deviceStatus());
     this.timeout = false;
+    this.chatbotRef = React.createRef();
     this.state = {
       selected_checkbox_values: [],
       selected_offer: {
@@ -76,6 +77,8 @@ class AppContainer extends Component {
             actions.makeSocketConnection();
             actions.setDefaultState();
           }
+        } else if(update_type === 'endchat' && this.chatbotRef && this.chatbotRef.current && this.chatbotRef.current.onClickCloseIcon){
+          this.chatbotRef.current.onClickCloseIcon();
         }
       }
       actions.handleChatbotInterface(true);
@@ -391,7 +394,7 @@ class AppContainer extends Component {
         <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
           {
             chat_details.is_chat_open &&
-            <ChatBot is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
+            <ChatBot ref={this.chatbotRef} is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
           }
           {
             chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
