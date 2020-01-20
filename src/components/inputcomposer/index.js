@@ -17,6 +17,7 @@ import './index.scss';
 
 import { isAndroid } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
+import { chatbot_setting } from '../../data/config/urls';
 
 const { TextArea } = Input;
 
@@ -122,7 +123,7 @@ class InputComposer extends React.PureComponent {
     return (
       <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
         {
-          !notification_bot && !listening &&
+          !notification_bot && !listening && chatbot_setting.menu.visible &&
           <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignMenuIcon" onClick={onClickMenu}>
             <MenuIcon size={20} />
           </div>

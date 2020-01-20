@@ -63,6 +63,13 @@ export const chatbot_setting = {
             type: MESSAGE_TYPES.TEXT,
             text: "first emit message",
         }
+    },
+    menu: {
+      visible: true,
+      children:{
+        feedback: true,
+        clear_chat: false,
+      }
     }
 };
 
