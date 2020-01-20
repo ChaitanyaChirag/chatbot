@@ -22,7 +22,8 @@ export const EVENTS = {
     MESSAGE_SEEN: "messageSeen",
     END_CONVERSATION: "end_conversation",
     END_CONVERSATION_FORM_SUBMIT: "end_conversation_form_submit",
-    DOWN_TIME: 'downTime'
+    DOWN_TIME: 'downTime',
+    SHOW_NOTIFICATION: 'showNotification'
 };
 
 export const MESSAGE_TYPES = {
