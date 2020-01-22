@@ -154,9 +154,14 @@ class ChatBot extends Component {
           };
           actions.updateEndChat(data);
         } else {
-          const is_app = isAndroid() || isIOS();
-          if (is_app && window.androidObj && window.androidObj.updateFromWeb) {
+          if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
             window.androidObj.updateFromWeb('endChatSubmit');
+          } else if (isIOS() && window && window.webkit && window.webkit.messageHandlers) {
+            const obj = {
+              type: 'endChatSubmit',
+              data: {},
+            };
+            window.webkit.messageHandlers.updateFromWeb.postMessage(JSON.stringify(obj));
           }
           actions.handleChatbotInterface(false);
           this.onClickCloseIcon();
