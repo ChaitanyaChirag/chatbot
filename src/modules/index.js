@@ -54,8 +54,7 @@ class AppContainer extends Component {
     document.addEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.addEventListener("focusin", this.onScreenVisibilityChange);
     if (android || ios) {
-      window.androidObj.updateFromAndroid = (type, data, callbackToAndroid) => {
-        console.log('updateFromAndroid called', type, data, callbackToAndroid);
+      window.androidObj.updateFromAndroid = (type, data) => {
         const update_type = type.toLowerCase();
         if (update_type === PLATFORM.ANDROID) {
           localStorage.removeItem(PLATFORM.IOS);
@@ -96,6 +95,11 @@ class AppContainer extends Component {
           const default_messages = getDefaultMessages();
           localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify(default_messages));
           actions.setDefaultState();
+        }
+      } else if (chatbot_setting.chat_interface.query_params.enable) {
+        const query_params = new URLSearchParams(window.location.search);
+        if (query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)) {
+          this.handleSocketConnection(true);
         }
       } else {
         actions.handleChatbotInterface(false);

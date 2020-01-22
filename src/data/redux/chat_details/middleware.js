@@ -89,7 +89,6 @@ const registerSocketListener = (store, socket) => {
             }
           });
         }
-        showMessage('info', 'push response message')
         store.dispatch({
           type: actionTypes.PUSH_RESPONSE_MESSAGE,
           payload
