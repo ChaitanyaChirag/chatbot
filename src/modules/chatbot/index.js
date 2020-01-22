@@ -173,9 +173,14 @@ class ChatBot extends Component {
       formData: end_chat_form_data
     };
     actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
-      const is_app = isAndroid() || isIOS();
-      if (is_app && window.androidObj && window.androidObj.updateFromWeb) {
+      if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
         window.androidObj.updateFromWeb('endChatSubmit');
+      } else if (isIOS() && window && window.webkit && window.webkit.messageHandlers) {
+        const obj = {
+          type: 'endChatSubmit',
+          data: {},
+        };
+        window.webkit.messageHandlers.updateFromWeb.postMessage(JSON.stringify(obj));
       }
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
@@ -317,7 +322,7 @@ class ChatBot extends Component {
           <div className="ori-b-pad-40 ori-full-flex ori-full-parent-height chatBodyContainer" id="messages_container" ref={this.setMessageContainerRef} >
             <ChatBotConversation btn_disabled={!chat_details.is_socket_connected} messages={chat_details.messages} onMessageVoting={actions.onMessageVoting} handleMsgBtnClick={handleMsgBtnClick} handleFileUpload={handleFileUpload} messagesContainer={this.messagesContainer} handleOfferSelection={handleOfferSelection} onChangeCheckbox={onChangeCheckbox} is_typing={chat_details.is_typing} typing_text={chat_details.typing_text} />
           </div>
-          <div className={classNames("ori-relative ori-flex-column ori-flex-jc chatFooterContainer")} style={{paddingRight: '67px', paddingLeft: chatbot_setting.menu.visible ? '40px':'10px'}}>
+          <div className={classNames("ori-relative ori-flex-column ori-flex-jc chatFooterContainer")} style={{ paddingRight: '67px', paddingLeft: chatbot_setting.menu.visible ? '40px' : '10px' }}>
             {
               chatbot_setting.powered_by && chatbot_setting.powered_by.visibility &&
               <div className="ori-absolute ori-flex-row ori-flex-jc alignPoweredBy">
