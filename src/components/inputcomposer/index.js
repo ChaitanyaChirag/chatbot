@@ -35,7 +35,7 @@ class InputComposer extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const { transcript, listening } = this.props;
-    if (listening && prevProps.transcript !== transcript) {
+    if (chatbot_setting.chat_interface.speech_recognition.enable && listening && prevProps.transcript !== transcript) {
       this.setState({ input_message: transcript });
     }
   }
@@ -161,7 +161,7 @@ class InputComposer extends React.PureComponent {
             </Button>
           }
           {
-            input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
+            chatbot_setting.chat_interface.speech_recognition.enable && input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
             <Button className={classNames("ori-animated ori-fade-in ori-absolute ori-pad-5 ori-flex-column ori-flex-jc alignSendButton")} disabled={is_input_lock} onClick={this.onClickMic}>
               <MicIcon size={20} className={classNames("ori-font-light btnIcon", { "ori-font-primary ori-animated ori-pulse ori-infinite": listening })} />
             </Button>

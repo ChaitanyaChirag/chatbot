@@ -55,6 +55,9 @@ export const chatbot_setting = {
     query_params:{
       enable: true,
       query_param_key: 'chatbotopen',
+    },
+    speech_recognition: {
+      enable: true,
     }
   },
   adster_bot: {
