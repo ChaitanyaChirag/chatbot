@@ -35,6 +35,10 @@ const states = {
     sendVariableToLS: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].sendVariableToLS ? messages[messages.length - 1].sendVariableToLS : false,
     variable_name: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].variable_name ? messages[messages.length - 1].variable_name : '',
     end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, default_end_chat),
+    notification: {
+      visible: false,
+      message: ""
+    }
   },
 };
 

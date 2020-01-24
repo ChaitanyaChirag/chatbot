@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DelayComponent = (Component) => {
+const DelayComponent = Component => {
   return class extends React.Component {
     state = {
       shouldRender: this.props.isMounted

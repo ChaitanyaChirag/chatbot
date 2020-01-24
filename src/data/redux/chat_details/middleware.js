@@ -7,6 +7,7 @@ import { updateState, emitCustomEvent, socketDisconnect } from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
+  var notificationTimer = null;
   socket.on(EVENTS.CONNECT, () => {
     log('socket connected', socket);
     const chat_details = store.getState().chat_details;
@@ -164,7 +165,26 @@ const registerSocketListener = (store, socket) => {
   socket.on(EVENTS.SHOW_NOTIFICATION, data => {
     log('show notification listener', data);
     if (data && data.message)
-      showMessage('info', data.message);
+      store.dispatch({
+        type: actionTypes.UPDATE_STATE,
+        key: 'notification',
+        payload: {
+          visible: true,
+          message: data.message
+        }
+      });
+    if (notificationTimer)
+      clearTimeout(notificationTimer);
+    notificationTimer = setTimeout(() => {
+      store.dispatch({
+        type: actionTypes.UPDATE_STATE,
+        key: 'notification',
+        payload: {
+          visible: false,
+          message: ""
+        }
+      });
+    }, 8000)
   });
 };
 
