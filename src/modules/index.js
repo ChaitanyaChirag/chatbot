@@ -299,6 +299,23 @@ class AppContainer extends Component {
     this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, data);
   };
 
+  sendLocation = position => {
+    const lat = position.coords.latitude;
+    const long = position.coords.longitude;
+    const cmid = uniqueId();
+    const response = {
+      type: MESSAGE_TYPES.TEXT,
+      text: lat.toString() + long.toString(),
+      cmid
+    };
+    const payload_data = {
+      payload: { text: "Latitude is " + lat + "\nLongitude is " + long },
+      cmid,
+    };
+    this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, payload_data);
+    this.emitResponseToServer(response);
+  }
+
   handleButtonSubTypes = data => {
     switch (data.button.subtype) {
       case BUTTON_SUB_TYPES.DISH_OFFERS:
@@ -341,6 +358,12 @@ class AppContainer extends Component {
             this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.LIST, obj);
             this.emitResponseToServer(response);
           }
+        }
+        break;
+
+      case BUTTON_SUB_TYPES.SHARE_LOCATION:
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.sendLocation);
         }
         break;
 

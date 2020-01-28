@@ -80,8 +80,14 @@ export const BUTTON_TYPES = {
 };
 
 export const BUTTON_SUB_TYPES = {
+<<<<<<< HEAD
   DISH_OFFERS: "dishOffers",
   CHECKBOX_SUBMIT: "checkboxSubmit",
+=======
+    DISH_OFFERS: "dishOffers",
+    CHECKBOX_SUBMIT: "checkboxSubmit",
+    SHARE_LOCATION: "shareLocation",
+>>>>>>> Added Location feature
 };
 
 export const MESSAGE_SENDER = {
@@ -91,8 +97,187 @@ export const MESSAGE_SENDER = {
   CHATBOT: "chatbot",
 };
 
+<<<<<<< HEAD
 export const LANGUAGES = {
   ENGLISH: 'en',
   ARABIC: 'arabic',
   HINDI: 'hindi'
 };
+=======
+export const default_messages = [
+    {
+        sender: MESSAGE_SENDER.CHATBOT,
+        type: MESSAGE_TYPES.TEXT,
+        inputLock: false,
+        quickReply: [],
+        skipLS: false,
+        send_variable_to_apiai: false,
+        sendVariableToLS: false,
+        variable_name: '',
+        delay: 0,
+        payload: {
+            text: "Hi, I'm ADI, Your Personal DishTV Assistant."
+        },
+        timestamp: new Date(),
+    },
+    {
+        sender: MESSAGE_SENDER.CHATBOT,
+        inputLock: false,
+        skipLS: false,
+        send_variable_to_apiai: false,
+        sendVariableToLS: false,
+        variable_name: '',
+        quickReplies: [],
+        type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
+        delay: 0,
+        payload: {
+            title: "",
+            subtitle: "What can I help you with today?",
+            buttons: [
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Recharge My Dish TV",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Recharge Offers",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Current Balance",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Other Queries",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.CUSTOM,
+                    text: "Share Location",
+                    subtype: BUTTON_SUB_TYPES.SHARE_LOCATION,    
+                },
+            ]
+        },
+        timestamp: new Date(),
+    },
+    // {
+
+    //     sender: MESSAGE_SENDER.CHATBOT,
+    //     inputLock: false,
+    //     skipLS: false,
+    //     send_variable_to_apiai: false,
+    //     sendVariableToLS: false,
+    //     variable_name: '',
+    //     quickReplies: [],
+    //     type: MESSAGE_TYPES.CHECKBOX_WITH_MEDIA,
+    //     delay: 0,
+    //     payload: {
+    //         title: "Ori Serve",
+    //         subtitle: "Please Select following options and proceed",
+    //         options: [{
+    //             "value": "Banking",
+    //             "label": "Banking"
+    //         }, {
+    //             "value": "Real Estate",
+    //             "label": "Real Estate"
+    //         }, {
+    //             "value": "Education",
+    //             "label": "Education"
+    //         }, {
+    //             "value": "Health",
+    //             "label": "Health"
+    //         }, {
+    //             "value": "Consumer Goods",
+    //             "label": "Consumer Goods"
+    //         }, {
+    //             "value": "Entertainment",
+    //             "label": "Entertainment"
+    //         }, {
+    //             "value": "Tourism",
+    //             "label": "Tourism"
+    //         }],
+    //         buttons: [
+    //             {
+    //                 type: BUTTON_TYPES.CUSTOM,
+    //                 subtype: BUTTON_SUB_TYPES.CHECKBOX_SUBMIT,
+    //                 text: "Submit",
+    //                 relayData: {
+    //                     "entity": "dndCategories"
+    //                 }
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Cancel",
+    //                 url: ""
+    //             },
+    //         ]
+    //     },
+    //     timestamp: new Date()
+    // }
+];
+
+export const android_default_messages = [
+    {
+        sender: MESSAGE_SENDER.CHATBOT,
+        type: MESSAGE_TYPES.TEXT,
+        inputLock: false,
+        quickReply: [],
+        skipLS: false,
+        send_variable_to_apiai: false,
+        sendVariableToLS: false,
+        variable_name: '',
+        delay: 0,
+        payload: {
+            text: "Hi, I'm ADI, Your Personal DishTV Assistant."
+        },
+        timestamp: new Date(),
+    },
+    {
+        sender: MESSAGE_SENDER.CHATBOT,
+        inputLock: false,
+        skipLS: false,
+        send_variable_to_apiai: false,
+        sendVariableToLS: false,
+        variable_name: '',
+        quickReplies: [],
+        type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
+        delay: 0,
+        payload: {
+            title: "",
+            subtitle: "What can I help you with today?",
+            buttons: [
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "My DishTV is not working",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Recharge Offers",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Current Balance",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Package details",
+                    url: ""
+                },
+                {
+                    type: BUTTON_TYPES.DEFAULT,
+                    text: "Other Queries",
+                    url: ""
+                },
+            ],
+
+        },
+        timestamp: new Date()
+    }
+];
+>>>>>>> Added Location feature
