@@ -157,12 +157,8 @@ class ChatBot extends Component {
         } else {
           if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
             window.androidObj.updateFromWeb('endChatSubmit');
-          } else if (isIOS() && window && window.webkit && window.webkit.messageHandlers) {
-            const obj = {
-              type: 'endChatSubmit',
-              data: {},
-            };
-            window.webkit.messageHandlers.updateFromWeb.postMessage(JSON.stringify(obj));
+          } else if (isIOS()) {
+            eval("if(updateFromWeb) updateFromWeb('endChatSubmit', {})");
           }
           actions.handleChatbotInterface(false);
           this.onClickCloseIcon();
@@ -181,12 +177,8 @@ class ChatBot extends Component {
     actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
       if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
         window.androidObj.updateFromWeb('endChatSubmit');
-      } else if (isIOS() && window && window.webkit && window.webkit.messageHandlers) {
-        const obj = {
-          type: 'endChatSubmit',
-          data: {},
-        };
-        window.webkit.messageHandlers.updateFromWeb.postMessage(JSON.stringify(obj));
+      } else if (isIOS()) {
+        eval("if(updateFromWeb) updateFromWeb('endChatSubmit', {})");
       }
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
