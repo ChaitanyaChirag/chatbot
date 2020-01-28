@@ -44,7 +44,7 @@ const registerSocketListener = (store, socket) => {
   });
 
   socket.on(EVENTS.ERROR, error => {
-    log(' socket error', error);
+    log('socket error', error);
     store.dispatch(updateState('is_socket_connected', socket.connected));
   });
 
