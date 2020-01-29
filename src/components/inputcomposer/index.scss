@@ -6,6 +6,9 @@
         border: none !important;
         background-color: $chatbot-footer-bg !important;
         color: $chatbot-font-color !important;
+        min-height: 24px !important;
+        max-height: 56px !important;
+        overflow-y: auto !important;
 
         &:focus {
             outline: none !important;

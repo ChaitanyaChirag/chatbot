@@ -15,7 +15,6 @@ import AddFileIcon from 'react-icons/lib/md/add-circle';
 
 import './index.scss';
 
-import { isAndroid } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 import { chatbot_setting } from '../../data/config/urls';
 
@@ -34,8 +33,7 @@ class InputComposer extends React.PureComponent {
   }
 
   componentDidMount() {
-    if (isAndroid())
-      document.getElementById("input_field").style.height = "24px";
+    document.getElementById("input_field").style.height = "24px";
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -124,7 +122,6 @@ class InputComposer extends React.PureComponent {
   render() {
     const { is_input_lock, input_lock_text, onClickMenu, onInputFocus, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
     const { input_message } = this.state;
-    const android = isAndroid();
     return (
       <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
         {
@@ -152,7 +149,7 @@ class InputComposer extends React.PureComponent {
             id='input_field'
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
             className="ori-font-md ori-line-height-1 inputField"
-            autosize={{ minRows: 1, maxRows: 3 }}
+            autosize
             value={input_message}
             name="input_message"
             disabled={is_input_lock}
