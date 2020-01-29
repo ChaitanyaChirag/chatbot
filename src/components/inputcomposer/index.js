@@ -6,7 +6,7 @@ import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import Upload from 'antd/lib/upload';
-// import { Button, Form, Input, Upload } from 'antd';
+
 import SendIcon from 'react-icons/lib/md/send';
 import MicIcon from 'react-icons/lib/md/mic';
 import MenuIcon from 'react-icons/lib/md/menu';
@@ -37,7 +37,7 @@ class InputComposer extends React.PureComponent {
 
   componentDidMount() {
     if (isAndroid())
-      document.getElementById("input_field").style.height = "24px";
+      document.getElementById("input_field").style.height = "1.5rem";
   }
 
   componentDidUpdate(prevProps, prevState) {
