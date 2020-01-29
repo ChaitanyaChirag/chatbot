@@ -33,6 +33,8 @@ class InputComposer extends React.PureComponent {
     };
   }
 
+  is_android = isAndroid();
+
   componentDidMount() {
     if (isAndroid())
       document.getElementById("input_field").style.height = "24px";
@@ -124,6 +126,7 @@ class InputComposer extends React.PureComponent {
   render() {
     const { is_input_lock, input_lock_text, onClickMenu, onInputFocus, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
     const { input_message } = this.state;
+
     return (
       <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
         {
@@ -151,7 +154,7 @@ class InputComposer extends React.PureComponent {
             id='input_field'
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
             className="ori-font-md ori-line-height-1 inputField"
-            autosize={{ minRows: 1, maxRows: 3 }}
+            autosize={{ minRows: 1, maxRows: this.is_android ? 2 : 3 }}
             value={input_message}
             name="input_message"
             disabled={is_input_lock}
