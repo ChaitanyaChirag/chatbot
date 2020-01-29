@@ -47,6 +47,8 @@ class ChatBot extends Component {
     show_file_preview: false,
   };
 
+  is_app = isAndroid() || isIOS();
+
   componentDidMount() {
     scrollToBottom(this.messagesContainer);
   }
@@ -231,12 +233,11 @@ class ChatBot extends Component {
   render() {
     const { show_menu, show_feedback, show_file_preview, file, fileUrl } = this.state;
     const { is_adster_bot, chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions } = this.props;
-    const android = isAndroid();
     let containerStyle = {
       bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
       borderRadius: chatbot_client_info.trigger.show_close_icon ? '8px' : '8px 8px 0px 0px',
     };
-    if (android) {
+    if (this.is_app) {
       containerStyle = { ...containerStyle, ...androidTabletStyle };
     }
     return (
@@ -298,7 +299,7 @@ class ChatBot extends Component {
           </Suspense>
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
             {
-              !android && !is_adster_bot && !chat_details.end_chat.visible &&
+              !this.is_app && !is_adster_bot && !chat_details.end_chat.visible &&
               <div className="ori-pad-5 ori-cursor-ptr chatIcons" onClick={this.minimizeChatbotInterface}>
                 <div className="minimizeIcon" style={{ height: '16px', width: '13px' }} />
               </div>
