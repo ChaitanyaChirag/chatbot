@@ -46,7 +46,7 @@ export const chatbot_setting = {
     icon_url: "https://d113ddgi4j6d7k.cloudfront.net/ori_logo.png"
   },
   notification_bot: {
-    visibility: true, // to enable notification popup
+    visibility: true, // to enable notification popup (set value false in android and ios )
     stack_view: false, // to show to stack view of notification bot
   },
   chat_interface: {

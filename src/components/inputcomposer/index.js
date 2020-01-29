@@ -15,6 +15,7 @@ import AddFileIcon from 'react-icons/lib/md/add-circle';
 
 import './index.scss';
 
+import { isAndroid } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 import { chatbot_setting } from '../../data/config/urls';
 
@@ -33,7 +34,8 @@ class InputComposer extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.getElementById("input_field").style.height = "24px";
+    if (isAndroid())
+      document.getElementById("input_field").style.height = "24px";
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -149,7 +151,7 @@ class InputComposer extends React.PureComponent {
             id='input_field'
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
             className="ori-font-md ori-line-height-1 inputField"
-            autosize
+            autosize={{ minRows: 1, maxRows: 3 }}
             value={input_message}
             name="input_message"
             disabled={is_input_lock}
