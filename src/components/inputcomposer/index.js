@@ -25,15 +25,17 @@ class InputComposer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.typingTimer = null;
+    this.android_input_max_rows_updated = false;
+    this.is_android = isAndroid();
     this.state = {
       input_message: "",
       typing: false,
       file: null,
       fileUrl: "",
+      android_input_max_rows: 1
     };
   }
 
-  is_android = isAndroid();
 
   componentDidMount() {
     if (isAndroid())
@@ -49,6 +51,9 @@ class InputComposer extends React.PureComponent {
 
   handleInputChange = event => {
     const input_message = event.target.value;
+    if (!this.android_input_max_rows_updated) {
+      this.android_input_max_rows_updated = true;
+    }
     this.setState({ input_message });
   };
 
@@ -154,7 +159,7 @@ class InputComposer extends React.PureComponent {
             id='input_field'
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
             className="ori-font-md ori-line-height-1 inputField"
-            autosize={{ minRows: 1, maxRows: this.is_android ? 2 : 3 }}
+            autosize={{ minRows: 1, maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3 }}
             value={input_message}
             name="input_message"
             disabled={is_input_lock}
