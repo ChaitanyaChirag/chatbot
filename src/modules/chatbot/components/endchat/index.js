@@ -16,18 +16,18 @@ const { Option } = Select;
 
 class EndChat extends React.PureComponent {
   renderSessionCloseConfirmation = () => {
-    const { end_chat, closeEndChatPopup, confirmEndConversation, is_socket_connected } = this.props;
+    const { end_chat, closeEndChatPopup, confirmEndConversation } = this.props;
     if (end_chat.show_confirmation_card)
       return (
-        <InfoCard is_socket_connected={is_socket_connected} title="Do you want to close this session ?" ok_text="Confirm" onClickCancel={closeEndChatPopup} onClickOk={confirmEndConversation} />
+        <InfoCard title="Do you want to close this session ?" ok_text="Confirm" onClickCancel={closeEndChatPopup} onClickOk={confirmEndConversation} />
       );
   };
 
   renderResolvedChatInfo = () => {
-    const { end_chat, confirmEndConversation, is_socket_connected } = this.props;
+    const { end_chat, confirmEndConversation } = this.props;
     if (end_chat.show_resolved_card)
       return (
-        <InfoCard is_socket_connected={is_socket_connected} title="Agent has been resolved your chat" onClickOk={confirmEndConversation} />
+        <InfoCard title="Agent has been resolved your chat" onClickOk={confirmEndConversation} />
       );
   };
 
@@ -135,7 +135,7 @@ class EndChat extends React.PureComponent {
 }
 
 const InfoCard = (props) => {
-  const { is_socket_connected, title, ok_text, onClickCancel, onClickOk } = props;
+  const { title, ok_text, onClickCancel, onClickOk } = props;
   return (
     <div className="ori-bg-white ori-pad-15 ori-tb-mrgn-10 ori-box-shadow ori-border-radius-5">
       <p className="ori-b-mrgn-10">{title}</p>
@@ -144,7 +144,7 @@ const InfoCard = (props) => {
           onClickCancel &&
           <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel} >Cancel</Button>
         }
-        <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-15", { "ori-btn-fill-primary": is_socket_connected })} size="small" onClick={onClickOk} disabled={!is_socket_connected}>{is_socket_connected ? ok_text : "Connecting..."}</Button>
+        <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-fill-primary" size="small" onClick={onClickOk} >{ok_text}</Button>
       </div>
     </div>
   );

@@ -139,35 +139,49 @@ class ChatBot extends Component {
     }
   };
 
+  closeWebView = (type, data) => {
+    if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
+      window.androidObj.updateFromWeb(type, data);
+    } else if (isIOS()) {
+      eval("if(updateFromWeb) updateFromWeb(type, data)");
+    }
+  }
+
   confirmEndConversation = () => {
     const { actions, chat_details } = this.props;
     const payload = {
       psid: chat_details.psid,
     };
-    actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload, (err, res) => {
-      console.log(payload, err, res);
-      if (!err) {
-        this.handleResetChat();
-        if (res && res.data && res.data.formData) {
-          const data = {
-            show_confirmation_card: false,
-            show_resolved_card: false,
-            show_form_card: true,
-            form: res.data.formData,
-            description: res.data.formTitle ? res.data.formTitle : null,
-          };
-          actions.updateEndChat(data);
-        } else {
-          if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
-            window.androidObj.updateFromWeb('endChatSubmit');
-          } else if (isIOS()) {
-            eval("if(updateFromWeb) updateFromWeb('endChatSubmit', {})");
+    if (!chat_details.is_socket_connected) {
+      const default_messages = getDefaultMessages();
+      localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(default_messages));
+      localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
+      actions.setDefaultState();
+      this.closeWebView('endChatSubmit', {})
+      actions.handleChatbotInterface(false);
+      this.onClickCloseIcon();
+    } else {
+      actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload, (err, res) => {
+        console.log(payload, err, res);
+        if (!err) {
+          this.handleResetChat();
+          if (res && res.data && res.data.formData) {
+            const data = {
+              show_confirmation_card: false,
+              show_resolved_card: false,
+              show_form_card: true,
+              form: res.data.formData,
+              description: res.data.formTitle ? res.data.formTitle : null,
+            };
+            actions.updateEndChat(data);
+          } else {
+            this.closeWebView('endChatSubmit', {})
+            actions.handleChatbotInterface(false);
+            this.onClickCloseIcon();
           }
-          actions.handleChatbotInterface(false);
-          this.onClickCloseIcon();
         }
-      }
-    });
+      });
+    }
   };
 
   submitEndFormFormData = () => {
@@ -178,11 +192,7 @@ class ChatBot extends Component {
       formData: end_chat_form_data
     };
     actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
-      if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
-        window.androidObj.updateFromWeb('endChatSubmit');
-      } else if (isIOS()) {
-        eval("if(updateFromWeb) updateFromWeb('endChatSubmit', {})");
-      }
+      this.closeWebView('endChatSubmit', {})
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
     });
