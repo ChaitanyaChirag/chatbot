@@ -32,7 +32,6 @@ class InputComposer extends React.PureComponent {
       typing: false,
       file: null,
       fileUrl: "",
-      android_input_max_rows: 1
     };
   }
 
