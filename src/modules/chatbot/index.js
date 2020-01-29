@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
