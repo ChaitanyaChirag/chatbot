@@ -146,7 +146,8 @@ class InputComposer extends React.PureComponent {
           <TextArea
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
             className="ori-font-md ori-line-height-1 inputField"
-            autosize={{ minRows: 1, maxRows: android ? 2 : 3 }}
+            style={{ minHeight: '24px', maxHeight: '56px' }}
+            // autosize={{ minRows: 1, maxRows: android ? 2 : 3 }}
             value={input_message}
             name="input_message"
             disabled={is_input_lock}
