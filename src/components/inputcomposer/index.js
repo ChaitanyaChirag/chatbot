@@ -33,6 +33,11 @@ class InputComposer extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    if (isAndroid())
+      document.getElementById("input_field").style.height = "24px";
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { transcript, listening } = this.props;
     if (chatbot_setting.chat_interface.speech_recognition.enable && listening && prevProps.transcript !== transcript) {
@@ -144,6 +149,7 @@ class InputComposer extends React.PureComponent {
         }
         <Form onSubmit={this.handleMessageSend}>
           <TextArea
+            id='input_field'
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
             className="ori-font-md ori-line-height-1 inputField"
             autosize={{ minRows: 1, maxRows: 3 }}
