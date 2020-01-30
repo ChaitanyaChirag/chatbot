@@ -31,7 +31,7 @@ class ShowMessageComponent extends React.PureComponent {
           title && title.trim().length > 0 &&
           <p className={classNames("ori-no-b-mrgn ori-capitalize", { "ori-font-xs": fontSize === "xxs", "ori-font-sm": fontSize === "xs", "ori-font-md": fontSize === "sm", "ori-font-lg": fontSize === "md" })}>{title}</p>
         }
-        <p className={classNames("ori-no-b-mrgn", { "ori-font-xxs": fontSize === "xxs", "ori-font-xs": fontSize === "xs", "ori-font-sm": fontSize === "sm", "ori-font-md": fontSize === "md", "ori-font-light": fontLight })}>{message}</p>
+        <p className={classNames("ori-no-b-mrgn ori-text-center", { "ori-font-xxs": fontSize === "xxs", "ori-font-xs": fontSize === "xs", "ori-font-sm": fontSize === "sm", "ori-font-md": fontSize === "md", "ori-font-light": fontLight })}>{message}</p>
       </div>
     );
   }
