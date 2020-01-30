@@ -15,7 +15,7 @@ import AddFileIcon from 'react-icons/lib/md/add-circle';
 
 import './index.scss';
 
-import { isAndroid } from '../../data/config/utils';
+import { isAndroid, isIOS } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 import { chatbot_setting } from '../../data/config/urls';
 
@@ -27,6 +27,7 @@ class InputComposer extends React.PureComponent {
     this.typingTimer = null;
     this.android_input_max_rows_updated = false;
     this.is_android = isAndroid();
+    this.is_ios = isIOS();
     this.state = {
       input_message: "",
       typing: false,
@@ -157,7 +158,7 @@ class InputComposer extends React.PureComponent {
           <TextArea
             id='input_field'
             placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "send your query...")}
-            className="ori-font-md ori-line-height-1 inputField"
+            className={classNames("ori-line-height-1 inputField", { "ori-font-md": this.is_ios })}
             autosize={{ minRows: 1, maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3 }}
             value={input_message}
             name="input_message"
