@@ -7,6 +7,12 @@
         background-color: $chatbot-footer-bg !important;
         color: $chatbot-font-color !important;
 
+        &::placeholder {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
         &:focus {
             outline: none !important;
             box-shadow: none !important;
