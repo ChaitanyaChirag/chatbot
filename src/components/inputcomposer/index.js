@@ -147,7 +147,7 @@ class InputComposer extends React.PureComponent {
           </div>
         }
         {
-          !notification_bot &&
+          !notification_bot && ((this.is_android && chatbot_setting.add_file.android_enable) || (this.is_ios && chatbot_setting.add_file.ios_enable) || (!(this.is_android || this.is_ios) && chatbot_setting.add_file.web_enable)) &&
           <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignAddFileIcon">
             <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
               <AddFileIcon size={20} className="ori-font-light-hover-default" />

@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 import { EVENTS, MESSAGE_READ_STATUS } from '../../config/constants';
 import { getSocketUrl, chatbot_setting, chatbot_client_info } from '../../config/urls';
-import { log, getCookie, getDefaultMessages, uniqueId, showMessage } from '../../config/utils';
+import { log, getCookie, getDefaultMessages, uniqueId } from '../../config/utils';
 import { updateState, emitCustomEvent, socketDisconnect } from './actions';
 import actionTypes from '../actiontypes';
 

@@ -77,6 +77,11 @@ export const chatbot_setting = {
       feedback: true,
       clear_chat: true,
     }
+  },
+  add_file: {
+    web_enable: true,
+    android_enable: true,
+    ios_enable: true,
   }
 };
 
