@@ -40,7 +40,7 @@ class PreviewFile extends React.PureComponent {
                 </div>
                 <div className="ori-flex-row ori-flex-jc ori-t-pad-15">
                     <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel}>Cancel</Button>
-                    <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-15", { "ori-btn-fill-primary": is_socket_connected })} size="small" disabled={!is_socket_connected} onClick={onClickSend}>{is_socket_connected ? 'Send' : "Connecting..."}</Button>
+                    <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-20", { "ori-btn-fill-primary": is_socket_connected })} size="small" disabled={!is_socket_connected} onClick={onClickSend}>{is_socket_connected ? 'Send' : "Connecting..."}</Button>
                 </div>
             </div>
         );
