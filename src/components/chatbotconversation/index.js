@@ -5,7 +5,7 @@ import ThumbUpIcon from 'react-icons/lib/fa/thumbs-o-up';
 import SentIcon from 'react-icons/lib/io/android-done';
 import DeliverIcon from 'react-icons/lib/io/android-done-all';
 import SeenIcon from 'react-icons/lib/md/remove-red-eye';
-import SendingIcon from 'react-icons/lib/md/rotate-right';
+import SendingIcon from 'react-icons/lib/md/access-time';
 import Avatar from 'antd/lib/avatar';
 import { TextMessage, TextWithMedia, CarouselWithButtons, PromptMsg, CheckboxWithMedia, ListMessage, UploadFile, Recharge, RechargeDetails, Offers, RechargeHistory } from 'message-types';
 
@@ -57,7 +57,7 @@ class ChatBotConversation extends React.PureComponent {
   renderReadStatusIcon = readStatus => {
     if (readStatus === MESSAGE_READ_STATUS.SENDING) {
       return (
-        <SendingIcon size={13} className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />
+        <SendingIcon size={13} className="ori-l-mrgn-5" />
       );
     } else if (readStatus === MESSAGE_READ_STATUS.SENT) {
       return (
