@@ -82,6 +82,7 @@ export const chatbot_setting = {
     web_enable: true,
     android_enable: true,
     ios_enable: true,
+    max_file_size_allowed: 500000
   }
 };
 

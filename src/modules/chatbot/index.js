@@ -200,7 +200,7 @@ class ChatBot extends Component {
 
   beforeFileUpload = file => {
     console.log('file', file);
-    if (file && file.name && checkImageTypeFile(file.name)) {
+    if (file && file.name && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
       fileToBase64(file).then(fileUrl => {
         this.setState({
           file,
@@ -209,8 +209,9 @@ class ChatBot extends Component {
         });
       })
     } else {
-      console.log('selected file is not an image');
-      showMessage('warning', 'selected file is not an image');
+      console.log('selected file is not compatiable');
+      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkImageTypeFile(file.name) ? "selected file is not an image" : "something went wrong.");
+      showMessage('warning', warn_msg);
     }
     return false;
   };
