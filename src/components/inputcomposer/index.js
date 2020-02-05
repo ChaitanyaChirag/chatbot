@@ -37,10 +37,10 @@ class InputComposer extends React.PureComponent {
   }
 
 
-  componentDidMount() {
-    if (isAndroid())
-      document.getElementById("input_field").style.height = "1.5rem";
-  }
+  // componentDidMount() {
+  //   if (isAndroid())
+  //     document.getElementById("input_field").style.height = "1.5rem";
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     const { transcript, listening } = this.props;

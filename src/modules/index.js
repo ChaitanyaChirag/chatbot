@@ -83,8 +83,8 @@ class AppContainer extends Component {
       actions.handleChatbotInterface(true);
     } else if (!chat_details.is_socket_connected) {
       let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
-      if (chatbot_setting.chat_interface.query_params.enable) {
-        const query_params = new URLSearchParams(window.location.search);
+      const query_params = new URLSearchParams(window.location.search);
+      if (chatbot_setting.chat_interface.query_params.enable && query_params.has(chatbot_setting.chat_interface.query_params.query_param_key)) {
         if (query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)) {
           this.handleSocketConnection(true);
         }
@@ -105,7 +105,6 @@ class AppContainer extends Component {
         actions.handleChatbotInterface(false);
       }
       if (chatbot_setting.adster_bot.visibility) {
-        const query_params = new URLSearchParams(window.location.search);
         if (query_params.get(chatbot_setting.adster_bot.query_param_key)) {
           this.handleSocketConnection(true);
           actions.enableAdsterBot();
