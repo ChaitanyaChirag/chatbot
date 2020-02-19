@@ -38,7 +38,7 @@ export const showMessage = (type, msg) => {
 };
 
 export const checkImageTypeFile = filename => {
-  return (/\.(gif|jpg?g|tiff|png)$/i).test(filename)
+  return (/\.(gif|jpg?g|jpeg|svg|tiff|png)$/i).test(filename)
 };
 
 export const fileToBase64 = file => {
