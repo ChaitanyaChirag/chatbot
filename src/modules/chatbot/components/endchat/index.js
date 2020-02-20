@@ -19,7 +19,7 @@ class EndChat extends React.PureComponent {
     const { end_chat, closeEndChatPopup, confirmEndConversation } = this.props;
     if (end_chat.show_confirmation_card)
       return (
-        <InfoCard className="ori-l-pad-15" title="Do you want to close this session ?" ok_text="Confirm" onClickCancel={closeEndChatPopup} onClickOk={confirmEndConversation} />
+        <InfoCard title="Do you want to close this session ?" ok_text="Confirm" onClickCancel={closeEndChatPopup} onClickOk={confirmEndConversation} />
       );
   };
 
