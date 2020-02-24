@@ -1,23 +1,15 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import CloseIcon from 'react-icons/lib/md/close';
 import ConversationIcon from 'react-icons/lib/fa/comments';
-import Lottie from 'react-lottie';
 
 import './index.scss';
 
 import { chatbot_client_info } from '../../data/config/urls';
 
-class TriggerChatBot extends React.PureComponent {
-    lottieDefaultOptions = {
-        loop: true,
-        autoplay: true,
-        path: chatbot_client_info.trigger.lottie_path,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
-        }
-    };
+const LottieContainer = React.lazy(() => import('./lottiecontainer'));
 
+class TriggerChatBot extends React.PureComponent {
     handleChatInterfaceView = () => {
         const { is_chat_open, handleSocketConnection } = this.props;
         handleSocketConnection(!is_chat_open)
@@ -28,10 +20,12 @@ class TriggerChatBot extends React.PureComponent {
 
         return (
             <div className="ori-fixed ori-animated ori-zoom-in oriTriggerChatBotContainer" onClick={this.handleChatInterfaceView}>
+                <Suspense fallback="Loading...">
                 {
                     !is_chat_open && chatbot_client_info.trigger.lottie_visibility &&
-                    <Lottie options={this.lottieDefaultOptions} height={chatbot_client_info.trigger.lottie_icon_height} width={chatbot_client_info.trigger.lottie_icon_width} />
+                    <LottieContainer />
                 }
+                </Suspense>
                 {
                     chatbot_client_info.trigger.visibility && !is_chat_open &&
                     <div className="ori-animated ori-pulse ori-infinite" style={{ height: `${chatbot_client_info.trigger.icon_height}px`, animationDuration: `${chatbot_client_info.trigger.animation_duration}ms` }}>
