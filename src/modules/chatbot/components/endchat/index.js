@@ -122,7 +122,7 @@ class EndChat extends React.PureComponent {
           </div>
         </div>
         <div className="ori-absolute ori-align-full">
-          <div className="ori-relative ori-full-parent-height ori-full-width ori-overflow-y-auto" style={{ padding: "190px 15px 30px 15px" }}>
+          <div className="ori-relative ori-full-parent-height ori-full-width ori-overflow-y-auto ori-text-center" style={{ padding: "190px 15px 30px 15px" }}>
             {this.renderSessionCloseConfirmation()}
             {this.renderResolvedChatInfo()}
             {this.renderDynamicForm()}
