@@ -66,6 +66,7 @@ export const chatbot_setting = {
   },
   auto_emit_response: {
     enable: true,
+    query_param_key: 'oribotmessage',
     payload: {
       type: MESSAGE_TYPES.TEXT,
       text: "first emit message",
@@ -82,7 +83,7 @@ export const chatbot_setting = {
     web_enable: true,
     android_enable: true,
     ios_enable: true,
-    max_file_size_allowed: 500000
+    max_file_size_allowed: 500000,
   }
 };
 

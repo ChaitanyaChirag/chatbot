@@ -58,16 +58,14 @@ class InputComposer extends React.PureComponent {
   };
 
   stopTypingIndicator = () => {
-    if (this.state.typing) {
-      this.setState({ typing: false }, () => {
-        const { emitCustomEvent, psid } = this.props;
-        const payload = {
-          clientPsid: psid,
-          isTyping: false,
-        };
-        emitCustomEvent(EVENTS.TYPING_STATUS, payload);
-      });
-    }
+    this.setState({ typing: false }, () => {
+      const { emitCustomEvent, psid } = this.props;
+      const payload = {
+        clientPsid: psid,
+        isTyping: false,
+      };
+      emitCustomEvent(EVENTS.TYPING_STATUS, payload);
+    });
   };
 
   inputKeyDown = e => {

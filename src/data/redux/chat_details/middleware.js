@@ -14,6 +14,7 @@ const registerSocketListener = (store, socket) => {
     store.dispatch(updateState('is_socket_connected', socket.connected));
     const default_messages = getDefaultMessages();
     if (chatbot_setting.auto_emit_response.enable && chat_details.messages.length === default_messages.length) {
+      const query_params = new URLSearchParams(window.location.search);
       const data = {
         ...chatbot_setting.auto_emit_response.payload,
         session_id: socket.io.engine.id,
@@ -26,6 +27,10 @@ const registerSocketListener = (store, socket) => {
         sendVariableToLS: chat_details.sendVariableToLS,
         skipLS: chat_details.skipLS
       };
+      if (query_params.has(chatbot_setting.auto_emit_response.query_param_key)) {
+        const text = query_params.get(chatbot_setting.auto_emit_response.query_param_key);
+        data.text = text;
+      }
       console.log('first emit data', data);
       socket.emit(EVENTS.NEW_MESSAGE, data);
     }
