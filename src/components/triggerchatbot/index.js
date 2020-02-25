@@ -20,7 +20,7 @@ class TriggerChatBot extends React.PureComponent {
 
         return (
             <div className="ori-fixed ori-animated ori-zoom-in oriTriggerChatBotContainer" onClick={this.handleChatInterfaceView}>
-                <Suspense fallback="Loading...">
+                <Suspense fallback={null}>
                 {
                     !is_chat_open && chatbot_client_info.trigger.lottie_visibility &&
                     <LottieContainer />
