@@ -304,8 +304,9 @@ class AppContainer extends Component {
     const long = position.coords.longitude;
     const cmid = uniqueId();
     const response = {
-      type: MESSAGE_TYPES.TEXT,
-      text: lat.toString() + long.toString(),
+      type: MESSAGE_TYPES.LOCATION,
+      lat: lat.toString(),
+      long: long.toString(),
       cmid
     };
     const payload_data = {
