@@ -58,6 +58,14 @@ export const pushSenderMessage = message => {
   };
 };
 
+export const updateMessage = (payload, key) => {
+  return {
+    type: actionTypes.UPDATE_MESSAGE,
+    payload,
+    key
+  };
+};
+
 export const onMessageVoting = payload => {
   return {
     type: actionTypes.MESSAGE_VOTING,

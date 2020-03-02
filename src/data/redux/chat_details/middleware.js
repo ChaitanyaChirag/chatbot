@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import { EVENTS, MESSAGE_READ_STATUS } from '../../config/constants';
 import { getSocketUrl, chatbot_setting, chatbot_client_info } from '../../config/urls';
 import { log, getCookie, getDefaultMessages, uniqueId } from '../../config/utils';
-import { updateState, emitCustomEvent, socketDisconnect } from './actions';
+import { updateState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
@@ -231,17 +231,9 @@ const middleware = () => {
                   readStatus: MESSAGE_READ_STATUS.FAILED
                 }
               };
-              store.dispatch({
-                type: actionTypes.UPDATE_MESSAGE,
-                payload,
-                key: 'cmid'
-              });
+              store.dispatch(updateMessage(payload, 'cmid'));
             } else if (!err && res && res.data && res.data.cmid && res.data.changedValue) {
-              store.dispatch({
-                type: actionTypes.UPDATE_MESSAGE,
-                payload: res.data,
-                key: 'cmid',
-              });
+              store.dispatch(updateMessage(res.data, 'cmid'));
             }
           });
         }

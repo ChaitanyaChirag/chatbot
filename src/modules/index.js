@@ -311,6 +311,7 @@ class AppContainer extends Component {
           break;
 
         case BUTTON_TYPES.CUSTOM_SOCKET_EVENT: {
+          const { actions } = this.props;
           const cmid = uniqueId();
           if (data.button.text) {
             const obj = {
@@ -318,22 +319,26 @@ class AppContainer extends Component {
               cmid
             };
             this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, obj);
-            const response = {
-              type: MESSAGE_TYPES.TEXT,
-              text: data.button.text,
-              cmid
-            };
-            this.emitResponseToServer(response);
           }
 
           if (data.button.eventName) {
             let payload = {
               relayData: merge({}, data.message.relayData, data.button.relayData),
-              text: data.message.payload.title,
+              text: data.button.text,
               type: data.message.payload && data.message.payload.expectedClientResponseType ? data.message.payload.expectedClientResponseType : MESSAGE_TYPES.TEXT,
               cmid
             };
-            this.props.actions.emitCustomEvent(data.button.eventName, payload);
+            this.props.actions.emitCustomEvent(data.button.eventName, payload, (err, res) => {
+              if (err) {
+                const payload = {
+                  cmid,
+                  changedValue: { readStatus: MESSAGE_READ_STATUS.FAILED }
+                };
+                actions.updateMessage(payload, 'cmid');
+              } else if (!err && res && res.data && res.data.cmid && res.data.changedValue) {
+                actions.updateMessage(res.data, 'cmid');
+              }
+            });
           }
         }
           break;
