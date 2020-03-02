@@ -318,6 +318,12 @@ class AppContainer extends Component {
               cmid
             };
             this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, obj);
+            const response = {
+              type: MESSAGE_TYPES.TEXT,
+              text: data.button.text,
+              cmid
+            };
+            this.emitResponseToServer(response);
           }
 
           if (data.button.eventName) {
