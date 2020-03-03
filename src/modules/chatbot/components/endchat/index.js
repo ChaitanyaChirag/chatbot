@@ -27,7 +27,7 @@ class EndChat extends React.PureComponent {
     const { end_chat, confirmEndConversation } = this.props;
     if (end_chat.show_resolved_card)
       return (
-        <InfoCard title="Agent has resolved your chat" onClickOk={confirmEndConversation} />
+        <InfoCard title="Agent has ended the conversation" onClickOk={confirmEndConversation} />
       );
   };
 
