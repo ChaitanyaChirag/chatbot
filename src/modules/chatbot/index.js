@@ -6,7 +6,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_client_info } from '../../data/config/urls';
-import { LOCAL_STORAGE, isAndroid, isIOS, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile, showMessage } from '../../data/config/utils';
+import { LOCAL_STORAGE, isAndroid, isIOS, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile, showMessage, checkDoubleExtension } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 
 import './index.scss';
@@ -200,7 +200,7 @@ class ChatBot extends Component {
 
   beforeFileUpload = file => {
     console.log('file', file);
-    if (file && file.name && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
+    if (file && file.name && checkDoubleExtension(file.name) && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
       fileToBase64(file).then(fileUrl => {
         this.setState({
           file,
@@ -210,7 +210,7 @@ class ChatBot extends Component {
       })
     } else {
       console.log('selected file is not compatiable');
-      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkImageTypeFile(file.name) ? "selected file is not an image" : "something went wrong.");
+      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkImageTypeFile(file.name) || !checkDoubleExtension(file.name) ? "selected file is not an image" : "something went wrong.");
       showMessage('warning', warn_msg);
     }
     return false;
