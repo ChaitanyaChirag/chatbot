@@ -37,7 +37,7 @@ export const showMessage = (type, msg) => {
   }
 };
 
-export const checkDoubleExtension = filename => {
+export const checkMultipleExtension = filename => {
   let numberOfExtensions = filename.split('.');
   return (numberOfExtensions.length >2 ? false : true)  
 }
