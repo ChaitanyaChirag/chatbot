@@ -82,7 +82,7 @@ export const chatbot_setting = {
   add_file: {
     web_enable: true,
     android_enable: true,
-    ios_enable: true,
+    ios_enable: false,
     max_file_size_allowed: 500000,
   }
 };

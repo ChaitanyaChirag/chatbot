@@ -37,6 +37,11 @@ export const showMessage = (type, msg) => {
   }
 };
 
+export const checkMultipleExtension = filename => {
+  let numberOfExtensions = filename.split('.');
+  return (numberOfExtensions.length >2 ? false : true)  
+}
+
 export const checkImageTypeFile = filename => {
   return (/\.(gif|jpg?g|jpeg|svg|tiff|png)$/i).test(filename)
 };
