@@ -65,7 +65,7 @@
         font-size: 10px !important;
         color: $font-color-light !important;
         width: auto !important;
-        top: unset !important;
+        top: inherit !important;
         bottom: -28px !important;
         z-index: 1 !important;
     }
@@ -80,7 +80,6 @@
         &::before {
             content: "" !important;
             display: unset !important; // idea specific css changes
-       
         }
     }
 
@@ -94,7 +93,6 @@
         &::before {
             content: "" !important;
             display: unset !important; // idea specific css changes
-       
         }
     }
 
