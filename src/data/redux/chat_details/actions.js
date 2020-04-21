@@ -28,6 +28,13 @@ export const socketDisconnect = () => {
   };
 };
 
+export const callSocketMethod = payload => {
+  return {
+    type: actionTypes.CALL_SOCKET_METHOD,
+    payload
+  };
+};
+
 export const handleBotPopupRequest = payload => {
   return {
     type: actionTypes.BOT_POPUP_REQUEST,

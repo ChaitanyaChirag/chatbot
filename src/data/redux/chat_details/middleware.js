@@ -207,6 +207,11 @@ const middleware = () => {
         break;
       }
 
+      case actionTypes.CALL_SOCKET_METHOD:
+        if (socket)
+          socket[action.payload]()
+        break;
+
       case actionTypes.EMIT_CUSTOM_EVENT: {
         if (socket && action.event) {
           log(`emit custom event- ${action.event}:`, action.payload);

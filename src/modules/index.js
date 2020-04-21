@@ -136,6 +136,10 @@ class AppContainer extends Component {
   handleConnectionChange = () => {
     const { actions } = this.props;
     actions.updateState('is_internet_connected', navigator.onLine);
+    if (navigator.onLine)
+      actions.callSocketMethod('open')
+    else
+      actions.callSocketMethod('close')
   }
 
   botPopup = (case_data, params) => {
