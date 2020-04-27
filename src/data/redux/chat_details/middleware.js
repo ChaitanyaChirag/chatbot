@@ -83,7 +83,8 @@ const registerSocketListener = (store, socket) => {
             readStatus: MESSAGE_READ_STATUS.DELIVERED,
             clientPsid: chat_details.psid,
             senderPsid: chat_details.psid,
-            chatlogId: res.chatlogId
+            chatlogId: res.chatlogId,
+            timestamp: new Date().getTime()
           };
           socket.emit(EVENTS.UPDATE_ADMIN_MESSAGE, updated_message_data, err => {
             if (!err && document.visibilityState === 'visible' && chat_details.is_chat_open && document.hasFocus()) {
