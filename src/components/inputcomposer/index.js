@@ -36,13 +36,7 @@ class InputComposer extends React.PureComponent {
     };
   }
 
-
-  // componentDidMount() {
-  //   if (isAndroid())
-  //     document.getElementById("input_field").style.height = "1.5rem";
-  // }
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { transcript, listening } = this.props;
     if (chatbot_setting.chat_interface.speech_recognition.enable && listening && prevProps.transcript !== transcript) {
       this.setState({ input_message: transcript });
