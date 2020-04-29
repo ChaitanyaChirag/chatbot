@@ -58,13 +58,6 @@
             left: 10px;
         }
 
-        .headerContainer {
-            height: 70px;
-            overflow: hidden;
-            background-color: $chatbot-header-bg;
-            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
-        }
-
         .chatBodyContainer {
             margin-top: 2px;
             margin-bottom: 1px;
@@ -76,8 +69,8 @@
             min-height: 55px;
             max-height: 110px;
             width: inherit;
-            padding-top: 13px;
-            padding-bottom: 20px;
+            padding-top: 10px;
+            padding-bottom: 13px;
             background-color: $chatbot-footer-bg;
 
             .alignPoweredBy {

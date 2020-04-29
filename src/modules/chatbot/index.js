@@ -11,11 +11,12 @@ import { EVENTS } from '../../data/config/constants';
 
 import './index.scss';
 
-import ChatBotHeader from './components/chatbotheader';
+import Header from './components/Header';
 import ChatBotConversation from '../../components/chatbotconversation';
 import InputComposer from '../../components/inputcomposer';
 import PoweredBy from '../../components/poweredby';
 
+const HeaderTag = React.lazy(() => import('./components/HeaderTag'))
 const Menu = React.lazy(() => import('./components/menu'));
 const QuickReply = React.lazy(() => import('./components/quickreply'));
 const Feedback = React.lazy(() => import('./components/feedback'));
@@ -210,7 +211,7 @@ class ChatBot extends Component {
       })
     } else {
       console.log('selected file is not compatiable');
-      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkMultipleExtension(file.name) ?  "Multi extension file can't be uploaded" : !checkImageTypeFile(file.name) ? "selected file is not an image" : "something went wrong.");
+      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkMultipleExtension(file.name) ? "Multi extension file can't be uploaded" : !checkImageTypeFile(file.name) ? "selected file is not an image" : "something went wrong.");
       showMessage('warning', warn_msg);
     }
     return false;
@@ -244,7 +245,7 @@ class ChatBot extends Component {
 
   render() {
     const { show_menu, show_feedback, show_file_preview, file, fileUrl } = this.state;
-    const { is_adster_bot, chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions } = this.props;
+    const { is_adster_bot, chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions, screen_height } = this.props;
     let containerStyle = {
       bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
       borderRadius: chatbot_client_info.trigger.show_close_icon ? '8px' : '8px 8px 0px 0px',
@@ -255,60 +256,6 @@ class ChatBot extends Component {
     return (
       <div className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer", { "ori-fade-in-up": !chatbot_client_info.trigger.show_close_icon && !this.is_app, "ori-fade-in": (chatbot_client_info.trigger.show_close_icon || this.is_app) })} style={containerStyle}>
         <div id="chatbotContentContainer" className="ori-relative ori-flex-column chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
-          <Suspense fallback={null}>
-            <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
-          </Suspense>
-          <Suspense fallback={null}>
-            <CustomModal isMounted={chat_details.downtime.isDownTime} delayUnmountTime={400}>
-              <div className="ori-pad-10 ori-bg-white ori-border-radius-3">
-                <DownTime downtime={chat_details.downtime} onDowntimeComplete={this.onDowntimeComplete} />
-              </div>
-            </CustomModal>
-          </Suspense>
-          <Suspense fallback={null}>
-            <EndChat
-              isMounted={chat_details.end_chat.visible}
-              delayUnmountTime={400}
-              is_socket_connected={chat_details.is_socket_connected}
-              end_chat={chat_details.end_chat}
-              closeEndChatPopup={this.onClickCloseIcon}
-              confirmEndConversation={this.confirmEndConversation}
-              handleFormInputChange={this.handleFormInputChange}
-              handleFormSelectChange={this.handleFormSelectChange}
-              submitFormData={this.submitEndFormFormData}
-            />
-          </Suspense>
-          <Suspense fallback={null}>
-            <PreviewFile
-              isMounted={show_file_preview}
-              delayUnmountTime={400}
-              is_socket_connected={chat_details.is_socket_connected}
-              file={file}
-              fileUrl={fileUrl}
-              onClickCancel={this.onFilePreviewCancel}
-              onClickSend={this.onClickFileSend}
-              onFileRemove={this.onFileRemove}
-            />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Menu
-              isMounted={show_menu}
-              delayUnmountTime={400}
-              closeMenu={this.closeMenu}
-              handleResetChat={this.handleResetChat}
-              showFeedback={this.showFeedback}
-            />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Feedback
-              isMounted={show_feedback}
-              delayUnmountTime={650}
-              is_socket_connected={chat_details.is_socket_connected}
-              closeFeedback={this.closeFeedback}
-              psid={chat_details.psid}
-              sendFeedback={actions.sendFeedback}
-            />
-          </Suspense>
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
             {
               !this.is_app && !is_adster_bot && !chat_details.end_chat.visible &&
@@ -330,9 +277,58 @@ class ChatBot extends Component {
               </div>
             }
           </div>
-          <div className="headerContainer">
-            <ChatBotHeader is_socket_connected={chat_details.is_socket_connected} is_internet_connected={chat_details.is_internet_connected} />
-          </div>
+          <Suspense fallback={null}>
+            <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
+            <CustomModal isMounted={chat_details.downtime.isDownTime} delayUnmountTime={400}>
+              <div className="ori-pad-10 ori-bg-white ori-border-radius-3">
+                <DownTime downtime={chat_details.downtime} onDowntimeComplete={this.onDowntimeComplete} />
+              </div>
+            </CustomModal>
+            <EndChat
+              isMounted={chat_details.end_chat.visible}
+              delayUnmountTime={400}
+              is_socket_connected={chat_details.is_socket_connected}
+              end_chat={chat_details.end_chat}
+              closeEndChatPopup={this.onClickCloseIcon}
+              confirmEndConversation={this.confirmEndConversation}
+              handleFormInputChange={this.handleFormInputChange}
+              handleFormSelectChange={this.handleFormSelectChange}
+              submitFormData={this.submitEndFormFormData}
+            />
+            <PreviewFile
+              isMounted={show_file_preview}
+              delayUnmountTime={400}
+              is_socket_connected={chat_details.is_socket_connected}
+              file={file}
+              fileUrl={fileUrl}
+              onClickCancel={this.onFilePreviewCancel}
+              onClickSend={this.onClickFileSend}
+              onFileRemove={this.onFileRemove}
+            />
+            <Menu
+              isMounted={show_menu}
+              delayUnmountTime={400}
+              closeMenu={this.closeMenu}
+              handleResetChat={this.handleResetChat}
+              showFeedback={this.showFeedback}
+            />
+            <Feedback
+              isMounted={show_feedback}
+              delayUnmountTime={650}
+              is_socket_connected={chat_details.is_socket_connected}
+              closeFeedback={this.closeFeedback}
+              psid={chat_details.psid}
+              sendFeedback={actions.sendFeedback}
+            />
+            {
+              screen_height < 420 &&
+              <HeaderTag />
+            }
+          </Suspense>
+          {
+            screen_height >= 420 &&
+            <Header />
+          }
           <div className="ori-b-pad-40 ori-full-flex ori-full-parent-height chatBodyContainer" id="messages_container" ref={this.setMessageContainerRef} >
             <ChatBotConversation btn_disabled={!chat_details.is_socket_connected} messages={chat_details.messages} onMessageVoting={actions.onMessageVoting} handleMsgBtnClick={handleMsgBtnClick} handleFileUpload={handleFileUpload} messagesContainer={this.messagesContainer} handleOfferSelection={handleOfferSelection} onChangeCheckbox={onChangeCheckbox} is_typing={chat_details.is_typing} typing_text={chat_details.typing_text} />
           </div>
@@ -354,7 +350,7 @@ class ChatBot extends Component {
             <InputComposer psid={chat_details.psid} sendTextToServer={sendTextToServer} is_input_lock={chat_details.is_input_lock} input_lock_text={chat_details.input_lock_text} onInputFocus={this.scrollContainerToBottom} onClickMenu={this.openMenu} emitCustomEvent={actions.emitCustomEvent} beforeUpload={this.beforeFileUpload} onRemove={this.onFileRemove} />
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

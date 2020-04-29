@@ -97,6 +97,18 @@
         background-color: $default;
     }
 
+    .ori-bg-green {
+      background-color: $green;
+    }
+
+    .ori-bg-warning {
+      background-color: $warning;
+    }
+
+    .ori-bg-danger {
+      background-color: $danger;
+    }
+
     .ori-bg-card {
         background-color: $card-bg;
     }
@@ -146,7 +158,7 @@
     }
 
     .ori-font-notification-popup {
-      color: $notification-popup-font-color
+        color: $notification-popup-font-color;
     }
 
     .ori-font-primary {
@@ -221,6 +233,10 @@
         width: 100% !important;
     }
 
+    .ori-width-10 {
+      width: 10px;
+    }
+
     .ori-full-height {
         height: 100vh !important;
     }
@@ -239,6 +255,10 @@
 
     .ori-display-none {
         display: none !important;
+    }
+
+    .ori-display-inline-block {
+        display: inline-block;
     }
 
     .ori-relative {
@@ -281,7 +301,7 @@
     }
 
     .ori-word-wrap {
-      word-wrap: break-word;
+        word-wrap: break-word;
     }
 
     .ori-img-contain {
@@ -317,6 +337,10 @@
         border-radius: 50% !important;
     }
 
+    .ori-border-light {
+        border: 1px solid $border-light;
+    }
+
     .ori-t-border-light {
         border-top: 1px solid $border-light;
     }
@@ -326,7 +350,7 @@
     }
 
     .ori-border-none {
-      border: none !important;
+        border: none !important;
     }
 
     .ori-border-light {
@@ -690,6 +714,10 @@
     }
 
     //-------------------- right-margin-X ---------------------
+
+    .ori-r-mrgn-5 {
+        margin-right: 5px;
+    }
 
     .ori-r-mrgn-10 {
         margin-right: 10px;

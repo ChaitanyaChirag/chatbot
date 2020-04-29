@@ -411,7 +411,7 @@ class AppContainer extends Component {
         <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
           {
             chat_details.is_chat_open &&
-            <ChatBot ref={this.chatbotRef} is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
+            <ChatBot ref={this.chatbotRef} screen_height={page_details.device_data.screen_height} is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
           }
           {
             chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
