@@ -259,7 +259,7 @@ class ChatBot extends Component {
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
             {
               !this.is_app && !is_adster_bot && !chat_details.end_chat.visible &&
-              <div className="ori-pad-5 ori-font-header-hover-light" onClick={this.minimizeChatbotInterface}>
+              <div className="ori-pad-5" onClick={this.minimizeChatbotInterface}>
                 <div className="minimizeIcon" style={{ height: '16px', width: '13px' }} />
               </div>
             }

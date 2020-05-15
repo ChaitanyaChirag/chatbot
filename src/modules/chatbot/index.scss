@@ -47,10 +47,11 @@
         }
 
         .minimizeIcon {
-            border-bottom: 2px solid $font-color-light;
+            border-bottom: 2px solid $chatbot-header-font-light;
+            cursor: pointer;
 
             &:hover {
-                border-bottom-color: $chatbot-font-color;
+                border-bottom-color: $chatbot-header-font;
             }
         }
 

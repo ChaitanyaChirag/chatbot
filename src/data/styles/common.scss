@@ -169,15 +169,6 @@
         color: $chatbot-header-font-light;
     }
 
-    .ori-font-header-hover-light {
-        color: $chatbot-header-font;
-        cursor: pointer;
-
-        &:hover {
-            color: $chatbot-header-font-light;
-        }
-    }
-
     .ori-font-primary {
         color: $primary !important;
     }
