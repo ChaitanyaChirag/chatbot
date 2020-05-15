@@ -98,15 +98,15 @@
     }
 
     .ori-bg-green {
-      background-color: $green;
+        background-color: $green;
     }
 
     .ori-bg-warning {
-      background-color: $warning;
+        background-color: $warning;
     }
 
     .ori-bg-danger {
-      background-color: $danger;
+        background-color: $danger;
     }
 
     .ori-bg-card {
@@ -159,6 +159,23 @@
 
     .ori-font-notification-popup {
         color: $notification-popup-font-color;
+    }
+
+    .ori-font-header {
+        color: $chatbot-header-font;
+    }
+
+    .ori-font-header-light {
+        color: $chatbot-header-font-light;
+    }
+
+    .ori-font-header-hover-light {
+        color: $chatbot-header-font;
+        cursor: pointer;
+
+        &:hover {
+            color: $chatbot-header-font-light;
+        }
     }
 
     .ori-font-primary {
@@ -234,7 +251,7 @@
     }
 
     .ori-width-10 {
-      width: 10px;
+        width: 10px;
     }
 
     .ori-full-height {

@@ -18,11 +18,11 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => {
       <div className="ori-flex-row">
         <Avatar src={chatbot_client_info.icon_url} size="large" />
         <div className="ori-l-pad-15">
-          <p className="ori-capitalize ori-font-md ori-font-medium ori-no-b-mrgn">{chatbot_client_info.brand_name}</p>
-          <span className="ori-font-light ori-font-xs">
+          <p className="ori-capitalize ori-font-md ori-font-medium ori-no-b-mrgn ori-font-header">{chatbot_client_info.brand_name}</p>
+          <span className="ori-font-header-light ori-font-xs">
             <span
               className={classNames(
-                "ori-r-mrgn-5 ori-border-circle ori-display-inline-block",
+                "ori-r-mrgn-5 ori-border-circle ori-display-inline-block ",
                 {
                   "ori-bg-danger": !is_internet_connected,
                   "ori-bg-warning": is_internet_connected && !is_socket_connected,
