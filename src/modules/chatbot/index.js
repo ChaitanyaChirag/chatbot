@@ -255,7 +255,7 @@ class ChatBot extends Component {
     }
     return (
       <div className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer", { "ori-fade-in-up": !chatbot_client_info.trigger.show_close_icon && !this.is_app, "ori-fade-in": (chatbot_client_info.trigger.show_close_icon || this.is_app) })} style={containerStyle}>
-        <div id="chatbotContentContainer" className="ori-relative ori-flex-column chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
+        <div id="chatbotContentContainer" className="ori-relative ori-flex-column ori-bg-size-cover ori-bg-no-repeat ori-bg-position-center chatBotContentContainer" style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
             {
               !this.is_app && !is_adster_bot && !chat_details.end_chat.visible &&

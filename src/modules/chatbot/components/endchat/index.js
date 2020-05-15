@@ -106,7 +106,7 @@ class EndChat extends React.PureComponent {
   render() {
     const { isMounted, end_chat } = this.props;
     return (
-      <div className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-white ori-align-full ori-z-index-99994 ori-bg-size-cover ori-bg-no-repeat", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted, "ori-z-index-99995": end_chat.show_resolved_card })} style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
+      <div className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-white ori-align-full ori-z-index-99994 ori-bg-size-cover ori-bg-no-repeat ori-bg-position-center", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted, "ori-z-index-99995": end_chat.show_resolved_card })} style={{ backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${chatbot_setting.chat_interface.bg_image_url})` : 'none' }}>
         <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient-primary-to-light ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
           <div>
             <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
