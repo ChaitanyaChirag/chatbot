@@ -199,12 +199,20 @@ const middleware = () => {
   return store => next => action => {
     switch (action.type) {
       case actionTypes.MAKE_SOCKET_CONNECTION: {
-        if (socket !== null) {
-          socket.close();
-        }
+        if (socket !== null)
+          socket.close()
         const socket_url = getSocketUrl();
-        socket = io(socket_url);
-        registerSocketListener(store, socket);
+        fetch("https://api.ipify.org?format=json")
+          .then(response => response.json())
+          .then(data => {
+            const url = `${socket_url}&publicIP=${data.ip}`
+            socket = io(url);
+            registerSocketListener(store, socket);
+          })
+          .catch(() => {
+            socket = io(socket_url);
+            registerSocketListener(store, socket);
+          })
         break;
       }
 
