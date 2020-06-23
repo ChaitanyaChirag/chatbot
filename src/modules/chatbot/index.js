@@ -145,7 +145,7 @@ class ChatBot extends Component {
       window.androidObj.updateFromWeb(type, data);
     } else if (isIOS()) {
       window.webkit.messageHandlers.updateFromWeb.postMessage({ type, data })
-      // eval("if(updateFromWeb) updateFromWeb(type, data)");
+      eval("if(updateFromWeb) updateFromWeb(type, data)");
     }
   }
 
