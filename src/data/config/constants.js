@@ -356,7 +356,7 @@ export const android_default_messages = [
         delay: 0,
         payload: {
             title: "",
-            subtitle: "How would you like to proceed?",
+            subtitle: "What would you like to explore today?",
             buttons: [
                 {
                     type: BUTTON_TYPES.DEFAULT,
