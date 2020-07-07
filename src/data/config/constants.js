@@ -89,44 +89,112 @@ export const default_messages = [
         variable_name: '',
         delay: 0,
         payload: {
-            text: "Hi, I'm ADI, Your Personal DishTV Assistant."
+            text: "Hi, I'm VIC, Your Personal Vodafone Idea Assistant."
         },
         timestamp: new Date(),
     },
+    // {
+    //     sender: MESSAGE_SENDER.CHATBOT,
+    //     inputLock: false,
+    //     skipLS: false,
+    //     send_variable_to_apiai: false,
+    //     sendVariableToLS: false,
+    //     variable_name: '',
+    //     quickReplies: [],
+    //     type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
+    //     delay: 0,
+    //     payload: {
+    //         title: "",
+    //         subtitle: "What can I help you with today?",
+    //         buttons: [
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Recharge",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "REDX",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Change Plan",
+    //                 url: ""
+    //             },{
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Bill Details",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Outstanding Amount",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Previous transactions",
+    //                 url: ""
+    //             },
+                
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Data Balance",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Bill Request",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Pay Bill",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "International Roaming",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Activate Value Added Services",
+    //                 url: ""
+    //             },        
+    //         ]
+    //     },
+    //     timestamp: new Date(),
+    // },
     {
         sender: MESSAGE_SENDER.CHATBOT,
         inputLock: false,
-        skipLS: false,
+        quickReplies: [],
+        skipLS: true,
         send_variable_to_apiai: false,
         sendVariableToLS: false,
-        variable_name: '',
-        quickReplies: [],
+        variable_name: 'subscription',
         type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
         delay: 0,
         payload: {
             title: "",
-            subtitle: "What can I help you with today?",
+            subtitle: "How would you like to proceed?",
             buttons: [
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Recharge My Dish TV",
+                    text: "Prepaid",
                     url: ""
                 },
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Recharge Offers",
+                    text: "Postpaid",
                     url: ""
                 },
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Current Balance",
+                    text: "Join Network",
                     url: ""
-                },
-                {
-                    type: BUTTON_TYPES.DEFAULT,
-                    text: "Other Queries",
-                    url: ""
-                },
+                }        
             ]
         },
         timestamp: new Date(),
@@ -199,52 +267,114 @@ export const android_default_messages = [
         variable_name: '',
         delay: 0,
         payload: {
-            text: "Hi, I'm ADI, Your Personal DishTV Assistant."
+            text: "Hi, I'm VIC, Your Personal Vodafone Idea Assistant."
         },
         timestamp: new Date(),
     },
+    // {
+    //     sender: MESSAGE_SENDER.CHATBOT,
+    //     inputLock: false,
+    //     skipLS: false,
+    //     send_variable_to_apiai: false,
+    //     sendVariableToLS: false,
+    //     variable_name: '',
+    //     quickReplies: [],
+    //     type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
+    //     delay: 0,
+    //     payload: {
+    //         title: "",
+    //         subtitle: "What can I help you with today?",
+    //         buttons: [
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Recharge",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "REDX",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Change Plan",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Outstanding Amount",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Previous transactions",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Bill Details",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Data Balance",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Bill Request",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Pay Bill",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "International Roaming",
+    //                 url: ""
+    //             },
+    //             {
+    //                 type: BUTTON_TYPES.DEFAULT,
+    //                 text: "Activate Value Added Services",
+    //                 url: ""
+    //             }, 
+    //         ]
+    //     },
+    //     timestamp: new Date(),
+    // },
     {
         sender: MESSAGE_SENDER.CHATBOT,
         inputLock: false,
-        skipLS: false,
+        quickReplies: [],
+        skipLS: true,
         send_variable_to_apiai: false,
         sendVariableToLS: false,
-        variable_name: '',
-        quickReplies: [],
+        variable_name: 'subscription',
         type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
         delay: 0,
         payload: {
             title: "",
-            subtitle: "What can I help you with today?",
+            subtitle: "How would you like to proceed?",
             buttons: [
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "My DishTV is not working",
+                    text: "Prepaid",
                     url: ""
                 },
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Recharge Offers",
+                    text: "Postpaid",
                     url: ""
                 },
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Current Balance",
+                    text: "Join Network",
                     url: ""
-                },
-                {
-                    type: BUTTON_TYPES.DEFAULT,
-                    text: "Package details",
-                    url: ""
-                },
-                {
-                    type: BUTTON_TYPES.DEFAULT,
-                    text: "Other Queries",
-                    url: ""
-                },
-            ],
-
+                }        
+            ]
         },
-        timestamp: new Date()
-    }
+        timestamp: new Date(),
+    },
 ];
