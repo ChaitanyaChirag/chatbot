@@ -192,7 +192,7 @@ export const default_messages = [
                 },
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Join Network",
+                    text: "Join VIL Family",
                     url: ""
                 }        
             ]
