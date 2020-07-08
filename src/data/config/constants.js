@@ -370,7 +370,7 @@ export const android_default_messages = [
                 },
                 {
                     type: BUTTON_TYPES.DEFAULT,
-                    text: "Join Network",
+                    text: "Join VIL Family",
                     url: ""
                 }        
             ]
