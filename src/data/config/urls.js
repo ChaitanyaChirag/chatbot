@@ -65,7 +65,7 @@ export const chatbot_setting = {
     visibility: true, // to enable iframe require changes
   },
   auto_emit_response: {
-    enable: true,
+    enable: false,
     query_param_key: 'oribotmessage',
     payload: {
       type: MESSAGE_TYPES.TEXT,
