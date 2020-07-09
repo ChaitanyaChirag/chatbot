@@ -3,9 +3,25 @@ import { isAndroid, getPsid, getLocalMessage, getLocalUnseenMessage, getLocalCha
 
 const psid = getPsid();
 const messages = getLocalMessage();
+
+const getPreviousMessageData = (key, defaultData) => {
+  let data = defaultData
+  const senders = [CONSTANTS.MESSAGE_SENDER.ADMIN, CONSTANTS.MESSAGE_SENDER.CHATBOT, CONSTANTS.MESSAGE_SENDER.SYSTEM]
+  if (messages && messages.length > 0 && senders.includes(messages[messages.length - 1].sender) && messages[messages.length - 1][key] !== undefined)
+    data = messages[messages.length - 1][key]
+  return data
+}
+
 const unseen_messages = getLocalUnseenMessage();
 const is_chat_open = getLocalChatOpenStatus();
 const notification_count = getLocalNotificationCount();
+const quick_replies = getPreviousMessageData('quickReplies', []);
+const is_input_lock = getPreviousMessageData('inputLock', false);
+const input_lock_text = getPreviousMessageData('inputLockMessage', 'please select any option to proceed');
+const skipLS = getPreviousMessageData('skipLS', false);
+const send_variable_to_apiai = getPreviousMessageData('send_variable_to_apiai', false);
+const sendVariableToLS = getPreviousMessageData('sendVariableToLS', false);
+const variable_name = getPreviousMessageData('variable_name', '');
 const default_end_chat = {
   visible: false,
   show_confirmation_card: false,
@@ -27,13 +43,13 @@ const states = {
     downtime: {},
     is_typing: false,
     typing_text: "",
-    quick_replies: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].quickReplies ? messages[messages.length - 1].quickReplies : [],
-    is_input_lock: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].inputLock ? messages[messages.length - 1].inputLock : false,
-    input_lock_text: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].inputLockMessage ? messages[messages.length - 1].inputLockMessage : "please select any option to proceed",
-    skipLS: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].skipLS ? messages[messages.length - 1].skipLS : false,
-    send_variable_to_apiai: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].send_variable_to_apiai ? messages[messages.length - 1].send_variable_to_apiai : false,
-    sendVariableToLS: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].sendVariableToLS ? messages[messages.length - 1].sendVariableToLS : false,
-    variable_name: messages && messages.length > 0 && messages[messages.length - 1].sender === CONSTANTS.MESSAGE_SENDER.SERVER && messages[messages.length - 1].variable_name ? messages[messages.length - 1].variable_name : '',
+    quick_replies,
+    is_input_lock,
+    input_lock_text,
+    skipLS,
+    send_variable_to_apiai,
+    sendVariableToLS,
+    variable_name,
     end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, default_end_chat),
     notification: {
       visible: false,
