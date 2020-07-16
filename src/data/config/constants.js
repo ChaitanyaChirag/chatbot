@@ -192,7 +192,7 @@ export const default_messages = [
         },
         {
           type: BUTTON_TYPES.DEFAULT,
-          text: "Join VIL Family",
+          text: "Join Vodafone Idea Family",
           url: ""
         }
       ]
