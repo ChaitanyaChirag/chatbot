@@ -121,7 +121,7 @@ class InputComposer extends React.PureComponent {
   };
 
   render() {
-    const { is_input_lock, input_lock_text, onClickMenu, onInputFocus, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
+    const { is_input_lock, input_lock_text, onClickMenu, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
     const { input_message } = this.state;
 
     return (
@@ -156,7 +156,6 @@ class InputComposer extends React.PureComponent {
             name="input_message"
             disabled={is_input_lock}
             onKeyDown={this.inputKeyDown}
-            onFocus={onInputFocus}
             onChange={this.handleInputChange}
           />
           {
@@ -183,7 +182,6 @@ InputComposer.propTypes = {
   input_lock_text: PropTypes.string,
   onClickMenu: PropTypes.func,
   sendTextToServer: PropTypes.func,
-  onInputFocus: PropTypes.func,
   browserSupportsSpeechRecognition: PropTypes.bool,
   transcript: PropTypes.string,
   emitCustomEvent: PropTypes.func,
