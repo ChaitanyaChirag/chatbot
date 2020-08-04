@@ -13,18 +13,27 @@ import './index.scss';
 
 import { MESSAGE_SENDER, MESSAGE_TYPES, MESSAGE_SUBTYPES, MESSAGE_READ_STATUS } from '../../data/config/constants';
 import { chatbot_client_info } from '../../data/config/urls';
-import { formatTime, formatDate, scrollToBottom } from '../../data/config/utils';
+import { formatTime, formatDate } from '../../data/config/utils';
 
 import DotsLoader from '../dotsloader';
 import ErrorBoundary from '../errorboundary';
 
 class ChatBotConversation extends React.PureComponent {
-  componentDidUpdate(prevProps, prevState) {
-    let { messages, messagesContainer } = this.props;
-    if (prevProps.messages.length !== messages.length) {
-      scrollToBottom(messagesContainer);
-    }
-  };
+  constructor(props) {
+    super(props)
+    this.scrollRef = React.createRef();
+    this.chatbodyRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.chatbodyRef.current.scrollTop = this.chatbodyRef.current.scrollHeight
+  }
+
+  componentDidUpdate(prevProps) {
+    const { messages } = this.props;
+    if (prevProps.messages.length !== messages.length)
+      this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
+  }
 
   isTimeStampTagVisible = (timestamp, prev_timestamp) => {
     const t1 = new Date(timestamp).getTime();
@@ -54,6 +63,12 @@ class ChatBotConversation extends React.PureComponent {
     onMessageVoting(payload);
   };
 
+  onClickChatbody = () => {
+    const { stack_view, onClickStackBubble } = this.props
+    if (stack_view)
+      onClickStackBubble()
+  }
+
   renderReadStatusIcon = readStatus => {
     if (readStatus === MESSAGE_READ_STATUS.SENDING) {
       return (
@@ -75,10 +90,14 @@ class ChatBotConversation extends React.PureComponent {
   };
 
   render() {
-    const { messages, is_typing, typing_text, handleMsgBtnClick, onChangeCheckbox, notification_bot, stack_view, btn_disabled, bubble_animation, handleFileUpload } = this.props;
+    const { messages, is_typing, typing_text, handleMsgBtnClick, onChangeCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
 
     return (
-      <div className="ori-full-width ori-l-pad-20 ori-r-pad-40 ori-tb-pad-10 oriChatBotConversationContainer">
+      <div
+        className={classNames("oriChatBotConversationContainer", { "ori-cursor-ptr ori-no-b-pad": stack_view })}
+        ref={this.chatbodyRef}
+        onClick={this.onClickChatbody}
+      >
         {
           messages.map((message, index) => {
             const first_msg = (index === 0) || (index > 0 && ((messages[index - 1].sender !== message.sender) || (messages[index - 1].senderInfo && message.senderInfo && messages[index - 1].senderInfo.psid !== message.senderInfo.psid)));
@@ -103,7 +122,7 @@ class ChatBotConversation extends React.PureComponent {
             const show_offers = message.type === MESSAGE_TYPES.CUSTOM_MSG && message.payload.subtype === MESSAGE_SUBTYPES.DISH_OFFERS;
             const show_rechargeHistory = message.type === MESSAGE_TYPES.CUSTOM_MSG && message.payload.subtype === MESSAGE_SUBTYPES.DISH_RECHARGE_HISTORY;
 
-            let sender_title = "u";
+            let sender_title = "U";
             let sender_img_url = "";
             if (message.senderInfo) {
               sender_title = message.senderInfo.pseudoName ? message.senderInfo.pseudoName : "agent";
@@ -135,7 +154,7 @@ class ChatBotConversation extends React.PureComponent {
                       <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-b-mrgn-10 ori-t-mrgn-15 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
                     </div>
                   }
-                  <div className={classNames("ori-relative ori-flex-row msgContainer ori-animated " + bubble_animation, { "receiverMsgContainer": admin || chatbot, "senderMsgContainer": customer })} >
+                  <div className={classNames("ori-relative ori-flex-row msgContainer ori-animated ", { "receiverMsgContainer": admin || chatbot, "senderMsgContainer": customer })} >
                     {
                       first_msg && admin &&
                       <p className="ori-absolute ori-font-11 ori-capitalize ori-align-top-4" >{sender_title}</p>
@@ -198,7 +217,7 @@ class ChatBotConversation extends React.PureComponent {
                           }
                           {
                             show_uploadfile &&
-                            <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={ btn_disabled} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
+                            <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
                           }
                           {
                             (message.timestamp || message.chatlogId) &&
@@ -224,7 +243,7 @@ class ChatBotConversation extends React.PureComponent {
                                     <span className="ori-font-xxs ori-flex-column ori-flex-jfe ori-uppercase">{formatTime(message.timestamp, { hour: "2-digit", minute: "2-digit" })}</span>
                                   }
                                   {
-                                    customer && message.readStatus &&
+                                    customer && message.readStatus && !stack_view &&
                                     this.renderReadStatusIcon(message.readStatus)
                                   }
                                 </div>
@@ -254,14 +273,15 @@ class ChatBotConversation extends React.PureComponent {
             </div>
           </div>
         }
+        <div ref={this.scrollRef} />
       </div>
-    );
+    )
   }
 }
 
 ChatBotConversation.propTypes = {
   messages: PropTypes.array,
-  messagesContainer: PropTypes.object,
+  onClickStackBubble: PropTypes.func,
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
   onChangeCheckbox: PropTypes.func,
@@ -271,13 +291,11 @@ ChatBotConversation.propTypes = {
   typing_text: PropTypes.string,
   notification_bot: PropTypes.bool,
   stack_view: PropTypes.bool,
-  bubble_animation: PropTypes.string,
   btn_disabled: PropTypes.bool,
 };
 
 ChatBotConversation.defaultProps = {
   notification_bot: false,
-  bubble_animation: "",
   typing_text: "",
   is_typing: false,
   stack_view: false,

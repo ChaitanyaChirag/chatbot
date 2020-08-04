@@ -6,7 +6,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_client_info } from '../../data/config/urls';
-import { LOCAL_STORAGE, isAndroid, isIOS, getDefaultMessages, scrollToBottom, fileToBase64, checkImageTypeFile, showMessage, checkMultipleExtension } from '../../data/config/utils';
+import { LOCAL_STORAGE, isAndroid, isIOS, getDefaultMessages, fileToBase64, checkImageTypeFile, showMessage, checkMultipleExtension } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 
 import './index.scss';
@@ -51,14 +51,6 @@ class ChatBot extends Component {
 
   is_app = isAndroid() || isIOS();
 
-  componentDidMount() {
-    scrollToBottom(this.messagesContainer);
-  }
-
-  setMessageContainerRef = el => {
-    this.messagesContainer = el;
-  }
-
   openMenu = () => {
     this.setState({ show_menu: true });
   };
@@ -67,10 +59,6 @@ class ChatBot extends Component {
     const { show_menu } = this.state;
     if (show_menu)
       this.setState({ show_menu: false });
-  };
-
-  scrollContainerToBottom = () => {
-    scrollToBottom(this.messagesContainer);
   };
 
   handleResetChat = () => {
@@ -329,9 +317,19 @@ class ChatBot extends Component {
             screen_height >= 420 &&
             <Header />
           }
-          <div className="ori-b-pad-40 ori-full-flex ori-full-parent-height chatBodyContainer" id="messages_container" ref={this.setMessageContainerRef} >
-            <ChatBotConversation btn_disabled={!chat_details.is_socket_connected} messages={chat_details.messages} onMessageVoting={actions.onMessageVoting} handleMsgBtnClick={handleMsgBtnClick} handleFileUpload={handleFileUpload} messagesContainer={this.messagesContainer} handleOfferSelection={handleOfferSelection} onChangeCheckbox={onChangeCheckbox} is_typing={chat_details.is_typing} typing_text={chat_details.typing_text} />
-          </div>
+          {/* <div className="ori-b-pad-40 ori-full-flex ori-full-parent-height chatBodyContainer" id="messages_container" ref={this.setMessageContainerRef} > */}
+          <ChatBotConversation
+            btn_disabled={!chat_details.is_socket_connected}
+            messages={chat_details.messages}
+            onMessageVoting={actions.onMessageVoting}
+            handleMsgBtnClick={handleMsgBtnClick}
+            handleFileUpload={handleFileUpload}
+            // messagesContainer={this.messagesContainer}
+            handleOfferSelection={handleOfferSelection}
+            onChangeCheckbox={onChangeCheckbox}
+            is_typing={chat_details.is_typing}
+            typing_text={chat_details.typing_text}
+          />
           <div className={classNames("ori-relative ori-flex-column ori-flex-jc chatFooterContainer")} style={{ paddingRight: '67px', paddingLeft: chatbot_setting.menu.visible ? '40px' : '10px' }}>
             {
               chatbot_setting.powered_by && chatbot_setting.powered_by.visibility &&
@@ -347,7 +345,7 @@ class ChatBot extends Component {
                 </div>
               </Suspense>
             }
-            <InputComposer psid={chat_details.psid} sendTextToServer={sendTextToServer} is_input_lock={chat_details.is_input_lock} input_lock_text={chat_details.input_lock_text} onInputFocus={this.scrollContainerToBottom} onClickMenu={this.openMenu} emitCustomEvent={actions.emitCustomEvent} beforeUpload={this.beforeFileUpload} onRemove={this.onFileRemove} />
+            <InputComposer psid={chat_details.psid} sendTextToServer={sendTextToServer} is_input_lock={chat_details.is_input_lock} input_lock_text={chat_details.input_lock_text} onClickMenu={this.openMenu} emitCustomEvent={actions.emitCustomEvent} beforeUpload={this.beforeFileUpload} onRemove={this.onFileRemove} />
           </div>
         </div>
       </div >
