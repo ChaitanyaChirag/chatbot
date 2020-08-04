@@ -44,7 +44,7 @@ class EndChat extends React.PureComponent {
                     <div key={index} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-capitalize ori-b-mrgn-7 ori-font-13" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
                       <Input className="ori-font-xs" {...form_item.input_props} onChange={handleFormInputChange} />
                     </div>
@@ -55,7 +55,7 @@ class EndChat extends React.PureComponent {
                     <div key={index} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-capitalize ori-b-mrgn-7 ori-font-13" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
                       <Input.TextArea className="ori-font-xs" {...form_item.input_props} onChange={handleFormInputChange} />
                     </div>
@@ -66,7 +66,7 @@ class EndChat extends React.PureComponent {
                     <div key={index} id={`select-${index}`} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-capitalize ori-b-mrgn-7 ori-font-13" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
                       <Select className="ori-full-width ori-font-xs" getPopupContainer={() => document.getElementById(`select-${index}`)} {...form_item.input_props} onChange={handleFormSelectChange} >
                         {
