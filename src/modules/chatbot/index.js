@@ -320,20 +320,18 @@ class ChatBot extends Component {
             screen_height >= 420 &&
             <Header />
           }
-          {/* <div className="ori-b-pad-40 ori-full-flex ori-full-parent-height chatBodyContainer" id="messages_container" ref={this.setMessageContainerRef} > */}
           <ChatBotConversation
             btn_disabled={!chat_details.is_socket_connected}
             messages={chat_details.messages}
             onMessageVoting={actions.onMessageVoting}
             handleMsgBtnClick={handleMsgBtnClick}
             handleFileUpload={handleFileUpload}
-            // messagesContainer={this.messagesContainer}
             handleOfferSelection={handleOfferSelection}
             onChangeCheckbox={onChangeCheckbox}
             is_typing={chat_details.is_typing}
             typing_text={chat_details.typing_text}
           />
-          <div className={classNames("ori-relative ori-flex-column ori-flex-jc chatFooterContainer")} style={{ paddingRight: '67px', paddingLeft: chatbot_setting.menu.visible ? '40px' : '10px' }}>
+          <div className={classNames("ori-relative ori-flex-column ori-flex-jc chatFooterContainer")} style={{ paddingRight: '65px', paddingLeft: chatbot_setting.menu.visible ? '30px' : '10px' }}>
             {
               chatbot_setting.powered_by && chatbot_setting.powered_by.visibility &&
               <div className="ori-absolute ori-flex-row ori-flex-jc alignPoweredBy">

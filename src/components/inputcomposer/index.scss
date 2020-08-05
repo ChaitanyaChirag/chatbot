@@ -1,4 +1,5 @@
 @import "../../data//styles/colors.scss";
+@import "../../data/styles/variables.scss";
 
 .oriInputComposerContainer {
     .inputField {
@@ -6,6 +7,8 @@
         border: none !important;
         background-color: $chatbot-footer-bg !important;
         color: $chatbot-font-color !important;
+        font-size: $font-size-md;
+        line-height: 1.2;
 
         &::placeholder {
             text-overflow: ellipsis;
@@ -19,10 +22,9 @@
         }
     }
 
-    .alignMenuIcon {
-        z-index: 99993;
-        bottom: -4px;
-        left: -32px;
+    .alignRightIcons {
+        bottom: -2px;
+        right: -60px;
         color: $font-color-light;
 
         &:hover {
@@ -30,15 +32,19 @@
         }
     }
 
-    .alignAddFileIcon {
+    .alignMenuIcon {
         z-index: 99993;
-        bottom: -4px;
-        right: -60px;
+        bottom: -1px;
+        left: -24px;
+        color: $font-color-light;
+
+        &:hover {
+            color: $font-color;
+        }
     }
 
     .alignCircleDotIcon {
-        z-index: 99993;
-        bottom: -4px;
+        bottom: -2px;
         left: -20px;
         color: $font-color-light;
 
@@ -47,33 +53,25 @@
         }
     }
 
-    .alignSendButton {
-        z-index: 99993;
-        bottom: -4px;
-        right: -32px;
+    .sendButton {
         border: none !important;
-        background-color: $chatbot-footer-bg !important;
-        height: auto !important;
+        background-color: transparent !important;
+        color: $font-color-light !important;
+
+        &:hover {
+            color: $font-color !important;
+        }
 
         &:focus, &:active {
             outline: none !important;
-            border-radius: 50%;
-        }
-
-        &:hover {
-            color: $primary !important;
         }
     }
 
     .sendBtnActive {
         color: $primary !important;
-    }
-
-    .btnIcon {
-        color: $font-color-light;
 
         &:hover {
-            color: $font-color;
+            color: $primary !important;
         }
     }
 }
