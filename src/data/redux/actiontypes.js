@@ -1,8 +1,8 @@
 const actionTypes = {
     /* -------------- page_details ------------------ */
-    
-    DEVICE_DATA_LOADED: "DEVICE_DATA_LOADED",
-    ENABLE_ADSTER_BOT: "ENABLE_ADSTER_BOT",
+    UPDATE_PAGE_STATE: "UPDATE_PAGE_STATE",
+    // DEVICE_DATA_LOADED: "DEVICE_DATA_LOADED",
+    // ENABLE_ADSTER_BOT: "ENABLE_ADSTER_BOT",
 
     /* --------------chatbot_details----------------- */
 

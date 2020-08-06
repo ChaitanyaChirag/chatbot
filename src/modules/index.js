@@ -24,7 +24,7 @@ class AppContainer extends Component {
   constructor(props) {
     super(props);
     window.androidObj = function AndroidClass() { };
-    props.actions.setDeviceData(checkDevice.deviceStatus());
+    //props.actions.setDeviceData(checkDevice.deviceStatus());
     this.timeout = false;
     this.chatbotRef = React.createRef();
     this.state = {
@@ -42,10 +42,11 @@ class AppContainer extends Component {
     const ios = isIOS();
     let self = this;
     window.bot_popup = this.botPopup;
+    actions.updatePageState({ device_data: checkDevice.deviceStatus() });
     window.addEventListener("resize", () => {
       clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
-        self.props.actions.setDeviceData(checkDevice.deviceStatus());
+        self.props.actions.updatePageState({ device_data: checkDevice.deviceStatus() });
       }, 300);
     });
     this.handleConnectionChange();
@@ -107,7 +108,7 @@ class AppContainer extends Component {
       if (chatbot_setting.adster_bot.visibility) {
         if (query_params.get(chatbot_setting.adster_bot.query_param_key)) {
           this.handleSocketConnection(true);
-          actions.enableAdsterBot();
+          actions.updatePageState({ is_adster_bot: true });
         }
       }
     }
