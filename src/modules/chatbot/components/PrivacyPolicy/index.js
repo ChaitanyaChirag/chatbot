@@ -7,7 +7,7 @@ import { chatbot_status } from '../../../../data/config/urls'
 
 const PrivacyPolicy = ({ onClose }) => {
   return (
-    <div className="ori-relative ori-bg-white ori-pad-15 ori-border-radius-3 ori-full-width ori-mrgn-auto">
+    <div className="ori-relative ori-bg-white ori-pad-15 ori-border-radius-3 ori-full-width ori-max-width-350 ori-mrgn-auto">
       <CloseIcon
         size={20}
         className="ori-absolute ori-font-light-hover-default"
