@@ -289,11 +289,11 @@ class ChatBot extends Component {
           <Suspense fallback={null}>
             <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
             <CustomModal
-              isMounted={chat_details.downtime.isDownTime || show_privacy_policy || true}
+              isMounted={chat_details.downtime.isDownTime || show_privacy_policy}
               delayUnmountTime={400}
             >
               {
-                // chat_details.downtime.isDownTime &&
+                chat_details.downtime.isDownTime &&
                 <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
                   <DownTime downtime={chat_details.downtime} onDowntimeComplete={this.onDowntimeComplete} />
                 </div>
