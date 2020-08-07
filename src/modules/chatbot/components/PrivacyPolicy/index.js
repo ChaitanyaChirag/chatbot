@@ -25,7 +25,7 @@ const PrivacyPolicy = ({ onClose }) => {
               }
               {
                 policy.subtitle &&
-                <p className="ori-font-13 ori-font-light">{policy.subtitle}</p>
+                <p className="ori-font-xs">{policy.subtitle}</p>
               }
               <p className="ori-font-xs ori-font-light ori-b-mrgn-10">{policy.content} </p>
             </React.Fragment>
