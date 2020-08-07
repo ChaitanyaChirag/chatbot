@@ -13,7 +13,6 @@
     z-index: 99997;
     left: 52px;
     bottom: 60px;
-    min-width: 150px;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
@@ -24,16 +23,16 @@
     }
 
     .menuItem {
-        p {
-            color: $font-color-light;
-
-            &:hover {
-                color: $primary;
-            }
-        }
+        color: $font-color-light;
+        border-bottom: 1px solid $border-light;
 
         &:hover {
-            color: $primary;
+            color: $font-color;
+            background-color: $default;
+        }
+
+        &:last-child {
+          border-bottom: none;
         }
     }
 }

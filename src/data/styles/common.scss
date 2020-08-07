@@ -146,6 +146,7 @@
     }
 
     .ori-font-light-hover-default {
+        cursor: pointer;
         color: $font-color-light;
 
         &:hover {
@@ -239,6 +240,10 @@
 
     .ori-full-width {
         width: 100% !important;
+    }
+
+    .ori-max-width-350 {
+      max-width: 350px;
     }
 
     .ori-width-10 {
@@ -768,6 +773,10 @@
     }
 
     //---------------- margin-X -------------------
+
+    .ori-mrgn-auto {
+      margin: auto;
+    }
 
     .ori-mrgn-10 {
         margin: 10px;

@@ -75,6 +75,7 @@ export const chatbot_setting = {
   menu: {
     visible: true,
     children: {
+      privacy_policy: false,
       feedback: true,
       clear_chat: true,
     }
@@ -97,5 +98,16 @@ export const chatbot_status = {
     high_rated: "Please suggest how can we make your next visit awesome.",
     success: "Thank you for giving us feedback",
     failed: "Some error occured please try again later"
-  }
+  },
+  privacy_policy: [
+    {
+      title: "How do we protect the information we receive?",
+      subtitle: "This is subtitle", // define if require
+      content: "Our site is reviewed on a regular basis for security vulnerabilities in order to make your visit to our site as safe as possible.Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology. We do not store credit/debit card information on our systems.We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.All transactions are processed through a gateway provider and are not stored or processed on our servers."
+    },
+    {
+      title: "How do we protect the information we receive?",
+      content: "Our site is reviewed on a regular basis for security vulnerabilities in order to make your visit to our site as safe as possible.Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology. We do not store credit/debit card information on our systems.We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.All transactions are processed through a gateway provider and are not stored or processed on our servers."
+    }
+  ]
 };
