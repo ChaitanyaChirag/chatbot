@@ -102,7 +102,7 @@ export const chatbot_status = {
   privacy_policy: [
     {
       title: "How do we protect the information we receive?",
-      subtitle: "This is subtitle", // define if require
+      subtitle: "This is subtitle", // add subtitle key only if requires
       content: "Our site is reviewed on a regular basis for security vulnerabilities in order to make your visit to our site as safe as possible.Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology. We do not store credit/debit card information on our systems.We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.All transactions are processed through a gateway provider and are not stored or processed on our servers."
     },
     {
