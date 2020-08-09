@@ -91,10 +91,10 @@ export const chatbot_setting = {
 
 export const chatbot_status = {
   common: {
-    socket_connection_lost: "connection has been lost"
+    socket_connection_lost: "connection lost"
   },
   feedback: {
-    greeting: "How happy are you with our support ?",
+    greeting: "How happy are you with our support?",
     low_rated: "Please tell us what went wrong.",
     high_rated: "Please suggest how can we make your next visit awesome.",
     success: "Thank you for giving us feedback",
