@@ -2,6 +2,11 @@ export const ERROR_BOUNDARY_TYPE = {
   ERROR: "error",
 };
 
+export const INFO_CONTENT_TYPE = {
+  PRIVACY_POLICY: "privacy_policy",
+  TERMS_AND_CONDITIONS: "terms_and_conditions"
+};
+
 export const EVENTS = {
   CONNECT: "connect",
   DISCONNECT: "disconnect",

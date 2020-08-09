@@ -25,7 +25,7 @@ const PreviewFile = React.lazy(() => import('./components/previewfile'));
 const DownTime = React.lazy(() => import('./components/downtime'));
 const CustomModal = React.lazy(() => import('../../components/custommodal'));
 const ShowNotification = React.lazy(() => import('./components/shownotification'));
-const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
+const InfoContent = React.lazy(() => import('./components/InfoContent'));
 
 
 const androidTabletStyle = {
@@ -44,7 +44,7 @@ class ChatBot extends Component {
   state = {
     show_menu: false,
     show_feedback: false,
-    show_privacy_policy: false,
+    info_content_type: null,
     end_chat_form_data: {},
     file: null,
     fileUrl: "",
@@ -86,10 +86,10 @@ class ChatBot extends Component {
     });
   };
 
-  showPrivacyPolicy = () => {
+  showInfoContent = type => {
     this.setState({ show_menu: false }, () => {
       setTimeout(() => {
-        this.setState({ show_privacy_policy: true })
+        this.setState({ info_content_type: type })
       }, 500)
     });
   }
@@ -98,8 +98,8 @@ class ChatBot extends Component {
     this.setState({ show_feedback: false });
   };
 
-  closePrivacyPolicy = () => {
-    this.setState({ show_privacy_policy: false })
+  closeInfoContent = () => {
+    this.setState({ info_content_type: null })
   }
 
   minimizeChatbotInterface = () => {
@@ -253,7 +253,7 @@ class ChatBot extends Component {
   };
 
   render() {
-    const { show_menu, show_feedback, show_privacy_policy, show_file_preview, file, fileUrl } = this.state;
+    const { show_menu, show_feedback, show_file_preview, info_content_type, file, fileUrl } = this.state;
     const { is_adster_bot, chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions, screen_height } = this.props;
     let containerStyle = {
       bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
@@ -289,7 +289,7 @@ class ChatBot extends Component {
           <Suspense fallback={null}>
             <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
             <CustomModal
-              isMounted={chat_details.downtime.isDownTime || show_privacy_policy}
+              isMounted={chat_details.downtime.isDownTime || info_content_type !== null}
               delayUnmountTime={400}
             >
               {
@@ -299,8 +299,8 @@ class ChatBot extends Component {
                 </div>
               }
               {
-                show_privacy_policy &&
-                <PrivacyPolicy onClose={this.closePrivacyPolicy} />
+                info_content_type &&
+                <InfoContent type={info_content_type} onClose={this.closeInfoContent} />
               }
             </CustomModal>
             <EndChat
@@ -330,7 +330,7 @@ class ChatBot extends Component {
               closeMenu={this.closeMenu}
               handleResetChat={this.handleResetChat}
               showFeedback={this.showFeedback}
-              showPrivacyPolicy={this.showPrivacyPolicy}
+              showInfoContent={this.showInfoContent}
             />
             <Feedback
               isMounted={show_feedback}
