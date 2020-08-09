@@ -75,8 +75,8 @@ export const chatbot_setting = {
   menu: {
     visible: true,
     children: {
-      privacy_policy: true,
-      terms_and_conditions: true,
+      privacy_policy: false,
+      terms_and_conditions: false,
       feedback: true,
       clear_chat: true,
     }
