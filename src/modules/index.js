@@ -12,8 +12,8 @@ import * as chatActions from '../data/redux/chat_details/actions';
 import * as pageActions from '../data/redux/page_details/actions';
 
 import { MESSAGE_TYPES, BUTTON_TYPES, BUTTON_SUB_TYPES, MESSAGE_SENDER, MESSAGE_READ_STATUS, EVENTS } from '../data/config/constants';
-import { chatbot_client_info, chatbot_setting } from '../data/config/urls';
-import { LOCAL_STORAGE, checkDevice, isAndroid, isIOS, PLATFORM, getDefaultMessages, uniqueId } from '../data/config/utils';
+import { chatbot_client_info, chatbot_setting, chatbot_status } from '../data/config/urls';
+import { LOCAL_STORAGE, checkDevice, isAndroid, isIOS, PLATFORM, getDefaultMessages, uniqueId, setCookie, getCookie } from '../data/config/utils';
 
 import TriggerChatBot from '../components/triggerchatbot';
 
@@ -41,6 +41,15 @@ class AppContainer extends Component {
     const android = isAndroid();
     const ios = isIOS();
     let self = this;
+    if (chatbot_setting.security.enable && !chat_details.secure) {
+      console.log('cookie', getCookie(chatbot_setting.security.cookie_name))
+      const security_code = window.prompt(chatbot_status.security_prompt)
+      if (security_code && security_code === chatbot_setting.security.code) {
+        setCookie(chatbot_setting.security.cookie_name, true)
+        actions.updateState('secure', true)
+      }
+    }
+
     window.bot_popup = this.botPopup;
     actions.updatePageState({ device_data: checkDevice.deviceStatus() });
     window.addEventListener("resize", () => {
@@ -404,6 +413,8 @@ class AppContainer extends Component {
 
   render() {
     const { page_details, chat_details, actions } = this.props;
+    if (chatbot_setting.security.enable && !chat_details.secure)
+      return null
     return (
       <div className="ori-app-container ori-ant-design-container oriAppContainer">
         <Badge count={chat_details.notification_count} overflowCount={9} className="ori-animated ori-fade-in notificationBadge">

@@ -40,6 +40,11 @@ export const chatbot_client_info = {
 export const chatbot_setting = {
   automate_connection_time: 3600, //in seceond only
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
+  security: {
+    enable: true,
+    code: "123456",
+    cookie_name: "bot_authenticated"
+  },
   powered_by: {
     visibility: true, // to enable powered by tag
     target_url: "http://oriserve.com/",
@@ -100,6 +105,7 @@ export const chatbot_status = {
     success: "Thank you for giving us feedback",
     failed: "Some error occured please try again later"
   },
+  security_prompt:"",
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
       header: 'Privacy Policy',

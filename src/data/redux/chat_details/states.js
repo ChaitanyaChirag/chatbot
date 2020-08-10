@@ -1,5 +1,17 @@
 import * as CONSTANTS from '../../config/constants';
-import { isAndroid, getPsid, getLocalMessage, getLocalUnseenMessage, getLocalChatOpenStatus, getLocalNotificationCount, getDefaultMessages, getDataFromLocalStorage, LOCAL_STORAGE } from '../../config/utils'
+import { chatbot_setting } from '../../config/urls';
+import {
+  isAndroid,
+  getPsid,
+  getCookie,
+  getLocalMessage,
+  getLocalUnseenMessage,
+  getLocalChatOpenStatus,
+  getLocalNotificationCount,
+  getDefaultMessages,
+  getDataFromLocalStorage,
+  LOCAL_STORAGE
+} from '../../config/utils'
 
 const psid = getPsid();
 const messages = getLocalMessage();
@@ -33,6 +45,7 @@ const default_end_chat = {
 
 const states = {
   chat_details: {
+    secure: chatbot_setting.security.enable ? JSON.parse(getCookie(chatbot_setting.security.cookie_name)) : false,
     is_socket_connected: false,
     is_internet_connected: false,
     messages: isAndroid() ? getDefaultMessages() : messages,
