@@ -154,10 +154,10 @@ class ChatBotConversation extends React.PureComponent {
                       <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-b-mrgn-10 ori-t-mrgn-15 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
                     </div>
                   }
-                  <div className={classNames("ori-relative ori-flex-row msgContainer ori-animated ", { "receiverMsgContainer": admin || chatbot, "senderMsgContainer": customer })} >
+                  <div className={classNames("ori-relative ori-flex-row msgContainer", { "receiverMsgContainer": admin || chatbot, "senderMsgContainer": customer })} >
                     {
                       first_msg && admin &&
-                      <p className="ori-absolute ori-font-11 ori-capitalize ori-align-top-4" >{sender_title}</p>
+                      <p className="ori-absolute ori-font-xs ori-capitalize ori-align-top-4" >{sender_title}</p>
                     }
                     {
                       first_msg && chatbot &&
@@ -173,84 +173,95 @@ class ChatBotConversation extends React.PureComponent {
                     }
                     {
                       (show_textMessage || show_listMessage || show_textWithMedia || show_checkboxWithMedia || show_recharge || show_rechargeDetails || show_offers || show_rechargeHistory || show_carousel || show_promptmsg || show_uploadfile) &&
-                      <div className={classNames("ori-b-mrgn-4", { "ori-t-pad-20": first_msg, "bubbleIndicatorDefault": first_msg && !notification_bot, "bubbleIndicatorNotification": first_msg && notification_bot && !stack_view, "bubbleIndicatorStack": first_msg && notification_bot && stack_view, "ori-full-width": show_carousel || show_uploadfile })}>
-                        <div className={classNames("ori-pad-7 ori-border-radius-10 msgBox", { "bubbleIndicator": first_msg, "defaultMsgBox": !notification_bot, "notificationMsgBox": notification_bot && !stack_view, "notificationStackMsgBox": notification_bot && stack_view, "oriOffers": show_offers, "ori-full-width oriRechargeHistory": show_rechargeHistory, "ori-full-width oriCarousel": show_carousel, "ori-l-pad-15": show_listMessage })}>
+                      <div
+                        className={classNames("ori-pad-7 ori-b-mrgn-5 ori-border-radius-10 msgBox",
                           {
-                            show_textMessage &&
-                            <TextMessage message={message} disable_html_parser={customer} />
+                            "ori-t-mrgn-15 firstMsg": first_msg,
+                            "defaultMsgBox": !notification_bot,
+                            "notificationMsgBox": notification_bot && !stack_view,
+                            "notificationStackMsgBox": notification_bot && stack_view,
+                            "oriOffers": show_offers,
+                            "ori-full-width oriRechargeHistory": show_rechargeHistory,
+                            "ori-full-width oriCarousel": show_carousel,
+                            "ori-l-pad-15": show_listMessage
                           }
-                          {
-                            show_listMessage &&
-                            <ListMessage message={message} />
-                          }
-                          {
-                            show_textWithMedia &&
-                            <TextWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_checkboxWithMedia &&
-                            <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onChangeCheckbox={onChangeCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_recharge &&
-                            <Recharge message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_rechargeDetails &&
-                            <RechargeDetails message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_offers &&
-                            <Offers message={message} handleMsgBtnClick={handleMsgBtnClick} handleOfferSelection={this.props.handleOfferSelection} disable_offer={index !== (messages.length - 1) || stack_view} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_rechargeHistory &&
-                            <RechargeHistory message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_carousel &&
-                            <CarouselWithButtons message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
-                          }
-                          {
-                            show_promptmsg &&
-                            <PromptMsg message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={index !== (messages.length - 1) || btn_disabled} btn_hidden={stack_view} />
-                          }
-                          {
-                            show_uploadfile &&
-                            <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
-                          }
-                          {
-                            (message.timestamp || message.chatlogId) &&
-                            <div className={classNames("ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb", { "ori-font-white": customer, "ori-font-light": chatbot || admin })}>
-                              <div className="ori-flex-row">
-                                {
-                                  message.chatlogId && (chatbot || admin) &&
-                                  <React.Fragment>
-                                    <div className={classNames("ori-flex ori-cursor-ptr ori-r-pad-5", { "ori-font-primary": message.voteType && message.voteType === "upvote" })} onClick={this.onClickMessageVoting.bind(this, message, "upvote")} >
-                                      <ThumbUpIcon size={12} />
-                                    </div>
-                                    <div className={classNames("ori-flex ori-cursor-ptr ori-l-pad-5 ori-rotate-180", { "ori-font-primary": message.voteType && message.voteType === "downvote" })} onClick={this.onClickMessageVoting.bind(this, message, "downvote")}>
-                                      <ThumbUpIcon size={12} />
-                                    </div>
-                                  </React.Fragment>
-                                }
-                              </div>
+                        )}
+                      >
+                        {
+                          show_textMessage &&
+                          <TextMessage message={message} disable_html_parser={customer} />
+                        }
+                        {
+                          show_listMessage &&
+                          <ListMessage message={message} />
+                        }
+                        {
+                          show_textWithMedia &&
+                          <TextWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_checkboxWithMedia &&
+                          <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onChangeCheckbox={onChangeCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_recharge &&
+                          <Recharge message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_rechargeDetails &&
+                          <RechargeDetails message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_offers &&
+                          <Offers message={message} handleMsgBtnClick={handleMsgBtnClick} handleOfferSelection={this.props.handleOfferSelection} disable_offer={index !== (messages.length - 1) || stack_view} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_rechargeHistory &&
+                          <RechargeHistory message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_carousel &&
+                          <CarouselWithButtons message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                        }
+                        {
+                          show_promptmsg &&
+                          <PromptMsg message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={index !== (messages.length - 1) || btn_disabled} btn_hidden={stack_view} />
+                        }
+                        {
+                          show_uploadfile &&
+                          <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
+                        }
+                        {
+                          (message.timestamp || message.chatlogId) &&
+                          <div className={classNames("ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb", { "ori-font-white": customer, "ori-font-light": chatbot || admin })}>
+                            <div className="ori-flex-row">
                               {
-                                (message.timestamp || message.readStatus) &&
-                                <div className="ori-flex-row">
-                                  {
-                                    message.timestamp &&
-                                    <span className="ori-font-xxs ori-flex-column ori-flex-jfe ori-uppercase">{formatTime(message.timestamp, { hour: "2-digit", minute: "2-digit" })}</span>
-                                  }
-                                  {
-                                    customer && message.readStatus && !stack_view &&
-                                    this.renderReadStatusIcon(message.readStatus)
-                                  }
-                                </div>
+                                message.chatlogId && (chatbot || admin) &&
+                                <React.Fragment>
+                                  <div className={classNames("ori-flex ori-cursor-ptr ori-r-pad-5", { "ori-font-primary": message.voteType && message.voteType === "upvote" })} onClick={this.onClickMessageVoting.bind(this, message, "upvote")} >
+                                    <ThumbUpIcon size={12} />
+                                  </div>
+                                  <div className={classNames("ori-flex ori-cursor-ptr ori-l-pad-5 ori-rotate-180", { "ori-font-primary": message.voteType && message.voteType === "downvote" })} onClick={this.onClickMessageVoting.bind(this, message, "downvote")}>
+                                    <ThumbUpIcon size={12} />
+                                  </div>
+                                </React.Fragment>
                               }
                             </div>
-                          }
-                        </div>
+                            {
+                              (message.timestamp || message.readStatus) &&
+                              <div className="ori-flex-row">
+                                {
+                                  message.timestamp &&
+                                  <span className="ori-font-xxs ori-flex-column ori-flex-jfe ori-uppercase">{formatTime(message.timestamp, { hour: "2-digit", minute: "2-digit" })}</span>
+                                }
+                                {
+                                  customer && message.readStatus && !stack_view &&
+                                  this.renderReadStatusIcon(message.readStatus)
+                                }
+                              </div>
+                            }
+                          </div>
+                        }
                       </div>
                     }
                   </div>

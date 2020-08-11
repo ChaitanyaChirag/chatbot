@@ -7,7 +7,7 @@
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 10px 40px 40px 20px;
+    padding: 10px 50px 40px 50px;
     margin-top: 2px;
 
     .tagTimeBox {
@@ -24,7 +24,7 @@
         max-width: 100%;
 
         .defaultMsgBox {
-            box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.09);
+            box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.04);
         }
 
         .notificationMsgBox {
@@ -68,7 +68,9 @@
     }
 
     .receiverMsgContainer {
-        padding: 0px 0px 0px 35px;
+        .firstMsg {
+            border-top-left-radius: 0 !important;
+        }
 
         .defaultMsgBox {
             background-color: $chatbot-server-bubble-bg;
@@ -81,56 +83,18 @@
         }
 
         .msgAvatar {
-            top: 20px;
-            left: -8px;
-        }
-
-        .bubbleIndicatorDefault {
-            .bubbleIndicator {
-                &:after {
-                    border-right-color: $chatbot-server-bubble-bg;
-                }
-            }
-        }
-
-        .bubbleIndicatorNotification {
-            .bubbleIndicator {
-                &:after {
-                    border-right-color: $notification_bot_server_bubble_bg;
-                }
-            }
-        }
-
-        .bubbleIndicatorStack {
-            .bubbleIndicator {
-                &:after {
-                    border-right-color: $notification_stack_bubble_bg;
-                }
-            }
-        }
-
-        .bubbleIndicator {
-            position: relative;
-
-            &:after {
-                content: '';
-                position: absolute;
-                top: 15px;
-                left: 0;
-                border-left: 0;
-                margin-left: -16px;
-                width: 0;
-                height: 0;
-                border: 8px solid transparent;
-                border-bottom: 0;
-            }
+            top: 15px;
+            left: -40px;
         }
     }
 
     .senderMsgContainer {
-        padding: 0px 0px 0px 35px;
         width: 100%;
         justify-content: flex-end;
+
+        .firstMsg {
+            border-top-right-radius: 0 !important;
+        }
 
         .defaultMsgBox {
             background-color: $chatbot-sender-bubble-bg;

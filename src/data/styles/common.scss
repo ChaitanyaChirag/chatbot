@@ -389,67 +389,43 @@
     /*---------------------- FONT CLASSES -----------------------*/
 
     .ori-font-thin {
-        font-weight: $font-thin; //300
-   
+        font-weight: $font-thin;
     }
 
     .ori-font-normal {
-        font-weight: $font-normal; //400
-   
+        font-weight: $font-normal;
     }
 
     .ori-font-medium {
-        font-weight: $font-medium; //500
-   
+        font-weight: $font-medium;
     }
 
     .ori-font-bold {
-        font-weight: $font-bold; //700
-   
+        font-weight: $font-bold;
     }
 
     .ori-font-ultra-bold {
-        font-weight: $font-ultra-bold; //900
-   
+        font-weight: $font-ultra-bold;
     }
 
     .ori-font-xxs {
-        font-size: $font-size-xxs !important; //10px
-   
-    }
-
-    .ori-font-11 {
-        font-size: 11px !important;
+        font-size: $font-size-xxs !important;
     }
 
     .ori-font-xs {
-        font-size: $font-size-xs !important; //12px
-   
+        font-size: $font-size-xs !important;
     }
 
     .ori-font-sm {
-        font-size: $font-size-sm !important; //14px
-   
+        font-size: $font-size-sm !important;
     }
 
     .ori-font-md {
-        font-size: $font-size-md !important; //16px
-   
+        font-size: $font-size-md !important;
     }
 
     .ori-font-lg {
-        font-size: $font-size-lg !important; //20px
-   
-    }
-
-    .ori-font-xl {
-        font-size: $font-size-xl !important; //24px
-   
-    }
-
-    .ori-font-xll {
-        font-size: $font-size-xll !important; //30px
-   
+        font-size: $font-size-lg !important;
     }
 
     /*---------------------- COMMON FLEX CLASSES --------------------- */
@@ -759,10 +735,6 @@
     }
 
     //------------------------- bottom-margin-X -----------------------
-
-    .ori-b-mrgn-4 {
-        margin-bottom: 4px;
-    }
 
     .ori-b-mrgn-5 {
         margin-bottom: 5px;
