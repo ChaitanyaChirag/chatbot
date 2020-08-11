@@ -20,14 +20,12 @@ export const getSocketUrl = () => {
 
 export const chatbot_client_info = {
   sentry_dsn: "https://fa80a3e669cc4ee78bcb94c405adecba@sentry.io/1512125",
-  icon_url: "https://d113ddgi4j6d7k.cloudfront.net/dashboard/ava.png",
   brand_name: "Vodafone",
   sender_id: "dish_chat_client",
   trigger: {
     visibility: false, //to enable custom trigger
-    icon_url: "https://d113ddgi4j6d7k.cloudfront.net/dashboard/ava.png",
-    icon_height: 90, //in number only
-    mobile_icon_width: 80, //in number only
+    icon_height: 70, //in number only
+    mobile_icon_width: 70, //in number only
     animation_duration: 2000, // in milliseceond only
     lottie_visibility: true, // to enable lottie icon
     lottie_path: "https://d113ddgi4j6d7k.cloudfront.net/dashboard/cue.json",

@@ -23,9 +23,15 @@ import {
 
 import './index.scss';
 
-import { MESSAGE_SENDER, MESSAGE_TYPES, MESSAGE_SUBTYPES, MESSAGE_READ_STATUS } from '../../data/config/constants';
-import { chatbot_client_info, chatbot_setting } from '../../data/config/urls';
+import {
+  MESSAGE_SENDER,
+  MESSAGE_TYPES,
+  MESSAGE_SUBTYPES,
+  MESSAGE_READ_STATUS
+} from '../../data/config/constants';
+import { chatbot_setting } from '../../data/config/urls';
 import { formatTime, formatDate } from '../../data/config/utils';
+import logoImage from '../../data/assets/images/logo.png';
 
 import DotsLoader from '../dotsloader';
 import ErrorBoundary from '../errorboundary';
@@ -177,7 +183,7 @@ class ChatBotConversation extends React.PureComponent {
                     {
                       chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
                       <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                        <Avatar src={sender_img_url !== "" ? sender_img_url : chatbot_client_info.icon_url} />
+                        <Avatar src={sender_img_url !== "" ? sender_img_url : logoImage} />
                       </div>
                     }
                     {

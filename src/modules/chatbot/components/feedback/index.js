@@ -5,8 +5,9 @@ import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
 
-import { chatbot_client_info, chatbot_status } from '../../../../data/config/urls';
+import { chatbot_status } from '../../../../data/config/urls';
 import { uniqueId } from '../../../../data/config/utils';
+import logoImage from '../../../../data/assets/images/logo.png';
 
 import DelayComponent from '../../../../components/delaycomponent';
 import FeedbackBody from './feedbackbody';
@@ -66,7 +67,7 @@ class FeedbackComponent extends React.PureComponent {
       <div className={classNames("ori-absolute ori-flex-column ori-flex-center ori-pad-10 oriFeedbackOverlayContainer", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted })} style={{ animationDuration: `${delayUnmountTime}ms` }}>
         <div className="ori-relative ori-bg-white ori-border-radius-3 ori-pad-15 feedbackContainer">
           <div className="ori-absolute avatarContainer">
-            <img src={chatbot_client_info.icon_url} alt="" className="ori-img-contain" />
+            <img src={logoImage} alt="" className="ori-img-contain" />
           </div>
           <div className="ori-absolute ori-pad-5 flex alignFeedbackClose" onClick={closeFeedback}>
             <CloseIcon size={16} className="ori-font-white" />
