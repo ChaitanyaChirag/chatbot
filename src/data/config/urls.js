@@ -55,7 +55,6 @@ export const chatbot_setting = {
   },
   chat_interface: {
     show_bg_image: true, // to enable chatinterface background
-    bg_image_url: "https://d113ddgi4j6d7k.cloudfront.net/dashboard/chat_interface.jpg",
     query_params: {
       enable: true,
       query_param_key: 'chatbotopen',
