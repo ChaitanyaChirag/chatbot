@@ -6,7 +6,7 @@ import ConversationIcon from 'react-icons/lib/fa/comments';
 import './index.scss';
 
 import { chatbot_client_info } from '../../data/config/urls';
-import triggerImage from '../../data/assets/images/trigger.png';
+import { trigger } from '../../data/assets';
 
 const LottieContainer = React.lazy(() => import('./lottiecontainer'));
 
@@ -36,7 +36,7 @@ class TriggerChatBot extends React.PureComponent {
               animationDuration: `${chatbot_client_info.trigger.animation_duration}ms`
             }}
           >
-            <img src={triggerImage} alt="" className="ori-full-parent-height" />
+            <img src={trigger} alt="" className="ori-full-parent-height" />
           </div>
         }
         {

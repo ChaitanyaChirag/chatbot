@@ -17,7 +17,7 @@ import {
   checkMultipleExtension
 } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
-import backgroundImage from '../../data/assets/images/background.png'
+import { background } from '../../data/assets'
 
 import './index.scss';
 
@@ -290,7 +290,7 @@ class ChatBot extends Component {
             }
           )}
           style={{
-            backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${backgroundImage})` : 'none'
+            backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
           }}
         >
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>

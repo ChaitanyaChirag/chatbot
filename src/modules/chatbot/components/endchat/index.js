@@ -8,8 +8,7 @@ import Select from 'antd/lib/select';
 // import { Input, Avatar, Button, Select } from 'antd';
 
 import { chatbot_setting, chatbot_client_info } from '../../../../data/config/urls';
-import logoImage from '../../../../data/assets/images/logo.png';
-import backgroundImage from '../../../../data/assets/images/background.png'
+import { background, logo } from '../../../../data/assets'
 
 import DelayComponent from '../../../../components/delaycomponent';
 import PoweredBy from '../../../../components/poweredby';
@@ -118,13 +117,13 @@ class EndChat extends React.PureComponent {
           }
         )}
         style={{
-          backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${backgroundImage})` : 'none'
+          backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
         }}
       >
         <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient-primary-to-light ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
           <div>
             <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
-              <Avatar style={{ height: '55px', width: '55px' }} src={logoImage} />
+              <Avatar style={{ height: '55px', width: '55px' }} src={logo} />
             </div>
             <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{chatbot_client_info.brand_name}</p>
             {

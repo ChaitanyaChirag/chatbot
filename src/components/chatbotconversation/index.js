@@ -31,7 +31,7 @@ import {
 } from '../../data/config/constants';
 import { chatbot_setting } from '../../data/config/urls';
 import { formatTime, formatDate } from '../../data/config/utils';
-import logoImage from '../../data/assets/images/logo.png';
+import { logo } from '../../data/assets';
 
 import DotsLoader from '../dotsloader';
 import ErrorBoundary from '../errorboundary';
@@ -66,13 +66,12 @@ class ChatBotConversation extends React.PureComponent {
   displayTimeStamp = timestamp => {
     const current_time = new Date().getTime();
     const message_time = new Date(timestamp).getTime();
-    if ((current_time - message_time) < 24 * 3600 * 1000) {
+    if ((current_time - message_time) < 24 * 3600 * 1000)
       return "Today";
-    } else if ((current_time - message_time) < 2 * 24 * 3600 * 1000) {
+    else if ((current_time - message_time) < 2 * 24 * 3600 * 1000)
       return "Yesterday";
-    } else {
+    else
       return formatDate(timestamp, { year: "numeric", month: "short", day: "numeric" });
-    }
   };
 
   onClickMessageVoting = (message, voteType) => {
@@ -183,7 +182,7 @@ class ChatBotConversation extends React.PureComponent {
                     {
                       chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
                       <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                        <Avatar src={sender_img_url !== "" ? sender_img_url : logoImage} />
+                        <Avatar src={sender_img_url !== "" ? sender_img_url : logo} />
                       </div>
                     }
                     {
