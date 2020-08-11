@@ -11,9 +11,24 @@ import './index.scss';
 import * as chatActions from '../data/redux/chat_details/actions';
 import * as pageActions from '../data/redux/page_details/actions';
 
-import { MESSAGE_TYPES, BUTTON_TYPES, BUTTON_SUB_TYPES, MESSAGE_SENDER, MESSAGE_READ_STATUS, EVENTS } from '../data/config/constants';
+import {
+  MESSAGE_TYPES,
+  BUTTON_TYPES,
+  BUTTON_SUB_TYPES,
+  MESSAGE_SENDER,
+  MESSAGE_READ_STATUS,
+  EVENTS
+} from '../data/config/constants';
+import {
+  LOCAL_STORAGE,
+  PLATFORM,
+  checkDevice,
+  isAndroid,
+  isIOS,
+  getDefaultMessages,
+  uniqueId
+} from '../data/config/utils';
 import { chatbot_client_info, chatbot_setting, chatbot_status } from '../data/config/urls';
-import { LOCAL_STORAGE, checkDevice, isAndroid, isIOS, PLATFORM, getDefaultMessages, uniqueId, setCookie, getCookie } from '../data/config/utils';
 
 import TriggerChatBot from '../components/triggerchatbot';
 
@@ -42,12 +57,9 @@ class AppContainer extends Component {
     const ios = isIOS();
     let self = this;
     if (chatbot_setting.security.enable && !chat_details.secure) {
-      console.log('cookie', getCookie(chatbot_setting.security.cookie_name))
       const security_code = window.prompt(chatbot_status.security_prompt)
-      if (security_code && security_code === chatbot_setting.security.code) {
-        setCookie(chatbot_setting.security.cookie_name, true)
+      if (security_code && security_code === chatbot_setting.security.code)
         actions.updateState('secure', true)
-      }
     }
 
     window.bot_popup = this.botPopup;

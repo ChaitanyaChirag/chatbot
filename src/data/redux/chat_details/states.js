@@ -3,7 +3,6 @@ import { chatbot_setting } from '../../config/urls';
 import {
   isAndroid,
   getPsid,
-  getCookie,
   getLocalMessage,
   getLocalUnseenMessage,
   getLocalChatOpenStatus,
@@ -45,7 +44,7 @@ const default_end_chat = {
 
 const states = {
   chat_details: {
-    secure: chatbot_setting.security.enable ? JSON.parse(getCookie(chatbot_setting.security.cookie_name)) : false,
+    secure: !chatbot_setting.security.enable,
     is_socket_connected: false,
     is_internet_connected: false,
     messages: isAndroid() ? getDefaultMessages() : messages,
