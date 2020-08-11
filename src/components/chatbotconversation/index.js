@@ -7,12 +7,24 @@ import DeliverIcon from 'react-icons/lib/io/android-done-all';
 import SeenIcon from 'react-icons/lib/md/remove-red-eye';
 import SendingIcon from 'react-icons/lib/md/access-time';
 import Avatar from 'antd/lib/avatar';
-import { TextMessage, TextWithMedia, CarouselWithButtons, PromptMsg, CheckboxWithMedia, ListMessage, UploadFile, Recharge, RechargeDetails, Offers, RechargeHistory } from 'message-types';
+import {
+  TextMessage,
+  TextWithMedia,
+  CarouselWithButtons,
+  PromptMsg,
+  CheckboxWithMedia,
+  ListMessage,
+  UploadFile,
+  Recharge,
+  RechargeDetails,
+  Offers,
+  RechargeHistory
+} from 'message-types';
 
 import './index.scss';
 
 import { MESSAGE_SENDER, MESSAGE_TYPES, MESSAGE_SUBTYPES, MESSAGE_READ_STATUS } from '../../data/config/constants';
-import { chatbot_client_info } from '../../data/config/urls';
+import { chatbot_client_info, chatbot_setting } from '../../data/config/urls';
 import { formatTime, formatDate } from '../../data/config/utils';
 
 import DotsLoader from '../dotsloader';
@@ -70,23 +82,14 @@ class ChatBotConversation extends React.PureComponent {
   }
 
   renderReadStatusIcon = readStatus => {
-    if (readStatus === MESSAGE_READ_STATUS.SENDING) {
-      return (
-        <SendingIcon size={13} className="ori-l-mrgn-5" />
-      );
-    } else if (readStatus === MESSAGE_READ_STATUS.SENT) {
-      return (
-        <SentIcon size={13} className="ori-l-mrgn-5" />
-      );
-    } else if (readStatus === MESSAGE_READ_STATUS.DELIVERED) {
-      return (
-        <DeliverIcon size={13} className="ori-l-mrgn-5" />
-      );
-    } else if (readStatus === MESSAGE_READ_STATUS.SEEN) {
-      return (
-        <SeenIcon size={13} className="ori-l-mrgn-5" />
-      );
-    }
+    if (readStatus === MESSAGE_READ_STATUS.SENDING)
+      return <SendingIcon size={13} className="ori-l-mrgn-5" />
+    else if (readStatus === MESSAGE_READ_STATUS.SENT)
+      return <SentIcon size={13} className="ori-l-mrgn-5" />
+    else if (readStatus === MESSAGE_READ_STATUS.DELIVERED)
+      return <DeliverIcon size={13} className="ori-l-mrgn-5" />
+    else if (readStatus === MESSAGE_READ_STATUS.SEEN)
+      return <SeenIcon size={13} className="ori-l-mrgn-5" />
   };
 
   render() {
@@ -94,7 +97,13 @@ class ChatBotConversation extends React.PureComponent {
 
     return (
       <div
-        className={classNames("oriChatBotConversationContainer", { "ori-cursor-ptr ori-no-b-pad": stack_view })}
+        className={classNames("ori-t-pad-10 ori-b-pad-40 oriChatBotConversationContainer",
+          {
+            "ori-cursor-ptr ori-no-b-pad": stack_view,
+            "ori-lr-pad-20": !chatbot_setting.chat_interface.show_avatar,
+            "ori-lr-pad-40": chatbot_setting.chat_interface.show_avatar,
+          }
+        )}
         ref={this.chatbodyRef}
         onClick={this.onClickChatbody}
       >
@@ -154,19 +163,25 @@ class ChatBotConversation extends React.PureComponent {
                       <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-b-mrgn-10 ori-t-mrgn-15 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
                     </div>
                   }
-                  <div className={classNames("ori-relative ori-flex-row msgContainer", { "receiverMsgContainer": admin || chatbot, "senderMsgContainer": customer })} >
+                  <div className={classNames("ori-relative ori-flex-row msgContainer",
+                    {
+                      "receiverMsgContainer": admin || chatbot,
+                      "senderMsgContainer": customer
+                    }
+                  )}
+                  >
                     {
                       first_msg && admin &&
                       <p className="ori-absolute ori-font-xs ori-capitalize ori-align-top-4" >{sender_title}</p>
                     }
                     {
-                      first_msg && chatbot &&
+                      chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
                       <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
                         <Avatar src={sender_img_url !== "" ? sender_img_url : chatbot_client_info.icon_url} />
                       </div>
                     }
                     {
-                      first_msg && admin &&
+                      chatbot_setting.chat_interface.show_avatar && first_msg && admin &&
                       <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
                         <Avatar src={sender_img_url} className="ori-font-default ori-capitalize ori-bg-white">{sender_title.charAt(0)}</Avatar>
                       </div>
