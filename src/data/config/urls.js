@@ -104,7 +104,7 @@ export const chatbot_status = {
     success: "Thank you for giving us feedback",
     failed: "Some error occured please try again later"
   },
-  security_prompt:"This is custom message. please change this",
+  security_prompt: "This is custom message. please change this",
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
       header: 'Privacy Policy',
