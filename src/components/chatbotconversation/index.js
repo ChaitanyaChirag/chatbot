@@ -101,7 +101,7 @@ class ChatBotConversation extends React.PureComponent {
           {
             "ori-cursor-ptr ori-no-b-pad": stack_view,
             "ori-lr-pad-20": !chatbot_setting.chat_interface.show_avatar,
-            "ori-lr-pad-40": chatbot_setting.chat_interface.show_avatar,
+            "ori-lr-pad-50": chatbot_setting.chat_interface.show_avatar,
           }
         )}
         ref={this.chatbodyRef}

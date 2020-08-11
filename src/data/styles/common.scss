@@ -544,6 +544,10 @@
         @include lr-padding(30px);
     }
 
+    .ori-lr-pad-50 {
+        @include lr-padding(50px);
+    }
+
     //---------------- top-bottom-padding-X --------------------
 
     .ori-no-tb-pad {
