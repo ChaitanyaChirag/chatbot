@@ -41,7 +41,7 @@ export const chatbot_setting = {
   automate_connection_time: 3600, //in seceond only
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
   security: {
-    enable: true,
+    enable: false,
     code: "123456",
   },
   powered_by: {
