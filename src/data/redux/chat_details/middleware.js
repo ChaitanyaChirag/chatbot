@@ -199,7 +199,7 @@ const middleware = () => {
   return store => next => action => {
     switch (action.type) {
       case actionTypes.MAKE_SOCKET_CONNECTION: {
-        if (socket !== null)
+        if (socket)
           socket.close()
         const socket_url = getSocketUrl();
         fetch("https://api.ipify.org?format=json")
@@ -320,7 +320,7 @@ const middleware = () => {
       }
 
       case actionTypes.SOCKET_DISCONNECT:
-        if (socket !== null) {
+        if (socket) {
           log('socket disconnected', socket);
           socket.close();
         }
