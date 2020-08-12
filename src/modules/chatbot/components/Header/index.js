@@ -32,7 +32,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => {
               )}
               style={{ verticalAlign: 'middle', height: '6px', width: '6px' }}
             />
-            {!is_internet_connected ? "Offline" : (!is_socket_connected ? "Connecting..." : "Online")}
+            {!is_internet_connected ? "offline" : (!is_socket_connected ? "connecting..." : "online")}
           </span>
         </div>
       </div>
