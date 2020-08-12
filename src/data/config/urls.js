@@ -44,8 +44,7 @@ export const chatbot_setting = {
   },
   powered_by: {
     visibility: true, // to enable powered by tag
-    target_url: "http://oriserve.com/",
-    icon_url: "https://d113ddgi4j6d7k.cloudfront.net/ori_logo.png"
+    target_url: "http://oriserve.com/"
   },
   notification_bot: {
     visibility: true, // to enable notification popup (set value false in android and ios )
