@@ -142,7 +142,7 @@ class InputComposer extends React.PureComponent {
         <Form onSubmit={this.handleMessageSend}>
           <TextArea
             id='input_field'
-            placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "Send your query...")}
+            placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "Type your query...")}
             className="inputField"
             autosize={{
               minRows: 1,

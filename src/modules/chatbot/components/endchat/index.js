@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from 'antd/lib/button';
 import Avatar from 'antd/lib/avatar';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
-// import { Input, Avatar, Button, Select } from 'antd';
 
 import { chatbot_setting, chatbot_client_info } from '../../../../data/config/urls';
 import { background, logo } from '../../../../data/assets'
 
 import DelayComponent from '../../../../components/delaycomponent';
-import PoweredBy from '../../../../components/poweredby';
+
+const PoweredBy = lazy(() => import('../../../../components/poweredby'));
 
 const { Option } = Select;
 
@@ -94,16 +94,6 @@ class EndChat extends React.PureComponent {
       );
   };
 
-  renderPoweredBy = () => {
-    if (chatbot_setting.powered_by.visibility) {
-      return (
-        <div className="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-flex-row ori-flex-jc ori-bg-white ori-box-shadow">
-          <PoweredBy logo_url={chatbot_setting.powered_by.icon_url} target_url={chatbot_setting.powered_by.target_url} />
-        </div>
-      );
-    }
-  };
-
   render() {
     const { isMounted, end_chat } = this.props;
     return (
@@ -141,7 +131,12 @@ class EndChat extends React.PureComponent {
             {this.renderDynamicForm()}
           </div>
         </div>
-        {this.renderPoweredBy()}
+        {
+          chatbot_setting.powered_by.visibility &&
+          <Suspense fallback={null}>
+            <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center ori-bg-white ori-box-shadow" />
+          </Suspense>
+        }
       </div>
     );
   }

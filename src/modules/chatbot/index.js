@@ -24,7 +24,6 @@ import './index.scss';
 import Header from './components/Header';
 import ChatBotConversation from '../../components/chatbotconversation';
 import InputComposer from '../../components/inputcomposer';
-import PoweredBy from '../../components/poweredby';
 
 const HeaderTag = React.lazy(() => import('./components/HeaderTag'))
 const Menu = React.lazy(() => import('./components/menu'));
@@ -36,7 +35,7 @@ const DownTime = React.lazy(() => import('./components/downtime'));
 const CustomModal = React.lazy(() => import('../../components/custommodal'));
 const ShowNotification = React.lazy(() => import('./components/shownotification'));
 const InfoContent = React.lazy(() => import('./components/InfoContent'));
-
+const PoweredBy = React.lazy(() => import('../../components/poweredby'))
 
 const androidTabletStyle = {
   width: '100%',
@@ -396,10 +395,10 @@ class ChatBot extends Component {
             }}
           >
             {
-              chatbot_setting.powered_by && chatbot_setting.powered_by.visibility &&
-              <div className="ori-absolute ori-flex-row ori-flex-jc alignPoweredBy">
-                <PoweredBy target_url={chatbot_setting.powered_by.target_url} logo_url={chatbot_setting.powered_by.icon_url} />
-              </div>
+              chatbot_setting.powered_by.visibility &&
+              <Suspense fallback={null}>
+                <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
+              </Suspense>
             }
             {
               chat_details.quick_replies && chat_details.quick_replies.length > 0 &&

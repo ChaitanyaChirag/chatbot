@@ -1,16 +1,28 @@
 import React from 'react';
-import PowerIcon from 'react-icons/lib/go/zap';
+import PropTypes from 'prop-types';
 
-const PoweredBy = (props) => {
-    return (
-        <div className="ori-animated ori-fade-in-up" >
-            <PowerIcon size={11} className="ori-font-danger"/>
-            <span className="ori-font-xxs ori-font-light" > by</span >
-            <a href={props.target_url} target="blank" className="ori-font-xxs" >
-                <img src={props.logo_url} className="ori-l-mrgn-5 ori-height-10 ori-cursor-ptr" alt="" />
-            </a >
-        </div >
-    );
-};
+import { poweredby } from '../../data/assets'
+import { chatbot_setting } from '../../data/config/urls'
 
-export default PoweredBy;
+const PoweredBy = React.memo(({ container_class }) => {
+  return (
+    <a
+      href={chatbot_setting.powered_by.target_url}
+      target="blank"
+      className={`ori-animated ori-fade-in-up ${container_class}`}
+    >
+      <span className="ori-font-xxs ori-font-light">Powered by</span>
+      <img src={poweredby} className="ori-l-mrgn-5 ori-height-10 ori-cursor-ptr" alt="" />
+    </a>
+  )
+})
+
+PoweredBy.propTypes = {
+  container_class: PropTypes.string
+}
+
+PoweredBy.defaultProps = {
+  container_class: "ori-text-center"
+}
+
+export default PoweredBy
