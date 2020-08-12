@@ -18,7 +18,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => {
     >
       <div className="ori-flex-row">
         <Avatar src={logo} size="large" />
-        <div className="ori-l-pad-10">
+        <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: '18px' }}>
           <p className="ori-capitalize ori-font-md ori-font-medium ori-no-b-mrgn ori-font-header">{chatbot_client_info.brand_name}</p>
           <span className="ori-font-header-light ori-font-xs">
             <span
@@ -30,7 +30,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => {
                   "ori-bg-green": is_internet_connected && is_socket_connected
                 }
               )}
-              style={{ verticalAlign: 'middle', height: '5px', width: '5px' }}
+              style={{ verticalAlign: 'middle', height: '6px', width: '6px' }}
             />
             {!is_internet_connected ? "Offline" : (!is_socket_connected ? "Connecting..." : "Online")}
           </span>
