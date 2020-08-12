@@ -177,7 +177,7 @@ class ChatBotConversation extends React.PureComponent {
                   >
                     {
                       first_msg && admin &&
-                      <p className="ori-absolute ori-font-xs ori-capitalize ori-align-top-4" >{sender_title}</p>
+                      <p className="ori-absolute ori-font-xxs ori-capitalize ori-align-top" >{sender_title}</p>
                     }
                     {
                       chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
