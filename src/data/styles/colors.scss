@@ -1,20 +1,10 @@
 @import "./mixins.scss";
 
-//---------------------- DISHTV -----------------------
-
-$dishtv-primary: #f15a23;
-$dishtv-primary-dark: #434343;
-
-//---------------------- VODAFONE -----------------------
-
-$vodafone-primary: #ed3837;
-$vodafone-primary-dark: #666;
-
 //---------------------- PRIMARY -----------------------
 
-$primary: $vodafone-primary !default;
+$primary:  #ed3837 !default;
 $primary-bg-light: tint($primary, 90%);
-$notification_stack_bg: $vodafone-primary-dark;
+$notification_stack_bg: #666;
 
 //--------------------------------------------------------
 
@@ -23,7 +13,6 @@ $black: #000000;
 
 $default: #f7f7f9;
 $default-light: #f9f9fc;
-// $font-color: #1b1d1f;
 $font-color: #3c4043;
 $font-color-light: #abaeb2;
 $font-chat: #344050;
