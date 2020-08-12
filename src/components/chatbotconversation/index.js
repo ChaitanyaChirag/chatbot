@@ -148,7 +148,7 @@ class ChatBotConversation extends React.PureComponent {
             if (system && message.type === MESSAGE_TYPES.SYSTEM_TEXT) {
               return (
                 <ErrorBoundary key={index}>
-                  <div className="ori-l-pad-25 ori-tb-pad-10 ori-text-center ">
+                  <div className="ori-pad-10 ori-text-center">
                     <p className="ori-font-medium ori-font-xs">{message.payload.text}</p>
                     {
                       message.timestamp &&
@@ -164,8 +164,8 @@ class ChatBotConversation extends React.PureComponent {
                 <div className="ori-full-width">
                   {
                     show_timestamp_tag &&
-                    <div className="ori-flex-row ori-flex-jc ori-l-pad-20">
-                      <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-b-mrgn-10 ori-t-mrgn-15 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
+                    <div className="ori-flex-row ori-flex-jc ori-pad-5">
+                      <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
                     </div>
                   }
                   <div className={classNames("ori-relative ori-flex-row msgContainer",
