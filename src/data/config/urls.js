@@ -3,14 +3,6 @@ import { MESSAGE_TYPES, INFO_CONTENT_TYPE } from './constants';
 
 const version = 1.1;
 const brandName = 'vodafone';
-// const brandName = 'dishtv';
-
-// const url = "https://webtest.vodafone-elb.oriserve.in";
-// const url = "https://dishtestbackend.oriserve.in";
-// const url = "https://tata-altroz-staging-backend.oriserve.in";
-// const url = "http://localhost:8095";
-// const url = "https://piramal-backend.oriserve.in";
-// const url = "https://dishtv-testing-backend.oriserve.in";
 const url = "https://vodafone-dev.oriserve.in";
 
 export const getSocketUrl = () => {
