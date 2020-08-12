@@ -18,7 +18,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => {
     >
       <div className="ori-flex-row">
         <Avatar src={logo} size="large" />
-        <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: '18px' }}>
+        <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: 1.3 }}>
           <p className="ori-capitalize ori-font-md ori-font-medium ori-no-b-mrgn ori-font-header">{chatbot_client_info.brand_name}</p>
           <span className="ori-font-header-light ori-font-xs">
             <span
