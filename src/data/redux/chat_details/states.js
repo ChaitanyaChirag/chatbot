@@ -1,38 +1,24 @@
-import * as CONSTANTS from '../../config/constants';
-import { chatbot_setting } from '../../config/urls';
+import { MESSAGE_SENDER } from '../../config/constants';
+import { chatbot_setting, chatbot_default_messages } from '../../config/urls';
 import {
   isAndroid,
   getPsid,
-  getLocalMessage,
-  getLocalUnseenMessage,
-  getLocalChatOpenStatus,
-  getLocalNotificationCount,
-  getDefaultMessages,
   getDataFromLocalStorage,
   LOCAL_STORAGE
 } from '../../config/utils'
 
-const psid = getPsid();
-const messages = getLocalMessage();
+const default_msg = chatbot_default_messages.getDefaultMessages()
+
+const messages = getDataFromLocalStorage(LOCAL_STORAGE.MESSAGES(), default_msg)
 
 const getPreviousMessageData = (key, defaultData) => {
   let data = defaultData
-  const senders = [CONSTANTS.MESSAGE_SENDER.ADMIN, CONSTANTS.MESSAGE_SENDER.CHATBOT, CONSTANTS.MESSAGE_SENDER.SYSTEM]
+  const senders = [MESSAGE_SENDER.ADMIN, MESSAGE_SENDER.CHATBOT, MESSAGE_SENDER.SYSTEM]
   if (messages && messages.length > 0 && senders.includes(messages[messages.length - 1].sender) && messages[messages.length - 1][key] !== undefined)
     data = messages[messages.length - 1][key]
   return data
 }
 
-const unseen_messages = getLocalUnseenMessage();
-const is_chat_open = getLocalChatOpenStatus();
-const notification_count = getLocalNotificationCount();
-const quick_replies = getPreviousMessageData('quickReplies', []);
-const is_input_lock = getPreviousMessageData('inputLock', false);
-const input_lock_text = getPreviousMessageData('inputLockMessage', 'please select any option to proceed');
-const skipLS = getPreviousMessageData('skipLS', false);
-const send_variable_to_apiai = getPreviousMessageData('send_variable_to_apiai', false);
-const sendVariableToLS = getPreviousMessageData('sendVariableToLS', false);
-const variable_name = getPreviousMessageData('variable_name', '');
 const default_end_chat = {
   visible: false,
   show_confirmation_card: false,
@@ -47,22 +33,22 @@ const states = {
     secure: !chatbot_setting.security.enable,
     is_socket_connected: false,
     is_internet_connected: false,
-    messages: isAndroid() ? getDefaultMessages() : messages,
-    psid,
-    unseen_messages,
-    notification_count,
-    is_chat_open,
+    messages: isAndroid() ? default_msg : messages,
+    psid: getPsid(),
+    unseen_messages: getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, []),
+    notification_count: getDataFromLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, 0),
+    is_chat_open: getDataFromLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN, false),
+    end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, default_end_chat),
+    quick_replies: getPreviousMessageData('quickReplies', []),
+    is_input_lock: getPreviousMessageData('inputLock', false),
+    input_lock_text: getPreviousMessageData('inputLockMessage', 'please select any option to proceed'),
+    skipLS: getPreviousMessageData('skipLS', false),
+    send_variable_to_apiai: getPreviousMessageData('send_variable_to_apiai', false),
+    sendVariableToLS: getPreviousMessageData('sendVariableToLS', false),
+    variable_name: getPreviousMessageData('variable_name', ''),
     downtime: {},
     is_typing: false,
     typing_text: "",
-    quick_replies,
-    is_input_lock,
-    input_lock_text,
-    skipLS,
-    send_variable_to_apiai,
-    sendVariableToLS,
-    variable_name,
-    end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, default_end_chat),
     notification: {
       visible: false,
       message: ""

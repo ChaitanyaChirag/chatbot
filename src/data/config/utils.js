@@ -1,6 +1,6 @@
 import message from 'antd/lib/message';
 
-import { default_messages, android_default_messages } from './constants';
+// import { default_messages, android_default_messages } from './constants';
 
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -108,11 +108,6 @@ export const LOCAL_STORAGE = {
   END_CHAT: "end_chat"
 };
 
-// export const hasAndroidInterface = () => { //the java JS interface exists for android
-//   let android = localStorage.getItem(LOCAL_STORAGE.ANDROID) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.ANDROID)) : false;
-//   return (android);
-// };
-
 export const getDataFromLocalStorage = (key, undefined_return_value) => {
   const data = localStorage.getItem(key);
   return (data && data !== undefined ? JSON.parse(data) : undefined_return_value);
@@ -130,34 +125,6 @@ export const setDataInLocalStorage = (key, data) => {
       console.log('localStorage error:-', e.code, e.name);
     }
   }
-};
-
-export const getDefaultMessages = () => {
-  const is_android = isAndroid();
-  if (is_android) {
-    return android_default_messages;
-  }
-  return default_messages;
-};
-
-export const getLocalMessage = () => {
-  const messages = localStorage.getItem(LOCAL_STORAGE.MESSAGES()) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.MESSAGES())) : getDefaultMessages();
-  return messages;
-};
-
-export const getLocalUnseenMessage = () => {
-  let unseen_messages = localStorage.getItem(LOCAL_STORAGE.UNSEEN_MESSAGES) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.UNSEEN_MESSAGES)) : [];
-  return unseen_messages;
-};
-
-export const getLocalNotificationCount = () => {
-  let count = localStorage.getItem(LOCAL_STORAGE.NOTIFICATION_COUNT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.NOTIFICATION_COUNT)) : 0;
-  return count;
-};
-
-export const getLocalChatOpenStatus = () => {
-  let is_chat_open = localStorage.getItem(LOCAL_STORAGE.IS_CHAT_OPEN) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.IS_CHAT_OPEN)) : false;
-  return is_chat_open;
 };
 
 export const formatDate = (value, options) => {

@@ -1,5 +1,6 @@
 import actionTypes from '../actiontypes';
-import { getLocalMessage } from '../../config/utils';
+import { chatbot_default_messages } from '../../config/urls';
+import { LOCAL_STORAGE, getDataFromLocalStorage } from '../../config/utils';
 
 export const updateState = (key, payload) => {
   return {
@@ -104,8 +105,9 @@ export const handleChatbotInterface = payload => {
 };
 
 export const setDefaultState = () => {
+  const defaultMsg = chatbot_default_messages.getDefaultMessages()
   let payload = {
-    messages: getLocalMessage(),
+    messages: getDataFromLocalStorage(LOCAL_STORAGE.MESSAGES(), defaultMsg),
   };
   return {
     type: actionTypes.SET_DEFAULT_STATE,

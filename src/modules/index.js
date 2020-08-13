@@ -25,10 +25,14 @@ import {
   checkDevice,
   isAndroid,
   isIOS,
-  getDefaultMessages,
   uniqueId
 } from '../data/config/utils';
-import { chatbot_client_info, chatbot_setting, chatbot_status } from '../data/config/urls';
+import {
+  chatbot_client_info,
+  chatbot_setting,
+  chatbot_status,
+  chatbot_default_messages
+} from '../data/config/urls';
 
 import TriggerChatBot from '../components/triggerchatbot';
 
@@ -119,7 +123,7 @@ class AppContainer extends Component {
           actions.handleChatbotInterface(false);
         }
         if (time_gap > chatbot_setting.automate_reset_chat_time) {
-          const default_messages = getDefaultMessages();
+          const default_messages = chatbot_default_messages.getDefaultMessages();
           localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify(default_messages));
           actions.setDefaultState();
         }

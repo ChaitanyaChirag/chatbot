@@ -5,12 +5,11 @@ import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
-import { chatbot_setting, chatbot_client_info } from '../../data/config/urls';
+import { chatbot_setting, chatbot_client_info, chatbot_default_messages } from '../../data/config/urls';
 import {
   LOCAL_STORAGE,
   isAndroid,
   isIOS,
-  getDefaultMessages,
   fileToBase64,
   checkImageTypeFile,
   showMessage,
@@ -78,7 +77,7 @@ class ChatBot extends Component {
     if (is_socket_connected) {
       const payload = { psid };
       actions.resetChat(payload, () => {
-        const default_messages = getDefaultMessages();
+        const default_messages = chatbot_default_messages.getDefaultMessages();
         localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(default_messages));
         localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
         actions.setDefaultState();
@@ -172,7 +171,7 @@ class ChatBot extends Component {
       psid: chat_details.psid,
     };
     if (!chat_details.is_socket_connected) {
-      const default_messages = getDefaultMessages();
+      const default_messages = chatbot_default_messages.getDefaultMessages();
       localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(default_messages));
       localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
       actions.setDefaultState();
