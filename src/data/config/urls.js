@@ -2,7 +2,8 @@ import { getPsid, getPlatform, isAndroid } from './utils';
 import { MESSAGE_TYPES, INFO_CONTENT_TYPE } from './constants';
 import {
   androidDefault,
-  webDefault
+  webDefault,
+  hindi
 } from './defaultMessages';
 
 const version = 1.1;
@@ -87,16 +88,26 @@ export const chatbot_setting = {
 };
 
 export const chatbot_default_messages = {
+  query_param_key: "defaultmessages",
   messages: {
     android: androidDefault,
     web: webDefault,
+    hindi: hindi // testing purpose only
   },
   getDefaultMessages() {
     let defaultMsgs = this.messages.web
     if (isAndroid())
       defaultMsgs = this.messages.android
+
     // write brand specific logic to get the key for default messages and update the defaultMsgs
 
+    const query_params = new URLSearchParams(window.location.search);
+    if (query_params.has(this.query_param_key)) {
+      const key = query_params.get(this.query_param_key)
+      const msgs = this.messages[key]
+      if (msgs)
+        defaultMsgs = msgs
+    }
 
     return defaultMsgs
   }
