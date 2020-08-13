@@ -1,5 +1,9 @@
-import { getPsid, getPlatform } from './utils';
+import { getPsid, getPlatform, isAndroid } from './utils';
 import { MESSAGE_TYPES, INFO_CONTENT_TYPE } from './constants';
+import {
+  androidDefault,
+  webDefault
+} from './defaultMessages';
 
 const version = 1.1;
 const brandName = 'vodafone';
@@ -81,6 +85,22 @@ export const chatbot_setting = {
     max_file_size_allowed: 500000,
   }
 };
+
+export const chatbot_default_messages = {
+  messages: {
+    android: androidDefault,
+    web: webDefault,
+  },
+  getDefaultMessages() {
+    let defaultMsgs = this.messages.web
+    if (isAndroid())
+      defaultMsgs = this.messages.android
+    // write brand specific logic to get the key for default messages and update the defaultMsgs
+
+
+    return defaultMsgs
+  }
+}
 
 export const chatbot_status = {
   common: {
