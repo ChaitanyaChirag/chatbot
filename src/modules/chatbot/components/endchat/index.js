@@ -110,7 +110,7 @@ class EndChat extends React.PureComponent {
           backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
         }}
       >
-        <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient-primary-to-light ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
+        <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
           <div>
             <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
               <Avatar style={{ height: '55px', width: '55px' }} src={logo} />

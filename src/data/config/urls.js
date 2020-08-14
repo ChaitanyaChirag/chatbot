@@ -39,6 +39,10 @@ export const chatbot_setting = {
     enable: false,
     code: "123456",
   },
+  gradient: {
+    sender_bubble: true,
+    trigger: true,
+  },
   powered_by: {
     visibility: true, // to enable powered by tag
     target_url: "http://oriserve.com/"

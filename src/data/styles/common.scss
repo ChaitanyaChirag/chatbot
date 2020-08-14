@@ -89,8 +89,8 @@
         line-height: 1 !important;
     }
 
-    .ori-bg-gradient-primary-to-light {
-        background: linear-gradient(135deg, $primary-darker 0%, $primary-lighter 100%);
+    .ori-bg-gradient {
+        background: linear-gradient($gradient-angle, $gradient-primary $gradient-primary-percent, $gradient-secondary $gradient-secondary-percent);
     }
 
     .ori-bg-white {
