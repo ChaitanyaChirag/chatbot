@@ -1,10 +1,11 @@
 import { getPsid, getPlatform, isAndroid } from './utils';
-import { MESSAGE_TYPES, INFO_CONTENT_TYPE } from './constants';
+import { MESSAGE_TYPES, INFO_CONTENT_TYPE, LANGUAGES } from './constants';
 import {
   androidDefault,
   webDefault,
   hindi
 } from './defaultMessages';
+import { englishText, arabicText, hindiText } from './chatbotText'
 
 const version = 1.1;
 const brandName = 'vodafone';
@@ -77,8 +78,8 @@ export const chatbot_setting = {
   menu: {
     visible: true,
     children: {
-      privacy_policy: false,
-      terms_and_conditions: false,
+      privacy_policy: true,
+      terms_and_conditions: true,
       feedback: true,
       clear_chat: true,
     }
@@ -114,6 +115,28 @@ export const chatbot_default_messages = {
     }
 
     return defaultMsgs
+  }
+}
+
+export const translator = {
+  query_param_key: 'lang',
+  text: {
+    [LANGUAGES.ENGLISH]: englishText,
+    [LANGUAGES.ARABIC]: arabicText,
+    [LANGUAGES.HINDI]: hindiText
+  },
+  getLanguage() {
+    let lang = LANGUAGES.ENGLISH
+
+    // write brand specific logic to get the key for default messages and update the defaultMsgs
+    const query_params = new URLSearchParams(window.location.search);
+    if (query_params.has(this.query_param_key)) {
+      const key = query_params.get(this.query_param_key)
+      if (this.text[key])
+        lang = key
+    }
+
+    return lang
   }
 }
 

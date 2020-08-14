@@ -81,3 +81,9 @@ export const MESSAGE_SENDER = {
   ADMIN: "admin",
   CHATBOT: "chatbot",
 };
+
+export const LANGUAGES = {
+  ENGLISH: 'en',
+  ARABIC: 'arabic',
+  HINDI: 'hindi'
+};

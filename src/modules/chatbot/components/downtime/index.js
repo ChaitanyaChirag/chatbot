@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import WarningIcon from 'react-icons/lib/io/android-warning'
 
 import { formatDate } from '../../../../data/config/utils'
+import { translator } from '../../../../data/config/urls'
+
+import { LangContext } from '../../../context'
 
 import DotsLoader from '../../../../components/dotsloader'
 
@@ -31,25 +34,31 @@ class DownTime extends React.PureComponent {
     const { loading } = this.state;
     const { downtime } = this.props;
     return (
-      <div className="ori-animated ori-fade-in ori-pad-10 ori-bg-white ori-border-radius-3">
-        <div className="ori-flex-row ori-flex-jc ori-b-mrgn-10 ori-font-warning">
-          <WarningIcon size={60} />
-        </div>
+      <LangContext.Consumer>
         {
-          downtime.title &&
-          <p className="ori-b-mrgn-10 ori-text-center ori-font-md">{downtime.title}</p>
+          lang => (
+            <div className="ori-animated ori-fade-in ori-pad-10 ori-bg-white ori-border-radius-3">
+              <div className="ori-flex-row ori-flex-jc ori-b-mrgn-10 ori-font-warning">
+                <WarningIcon size={60} />
+              </div>
+              {
+                downtime.title &&
+                <p className="ori-b-mrgn-10 ori-text-center ori-font-md">{downtime.title}</p>
+              }
+              {
+                downtime.message &&
+                <p className="ori-b-mrgn-10 ori-text-center">{downtime.message}</p>
+              }
+              <div className="ori-flex-row ori-flex-jc">
+                {
+                  loading ? <DotsLoader /> :
+                    <div className="ori-font-xs ori-font-light ori-text-center">{translator.text[lang].downtimeStatusPrefix} <span className="ori-font-bold ori-font-default"> {formatDate(downtime.timestamp, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span> {translator.text[lang].downtimeStatusPostfix}</div>
+                }
+              </div>
+            </div>
+          )
         }
-        {
-          downtime.message &&
-          <p className="ori-b-mrgn-10 ori-text-center">{downtime.message}</p>
-        }
-        <div className="ori-flex-row ori-flex-jc">
-          {
-            loading ? <DotsLoader /> :
-              <div className="ori-font-xs ori-font-light ori-text-center">we will try to fix it before <span className="ori-font-bold ori-font-default"> {formatDate(downtime.timestamp, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>. sorry for the inconvenience.</div>
-          }
-        </div>
-      </div>
+      </LangContext.Consumer>
     );
   }
 }

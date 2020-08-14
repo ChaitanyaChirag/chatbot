@@ -8,10 +8,13 @@ import SendingIcon from 'react-icons/lib/md/rotate-right';
 
 import './index.scss';
 
+import { LangContext } from './context'
+
 import * as chatActions from '../data/redux/chat_details/actions';
 import * as pageActions from '../data/redux/page_details/actions';
 
 import {
+  LANGUAGES,
   MESSAGE_TYPES,
   BUTTON_TYPES,
   BUTTON_SUB_TYPES,
@@ -31,7 +34,8 @@ import {
   chatbot_client_info,
   chatbot_setting,
   chatbot_status,
-  chatbot_default_messages
+  chatbot_default_messages,
+  translator
 } from '../data/config/urls';
 
 import TriggerChatBot from '../components/triggerchatbot';
@@ -47,6 +51,7 @@ class AppContainer extends Component {
     this.timeout = false;
     this.chatbotRef = React.createRef();
     this.state = {
+      lang: LANGUAGES.ENGLISH,
       selected_checkbox_values: [],
       selected_offer: {
         offer_id: null,
@@ -60,6 +65,8 @@ class AppContainer extends Component {
     const android = isAndroid();
     const ios = isIOS();
     let self = this;
+    const lang = translator.getLanguage()
+    this.setState({ lang })
     if (chatbot_setting.security.enable && !chat_details.secure) {
       const security_code = window.prompt(chatbot_status.security_prompt)
       if (security_code && security_code === chatbot_setting.security.code)
@@ -432,21 +439,23 @@ class AppContainer extends Component {
     if (chatbot_setting.security.enable && !chat_details.secure)
       return null
     return (
-      <div className="ori-app-container ori-ant-design-container oriAppContainer">
-        <Badge count={chat_details.notification_count} overflowCount={9} className="ori-animated ori-fade-in notificationBadge">
-          <TriggerChatBot is_chat_open={chat_details.is_chat_open} handleSocketConnection={this.handleSocketConnection} />
-        </Badge>
-        <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
-          {
-            chat_details.is_chat_open &&
-            <ChatBot ref={this.chatbotRef} screen_height={page_details.device_data.screen_height} is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
-          }
-          {
-            chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
-            <NotificationBot page_details={page_details} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} stack_view={chatbot_setting.notification_bot.stack_view} onChangeCheckbox={this.onChangeCheckbox} />
-          }
-        </Suspense>
-      </div>
+      <LangContext.Provider value={this.state.lang}>
+        <div className="ori-app-container ori-ant-design-container oriAppContainer">
+          <Badge count={chat_details.notification_count} overflowCount={9} className="ori-animated ori-fade-in notificationBadge">
+            <TriggerChatBot is_chat_open={chat_details.is_chat_open} handleSocketConnection={this.handleSocketConnection} />
+          </Badge>
+          <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
+            {
+              chat_details.is_chat_open &&
+              <ChatBot ref={this.chatbotRef} screen_height={page_details.device_data.screen_height} is_adster_bot={page_details.is_adster_bot} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
+            }
+            {
+              chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
+              <NotificationBot page_details={page_details} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} stack_view={chatbot_setting.notification_bot.stack_view} onChangeCheckbox={this.onChangeCheckbox} />
+            }
+          </Suspense>
+        </div>
+      </LangContext.Provider>
     );
   }
 }

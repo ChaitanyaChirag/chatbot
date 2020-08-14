@@ -18,7 +18,9 @@ import './index.scss';
 
 import { isAndroid, isIOS } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
-import { chatbot_setting } from '../../data/config/urls';
+import { chatbot_setting, translator } from '../../data/config/urls';
+
+import { LangContext } from '../../modules/context'
 
 const { TextArea } = Input;
 
@@ -126,74 +128,82 @@ class InputComposer extends React.PureComponent {
     const { input_message } = this.state;
 
     return (
-      <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
+      <LangContext.Consumer>
         {
-          !notification_bot && !listening && chatbot_setting.menu.visible &&
-          <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignMenuIcon" onClick={onClickMenu}>
-            <MenuIcon size={20} />
-          </div>
+          lang => (
+            <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
+              {
+                !notification_bot && !listening && chatbot_setting.menu.visible &&
+                <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignMenuIcon" onClick={onClickMenu}>
+                  <MenuIcon size={20} />
+                </div>
+              }
+              {
+                listening &&
+                <div className={classNames("ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc ori-font-danger", { "alignCircleDotIcon": notification_bot, "alignMenuIcon": !notification_bot })} onClick={this.stopSpeechListening}>
+                  <CircleDotIcon size={18} className="ori-animated ori-ripple ori-infinite" />
+                </div>
+              }
+              <Form onSubmit={this.handleMessageSend}>
+                <TextArea
+                  id='input_field'
+                  placeholder={
+                    is_input_lock ? input_lock_text : (listening ? translator.text[lang].listening : translator.text[lang].typeYourQuery)
+                  }
+                  className="inputField"
+                  autosize={{
+                    minRows: 1,
+                    maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3
+                  }}
+                  value={input_message}
+                  name="input_message"
+                  disabled={is_input_lock}
+                  onKeyDown={this.inputKeyDown}
+                  onChange={this.handleInputChange}
+                />
+                <div className="ori-animated ori-fade-in ori-absolute ori-flex-row ori-flex-jfe alignRightIcons">
+                  {
+                    (input_message.trim().length > 0 || !browserSupportsSpeechRecognition) &&
+                    <Button className={classNames("ori-pad-5 sendButton",
+                      {
+                        "sendBtnActive": input_message.trim().length > 0
+                      }
+                    )}
+                      htmlType="submit"
+                      disabled={input_message.trim().length === 0 || is_input_lock}
+                    >
+                      <SendIcon size={20} />
+                    </Button>
+                  }
+                  {
+                    chatbot_setting.chat_interface.speech_recognition.enable && input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
+                    <Button className={classNames("ori-pad-5 sendButton",
+                      {
+                        "sendBtnActive": listening
+                      }
+                    )}
+                      disabled={is_input_lock}
+                      onClick={this.onClickMic}
+                    >
+                      {
+                        listening ? <MicOffIcon size={20} /> : <MicIcon size={20} />
+                      }
+                    </Button>
+                  }
+                  {
+                    !notification_bot && ((this.is_android && chatbot_setting.add_file.android_enable) || (this.is_ios && chatbot_setting.add_file.ios_enable) || (!(this.is_android || this.is_ios) && chatbot_setting.add_file.web_enable)) &&
+                    <div className="ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc">
+                      <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
+                        <AddFileIcon size={20} className="ori-font-light-hover-default" />
+                      </Upload>
+                    </div>
+                  }
+                </div>
+              </Form>
+            </div>
+          )
         }
-        {
-          listening &&
-          <div className={classNames("ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc ori-font-danger", { "alignCircleDotIcon": notification_bot, "alignMenuIcon": !notification_bot })} onClick={this.stopSpeechListening}>
-            <CircleDotIcon size={18} className="ori-animated ori-ripple ori-infinite" />
-          </div>
-        }
-        <Form onSubmit={this.handleMessageSend}>
-          <TextArea
-            id='input_field'
-            placeholder={is_input_lock ? input_lock_text : (listening ? "Listening..." : "Type your query...")}
-            className="inputField"
-            autosize={{
-              minRows: 1,
-              maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3
-            }}
-            value={input_message}
-            name="input_message"
-            disabled={is_input_lock}
-            onKeyDown={this.inputKeyDown}
-            onChange={this.handleInputChange}
-          />
-          <div className="ori-animated ori-fade-in ori-absolute ori-flex-row ori-flex-jfe alignRightIcons">
-            {
-              (input_message.trim().length > 0 || !browserSupportsSpeechRecognition) &&
-              <Button className={classNames("ori-pad-5 sendButton",
-                {
-                  "sendBtnActive": input_message.trim().length > 0
-                }
-              )}
-                htmlType="submit"
-                disabled={input_message.trim().length === 0 || is_input_lock}
-              >
-                <SendIcon size={20} />
-              </Button>
-            }
-            {
-              chatbot_setting.chat_interface.speech_recognition.enable && input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
-              <Button className={classNames("ori-pad-5 sendButton",
-                {
-                  "sendBtnActive": listening
-                }
-              )}
-                disabled={is_input_lock}
-                onClick={this.onClickMic}
-              >
-                {
-                  listening ? <MicOffIcon size={20} /> : <MicIcon size={20} />
-                }
-              </Button>
-            }
-            {
-              !notification_bot && ((this.is_android && chatbot_setting.add_file.android_enable) || (this.is_ios && chatbot_setting.add_file.ios_enable) || (!(this.is_android || this.is_ios) && chatbot_setting.add_file.web_enable)) &&
-              <div className="ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc">
-                <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
-                  <AddFileIcon size={20} className="ori-font-light-hover-default" />
-                </Upload>
-              </div>
-            }
-          </div>
-        </Form>
-      </div>
+      </LangContext.Consumer>
     );
   }
 }
