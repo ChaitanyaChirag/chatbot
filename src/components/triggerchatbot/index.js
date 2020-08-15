@@ -1,11 +1,12 @@
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
 import ConversationIcon from 'react-icons/lib/fa/comments';
 
 import './index.scss';
 
-import { chatbot_client_info } from '../../data/config/urls';
+import { chatbot_client_info, chatbot_setting } from '../../data/config/urls';
 import { trigger } from '../../data/assets';
 
 const LottieContainer = React.lazy(() => import('./lottiecontainer'));
@@ -41,13 +42,25 @@ class TriggerChatBot extends React.PureComponent {
         }
         {
           !chatbot_client_info.trigger.visibility && !chatbot_client_info.trigger.lottie_visibility && !is_chat_open &&
-          <div className="ori-flex-row ori-flex-center triggerIconContainer">
+          <div className={classNames("ori-flex-row ori-flex-center triggerIconContainer",
+            {
+              "ori-bg-gradient": chatbot_setting.gradient.trigger,
+              "ori-bg-primary": !chatbot_setting.gradient.trigger
+            }
+          )}
+          >
             <ConversationIcon size={30} />
           </div>
         }
         {
           is_chat_open && chatbot_client_info.trigger.show_close_icon &&
-          <div className="ori-flex-row ori-flex-center triggerIconContainer">
+          <div className={classNames("ori-flex-row ori-flex-center triggerIconContainer",
+            {
+              "ori-bg-gradient": chatbot_setting.gradient.trigger,
+              "ori-bg-primary": !chatbot_setting.gradient.trigger
+            }
+          )}
+          >
             <CloseIcon size={28} />
           </div>
         }

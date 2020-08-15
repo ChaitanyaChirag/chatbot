@@ -197,7 +197,8 @@ class ChatBotConversation extends React.PureComponent {
                         className={classNames("ori-pad-7 ori-b-mrgn-5 ori-border-radius-10 msgBox",
                           {
                             "ori-t-mrgn-15 firstMsg": first_msg,
-                            "defaultMsgBox": !notification_bot,
+                            "defaultMsgBox": !notification_bot && !chatbot_setting.gradient.sender_bubble,
+                            "gradientBubble": !notification_bot && chatbot_setting.gradient.sender_bubble,
                             "notificationMsgBox": notification_bot && !stack_view,
                             "notificationStackMsgBox": notification_bot && stack_view,
                             "oriOffers": show_offers,

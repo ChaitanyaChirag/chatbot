@@ -9,8 +9,7 @@
 
     .triggerIconContainer {
         @include create-circle(70px, 70px);
-        
-        background-color: $primary;
+
         color: $white;
         box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.24);
 

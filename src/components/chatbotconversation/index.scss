@@ -100,6 +100,11 @@
             color: $chatbot-sender-bubble-font;
         }
 
+        .gradientBubble {
+          background-image: linear-gradient($gradient-angle, $gradient-primary $gradient-primary-percent, $gradient-secondary $gradient-secondary-percent);
+          color: $chatbot-sender-bubble-font;
+        }
+
         .notificationMsgBox {
             background-color: $notification_bot_sender_bubble_bg;
             color: $notification_bot_sender_bubble_font;

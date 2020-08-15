@@ -41,8 +41,8 @@ export const chatbot_setting = {
     code: "123456",
   },
   gradient: {
-    sender_bubble: true,
-    trigger: true,
+    sender_bubble: false,
+    trigger: false,
   },
   powered_by: {
     visibility: true, // to enable powered by tag
