@@ -1,6 +1,6 @@
 import { MESSAGE_SENDER, MESSAGE_TYPES, BUTTON_TYPES } from './constants'
 
-export const webDefault = [
+export const web = [
   {
     sender: MESSAGE_SENDER.CHATBOT,
     type: MESSAGE_TYPES.TEXT,
@@ -51,7 +51,7 @@ export const webDefault = [
   }
 ];
 
-export const androidDefault = [
+export const android = [
   {
     sender: MESSAGE_SENDER.CHATBOT,
     type: MESSAGE_TYPES.TEXT,

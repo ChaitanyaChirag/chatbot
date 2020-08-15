@@ -140,7 +140,15 @@ class InputComposer extends React.PureComponent {
               }
               {
                 listening &&
-                <div className={classNames("ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc ori-font-danger", { "alignCircleDotIcon": notification_bot, "alignMenuIcon": !notification_bot })} onClick={this.stopSpeechListening}>
+                <div
+                  className={classNames("ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc ori-font-primary",
+                    {
+                      "alignCircleDotIcon": notification_bot,
+                      "alignMenuIcon": !notification_bot
+                    }
+                  )}
+                  onClick={this.stopSpeechListening}
+                >
                   <CircleDotIcon size={18} className="ori-animated ori-ripple ori-infinite" />
                 </div>
               }

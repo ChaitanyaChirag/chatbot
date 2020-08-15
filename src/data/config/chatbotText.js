@@ -4,7 +4,7 @@ import { INFO_CONTENT_TYPE } from './constants';
 //----- means keys should be common in all language text.
 //----- copy englishText for any new language text and update the value in that language.
 
-export const englishText = {
+export const english = {
   brandName: "Vodafone",
   online: "online",
   offline: "offline",
@@ -63,11 +63,7 @@ export const englishText = {
   }
 }
 
-export const arabicText = {
-
-}
-
-export const hindiText = {
+export const hindi = {
   brandName: "वोडाफोन",
   online: "ऑनलाइन",
   offline: "ऑफ़लाइन",
@@ -126,4 +122,8 @@ export const hindiText = {
       ]
     }
   }
+}
+
+export const arabic = {
+  
 }

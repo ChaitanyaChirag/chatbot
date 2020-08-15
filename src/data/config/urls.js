@@ -1,11 +1,7 @@
 import { getPsid, getPlatform, isAndroid } from './utils';
 import { MESSAGE_TYPES, INFO_CONTENT_TYPE, LANGUAGES } from './constants';
-import {
-  androidDefault,
-  webDefault,
-  hindi
-} from './defaultMessages';
-import { englishText, arabicText, hindiText } from './chatbotText'
+import * as defaultMessages from './defaultMessages';
+import * as chatbotText from './chatbotText'
 
 const version = 1.1;
 const brandName = 'vodafone';
@@ -93,49 +89,52 @@ export const chatbot_setting = {
 };
 
 export const chatbot_default_messages = {
+  enable: false,
   query_param_key: "defaultmessages",
   messages: {
-    android: androidDefault,
-    web: webDefault,
-    hindi: hindi // testing purpose only
+    android: defaultMessages.android,
+    web: defaultMessages.web,
+    hindi: defaultMessages.hindi // testing purpose only
   },
   getDefaultMessages() {
     let defaultMsgs = this.messages.web
     if (isAndroid())
       defaultMsgs = this.messages.android
-
-    // write brand specific logic to get the key for default messages and update the defaultMsgs
-
-    const query_params = new URLSearchParams(window.location.search);
-    if (query_params.has(this.query_param_key)) {
-      const key = query_params.get(this.query_param_key)
-      const msgs = this.messages[key]
-      if (msgs)
-        defaultMsgs = msgs
+    if (this.enable) {
+      //=========== BRAND SPECIFIC LOGIC ==========
+      const query_params = new URLSearchParams(window.location.search);
+      if (query_params.has(this.query_param_key)) {
+        const key = query_params.get(this.query_param_key)
+        const msgs = this.messages[key]
+        if (msgs)
+          defaultMsgs = msgs
+      }
+      //=================== END ===================
     }
-
     return defaultMsgs
   }
 }
 
 export const translator = {
+  enable: false,
   query_param_key: 'lang',
   text: {
-    [LANGUAGES.ENGLISH]: englishText,
-    [LANGUAGES.ARABIC]: arabicText,
-    [LANGUAGES.HINDI]: hindiText
+    [LANGUAGES.ENGLISH]: chatbotText.english,
+    [LANGUAGES.ARABIC]: chatbotText.arabic,
+    [LANGUAGES.HINDI]: chatbotText.hindi
   },
   getLanguage() {
     let lang = LANGUAGES.ENGLISH
-
-    // write brand specific logic to get the key for default messages and update the defaultMsgs
-    const query_params = new URLSearchParams(window.location.search);
-    if (query_params.has(this.query_param_key)) {
-      const key = query_params.get(this.query_param_key)
-      if (this.text[key])
-        lang = key
+    if (this.enable) {
+      //=========== BRAND SPECIFIC LOGIC ==========
+      const query_params = new URLSearchParams(window.location.search);
+      if (query_params.has(this.query_param_key)) {
+        const key = query_params.get(this.query_param_key)
+        if (this.text[key])
+          lang = key
+      }
+      //=================== END ===================
     }
-
     return lang
   }
 }
