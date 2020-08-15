@@ -6,8 +6,10 @@ import Avatar from 'antd/lib/avatar';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 
-import { chatbot_setting, chatbot_client_info } from '../../../../data/config/urls';
+import { chatbot_setting, translator } from '../../../../data/config/urls';
 import { background, logo } from '../../../../data/assets'
+
+import { LangContext } from '../../../context';
 
 import DelayComponent from '../../../../components/delaycomponent';
 
@@ -16,23 +18,32 @@ const PoweredBy = lazy(() => import('../../../../components/poweredby'));
 const { Option } = Select;
 
 class EndChat extends React.PureComponent {
-  renderSessionCloseConfirmation = () => {
+  renderSessionCloseConfirmation = lang => {
     const { end_chat, closeEndChatPopup, confirmEndConversation } = this.props;
     if (end_chat.show_confirmation_card)
       return (
-        <InfoCard title="Do you want to close this session?" ok_text="Confirm" onClickCancel={closeEndChatPopup} onClickOk={confirmEndConversation} />
+        <InfoCard
+          title={translator.text[lang].sessionCloseConfirmation}
+          ok_text={translator.text[lang].confirm}
+          onClickCancel={closeEndChatPopup}
+          onClickOk={confirmEndConversation}
+        />
       );
   };
 
-  renderResolvedChatInfo = () => {
+  renderResolvedChatInfo = lang => {
     const { end_chat, confirmEndConversation } = this.props;
     if (end_chat.show_resolved_card)
       return (
-        <InfoCard title="Agent has ended the conversation" onClickOk={confirmEndConversation} />
+        <InfoCard
+          title={translator.text[lang].resolveChatInfo}
+          ok_text={translator.text[lang].ok}
+          onClickOk={confirmEndConversation}
+        />
       );
   };
 
-  renderDynamicForm = () => {
+  renderDynamicForm = lang => {
     const { is_socket_connected, end_chat, closeEndChatPopup, handleFormInputChange, handleFormSelectChange, submitFormData } = this.props;
     if (end_chat.show_form_card)
       return (
@@ -87,8 +98,25 @@ class EndChat extends React.PureComponent {
             })
           }
           <div className="ori-flex-row ori-flex-jc">
-            <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={closeEndChatPopup} >Skip</Button>
-            <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-15", { "ori-btn-fill-primary": is_socket_connected })} size="small" disabled={!is_socket_connected} onClick={submitFormData}>{is_socket_connected ? 'Submit' : "Connecting..."}</Button>
+            <Button
+              className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary"
+              size="small"
+              onClick={closeEndChatPopup}
+            >
+              {translator.text[lang].skip}
+            </Button>
+            <Button
+              className={classNames("ori-lr-mrgn-10 ori-lr-pad-15",
+                {
+                  "ori-btn-fill-primary": is_socket_connected
+                }
+              )}
+              size="small"
+              disabled={!is_socket_connected}
+              onClick={submitFormData}
+            >
+              {is_socket_connected ? translator.text[lang].submit : translator.text[lang].connecting}
+            </Button>
           </div>
         </div>
       );
@@ -97,64 +125,76 @@ class EndChat extends React.PureComponent {
   render() {
     const { isMounted, end_chat } = this.props;
     return (
-      <div
-        className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994",
-          {
-            "ori-fade-in": isMounted,
-            "ori-fade-out": !isMounted,
-            "ori-z-index-99995": end_chat.show_resolved_card,
-            "ori-bg-size-cover ori-bg-no-repeat ori-bg-position-center": chatbot_setting.chat_interface.show_bg_image
-          }
-        )}
-        style={{
-          backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
-        }}
-      >
-        <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
-          <div>
-            <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
-              <Avatar style={{ height: '55px', width: '55px' }} src={logo} />
-            </div>
-            <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{chatbot_client_info.brand_name}</p>
-            {
-              end_chat.description &&
-              <div className="ori-block-text-overflow-dotted ori-dotted-after-xs-3">
-                <p className="ori-animated ori-fade-in ori-font-xs ori-text-center">{end_chat.description}</p>
-              </div>
-            }
-          </div>
-        </div>
-        <div className="ori-absolute ori-align-full">
-          <div className="ori-relative ori-full-parent-height ori-full-width ori-overflow-y-auto ori-text-center" style={{ padding: "190px 15px 30px 15px" }}>
-            {this.renderSessionCloseConfirmation()}
-            {this.renderResolvedChatInfo()}
-            {this.renderDynamicForm()}
-          </div>
-        </div>
+      <LangContext.Consumer>
         {
-          chatbot_setting.powered_by.visibility &&
-          <Suspense fallback={null}>
-            <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center ori-bg-white ori-box-shadow" />
-          </Suspense>
+          lang => (
+            <div
+              className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994",
+                {
+                  "ori-fade-in": isMounted,
+                  "ori-fade-out": !isMounted,
+                  "ori-z-index-99995": end_chat.show_resolved_card,
+                  "ori-bg-size-cover ori-bg-no-repeat ori-bg-position-center": chatbot_setting.chat_interface.show_bg_image
+                }
+              )}
+              style={{
+                backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
+              }}
+            >
+              <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
+                <div>
+                  <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
+                    <Avatar style={{ height: '55px', width: '55px' }} src={logo} />
+                  </div>
+                  <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
+                  {
+                    end_chat.description &&
+                    <div className="ori-block-text-overflow-dotted ori-dotted-after-xs-3">
+                      <p className="ori-animated ori-fade-in ori-font-xs ori-text-center">{end_chat.description}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div className="ori-absolute ori-align-full">
+                <div className="ori-relative ori-full-parent-height ori-full-width ori-overflow-y-auto ori-text-center" style={{ padding: "190px 15px 30px 15px" }}>
+                  {this.renderSessionCloseConfirmation(lang)}
+                  {this.renderResolvedChatInfo(lang)}
+                  {this.renderDynamicForm(lang)}
+                </div>
+              </div>
+              {
+                chatbot_setting.powered_by.visibility &&
+                <Suspense fallback={null}>
+                  <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center ori-bg-white ori-box-shadow" />
+                </Suspense>
+              }
+            </div>
+          )
         }
-      </div>
+      </LangContext.Consumer>
     );
   }
 }
 
-const InfoCard = (props) => {
+const InfoCard = props => {
   const { title, ok_text, onClickCancel, onClickOk } = props;
   return (
-    <div className="ori-bg-white ori-pad-15 ori-tb-mrgn-10 ori-box-shadow ori-border-radius-5">
-      <p className="ori-b-mrgn-10">{title}</p>
-      <div className="ori-flex-row ori-flex-jc">
-        {
-          onClickCancel &&
-          <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel} >Cancel</Button>
-        }
-        <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-fill-primary" size="small" onClick={onClickOk} >{ok_text}</Button>
-      </div>
-    </div>
+    <LangContext.Consumer>
+      {
+        lang => (
+          <div className="ori-bg-white ori-pad-15 ori-tb-mrgn-10 ori-box-shadow ori-border-radius-5">
+            <p className="ori-b-mrgn-10">{title}</p>
+            <div className="ori-flex-row ori-flex-jc">
+              {
+                onClickCancel &&
+                <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel} >{translator.text[lang].cancel}</Button>
+              }
+              <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-fill-primary" size="small" onClick={onClickOk} >{ok_text}</Button>
+            </div>
+          </div>
+        )
+      }
+    </LangContext.Consumer>
   );
 };
 
@@ -168,7 +208,6 @@ InfoCard.propTypes = {
 
 InfoCard.defaultProps = {
   is_socket_connected: false,
-  ok_text: 'Ok',
 };
 
 EndChat.propTypes = {

@@ -33,7 +33,6 @@ import {
 import {
   chatbot_client_info,
   chatbot_setting,
-  chatbot_status,
   chatbot_default_messages,
   translator
 } from '../data/config/urls';
@@ -68,7 +67,7 @@ class AppContainer extends Component {
     const lang = translator.getLanguage()
     this.setState({ lang })
     if (chatbot_setting.security.enable && !chat_details.secure) {
-      const security_code = window.prompt(chatbot_status.security_prompt)
+      const security_code = window.prompt(translator.text[lang].security_prompt)
       if (security_code && security_code === chatbot_setting.security.code)
         actions.updateState('secure', true)
     }
