@@ -89,7 +89,7 @@ export const chatbot_setting = {
 
 export const chatbot_default_messages = {
   enable: true,
-  query_param_key: "defaultmessages",
+  query_param_key: "msg",
   messages: {
     android: defaultMessages.android,
     web: defaultMessages.web,
