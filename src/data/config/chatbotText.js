@@ -39,7 +39,7 @@ export const english = {
   failed: "Failed",
   close: "Close",
   send: "Send",
-  security_prompt: "This is custom message. please change this",
+  security_prompt: "This is a confidential URL. To access this URL please enter your security code.",
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
       header: 'Privacy Policy',
@@ -100,7 +100,7 @@ export const hindi = {
   failed: "असफल",
   close: "बंद करे",
   send: "भेजें",
-  security_prompt: "This is custom message. please change this",
+  security_prompt: "यह एक गोपनीय URL है। इस URL तक पहुँचने के लिए कृपया अपना सुरक्षा कोड दर्ज करें।",
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
       header: "गोपनीयता नीति",
