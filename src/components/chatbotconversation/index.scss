@@ -102,7 +102,7 @@
 
         .gradientBubble {
             background-image: linear-gradient($gradient-angle, $gradient-primary $gradient-primary-percent, $gradient-secondary $gradient-secondary-percent);
-            color: $chatbot-sender-bubble-font;
+            color: $chatbot-sender-gradient-bubble-font;
         }
 
         .notificationMsgBox {
