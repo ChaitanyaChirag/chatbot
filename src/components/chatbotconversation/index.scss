@@ -85,6 +85,10 @@
             top: 15px;
             left: -40px;
         }
+
+        .bubbleFooter {
+          color: $chatbot-server-bubble-footer-font;
+        }
     }
 
     .senderMsgContainer {
@@ -108,6 +112,10 @@
         .notificationMsgBox {
             background-color: $notification_bot_sender_bubble_bg;
             color: $notification_bot_sender_bubble_font;
+        }
+
+        .bubbleFooter {
+          color: $chatbot-sender-bubble-footer-font;
         }
     }
 }

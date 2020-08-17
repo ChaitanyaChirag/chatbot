@@ -254,7 +254,7 @@ class ChatBotConversation extends React.PureComponent {
                         }
                         {
                           (message.timestamp || message.chatlogId) &&
-                          <div className={classNames("ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb", { "ori-font-white": customer, "ori-font-light": chatbot || admin })}>
+                          <div className="ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb bubbleFooter">
                             <div className="ori-flex-row">
                               {
                                 message.chatlogId && (chatbot || admin) &&
