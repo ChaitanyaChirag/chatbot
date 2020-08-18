@@ -134,7 +134,6 @@ class EndChat extends React.PureComponent {
                   "ori-fade-in": isMounted,
                   "ori-fade-out": !isMounted,
                   "ori-z-index-99995": end_chat.show_resolved_card,
-                  "ori-bg-size-cover ori-bg-no-repeat ori-bg-position-center": chatbot_setting.chat_interface.show_bg_image
                 }
               )}
               style={{

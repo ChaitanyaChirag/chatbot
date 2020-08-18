@@ -282,11 +282,7 @@ class ChatBot extends Component {
       >
         <div
           id="chatbotContentContainer"
-          className={classNames("ori-relative ori-flex-column chatBotContentContainer",
-            {
-              "ori-bg-size-cover ori-bg-no-repeat ori-bg-position-center": chatbot_setting.chat_interface.show_bg_image
-            }
-          )}
+          className="ori-relative ori-flex-column chatBotContentContainer"
           style={{
             backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
           }}
