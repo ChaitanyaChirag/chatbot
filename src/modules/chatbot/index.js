@@ -60,11 +60,29 @@ class ChatBot extends Component {
   };
 
   is_app = isAndroid() || isIOS();
+  is_msg_updating = false
 
   componentWillMount() {
-    const { chat_details } = this.props
-    if (chat_details.messages.length === 0) {
+    this.setDefaultMessages()
+  }
+
+  componentDidUpdate() {
+    const { messages } = this.props.chat_details
+    if (this.is_msg_updating && messages.length !== 0)
+      this.is_msg_updating = false
+    this.setDefaultMessages()
+  }
+
+  setDefaultMessages = () => {
+    const { actions } = this.props
+    const { is_socket_connected, messages } = this.props.chat_details
+    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected) {
+      this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
+      default_messages.forEach((message, index) => {
+        const delay = chatbot_default_messages.delay * (index + 1)
+        setTimeout(actions.pushResponseMessage, delay, message)
+      })
     }
   }
 
@@ -84,10 +102,9 @@ class ChatBot extends Component {
     if (is_socket_connected) {
       const payload = { psid };
       actions.resetChat(payload, () => {
-        const default_messages = chatbot_default_messages.getDefaultMessages();
-        localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(default_messages));
+        actions.updateChatsState({ messages: [] })
+        localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
         localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
-        actions.setDefaultState();
         this.closeMenu();
       });
     }
@@ -178,10 +195,9 @@ class ChatBot extends Component {
       psid: chat_details.psid,
     };
     if (!chat_details.is_socket_connected) {
-      const default_messages = chatbot_default_messages.getDefaultMessages();
-      localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify(default_messages));
+      actions.updateChatsState({ messages: [] })
+      localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
       localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
-      actions.setDefaultState();
       this.closeWebView('endChatSubmit', {})
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();

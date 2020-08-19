@@ -33,7 +33,6 @@ import {
 import {
   chatbot_client_info,
   chatbot_setting,
-  chatbot_default_messages,
   translator
 } from '../data/config/urls';
 
@@ -46,7 +45,6 @@ class AppContainer extends Component {
   constructor(props) {
     super(props);
     window.androidObj = function AndroidClass() { };
-    //props.actions.setDeviceData(checkDevice.deviceStatus());
     this.timeout = false;
     this.chatbotRef = React.createRef();
     this.state = {
@@ -105,8 +103,8 @@ class AppContainer extends Component {
             localStorage.setItem(LOCAL_STORAGE.APP_PARAMS, JSON.stringify(data.params));
           }
           if (!chat_details.is_socket_connected) {
+            actions.updateChatsState({ messages: [] })
             actions.makeSocketConnection();
-            actions.setDefaultState();
           }
         } else if (update_type === 'endchat' && this.chatbotRef && this.chatbotRef.current && this.chatbotRef.current.onClickCloseIcon) {
           this.chatbotRef.current.onClickCloseIcon();
@@ -129,9 +127,8 @@ class AppContainer extends Component {
           actions.handleChatbotInterface(false);
         }
         if (time_gap > chatbot_setting.automate_reset_chat_time) {
-          const default_messages = chatbot_default_messages.getDefaultMessages();
-          localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify(default_messages));
-          actions.setDefaultState();
+          actions.updateChatsState({ messages: [] })
+          localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
         }
       } else {
         actions.handleChatbotInterface(false);

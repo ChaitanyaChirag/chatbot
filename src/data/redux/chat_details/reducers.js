@@ -89,25 +89,6 @@ const chat_details = (state = states.chat_details, action) => {
       };
     }
 
-    case actionTypes.SET_DEFAULT_STATE: {
-      let msg_length = action.payload.messages.length;
-      let messages = action.payload.messages;
-
-      return {
-        ...state,
-        messages: messages,
-        skipLS: messages && msg_length > 0 && messages[msg_length - 1].skipLS ? messages[msg_length - 1].skipLS : false,
-        send_variable_to_apiai: messages && msg_length > 0 && messages[msg_length - 1].send_variable_to_apiai ? messages[msg_length - 1].send_variable_to_apiai : false,
-        sendVariableToLS: messages && msg_length > 0 && messages[msg_length - 1].sendVariableToLS ? messages[msg_length - 1].sendVariableToLS : false,
-        variable_name: messages && msg_length > 0 && messages[msg_length - 1].variable_name ? messages[msg_length - 1].variable_name : '',
-        quick_replies: messages && msg_length > 0 && messages[msg_length - 1].quickReplies ? messages[msg_length - 1].quickReplies : [],
-        is_input_lock: messages && msg_length > 0 && messages[msg_length - 1].inputLock ? messages[msg_length - 1].inputLock : false,
-        input_lock_text: messages && msg_length > 0 && messages[msg_length - 1].inputLockMessage ? messages[msg_length - 1].inputLockMessage : "please select any option to proceed",
-        is_typing: false,
-        typing_text: "",
-      };
-    }
-
     case actionTypes.UPDATE_TYPING_INFO: {
       return {
         ...state,

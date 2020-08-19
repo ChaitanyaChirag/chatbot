@@ -1,6 +1,4 @@
 import actionTypes from '../actiontypes';
-import { chatbot_default_messages } from '../../config/urls';
-import { LOCAL_STORAGE, getDataFromLocalStorage } from '../../config/utils';
 
 export const updateChatsState = payload => {
   return {
@@ -65,6 +63,13 @@ export const pushSenderMessage = message => {
   };
 };
 
+export const pushResponseMessage = message => {
+  return {
+    type: actionTypes.PUSH_RESPONSE_MESSAGE,
+    payload: { message },
+  };
+};
+
 export const updateMessage = (payload, key) => {
   return {
     type: actionTypes.UPDATE_MESSAGE,
@@ -99,17 +104,6 @@ export const sendFeedback = (payload, callback) => {
 export const handleChatbotInterface = payload => {
   return {
     type: actionTypes.HANDLE_CHATBOT_INTERFACE,
-    payload,
-  };
-};
-
-export const setDefaultState = () => {
-  const defaultMsg = chatbot_default_messages.getDefaultMessages()
-  let payload = {
-    messages: getDataFromLocalStorage(LOCAL_STORAGE.MESSAGES(), defaultMsg),
-  };
-  return {
-    type: actionTypes.SET_DEFAULT_STATE,
     payload,
   };
 };

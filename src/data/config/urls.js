@@ -90,6 +90,7 @@ export const chatbot_setting = {
 export const chatbot_default_messages = {
   enable: true,
   query_param_key: "msg",
+  delay: 1000, // in ms
   messages: {
     android: defaultMessages.android,
     web: defaultMessages.web,

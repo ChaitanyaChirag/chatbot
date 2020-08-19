@@ -1,7 +1,12 @@
 import io from 'socket.io-client';
 
 import { EVENTS, MESSAGE_READ_STATUS } from '../../config/constants';
-import { getSocketUrl, chatbot_setting, chatbot_client_info, chatbot_default_messages } from '../../config/urls';
+import { 
+  getSocketUrl, 
+  chatbot_setting, 
+  chatbot_client_info, 
+  chatbot_default_messages 
+} from '../../config/urls';
 import { log, getCookie, uniqueId } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
 import actionTypes from '../actiontypes';
@@ -13,7 +18,7 @@ const registerSocketListener = (store, socket) => {
     const chat_details = store.getState().chat_details;
     store.dispatch(updateChatsState({ is_socket_connected: socket.connected }));
     const default_messages = chatbot_default_messages.getDefaultMessages();
-    if (chatbot_setting.auto_emit_response.enable && chat_details.messages.length === default_messages.length) {
+    if (chatbot_setting.auto_emit_response.enable && chat_details.messages.length <= default_messages.length) {
       const query_params = new URLSearchParams(window.location.search);
       const data = {
         ...chatbot_setting.auto_emit_response.payload,
