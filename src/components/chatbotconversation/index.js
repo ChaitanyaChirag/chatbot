@@ -161,7 +161,7 @@ class ChatBotConversation extends React.PureComponent {
 
             return (
               <ErrorBoundary key={index}>
-                <div className="ori-full-width">
+                <div className="ori-animated ori-fade-in">
                   {
                     show_timestamp_tag &&
                     <div className="ori-flex-row ori-flex-jc ori-pad-5">
