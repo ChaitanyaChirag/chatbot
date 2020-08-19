@@ -6,7 +6,7 @@ const actionTypes = {
 
     /* --------------chatbot_details----------------- */
 
-    UPDATE_STATE: "UPDATE_STATE",
+    UPDATE_CHATS_STATE: "UPDATE_CHATS_STATE",
     UPDATE_END_CHAT: "UPDATE_END_CHAT",
     MAKE_SOCKET_CONNECTION: "MAKE_SOCKET_CONNECTION",
     SOCKET_DISCONNECT: "SOCKET_DISCONNECT",

@@ -9,7 +9,7 @@ import {
 
 const default_msg = chatbot_default_messages.getDefaultMessages()
 
-const messages = getDataFromLocalStorage(LOCAL_STORAGE.MESSAGES(), default_msg)
+const messages = getDataFromLocalStorage(LOCAL_STORAGE.MESSAGES(), [])
 
 const getPreviousMessageData = (key, defaultData) => {
   let data = defaultData

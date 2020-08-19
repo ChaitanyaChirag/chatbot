@@ -69,7 +69,7 @@ class AppContainer extends Component {
     if (chatbot_setting.security.enable && !chat_details.secure) {
       const security_code = window.prompt(translator.text[lang].security_prompt)
       if (security_code && security_code === chatbot_setting.security.code)
-        actions.updateState('secure', true)
+        actions.updateChatsState({ secure: true })
     }
 
     window.bot_popup = this.botPopup;
@@ -99,7 +99,7 @@ class AppContainer extends Component {
           data = JSON.parse(data);
           if (data.psid) {
             localStorage.setItem(LOCAL_STORAGE.PSID, data.psid);
-            actions.updateState('psid', data.psid);
+            actions.updateChatsState({ psid: data.psid });
           }
           if (data.params) {
             localStorage.setItem(LOCAL_STORAGE.APP_PARAMS, JSON.stringify(data.params));
@@ -167,7 +167,7 @@ class AppContainer extends Component {
 
   handleConnectionChange = () => {
     const { actions } = this.props;
-    actions.updateState('is_internet_connected', navigator.onLine);
+    actions.updateChatsState({ is_internet_connected: navigator.onLine });
     if (navigator.onLine)
       actions.callSocketMethod('open')
     else

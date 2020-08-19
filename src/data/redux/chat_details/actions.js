@@ -2,13 +2,12 @@ import actionTypes from '../actiontypes';
 import { chatbot_default_messages } from '../../config/urls';
 import { LOCAL_STORAGE, getDataFromLocalStorage } from '../../config/utils';
 
-export const updateState = (key, payload) => {
+export const updateChatsState = payload => {
   return {
-    type: actionTypes.UPDATE_STATE,
-    payload,
-    key
+    type: actionTypes.UPDATE_CHATS_STATE,
+    payload
   }
-};
+}
 
 export const updateEndChat = payload => {
   return {

@@ -61,6 +61,13 @@ class ChatBot extends Component {
 
   is_app = isAndroid() || isIOS();
 
+  componentWillMount() {
+    const { chat_details } = this.props
+    if (chat_details.messages.length === 0) {
+      const default_messages = chatbot_default_messages.getDefaultMessages();
+    }
+  }
+
   openMenu = () => {
     this.setState({ show_menu: true });
   };
@@ -256,7 +263,7 @@ class ChatBot extends Component {
 
   onDowntimeComplete = () => {
     const { actions } = this.props;
-    actions.updateState('downtime', {});
+    actions.updateChatsState({ downtime: {} });
     setTimeout(actions.makeSocketConnection, 1000);
   };
 

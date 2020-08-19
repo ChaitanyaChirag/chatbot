@@ -7,11 +7,11 @@ import { MESSAGE_READ_STATUS, MESSAGE_SENDER } from '../../config/constants';
 
 const chat_details = (state = states.chat_details, action) => {
   switch (action.type) {
-    case actionTypes.UPDATE_STATE: {
+    case actionTypes.UPDATE_CHATS_STATE: {
       return {
         ...state,
-        [action.key]: action.payload
-      };
+        ...action.payload
+      }
     }
 
     case actionTypes.UPDATE_END_CHAT: {

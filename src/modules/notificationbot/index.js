@@ -32,13 +32,13 @@ class NotificationBot extends React.PureComponent {
   handleNotificationBotClose = () => {
     const { actions } = this.props;
     localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
-    actions.updateState('unseen_messages', []);
+    actions.updateChatsState({ unseen_messages: [] });
   };
 
   handleViewMore = () => {
     const { actions } = this.props;
     localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
-    actions.updateState('unseen_messages', []);
+    actions.updateChatsState({ unseen_messages: [] });
     actions.handleChatbotInterface(true);
   };
 
