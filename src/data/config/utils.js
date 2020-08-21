@@ -6,10 +6,6 @@ const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
 
-const DEV_VAR = {
-  ENABLE_CONSOLE: true,
-};
-
 export const guid = () => {
   return s4() + s4() +
     s4() + s4();
@@ -20,11 +16,10 @@ export const uniqueId = () => {
   return `${time}_${guid()}`;
 };
 
-export const log = (str, value) => {
-  if (DEV_VAR.ENABLE_CONSOLE) {
-    value ? console.log(str, value) : console.log(str);
-  }
-};
+export const log = (...arg) => {
+  if (process.env.NODE_ENV === 'development')
+    console.log(...arg)
+}
 
 export const showMessage = (type, msg) => {
   const node = document.getElementById('chatbotContentContainer');
