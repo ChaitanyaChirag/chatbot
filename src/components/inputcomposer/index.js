@@ -31,7 +31,6 @@ class InputComposer extends React.PureComponent {
     this.android_input_max_rows_updated = false;
     this.is_android = isAndroid();
     this.is_ios = isIOS();
-    this.textareaScrollRef = React.createRef();
     this.state = {
       input_message: "",
       typing: false,
@@ -45,11 +44,6 @@ class InputComposer extends React.PureComponent {
     if (chatbot_setting.chat_interface.speech_recognition.enable && listening && prevProps.transcript !== transcript) {
       this.setState({ input_message: transcript });
     }
-  }
-
-  onInputFocus = () => {
-    if (this.textareaScrollRef && window.innerWidth < 480)
-      this.textareaScrollRef.current.scrollIntoView({ behavior: "smooth" })
   }
 
   handleInputChange = event => {
@@ -171,7 +165,6 @@ class InputComposer extends React.PureComponent {
                   value={input_message}
                   name="input_message"
                   disabled={is_input_lock}
-                  onFocus={this.onInputFocus}
                   onKeyDown={this.inputKeyDown}
                   onChange={this.handleInputChange}
                 />
@@ -214,7 +207,6 @@ class InputComposer extends React.PureComponent {
                   }
                 </div>
               </Form>
-              <div ref={this.textareaScrollRef} />
             </div>
           )
         }
