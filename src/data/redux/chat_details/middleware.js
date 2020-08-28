@@ -1,11 +1,11 @@
 import io from 'socket.io-client';
 
 import { EVENTS, MESSAGE_READ_STATUS } from '../../config/constants';
-import { 
-  getSocketUrl, 
-  chatbot_setting, 
-  chatbot_client_info, 
-  chatbot_default_messages 
+import {
+  getSocketUrl,
+  chatbot_setting,
+  chatbot_client_info,
+  chatbot_default_messages
 } from '../../config/urls';
 import { log, getCookie, uniqueId } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
@@ -176,25 +176,21 @@ const registerSocketListener = (store, socket) => {
   socket.on(EVENTS.SHOW_NOTIFICATION, data => {
     log('show notification listener', data);
     if (data && data.message)
-      store.dispatch({
-        type: actionTypes.UPDATE_STATE,
-        key: 'notification',
-        payload: {
+      store.dispatch(updateChatsState({
+        notification: {
           visible: true,
           message: data.message
         }
-      });
+      }))
     if (notificationTimer)
       clearTimeout(notificationTimer);
     notificationTimer = setTimeout(() => {
-      store.dispatch({
-        type: actionTypes.UPDATE_STATE,
-        key: 'notification',
-        payload: {
+      store.dispatch(updateChatsState({
+        notification: {
           visible: false,
           message: ""
         }
-      });
+      }))
     }, 8000)
   });
 };
