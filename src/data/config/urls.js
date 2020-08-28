@@ -21,7 +21,6 @@ export const chatbot_client_info = {
     mobile_icon_width: 70, //in number only
     animation_duration: 2000, // in milliseceond only
     lottie_visibility: true, // to enable lottie icon
-    lottie_path: "https://d113ddgi4j6d7k.cloudfront.net/dashboard/cue.json",
     lottie_icon_height: 70,
     lottie_icon_width: 70,
     show_close_icon: true,

@@ -1,20 +1,25 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import { chatbot_client_info } from '../../../data/config/urls';
 
-export default class LottieContainer extends React.PureComponent {
-    lottieDefaultOptions = {
+import { chatbot_client_info } from '../../../data/config/urls';
+import { lottiejson } from '../../../data/assets'
+
+const LottieContainer = React.memo(() => {
+  return (
+    <Lottie
+      options={{
         loop: true,
         autoplay: true,
-        path: chatbot_client_info.trigger.lottie_path,
+        animationData: lottiejson,
         rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
+          preserveAspectRatio: 'xMidYMid slice'
         }
-    };
-    
-    render() {
-        return (
-            <Lottie options={this.lottieDefaultOptions} height={chatbot_client_info.trigger.lottie_icon_height} width={chatbot_client_info.trigger.lottie_icon_width} />
-        )
-    }
-}
+      }}
+      height={chatbot_client_info.trigger.lottie_icon_height}
+      width={chatbot_client_info.trigger.lottie_icon_width}
+    />
+  )
+})
+
+
+export default LottieContainer;
