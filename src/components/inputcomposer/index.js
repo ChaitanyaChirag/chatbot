@@ -126,12 +126,21 @@ class InputComposer extends React.PureComponent {
   render() {
     const { is_input_lock, input_lock_text, onClickMenu, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
     const { input_message } = this.state;
-
     return (
       <LangContext.Consumer>
         {
           lang => (
-            <div className={classNames("ori-relative ori-full-width oriInputComposerContainer", { "ori-placeholder-primary": is_input_lock || listening })}>
+            <div
+              className={
+                classNames("ori-relative ori-full-width oriInputComposerContainer",
+                  {
+                    "ori-placeholder-primary": is_input_lock || listening,
+                    "notificationBotInputComposer": notification_bot,
+                    "chatbotInputComposer": !notification_bot
+                  }
+                )
+              }
+            >
               {
                 !notification_bot && !listening && chatbot_setting.menu.visible &&
                 <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignMenuIcon" onClick={onClickMenu}>
@@ -141,12 +150,7 @@ class InputComposer extends React.PureComponent {
               {
                 listening &&
                 <div
-                  className={classNames("ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc ori-font-primary",
-                    {
-                      "alignCircleDotIcon": notification_bot,
-                      "alignMenuIcon": !notification_bot
-                    }
-                  )}
+                  className="ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc ori-font-primary alignMenuIcon"
                   onClick={this.stopSpeechListening}
                 >
                   <CircleDotIcon size={18} className="ori-animated ori-ripple ori-infinite" />

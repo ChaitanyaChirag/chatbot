@@ -58,15 +58,6 @@
             bottom: 0;
             left: 0;
             right: 0;
-
-            .inputComposerContainer {
-                min-height: 45px;
-                max-height: 110px;
-                border-radius: 5px;
-                padding: 12px 45px 11px 25px;
-                background-color: $chatbot-footer-bg;
-                box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.15);
-            }
         }
     }
 }

@@ -422,11 +422,23 @@ class ChatBot extends Component {
               chat_details.quick_replies && chat_details.quick_replies.length > 0 &&
               <Suspense fallback={null}>
                 <div className="ori-absolute carouselContainer">
-                  <QuickReply quick_replies={chat_details.quick_replies} sendTextToServer={sendTextToServer} />
+                  <QuickReply
+                    quick_replies={chat_details.quick_replies}
+                    sendTextToServer={sendTextToServer}
+                  />
                 </div>
               </Suspense>
             }
-            <InputComposer psid={chat_details.psid} sendTextToServer={sendTextToServer} is_input_lock={chat_details.is_input_lock} input_lock_text={chat_details.input_lock_text} onClickMenu={this.openMenu} emitCustomEvent={actions.emitCustomEvent} beforeUpload={this.beforeFileUpload} onRemove={this.onFileRemove} />
+            <InputComposer
+              psid={chat_details.psid}
+              sendTextToServer={sendTextToServer}
+              is_input_lock={chat_details.is_input_lock}
+              input_lock_text={chat_details.input_lock_text}
+              onClickMenu={this.openMenu}
+              emitCustomEvent={actions.emitCustomEvent}
+              beforeUpload={this.beforeFileUpload}
+              onRemove={this.onFileRemove}
+            />
           </div>
         </div>
       </div >

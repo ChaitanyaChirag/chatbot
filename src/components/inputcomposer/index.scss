@@ -24,7 +24,6 @@
 
     .alignRightIcons {
         bottom: -2px;
-        right: -60px;
         color: $font-color-light;
 
         &:hover {
@@ -34,18 +33,6 @@
 
     .alignMenuIcon {
         z-index: 99993;
-        bottom: -1px;
-        left: -24px;
-        color: $font-color-light;
-
-        &:hover {
-            color: $font-color;
-        }
-    }
-
-    .alignCircleDotIcon {
-        bottom: -2px;
-        left: -20px;
         color: $font-color-light;
 
         &:hover {
@@ -73,5 +60,36 @@
         &:hover {
             color: $primary !important;
         }
+    }
+}
+
+.chatbotInputComposer {
+    .alignRightIcons {
+        right: -60px;
+    }
+
+    .alignMenuIcon {
+        bottom: -1px;
+        left: -24px;
+    }
+}
+
+.notificationBotInputComposer {
+    min-height: 45px;
+    max-height: 110px;
+    border-radius: 5px;
+    padding: 12px 35px 11px 25px;
+    background-color: $chatbot-footer-bg;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.15);
+
+    .alignRightIcons {
+        bottom: 10px;
+        right: 5px;
+    }
+
+    .alignMenuIcon {
+        bottom: 11px;
+        left: 5px;
+        z-index: 1;
     }
 }
