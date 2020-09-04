@@ -54,6 +54,7 @@ export const MESSAGE_TYPES = {
   UPLOAD_FILE: "uploadFile",
   FILE: "file",
   SYSTEM_TEXT: "systemText",
+  LOCATION: "location"
 };
 
 export const MESSAGE_SUBTYPES = {
