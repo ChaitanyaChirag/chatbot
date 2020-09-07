@@ -53,7 +53,10 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.CONNECT_ERROR, error => {
     log('socket connect error', error);
-    store.dispatch(updateChatsState({ is_socket_connected: socket.connected }));
+    store.dispatch(updateChatsState({
+      is_socket_connected: socket.connected,
+      socket_request_processing: false
+    }));
   });
 
   socket.on(EVENTS.ERROR, error => {
