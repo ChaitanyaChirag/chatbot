@@ -16,7 +16,10 @@ const registerSocketListener = (store, socket) => {
   socket.on(EVENTS.CONNECT, () => {
     log('socket connected', socket);
     const chat_details = store.getState().chat_details;
-    store.dispatch(updateChatsState({ is_socket_connected: socket.connected }));
+    store.dispatch(updateChatsState({
+      is_socket_connected: socket.connected,
+      socket_request_processing: false
+    }));
     const default_messages = chatbot_default_messages.getDefaultMessages();
     if (chatbot_setting.auto_emit_response.enable && chat_details.messages.length <= default_messages.length) {
       const query_params = new URLSearchParams(window.location.search);
@@ -200,20 +203,23 @@ const middleware = () => {
   return store => next => action => {
     switch (action.type) {
       case actionTypes.MAKE_SOCKET_CONNECTION: {
-        if (socket)
-          socket.close()
-        const socket_url = getSocketUrl();
-        fetch("https://api.ipify.org?format=json")
-          .then(response => response.json())
-          .then(data => {
-            const url = `${socket_url}&publicIP=${data.ip}`
-            socket = io(url);
-            registerSocketListener(store, socket);
-          })
-          .catch(() => {
-            socket = io(socket_url);
-            registerSocketListener(store, socket);
-          })
+        if (!store.getState().chat_details.socket_request_processing) {
+          store.dispatch(updateChatsState({ socket_request_processing: true }))
+          if (socket)
+            socket.close()
+          const socket_url = getSocketUrl();
+          fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+              const url = `${socket_url}&publicIP=${data.ip}`
+              socket = io(url);
+              registerSocketListener(store, socket);
+            })
+            .catch(() => {
+              socket = io(socket_url);
+              registerSocketListener(store, socket);
+            })
+        }
         break;
       }
 

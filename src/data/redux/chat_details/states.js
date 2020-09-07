@@ -31,6 +31,7 @@ const default_end_chat = {
 const states = {
   chat_details: {
     secure: !chatbot_setting.security.enable,
+    socket_request_processing: false,
     is_socket_connected: false,
     is_internet_connected: false,
     messages: (isAndroid() || messages.length === default_msg.length) ? [] : messages,
