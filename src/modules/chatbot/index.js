@@ -284,15 +284,32 @@ class ChatBot extends Component {
   };
 
   render() {
-    const { show_menu, show_feedback, show_file_preview, info_content_type, file, fileUrl } = this.state;
-    const { chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions, screen_height } = this.props;
+    const {
+      show_menu,
+      show_feedback,
+      show_file_preview,
+      info_content_type,
+      file,
+      fileUrl
+    } = this.state;
+    const {
+      chat_details,
+      sendTextToServer,
+      handleMsgBtnClick,
+      handleFileUpload,
+      handleOfferSelection,
+      onChangeCheckbox,
+      actions,
+      screen_height
+    } = this.props;
+    
     let containerStyle = {
       bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
       borderRadius: chatbot_client_info.trigger.show_close_icon ? '8px' : '8px 8px 0px 0px',
     };
-    if (this.is_app) {
+    if (this.is_app)
       containerStyle = { ...containerStyle, ...androidTabletStyle };
-    }
+
     return (
       <div
         className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer",

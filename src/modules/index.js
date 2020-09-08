@@ -432,17 +432,44 @@ class AppContainer extends Component {
     return (
       <LangContext.Provider value={this.state.lang}>
         <div className="ori-app-container ori-ant-design-container oriAppContainer">
-          <Badge count={chat_details.notification_count} overflowCount={9} className="ori-animated ori-fade-in notificationBadge">
-            <TriggerChatBot is_chat_open={chat_details.is_chat_open} handleSocketConnection={this.handleSocketConnection} />
+          <Badge
+            count={chat_details.notification_count}
+            overflowCount={9}
+            className="ori-animated ori-fade-in notificationBadge"
+          >
+            <TriggerChatBot
+              is_chat_open={chat_details.is_chat_open}
+              handleSocketConnection={this.handleSocketConnection}
+            />
           </Badge>
           <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
             {
               chat_details.is_chat_open &&
-              <ChatBot ref={this.chatbotRef} screen_height={page_details.device_data.screen_height} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} onChangeCheckbox={this.onChangeCheckbox} />
+              <ChatBot
+                ref={this.chatbotRef}
+                screen_height={page_details.device_data.screen_height}
+                chat_details={chat_details}
+                actions={actions}
+                sendTextToServer={this.sendTextToServer}
+                handleMsgBtnClick={this.handleMsgBtnClick}
+                handleFileUpload={this.handleFileUpload}
+                handleOfferSelection={this.handleOfferSelection}
+                onChangeCheckbox={this.onChangeCheckbox}
+              />
             }
             {
               chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
-              <NotificationBot page_details={page_details} chat_details={chat_details} actions={actions} sendTextToServer={this.sendTextToServer} handleMsgBtnClick={this.handleMsgBtnClick} handleFileUpload={this.handleFileUpload} handleOfferSelection={this.handleOfferSelection} stack_view={chatbot_setting.notification_bot.stack_view} onChangeCheckbox={this.onChangeCheckbox} />
+              <NotificationBot
+                page_details={page_details}
+                chat_details={chat_details}
+                actions={actions}
+                sendTextToServer={this.sendTextToServer}
+                handleMsgBtnClick={this.handleMsgBtnClick}
+                handleFileUpload={this.handleFileUpload}
+                handleOfferSelection={this.handleOfferSelection}
+                stack_view={chatbot_setting.notification_bot.stack_view}
+                onChangeCheckbox={this.onChangeCheckbox}
+              />
             }
           </Suspense>
         </div>
