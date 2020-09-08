@@ -49,6 +49,7 @@ export const chatbot_setting = {
   chat_interface: {
     show_bg_image: true, // to enable chatinterface background
     show_avatar: true,
+    quick_reply_bg_transparent: true,
     query_params: {
       enable: true,
       query_param_key: 'chatbotopen',

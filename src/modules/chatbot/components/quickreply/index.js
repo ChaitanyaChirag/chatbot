@@ -4,6 +4,8 @@ import Button from 'antd/lib/button';
 
 import './index.scss';
 
+import { chatbot_setting } from '../../../../data/config/urls'
+
 const DIRECTION = {
   LEFT: "left",
   RIGHT: "right"
@@ -73,7 +75,7 @@ export default class QuickReply extends React.PureComponent {
     const translate_px = `${translate}px`;
 
     return (
-      <div className="ori-relative ori-full-width oriQuickReplyContainer">
+      <div className={`ori-relative ori-full-width oriQuickReplyContainer ${chatbot_setting.chat_interface.quick_reply_bg_transparent ? "" : "ori-bg-footer"}`}>
         {
           !disableRight &&
           <Button
