@@ -115,17 +115,18 @@ class AppContainer extends Component {
       let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
       const query_params = new URLSearchParams(window.location.search);
       if (chatbot_setting.chat_interface.query_params.enable && query_params.has(chatbot_setting.chat_interface.query_params.query_param_key)) {
-        if (query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)) {
-          this.handleSocketConnection(true);
-        }
+        const query_param_value = query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)
+        if (query_param_value === "true")
+          this.handleSocketConnection(true)
+        else if (query_param_value === "false")
+          actions.handleChatbotInterface(false)
       } else if (last_emit) {
         let current_time = new Date().getTime();
         let time_gap = (current_time - last_emit) / 1000;
-        if (time_gap < chatbot_setting.automate_connection_time) {
+        if (time_gap < chatbot_setting.automate_connection_time)
           actions.makeSocketConnection();
-        } else {
+        else
           actions.handleChatbotInterface(false);
-        }
         if (time_gap > chatbot_setting.automate_reset_chat_time) {
           actions.updateChatsState({ messages: [] })
           localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
