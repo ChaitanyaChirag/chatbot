@@ -26,8 +26,8 @@ export default class QuickReply extends React.PureComponent {
 
   handleTranslate = dir => {
     let { translate } = this.state;
-    const view_width = this.quick_reply_view.offsetWidth;
-    const track_width = this.quick_replay_track.scrollWidth;
+    const view_width = this.quick_reply_view.current.offsetWidth;
+    const track_width = this.quick_replay_track.current.scrollWidth;
     if (view_width > track_width) {
       this.setState({
         disableLeft: true,
