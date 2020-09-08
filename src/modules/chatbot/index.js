@@ -285,7 +285,7 @@ class ChatBot extends Component {
 
   render() {
     const { show_menu, show_feedback, show_file_preview, info_content_type, file, fileUrl } = this.state;
-    const { is_adster_bot, chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions, screen_height } = this.props;
+    const { chat_details, sendTextToServer, handleMsgBtnClick, handleFileUpload, handleOfferSelection, onChangeCheckbox, actions, screen_height } = this.props;
     let containerStyle = {
       bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
       borderRadius: chatbot_client_info.trigger.show_close_icon ? '8px' : '8px 8px 0px 0px',
@@ -312,24 +312,21 @@ class ChatBot extends Component {
         >
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
             {
-              !this.is_app && !is_adster_bot && !chat_details.end_chat.visible &&
+              !this.is_app && !chat_details.end_chat.visible &&
               <div className="ori-pad-5" onClick={this.minimizeChatbotInterface}>
                 <div className="minimizeIcon" style={{ height: '16px', width: '13px' }} />
               </div>
             }
-            {
-              !is_adster_bot &&
-              <div className="ori-lr-pad-5 ori-cursor-ptr chatIcons" onClick={this.onClickCloseIcon}>
-                {
-                  chat_details.end_chat.visible ?
-                    <div className="ori-font-default-hover-white">
-                      <CloseIcon size={18} />
-                    </div>
-                    :
-                    <Button className="ori-font-xs ori-btn-default" size="small">End chat</Button>
-                }
-              </div>
-            }
+            <div className="ori-lr-pad-5 ori-cursor-ptr chatIcons" onClick={this.onClickCloseIcon}>
+              {
+                chat_details.end_chat.visible ?
+                  <div className="ori-font-default-hover-white">
+                    <CloseIcon size={18} />
+                  </div>
+                  :
+                  <Button className="ori-font-xs ori-btn-default" size="small">End chat</Button>
+              }
+            </div>
           </div>
           <Suspense fallback={null}>
             <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
@@ -454,11 +451,6 @@ ChatBot.propTypes = {
   handleFileUpload: PropTypes.func,
   handleOfferSelection: PropTypes.func,
   onChangeCheckbox: PropTypes.func,
-  is_adster_bot: PropTypes.bool,
-};
-
-ChatBot.defaultProps = {
-  is_adster_bot: false,
 };
 
 export default ChatBot;
