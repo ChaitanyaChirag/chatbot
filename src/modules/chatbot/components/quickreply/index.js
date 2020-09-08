@@ -15,6 +15,8 @@ export default class QuickReply extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleTranslate = this.handleTranslate.bind(this);
+    this.quick_reply_view = React.createRef()
+    this.quick_replay_track = React.createRef()
     this.state = {
       translate: 0,
       disableLeft: false,
@@ -93,16 +95,15 @@ export default class QuickReply extends React.PureComponent {
           />
         }
         <div
+          ref={this.quick_reply_view}
           className="ori-full-width quickReplyBodyContainer"
-          ref={el => { this.quick_reply_view = el; }}
         >
           <div
-            id="quick_reply_track"
+            ref={this.quick_replay_track}
             className="ori-flex quickReplyTrack"
             style={{
               transform: "translate3d(" + translate_px + ",0,0)"
             }}
-            ref={el => { this.quick_replay_track = el; }}
           >
             {
               quick_replies.map((reply, index) => {
