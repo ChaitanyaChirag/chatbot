@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'antd/lib/button';
-import LeftIcon from 'react-icons/lib/md/chevron-left';
-import RightIcon from 'react-icons/lib/md/chevron-right';
 
 import './index.scss';
 
@@ -12,8 +10,8 @@ const DIRECTION = {
 };
 
 export default class QuickReply extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleTranslate = this.handleTranslate.bind(this);
     this.state = {
       translate: 0,
@@ -75,27 +73,46 @@ export default class QuickReply extends React.PureComponent {
     const translate_px = `${translate}px`;
 
     return (
-      <div className="ori-relative ori-full-width ori-full-parent-height oriQuickReplyContainer">
+      <div className="ori-relative ori-full-width oriQuickReplyContainer">
         {
           !disableRight &&
-          <Button className="ori-absolute ori-pad-3 ori-flex-column ori-flex-jc iconBtn  alignLeftIcon" onClick={this.translateRight}>
-            <LeftIcon size={20} />
-          </Button>
+          <Button
+            icon="left"
+            className="ori-absolute ori-lr-pad-5 ori-btn-fill-primary ori-align-top-4  alignLeft"
+            onClick={this.translateRight}
+          />
         }
         {
           !disableLeft &&
-          <Button className="ori-absolute ori-pad-3 ori-flex-column ori-flex-jc iconBtn alignRightIcon" onClick={this.translateLeft}>
-            <RightIcon size={20} />
-          </Button>
+          <Button
+            icon="right"
+            className="ori-absolute ori-lr-pad-5 ori-btn-fill-primary ori-align-top-4 alignRight"
+            onClick={this.translateLeft}
+          />
         }
-        <div className="ori-full-width ori-full-parent-height quickReplyBodyContainer" ref={el => { this.quick_reply_view = el; }}>
-          <div id="quick_reply_track" className="ori-full-parent-height ori-flex-row quickReplyTrack" style={{ transform: "translate3d(" + translate_px + ",0,0)" }} ref={el => { this.quick_replay_track = el; }}>
+        <div
+          className="ori-full-width quickReplyBodyContainer"
+          ref={el => { this.quick_reply_view = el; }}
+        >
+          <div
+            id="quick_reply_track"
+            className="ori-flex quickReplyTrack"
+            style={{
+              transform: "translate3d(" + translate_px + ",0,0)"
+            }}
+            ref={el => { this.quick_replay_track = el; }}
+          >
             {
               quick_replies.map((reply, index) => {
                 return (
-                  <div className="ori-animated ori-fade-in ori-full-parent-height ori-lr-pad-5 ori-flex-column ori-flex-jc" key={index}>
-                    <Button className="ori-lr-pad-5 ori-btn-ghost-primary ori-font-sm " onClick={() =>  sendTextToServer(reply)}>{reply}</Button>
-                  </div>
+                  <Button
+                    key={index}
+                    size="small"
+                    className="ori-lr-pad-5 ori-lr-mrgn-5 ori-btn-ghost-primary"
+                    onClick={() => sendTextToServer(reply)}
+                  >
+                    {reply}
+                  </Button>
                 );
               })
             }

@@ -1,26 +1,14 @@
 @import "../../../../data/styles/colors.scss";
 
 .oriQuickReplyContainer {
-    padding: 7px 32px;
+    padding: 9px 25px;
 
-    .iconBtn {
-        z-index: 99994;
-        bottom: 4px;
-        border: none !important;
-        background-color: transparent !important;
-
-        &:focus, &:active, &:hover, &:focus {
-            outline: none !important;
-            color: $primary !important;
-        }
+    .alignLeft {
+        left: -4px;
     }
 
-    .alignLeftIcon {
-        left: 3px;
-    }
-
-    .alignRightIcon {
-        right: 5px;
+    .alignRight {
+        right: -4px;
     }
 
     .quickReplyBodyContainer {

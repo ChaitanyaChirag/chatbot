@@ -435,7 +435,7 @@ class ChatBot extends Component {
             {
               chat_details.quick_replies && chat_details.quick_replies.length > 0 &&
               <Suspense fallback={null}>
-                <div className="ori-absolute carouselContainer">
+                <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
                   <QuickReply
                     quick_replies={chat_details.quick_replies}
                     sendTextToServer={sendTextToServer}

@@ -63,14 +63,6 @@
             padding-bottom: 13px;
             background-color: $chatbot-footer-bg;
             border-top: 1px solid $border-light;
-
-            .carouselContainer {
-                z-index: 99993;
-                height: 40px;
-                top: -40px;
-                left: 0px;
-                right: 0px;
-            }
         }
     }
 }
