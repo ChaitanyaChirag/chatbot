@@ -15,7 +15,7 @@ import {
   showMessage,
   checkMultipleExtension
 } from '../../data/config/utils';
-import { EVENTS } from '../../data/config/constants';
+import { EVENTS, DEFAULT_END_CHAT_STATE } from '../../data/config/constants';
 import { background } from '../../data/assets'
 
 import './index.scss';
@@ -141,21 +141,13 @@ class ChatBot extends Component {
   onClickCloseIcon = () => {
     const { end_chat } = this.props.chat_details;
     const { actions } = this.props;
-    const payload = end_chat.visible ? {
-      visible: false,
-      show_confirmation_card: false,
-      show_form_card: false,
-      show_resolved_card: false,
-      form: [],
-      description: null,
-    } : {
+    const payload = end_chat.visible ? DEFAULT_END_CHAT_STATE :
+      {
+        ...DEFAULT_END_CHAT_STATE,
         visible: true,
-        show_confirmation_card: true,
-        show_form_card: false,
-        form: [],
-        description: null,
+        show_confirmation_card: true
       };
-    actions.updateEndChat(payload);
+    actions.updateChatsState({ end_chat: payload });
   };
 
   handleFormInputChange = event => {
@@ -206,16 +198,17 @@ class ChatBot extends Component {
         console.log(payload, err, res);
         if (!err) {
           this.handleResetChat();
-          if (res && res.data && res.data.formData) {
-            const data = {
-              show_confirmation_card: false,
-              show_resolved_card: false,
-              show_form_card: true,
-              form: res.data.formData,
-              description: res.data.formTitle ? res.data.formTitle : null,
-            };
-            actions.updateEndChat(data);
-          } else {
+          if (res && res.data && res.data.formData)
+            actions.updateChatsState({
+              end_chat: {
+                ...DEFAULT_END_CHAT_STATE,
+                visible: true,
+                show_form_card: true,
+                form: res.data.formData,
+                description: res.data.formTitle ? res.data.formTitle : null,
+              }
+            });
+          else {
             this.closeWebView('endChatSubmit', {})
             actions.handleChatbotInterface(false);
             this.onClickCloseIcon();
@@ -302,7 +295,7 @@ class ChatBot extends Component {
       actions,
       screen_height
     } = this.props;
-    
+
     let containerStyle = {
       bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
       borderRadius: chatbot_client_info.trigger.show_close_icon ? '8px' : '8px 8px 0px 0px',
