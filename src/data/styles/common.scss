@@ -113,6 +113,10 @@
         background-color: $warning;
     }
 
+    .ori-bg-yellow {
+        background-color: $yellow;
+    }
+
     .ori-bg-danger {
         background-color: $danger;
     }
@@ -232,6 +236,10 @@
 
     .ori-text-center {
         text-align: center;
+    }
+
+    .ori-text-left {
+        text-align: left;
     }
 
     .ori-cursor-ptr {
