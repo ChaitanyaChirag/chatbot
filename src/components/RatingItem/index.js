@@ -44,35 +44,20 @@ const RatingItem = ({
                     </div>
                     <div className='ori-flex ori-t-mrgn-5'>
                         <div style={{ width: `${lowPercent}%` }}>
-<<<<<<< HEAD
                             <div className='ori-bg-danger' style={{ height: '5px' }}></div>
                             <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
-=======
-                            <div class='barHeight bg-red'></div>
-                            <div class='ori-t-mrgn-5 progressFont textAlign'>
->>>>>>> (update)- RatingItem styles
                                 {lowText}
                             </div>
                         </div>
                         <div style={{ width: `${midPercent}%` }}>
-<<<<<<< HEAD
                             <div className='ori-bg-yellow' style={{ height: '5px' }}></div>
                             <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
-=======
-                            <div class='barHeight bg-yellow'></div>
-                            <div class='ori-t-mrgn-5 progressFont textAlign'>
->>>>>>> (update)- RatingItem styles
                                 {midText}
                             </div>
                         </div>
                         <div style={{ width: `${highPercent}%` }}>
-<<<<<<< HEAD
                             <div className='ori-bg-green' style={{ height: '5px' }}></div>
                             <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
-=======
-                            <div class='barHeight bg-green'></div>
-                            <div class='ori-t-mrgn-5 progressFont textAlign'>
->>>>>>> (update)- RatingItem styles
                                 {highText}
                             </div>
                         </div>
