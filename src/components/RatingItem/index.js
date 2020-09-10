@@ -37,7 +37,7 @@ const RatingItem = ({
                             )
                         })}
                     </div>
-                    <div class='ori-flex ori-t-mrgn-10'>
+                    <div class='ori-flex ori-t-mrgn-5'>
                         <div style={{ width: `${lowPercent}%` }}>
                             <div class='barHeight bg-red'></div>
                             <div class='ori-font-light ori-t-mrgn-5 textAlign'>
