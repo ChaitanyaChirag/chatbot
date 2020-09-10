@@ -40,19 +40,19 @@ const RatingItem = ({
                     <div class='ori-flex ori-t-mrgn-10'>
                         <div style={{ width: `${lowPercent}%` }}>
                             <div class='barHeight bg-red'></div>
-                            <div class='ori-t-mrgn-5 progressFont textAlign'>
+                            <div class='ori-font-light ori-t-mrgn-5 textAlign'>
                                 {lowText}
                             </div>
                         </div>
                         <div style={{ width: `${midPercent}%` }}>
                             <div class='barHeight bg-yellow'></div>
-                            <div class='ori-t-mrgn-5 progressFont textAlign'>
+                            <div class='ori-font-light ori-t-mrgn-5 textAlign'>
                                 {midText}
                             </div>
                         </div>
                         <div style={{ width: `${highPercent}%` }}>
                             <div class='barHeight bg-green'></div>
-                            <div class='ori-t-mrgn-5 progressFont textAlign'>
+                            <div class='ori-font-light ori-t-mrgn-5 textAlign'>
                                 {highText}
                             </div>
                         </div>
