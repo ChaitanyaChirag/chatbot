@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-import { EVENTS, MESSAGE_READ_STATUS } from '../../config/constants';
+import { EVENTS, MESSAGE_READ_STATUS, DEFAULT_END_CHAT_STATE } from '../../config/constants';
 import {
   getSocketUrl,
   chatbot_setting,
@@ -169,13 +169,24 @@ const registerSocketListener = (store, socket) => {
     log('end conversation listener', data);
     const chat_details = store.getState().chat_details;
     if (data.psid === chat_details.psid) {
-      store.dispatch({
-        type: actionTypes.UPDATE_END_CHAT,
-        payload: {
-          visible: true,
-          show_resolved_card: true,
-        }
-      });
+      if (data.formData)
+        store.dispatch(updateChatsState({
+          end_chat: {
+            ...DEFAULT_END_CHAT_STATE,
+            visible: true,
+            show_form_card: true,
+            form: data.formData,
+            description: data.formTitle ? data.formTitle : null
+          }
+        }));
+      else
+        store.dispatch(updateChatsState({
+          end_chat: {
+            ...DEFAULT_END_CHAT_STATE,
+            visible: true,
+            show_resolved_card: true
+          }
+        }));
     }
   });
 
