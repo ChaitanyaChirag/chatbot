@@ -1,4 +1,4 @@
-import { MESSAGE_SENDER } from '../../config/constants';
+import { MESSAGE_SENDER, DEFAULT_END_CHAT_STATE } from '../../config/constants';
 import { chatbot_setting, chatbot_default_messages } from '../../config/urls';
 import {
   isAndroid,
@@ -19,15 +19,6 @@ const getPreviousMessageData = (key, defaultData) => {
   return data
 }
 
-const default_end_chat = {
-  visible: false,
-  show_confirmation_card: false,
-  show_resolved_card: false,
-  show_form_card: false,
-  form: [],
-  description: null,
-};
-
 const states = {
   chat_details: {
     secure: !chatbot_setting.security.enable,
@@ -40,7 +31,7 @@ const states = {
     unseen_messages: getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, []),
     notification_count: getDataFromLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, 0),
     is_chat_open: getDataFromLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN, false),
-    end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, default_end_chat),
+    end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, DEFAULT_END_CHAT_STATE),
     quick_replies: getPreviousMessageData('quickReplies', []),
     is_input_lock: getPreviousMessageData('inputLock', false),
     input_lock_text: getPreviousMessageData('inputLockMessage', 'please select any option to proceed'),
