@@ -10,16 +10,8 @@
     }
 }
 
-.textAlign {
-    text-align: left;
-}
-
 .barHeight {
     height: 5px;
-}
-
-.progressFont {
-    color: $font-color-light;
 }
 
 .bg-red {
@@ -32,4 +24,8 @@
 
 .bg-green {
     background-color: $green;
+}
+
+.textAlign {
+    text-align: left;
 }
