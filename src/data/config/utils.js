@@ -25,12 +25,23 @@ export const showMessage = (type, msg) => {
   const node = document.getElementById('chatbotContentContainer');
   if (node) {
     message.config({
+      duration: 2,
+      maxCount: 1,
       top: 75,
       getContainer: () => node,
     });
     message[type](msg);
   }
 };
+
+export const fetchWithTimeout = (url, options, timeout = 5000) => {
+  return Promise.race([
+    fetch(url, options),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), timeout)
+    )
+  ])
+}
 
 export const checkMultipleExtension = filename => {
   let numberOfExtensions = filename.split('.');

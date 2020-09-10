@@ -7,6 +7,8 @@ const version = 1.1;
 const brandName = 'vodafone';
 const url = "https://vodafone-dev.oriserve.in";
 
+export const network_check_url = "https://google.com/";
+
 export const getSocketUrl = () => {
   const socket_url = `${url}/liveConversations?psid=${getPsid()}&ver=${version}&role=user&brandName=${brandName}&botName=${brandName}&channelName=${getPlatform()}`;
   return socket_url;

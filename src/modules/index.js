@@ -28,12 +28,15 @@ import {
   checkDevice,
   isAndroid,
   isIOS,
-  uniqueId
+  uniqueId,
+  fetchWithTimeout,
+  showMessage
 } from '../data/config/utils';
 import {
   chatbot_client_info,
   chatbot_setting,
-  translator
+  translator,
+  network_check_url
 } from '../data/config/urls';
 
 import TriggerChatBot from '../components/triggerchatbot';
@@ -78,9 +81,9 @@ class AppContainer extends Component {
         self.props.actions.updatePageState({ device_data: checkDevice.deviceStatus() });
       }, 300);
     });
-    this.handleConnectionChange();
-    window.addEventListener('online', this.handleConnectionChange);
-    window.addEventListener('offline', this.handleConnectionChange);
+    this.checkInternetConnection();
+    window.addEventListener('online', this.checkInternetConnection);
+    window.addEventListener('offline', this.checkInternetConnection);
     document.addEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.addEventListener("focusin", this.onScreenVisibilityChange);
     if (android || ios) {
@@ -137,10 +140,21 @@ class AppContainer extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { actions } = this.props;
+    const { is_socket_connected, is_internet_connected } = this.props.chat_details;
+    if (!prevProps.chat_details.is_internet_connected && is_internet_connected && !is_socket_connected)
+      actions.callSocketMethod('open')
+    else if (prevProps.chat_details.is_internet_connected && !is_internet_connected && is_socket_connected)
+      actions.callSocketMethod('close')
+    if (prevProps.chat_details.is_socket_connected !== is_socket_connected)
+      this.checkInternetConnection()
+  }
+
   componentWillUnmount() {
     const { actions } = this.props;
-    window.removeEventListener('online', this.handleConnectionChange);
-    window.removeEventListener('offline', this.handleConnectionChange);
+    window.removeEventListener('online', this.checkInternetConnection);
+    window.removeEventListener('offline', this.checkInternetConnection);
     document.removeEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.removeEventListener("focusin", this.onScreenVisibilityChange);
     actions.socketDisconnect();
@@ -157,13 +171,30 @@ class AppContainer extends Component {
     }
   }
 
-  handleConnectionChange = () => {
-    const { actions } = this.props;
-    actions.updateChatsState({ is_internet_connected: navigator.onLine });
-    if (navigator.onLine)
-      actions.callSocketMethod('open')
-    else
-      actions.callSocketMethod('close')
+  checkInternetConnection = () => {
+    const { actions, chat_details } = this.props;
+    if (navigator.onLine) {
+      if (!chat_details.internet_connection_checking) {
+        actions.updateChatsState({ internet_connection_checking: true })
+        fetchWithTimeout(network_check_url, {
+          mode: 'no-cors',
+        }).then(() => {
+          actions.updateChatsState({
+            internet_connection_checking: false,
+            is_internet_connected: true
+          })
+        }).catch(error => {
+          actions.updateChatsState({ internet_connection_checking: false })
+          if (error && error.message === "timeout") {
+            actions.updateChatsState({ is_internet_connected: false })
+            showMessage('error', 'You are currently offline')
+          }
+        })
+      }
+    } else {
+      actions.updateChatsState({ is_internet_connected: false })
+      showMessage('error', 'You are currently offline')
+    }
   }
 
   botPopup = (case_data, params) => {

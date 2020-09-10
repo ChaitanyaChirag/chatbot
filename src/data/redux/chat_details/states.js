@@ -33,6 +33,7 @@ const states = {
     secure: !chatbot_setting.security.enable,
     socket_request_processing: false,
     is_socket_connected: false,
+    internet_connection_checking: false,
     is_internet_connected: false,
     messages: (isAndroid() || messages.length === default_msg.length) ? [] : messages,
     psid: getPsid(),
