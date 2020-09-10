@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+<<<<<<< HEAD
 import classNames from 'classnames'
+=======
+>>>>>>> (Update) imports
 
 const RatingItem = ({
     title,
