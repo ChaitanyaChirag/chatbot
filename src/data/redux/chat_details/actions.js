@@ -7,13 +7,6 @@ export const updateChatsState = payload => {
   }
 }
 
-export const updateEndChat = payload => {
-  return {
-    type: actionTypes.UPDATE_END_CHAT,
-    payload,
-  }
-};
-
 export const makeSocketConnection = () => {
   return {
     type: actionTypes.MAKE_SOCKET_CONNECTION,
