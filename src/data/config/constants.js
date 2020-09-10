@@ -2,6 +2,15 @@ export const ERROR_BOUNDARY_TYPE = {
   ERROR: "error",
 };
 
+export const DEFAULT_END_CHAT_STATE = {
+  visible: false,
+  show_confirmation_card: false,
+  show_resolved_card: false,
+  show_form_card: false,
+  form: [],
+  description: null,
+}
+
 export const INFO_CONTENT_TYPE = {
   PRIVACY_POLICY: "privacy_policy",
   TERMS_AND_CONDITIONS: "terms_and_conditions"
