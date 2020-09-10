@@ -22,12 +22,12 @@ const RatingItem = ({
             )}
             {count && (
                 <div className='ori-lr-pad-10'>
-                    <div className='ori-border-radius-5 ori-flex ori-flex-jsb ori-border-light'>
+                    <div className='ori-border-light ori-border-radius-5 ori-flex ori-flex-jsb'>
                         {[...Array(count)].map((rating, i) => {
                             const ratingValue = i + 1
                             return (
                                 <div
-                                    className='ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ratingItem'
+                                    className='ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ori-font-default-hover-primary'
                                     onClick={() => {
                                         setRating(ratingValue)
                                         console.log(ratingValue + ' clicked')
@@ -39,20 +39,20 @@ const RatingItem = ({
                     </div>
                     <div class='ori-flex ori-t-mrgn-5'>
                         <div style={{ width: `${lowPercent}%` }}>
-                            <div class='barHeight bg-red'></div>
-                            <div class='ori-font-light ori-t-mrgn-5 textAlign'>
+                            <div class='ori-bg-danger' style={{ height: '5px' }}></div>
+                            <div class='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {lowText}
                             </div>
                         </div>
                         <div style={{ width: `${midPercent}%` }}>
-                            <div class='barHeight bg-yellow'></div>
-                            <div class='ori-font-light ori-t-mrgn-5 textAlign'>
+                            <div class='ori-bg-yellow' style={{ height: '5px' }}></div>
+                            <div class='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {midText}
                             </div>
                         </div>
                         <div style={{ width: `${highPercent}%` }}>
-                            <div class='barHeight bg-green'></div>
-                            <div class='ori-font-light ori-t-mrgn-5 textAlign'>
+                            <div class='ori-bg-green' style={{ height: '5px' }}></div>
+                            <div class='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {highText}
                             </div>
                         </div>
