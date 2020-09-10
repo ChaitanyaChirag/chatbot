@@ -1,0 +1,24 @@
+@import '../../data/styles/colors.scss';
+
+.ratingItem {
+    cursor: pointer;
+    color: $primary;
+
+    &:hover {
+        color: $default-light;
+        background-color: $primary;
+    }
+}
+
+.textAlign {
+    text-align: left;
+}
+
+.barHeight {
+    height: 5px;
+}
+
+.progressFont {
+    color: $font-color-light;
+}
+
