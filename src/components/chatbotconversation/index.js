@@ -159,40 +159,39 @@ class ChatBotConversation extends React.PureComponent {
               );
             }
 
-            return (
-              <ErrorBoundary key={index}>
-                <div className="ori-animated ori-fade-in">
-                  {
-                    show_timestamp_tag &&
-                    <div className="ori-flex-row ori-flex-jc ori-pad-5">
-                      <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
-                    </div>
-                  }
-                  <div className={classNames("ori-relative ori-flex-row msgContainer",
+            if (show_textMessage || show_listMessage || show_textWithMedia || show_checkboxWithMedia || show_recharge || show_rechargeDetails || show_offers || show_rechargeHistory || show_carousel || show_promptmsg || show_uploadfile) {
+              return (
+                <ErrorBoundary key={index}>
+                  <div className="ori-animated ori-fade-in">
                     {
-                      "receiverMsgContainer": admin || chatbot,
-                      "senderMsgContainer": customer
-                    }
-                  )}
-                  >
-                    {
-                      first_msg && admin &&
-                      <p className="ori-absolute ori-font-xxs ori-capitalize ori-align-top" >{sender_title}</p>
-                    }
-                    {
-                      chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
-                      <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                        <Avatar src={sender_img_url !== "" ? sender_img_url : logo} />
+                      show_timestamp_tag &&
+                      <div className="ori-flex-row ori-flex-jc ori-pad-5">
+                        <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
                       </div>
                     }
-                    {
-                      chatbot_setting.chat_interface.show_avatar && first_msg && admin &&
-                      <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                        <Avatar src={sender_img_url} className="ori-font-default ori-capitalize ori-bg-white">{sender_title.charAt(0)}</Avatar>
-                      </div>
-                    }
-                    {
-                      (show_textMessage || show_listMessage || show_textWithMedia || show_checkboxWithMedia || show_recharge || show_rechargeDetails || show_offers || show_rechargeHistory || show_carousel || show_promptmsg || show_uploadfile) &&
+                    <div className={classNames("ori-relative ori-flex-row msgContainer",
+                      {
+                        "receiverMsgContainer": admin || chatbot,
+                        "senderMsgContainer": customer
+                      }
+                    )}
+                    >
+                      {
+                        first_msg && admin &&
+                        <p className="ori-absolute ori-font-xxs ori-capitalize ori-align-top" >{sender_title}</p>
+                      }
+                      {
+                        chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
+                        <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
+                          <Avatar src={sender_img_url !== "" ? sender_img_url : logo} />
+                        </div>
+                      }
+                      {
+                        chatbot_setting.chat_interface.show_avatar && first_msg && admin &&
+                        <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
+                          <Avatar src={sender_img_url} className="ori-font-default ori-capitalize ori-bg-white">{sender_title.charAt(0)}</Avatar>
+                        </div>
+                      }
                       <div
                         className={classNames("ori-pad-7 ori-b-mrgn-5 ori-border-radius-10 msgBox",
                           {
@@ -284,11 +283,12 @@ class ChatBotConversation extends React.PureComponent {
                           </div>
                         }
                       </div>
-                    }
+                    </div>
                   </div>
-                </div>
-              </ErrorBoundary>
-            );
+                </ErrorBoundary>
+              );
+            }
+            return null
           })
         }
         {
