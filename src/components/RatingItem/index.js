@@ -1,13 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import classNames from 'classnames'
-=======
->>>>>>> (Update) imports
-=======
-import classNames from 'classnames'
->>>>>>> added bg/font color on selected rating
 
 const RatingItem = ({
     title,
