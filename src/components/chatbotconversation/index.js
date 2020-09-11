@@ -241,7 +241,13 @@ class ChatBotConversation extends React.PureComponent {
                         }
                         {
                           show_carousel &&
-                          <CarouselWithButtons message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                          <CarouselWithButtons
+                            message={message}
+                            handleMsgBtnClick={handleMsgBtnClick}
+                            btn_hidden={stack_view}
+                            btn_disabled={btn_disabled}
+                            display_type={chatbot_setting.chat_interface.carousel_msg_display_type}
+                          />
                         }
                         {
                           show_promptmsg &&
