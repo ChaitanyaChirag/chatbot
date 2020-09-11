@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 const RatingItem = ({
     title,
@@ -15,55 +16,61 @@ const RatingItem = ({
 
     return (
         <div className='ori-tb-pad-5'>
-            {title && (
+            {
+                title &&
                 <p className='ori-b-mrgn-5 ori-capitalize-first'>{title}</p>
-            )}
-            {count && (
+            }
+            {
+                count &&
                 <div className='ori-lr-pad-10'>
-                    <div className='ori-border-light ori-border-radius-5 ori-flex ori-flex-jsb'>
-                        {[...Array(count)].map((rating, i) => {
-                            const ratingValue = i + 1
+                    <div className='ori-border-light ori-border-radius-10 ori-flex' >
+                        {[...Array(count)].map((_, index) => {
+                            const ratingValue = index + 1
                             return (
                                 <div
-                                    className='ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ori-font-default-hover-primary'
-                                    onClick={() => {
-                                        setRating(ratingValue)
-                                        console.log(ratingValue + ' clicked')
-                                    }}>
+                                    key={index}
+                                    className={classNames('ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
+                                        {
+                                            'ori-font-white': rating === ratingValue,
+                                            'ori-bg-danger': rating === ratingValue && ratingValue <= (lowPercent / 100) * count,
+                                            'ori-bg-yellow': rating === ratingValue && ratingValue > (lowPercent / 100) * count && ratingValue <= ((lowPercent + midPercent) / 100) * count,
+                                            'ori-bg-green': rating === ratingValue && ratingValue > ((lowPercent + midPercent) / 100) * count
+                                        })}
+                                    onClick={() => setRating(ratingValue)}>
                                     {ratingValue}
                                 </div>
                             )
                         })}
                     </div>
-                    <div class='ori-flex ori-t-mrgn-5'>
+                    <div className='ori-flex ori-t-mrgn-5'>
                         <div style={{ width: `${lowPercent}%` }}>
-                            <div class='ori-bg-danger' style={{ height: '5px' }}></div>
-                            <div class='ori-font-light ori-t-mrgn-5 ori-text-left'>
+                            <div className='ori-bg-danger' style={{ height: '5px' }}></div>
+                            <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {lowText}
                             </div>
                         </div>
                         <div style={{ width: `${midPercent}%` }}>
-                            <div class='ori-bg-yellow' style={{ height: '5px' }}></div>
-                            <div class='ori-font-light ori-t-mrgn-5 ori-text-left'>
+                            <div className='ori-bg-yellow' style={{ height: '5px' }}></div>
+                            <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {midText}
                             </div>
                         </div>
                         <div style={{ width: `${highPercent}%` }}>
-                            <div class='ori-bg-green' style={{ height: '5px' }}></div>
-                            <div class='ori-font-light ori-t-mrgn-5 ori-text-left'>
+                            <div className='ori-bg-green' style={{ height: '5px' }}></div>
+                            <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {highText}
                             </div>
                         </div>
                     </div>
                 </div>
-            )}
+            }
         </div>
     )
 }
 
 RatingItem.propTypes = {
     title: PropTypes.string,
-    count: PropTypes.string,
+    count: PropTypes.number,
 }
 
 RatingItem.defaultProps = {
