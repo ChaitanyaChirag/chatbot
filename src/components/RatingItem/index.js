@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 
 const RatingItem = ({
     title,
@@ -14,6 +13,18 @@ const RatingItem = ({
 }) => {
     const eachWidth = (100/count).toFixed(2)
 
+    const handleRatingChange = ({ ratingValue, index }) => {
+        count = ratingValue
+        let selectedRating = document.getElementById(`rating-${index}`)
+        console.log(selectedRating)
+        if (count <= lowCount)
+            selectedRating.classList.add('ori-bg-danger', 'ori-font-white')
+        else if (count > lowCount && ratingValue <= lowCount + midCount)
+            selectedRating.classList.add('ori-bg-yellow', 'ori-font-white')
+        else if (count > lowCount + midCount)
+            selectedRating.classList.add('ori-bg-green', 'ori-font-white')
+    }
+
     return (
         <div className='ori-tb-pad-5'>
             {
@@ -23,26 +34,16 @@ const RatingItem = ({
             {
                 count &&
                 <div className='ori-lr-pad-10'>
-                    <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex' >
+                    <div className='ori-bg-white ori-border-light ori-border-radius-5 ori-flex' >
                         {[...Array(count)].map((_, index) => {
                             const ratingValue = index + 1
                             return (
                                 <div
                                     key={index}
-                                    style={{ width: `${eachWidth}%`}}
-                                    className={classNames('ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
-                                        {
-                                            'ori-font-white': count === ratingValue,
-                                            'ori-bg-danger': count === ratingValue && ratingValue <= lowCount ,
-                                            'ori-bg-yellow': count === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
-                                            'ori-bg-green': count === ratingValue && ratingValue > (lowCount + midCount)
-                                        })}
-                                    onClick={() => {
-                                        console.log(ratingValue + ' clicked')
-                                        count = ratingValue
-                                        console.log(count)
-                                    }}
-                                    >
+                                    id={`rating-${index}`}
+                                    style={{ width: `${eachWidth}%` }}
+                                    className='ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5'
+                                    onClick={() => handleRatingChange({ ratingValue, index })}>
                                     {ratingValue}
                                 </div>
                             )
