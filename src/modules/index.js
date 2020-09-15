@@ -353,10 +353,14 @@ class AppContainer extends Component {
     if (data.button) {
       switch (data.button.type) {
         case BUTTON_TYPES.LINK:
-          if (data.button.url && data.button.url.trim().length > 0) {
-            const is_app = isAndroid() || isIOS();
-            if (is_app && window.androidObj && window.androidObj.textToAndroid) {
+          if (data.button.url) {
+            if (isAndroid() && window.androidObj && window.androidObj.textToAndroid) {
               window.androidObj.textToAndroid(JSON.stringify(data));
+            } else if (isIOS()) {
+              if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.textToIosForWebkit)
+                window.webkit.messageHandlers.textToIosForWebkit.postMessage({ data })
+              else
+                eval("if(textToIos) textToIos(data)");
             } else {
               window.open(data.button.url, '_blank');
             }
