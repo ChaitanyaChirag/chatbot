@@ -5,14 +5,15 @@ import classNames from 'classnames'
 const RatingItem = ({
     title,
     count,
-    lowPercent,
-    midPercent,
-    highPercent,
+    lowCount,
+    midCount,
+    highCount,
     lowText,
     midText,
     highText,
 }) => {
     const [rating, setRating] = useState(null)
+    const eachWidth = (100/count).toFixed(2)
 
     return (
         <div className='ori-tb-pad-5'>
@@ -23,18 +24,19 @@ const RatingItem = ({
             {
                 count &&
                 <div className='ori-lr-pad-10'>
-                    <div className='ori-border-light ori-border-radius-10 ori-flex' >
+                    <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex' >
                         {[...Array(count)].map((_, index) => {
                             const ratingValue = index + 1
                             return (
                                 <div
                                     key={index}
+                                    style={{ width: `${eachWidth}%`}}
                                     className={classNames('ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
                                         {
                                             'ori-font-white': rating === ratingValue,
-                                            'ori-bg-danger': rating === ratingValue && ratingValue <= (lowPercent / 100) * count,
-                                            'ori-bg-yellow': rating === ratingValue && ratingValue > (lowPercent / 100) * count && ratingValue <= ((lowPercent + midPercent) / 100) * count,
-                                            'ori-bg-green': rating === ratingValue && ratingValue > ((lowPercent + midPercent) / 100) * count
+                                            'ori-bg-danger': rating === ratingValue && ratingValue <= lowCount ,
+                                            'ori-bg-yellow': rating === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
+                                            'ori-bg-green': rating === ratingValue && ratingValue > (lowCount + midCount)
                                         })}
                                     onClick={() => setRating(ratingValue)}>
                                     {ratingValue}
@@ -43,19 +45,19 @@ const RatingItem = ({
                         })}
                     </div>
                     <div className='ori-flex ori-t-mrgn-5'>
-                        <div style={{ width: `${lowPercent}%` }}>
+                        <div style={{ width: `${lowCount * eachWidth}%` }}>
                             <div className='ori-bg-danger' style={{ height: '5px' }}></div>
                             <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {lowText}
                             </div>
                         </div>
-                        <div style={{ width: `${midPercent}%` }}>
+                        <div style={{ width: `${midCount * eachWidth}%` }}>
                             <div className='ori-bg-yellow' style={{ height: '5px' }}></div>
                             <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {midText}
                             </div>
                         </div>
-                        <div style={{ width: `${highPercent}%` }}>
+                        <div style={{ width: `${highCount * eachWidth}%` }}>
                             <div className='ori-bg-green' style={{ height: '5px' }}></div>
                             <div className='ori-font-light ori-t-mrgn-5 ori-text-left'>
                                 {highText}
@@ -74,9 +76,10 @@ RatingItem.propTypes = {
 }
 
 RatingItem.defaultProps = {
-    lowPercent: 60,
-    midPercent: 20,
-    highPercent: 20,
+    count: 10,
+    lowCount: 6,
+    midCount: 2,
+    highCount: 2,
     lowText: 'Not at all satisfied',
     midText: 'Satisfied',
     highText: 'Extremely satisfied',
