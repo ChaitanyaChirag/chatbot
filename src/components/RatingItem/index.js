@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -12,7 +12,6 @@ const RatingItem = ({
     midText,
     highText,
 }) => {
-    const [rating, setRating] = useState(null)
     const eachWidth = (100/count).toFixed(2)
 
     return (
@@ -33,12 +32,17 @@ const RatingItem = ({
                                     style={{ width: `${eachWidth}%`}}
                                     className={classNames('ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
                                         {
-                                            'ori-font-white': rating === ratingValue,
-                                            'ori-bg-danger': rating === ratingValue && ratingValue <= lowCount ,
-                                            'ori-bg-yellow': rating === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
-                                            'ori-bg-green': rating === ratingValue && ratingValue > (lowCount + midCount)
+                                            'ori-font-white': count === ratingValue,
+                                            'ori-bg-danger': count === ratingValue && ratingValue <= lowCount ,
+                                            'ori-bg-yellow': count === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
+                                            'ori-bg-green': count === ratingValue && ratingValue > (lowCount + midCount)
                                         })}
-                                    onClick={() => setRating(ratingValue)}>
+                                    onClick={() => {
+                                        console.log(ratingValue + ' clicked')
+                                        count = ratingValue
+                                        console.log(count)
+                                    }}
+                                    >
                                     {ratingValue}
                                 </div>
                             )
