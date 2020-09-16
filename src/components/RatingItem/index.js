@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 const RatingItem = ({
     title,
+    value,
     count,
     lowCount,
     midCount,
@@ -10,20 +12,9 @@ const RatingItem = ({
     lowText,
     midText,
     highText,
+    onChange
 }) => {
     const eachWidth = (100/count).toFixed(2)
-
-    const handleRatingChange = ({ ratingValue, index }) => {
-        count = ratingValue
-        let selectedRating = document.getElementById(`rating-${index}`)
-        console.log(selectedRating)
-        if (count <= lowCount)
-            selectedRating.classList.add('ori-bg-danger', 'ori-font-white')
-        else if (count > lowCount && ratingValue <= lowCount + midCount)
-            selectedRating.classList.add('ori-bg-yellow', 'ori-font-white')
-        else if (count > lowCount + midCount)
-            selectedRating.classList.add('ori-bg-green', 'ori-font-white')
-    }
 
     return (
         <div className='ori-tb-pad-5'>
@@ -40,10 +31,20 @@ const RatingItem = ({
                             return (
                                 <div
                                     key={index}
-                                    id={`rating-${index}`}
+                                    value={value}
                                     style={{ width: `${eachWidth}%` }}
-                                    className='ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5'
-                                    onClick={() => handleRatingChange({ ratingValue, index })}>
+                                    className={classNames(
+                                        'ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
+                                        {
+                                            'ori-font-white': value === ratingValue,
+                                            'ori-bg-danger': value === ratingValue && ratingValue <= lowCount,
+                                            'ori-bg-yellow': value === ratingValue && ratingValue > lowCount && ratingValue <= lowCount + midCount,
+                                            'ori-bg-green': value === ratingValue && ratingValue > lowCount + midCount,
+                                        },
+                                    )}
+                                    onClick={() => { value = ratingValue }}
+                                    onChange={onChange}
+                                    >
                                     {ratingValue}
                                 </div>
                             )
@@ -76,8 +77,10 @@ const RatingItem = ({
 }
 
 RatingItem.propTypes = {
-    title: PropTypes.string,
     count: PropTypes.number,
+    onChange: PropTypes.func,
+    title: PropTypes.string,
+    value: PropTypes.string,
 }
 
 RatingItem.defaultProps = {
