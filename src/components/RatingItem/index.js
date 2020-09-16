@@ -31,7 +31,6 @@ const RatingItem = ({
                             return (
                                 <div
                                     key={index}
-                                    value={value}
                                     style={{ width: `${eachWidth}%` }}
                                     className={classNames(
                                         'ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
@@ -42,8 +41,6 @@ const RatingItem = ({
                                             'ori-bg-green': value === ratingValue && ratingValue > lowCount + midCount,
                                         },
                                     )}
-                                    onClick={() => { value = ratingValue }}
-                                    onChange={onChange}
                                     >
                                     {ratingValue}
                                 </div>
