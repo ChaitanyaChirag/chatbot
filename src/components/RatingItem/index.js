@@ -12,9 +12,11 @@ const RatingItem = ({
     lowText,
     midText,
     highText,
-    onChange
+    onChange,
+    includeZero
 }) => {
-    const eachWidth = (100/count).toFixed(2)
+    count = !includeZero ? count : count + 1
+    const eachWidth = (100 / count).toFixed(2)
 
     return (
         <div className='ori-tb-pad-5'>
@@ -27,13 +29,13 @@ const RatingItem = ({
                 <div className='ori-lr-pad-10'>
                     <div className='ori-bg-white ori-border-light ori-border-radius-5 ori-flex' >
                         {[...Array(count)].map((_, index) => {
-                            const ratingValue = index + 1
+                            const ratingValue = !includeZero ? index + 1 : index
                             return (
                                 <div
                                     key={index}
                                     style={{ width: `${eachWidth}%` }}
                                     className={classNames(
-                                        'ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5 ',
+                                        'ori-cursor-ptr ori-lr-pad-10 ori-tb-pad-5',
                                         {
                                             'ori-font-white': value === ratingValue,
                                             'ori-bg-danger': value === ratingValue && ratingValue <= lowCount,
@@ -78,6 +80,7 @@ RatingItem.propTypes = {
     onChange: PropTypes.func,
     title: PropTypes.string,
     value: PropTypes.string,
+    includeZero: PropTypes.bool,
 }
 
 RatingItem.defaultProps = {
@@ -88,6 +91,7 @@ RatingItem.defaultProps = {
     lowText: 'Not at all satisfied',
     midText: 'Satisfied',
     highText: 'Extremely satisfied',
+    includeZero: false,
 }
 
 export default RatingItem
