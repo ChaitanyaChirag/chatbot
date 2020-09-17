@@ -27,7 +27,7 @@ const RatingItem = ({
             {
                 count &&
                 <div className='ori-lr-pad-10'>
-                    <div className='ori-bg-white ori-border-light ori-border-radius-5 ori-flex' >
+                    <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex' >
                         {[...Array(count)].map((_, index) => {
                             const ratingValue = !includeZero ? index + 1 : index
                             return (
