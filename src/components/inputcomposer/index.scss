@@ -14,6 +14,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+            color: $chatbot-footer-placeholder;
         }
 
         &:focus {
