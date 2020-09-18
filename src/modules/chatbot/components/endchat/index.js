@@ -14,10 +14,22 @@ import { LangContext } from '../../../context';
 import DelayComponent from '../../../../components/delaycomponent';
 
 const PoweredBy = lazy(() => import('../../../../components/poweredby'));
+const RatingItem = lazy(() => import('../../../../components/RatingItem'))
 
 const { Option } = Select;
 
 class EndChat extends React.PureComponent {
+  handleFormInputChange = event => {
+    const { handleFormItemChange } = this.props;
+    handleFormItemChange(event.target.name, event.target.value)
+  }
+
+  handleFormSelectChange = (value, option) => {
+    const { handleFormItemChange } = this.props;
+    if (option && option.props && option.props.name)
+      handleFormItemChange(option.props.name, value)
+  }
+
   renderSessionCloseConfirmation = lang => {
     const { end_chat, closeEndChatPopup, confirmEndConversation } = this.props;
     if (end_chat.show_confirmation_card)
@@ -44,7 +56,7 @@ class EndChat extends React.PureComponent {
   };
 
   renderDynamicForm = lang => {
-    const { is_socket_connected, end_chat, closeEndChatPopup, handleFormInputChange, handleFormSelectChange, submitFormData } = this.props;
+    const { is_socket_connected, end_chat, closeEndChatPopup, handleFormItemChange, submitFormData } = this.props;
     if (end_chat.show_form_card)
       return (
         <div className="ori-pad-15 ori-bg-white ori-box-shadow ori-border-radius-5 ori-tb-mrgn-5">
@@ -58,7 +70,11 @@ class EndChat extends React.PureComponent {
                         form_item.title &&
                         <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
-                      <Input className="ori-font-xs" {...form_item.input_props} onChange={handleFormInputChange} />
+                      <Input
+                        className="ori-font-xs"
+                        {...form_item.input_props}
+                        onChange={this.handleFormInputChange}
+                      />
                     </div>
                   );
 
@@ -69,8 +85,23 @@ class EndChat extends React.PureComponent {
                         form_item.title &&
                         <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
-                      <Input.TextArea className="ori-font-xs" {...form_item.input_props} onChange={handleFormInputChange} />
+                      <Input.TextArea
+                        className="ori-font-xs"
+                        {...form_item.input_props}
+                        onChange={this.handleFormInputChange}
+                      />
                     </div>
+                  );
+
+                case "rating":
+                  return (
+                    <Suspense fallback={null}>
+                      <RatingItem
+                        title={form_item.title}
+                        {...form_item.input_props}
+                        onChange={handleFormItemChange}
+                      />
+                    </Suspense>
                   );
 
                 case "select":
@@ -80,7 +111,12 @@ class EndChat extends React.PureComponent {
                         form_item.title &&
                         <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
-                      <Select className="ori-full-width ori-font-xs" getPopupContainer={() => document.getElementById(`select-${index}`)} {...form_item.input_props} onChange={handleFormSelectChange} >
+                      <Select
+                        className="ori-full-width ori-font-xs"
+                        getPopupContainer={() => document.getElementById(`select-${index}`)}
+                        {...form_item.input_props}
+                        onChange={this.handleFormSelectChange}
+                      >
                         {
                           form_item.options && form_item.options.map((option, index) => {
                             return (
@@ -215,8 +251,7 @@ EndChat.propTypes = {
   end_chat: PropTypes.object,
   closeEndChatPopup: PropTypes.func,
   confirmEndConversation: PropTypes.func,
-  handleFormInputChange: PropTypes.func,
-  handleFormSelectChange: PropTypes.func,
+  handleFormItemChange: PropTypes.func,
   submitFormData: PropTypes.func,
 };
 

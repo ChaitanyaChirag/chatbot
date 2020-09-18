@@ -150,25 +150,15 @@ class ChatBot extends Component {
     actions.updateChatsState({ end_chat: payload });
   };
 
-  handleFormInputChange = event => {
+  handleFormItemChange = (key, value) => {
     this.setState({
       end_chat_form_data: {
         ...this.state.end_chat_form_data,
-        [event.target.name]: event.target.value,
+        [key]: value,
       }
     });
   };
 
-  handleFormSelectChange = (value, option) => {
-    if (option && option.props && option.props.name) {
-      this.setState({
-        end_chat_form_data: {
-          ...this.state.end_chat_form_data,
-          [option.props.name]: value,
-        }
-      });
-    }
-  };
 
   closeWebView = (type, data) => {
     if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
@@ -362,8 +352,7 @@ class ChatBot extends Component {
               end_chat={chat_details.end_chat}
               closeEndChatPopup={this.onClickCloseIcon}
               confirmEndConversation={this.confirmEndConversation}
-              handleFormInputChange={this.handleFormInputChange}
-              handleFormSelectChange={this.handleFormSelectChange}
+              handleFormItemChange={this.handleFormItemChange}
               submitFormData={this.submitEndFormFormData}
             />
             <PreviewFile
