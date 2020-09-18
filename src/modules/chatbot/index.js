@@ -159,7 +159,6 @@ class ChatBot extends Component {
     });
   };
 
-
   closeWebView = (type, data) => {
     if (isAndroid() && window.androidObj && window.androidObj.updateFromWeb) {
       window.androidObj.updateFromWeb(type, data);
