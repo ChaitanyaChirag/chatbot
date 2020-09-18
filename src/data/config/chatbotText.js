@@ -40,6 +40,7 @@ export const english = {
   close: "Close",
   send: "Send",
   security_prompt: "This is a confidential URL. To access this URL please enter your security code.",
+  typewriter_data: ['Click here to type your query...'],
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
       header: 'Privacy Policy',
@@ -99,6 +100,7 @@ export const hindi = {
   close: "बंद करे",
   send: "भेजें",
   security_prompt: "यह एक गोपनीय URL है। इस URL तक पहुँचने के लिए कृपया अपना सुरक्षा कोड दर्ज करें।",
+  typewriter_data: ['अपने सवाल टाइप करने के लिए यहां क्लिक करें...'],
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
       header: "गोपनीयता नीति",
