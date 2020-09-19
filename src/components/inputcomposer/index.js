@@ -38,7 +38,7 @@ class InputComposer extends React.PureComponent {
       typing: false,
       file: null,
       fileUrl: "",
-      showTypeWriter: chatbot_setting.chat_interface.type_writer
+      showTypeWriter: chatbot_setting.chat_interface.type_writer.enable
     };
   }
 

@@ -57,7 +57,11 @@ export const chatbot_setting = {
       enable: true,
       query_param_key: 'chatbotopen',
     },
-    type_writer: false,
+    type_writer: {
+      enable: true,
+      deleting_speed: 30,
+      typing_speed: 150
+    },
     speech_recognition: {
       enable: true,
     }

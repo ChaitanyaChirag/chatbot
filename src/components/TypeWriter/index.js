@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-const CONSTANTS = {
-  DELETING_SPEED: 30,
-  TYPING_SPEED: 150,
-}
+import { chatbot_setting } from '../../data/config/urls'
 
 const defaultState = {
   text: "",
   message: "",
   isDeleting: false,
   loopNum: 0,
-  typingSpeed: CONSTANTS.TYPING_SPEED,
+  typingSpeed: chatbot_setting.chat_interface.type_writer.typing_speed
 }
 
 const TypeWriter = ({ textData, className, onClick }) => {
@@ -61,8 +58,8 @@ const TypeWriter = ({ textData, className, onClick }) => {
 
   const getTypingSpeed = currentState => {
     return currentState.isDeleting
-      ? CONSTANTS.TYPING_SPEED
-      : CONSTANTS.DELETING_SPEED;
+      ? chatbot_setting.chat_interface.type_writer.typing_speed
+      : chatbot_setting.chat_interface.type_writer.deleting_speed;
   }
 
   return (
