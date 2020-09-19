@@ -1,7 +1,7 @@
 @import "../../../../data/styles/colors.scss";
 
 .oriQuickReplyContainer {
-    padding: 9px 25px;
+    padding: 4px 25px;
 
     .alignLeft {
         left: -4px;
@@ -24,6 +24,8 @@
 
         .quickReplyTrack {
             transition: transform 0.5s ease !important;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
     }
 }

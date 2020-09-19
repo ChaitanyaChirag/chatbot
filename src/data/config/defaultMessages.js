@@ -20,7 +20,12 @@ export const web = [
     type: MESSAGE_TYPES.TEXT_WITH_BUTTONS,
     sender: MESSAGE_SENDER.CHATBOT,
     inputLock: false,
-    quickReplies: [],
+    quickReplies: [
+      'Book Now',
+      'Launch Date',
+      'Covid Safe Test Drives',
+      'Finance Options'
+    ],
     skipLS: true,
     send_variable_to_apiai: false,
     sendVariableToLS: false,
