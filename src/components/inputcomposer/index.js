@@ -167,7 +167,7 @@ class InputComposer extends React.PureComponent {
                 showTypeWriter ?
                   <Suspense fallback={null}>
                     <TypeWriter
-                      className="ori-lr-pad-10 ori-font-md ori-t-pad-3 ori-font-primary"
+                      className="ori-lr-pad-10 ori-font-md ori-t-pad-3"
                       textData={translator.text[lang].typewriter_data}
                       onClick={this.hideTypeWriter}
                     />

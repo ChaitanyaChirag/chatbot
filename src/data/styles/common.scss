@@ -786,14 +786,3 @@
         margin: 20px;
     }
 }
-
-.ori-cursor{
-  border-left: .1em solid $font-color;
-  animation: blink .7s steps(1) infinite;
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}

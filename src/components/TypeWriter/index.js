@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
+import './index.scss'
+
 import { chatbot_setting } from '../../data/config/urls'
 
 const defaultState = {
@@ -63,9 +65,9 @@ const TypeWriter = ({ textData, className, onClick }) => {
   }
 
   return (
-    <div className={className} onClick={onClick}>
+    <div className={`oriTypeWritterContainer ${className}`} onClick={onClick}>
       <span>{state.text}</span>
-      <span className="ori-cursor" />
+      <span className="cursorBlink" />
     </div>
   );
 }

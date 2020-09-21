@@ -1,0 +1,16 @@
+@import "../../data/styles/colors.scss";
+
+.oriTypeWritterContainer {
+    color: $typewriter-font-color;
+
+    .cursorBlink {
+        border-left: 0.1em solid $font-color;
+        animation: blink 0.7s steps(1) infinite;
+    }
+
+    @keyframes blink {
+        50% {
+            border-color: transparent;
+        }
+    }
+}
