@@ -66,8 +66,7 @@ const TypeWriter = ({ textData, className, onClick }) => {
 
   return (
     <div className={`oriTypeWritterContainer ${className}`} onClick={onClick}>
-      <span>{state.text}</span>
-      <span className="cursorBlink" />
+      <p className="ori-text-overflow-dotted">{state.text} <span className="cursorBlink" /></p>
     </div>
   );
 }
