@@ -310,7 +310,7 @@ class AppContainer extends Component {
       cmid
     };
     const payload_data = {
-      payload: { text: "Latitude is " + lat + "\nLongitude is " + long },
+      payload: { text: "You shared your location."},
       cmid,
     };
     this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.TEXT, payload_data);
