@@ -2,6 +2,11 @@
 
 .oriTypeWritterContainer {
     color: $typewriter-font-color;
+    overflow: hidden;
+
+    .typeWritterText{
+      white-space: nowrap;
+    }
 
     .cursorBlink {
         border-left: 0.1em solid $font-color;

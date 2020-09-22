@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 import './index.scss'
@@ -15,6 +15,7 @@ const defaultState = {
 
 const TypeWriter = ({ textData, className, onClick }) => {
   const [state, setState] = useState(defaultState);
+  const containerRef = useRef()
 
   useEffect(() => {
     let timer = "";
@@ -48,6 +49,11 @@ const TypeWriter = ({ textData, className, onClick }) => {
     }
   }, [state.text, state.message, state.isDeleting, textData]);
 
+  useEffect(() => {
+    if (containerRef && containerRef.current)
+      containerRef.current.scrollLeft += 10
+  }, [state.text])
+
   const getCurrentText = currentState => {
     return currentState.isDeleting
       ? currentState.message.substring(0, currentState.text.length - 1)
@@ -65,8 +71,12 @@ const TypeWriter = ({ textData, className, onClick }) => {
   }
 
   return (
-    <div className={`oriTypeWritterContainer ${className}`} onClick={onClick}>
-      <p className="ori-text-overflow-dotted">{state.text} <span className="cursorBlink" /></p>
+    <div
+      ref={containerRef}
+      className={`oriTypeWritterContainer ${className}`}
+      onClick={onClick}
+    >
+      <p className="typeWritterText">{state.text} <span className="cursorBlink" /></p>
     </div>
   );
 }
