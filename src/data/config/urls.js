@@ -53,6 +53,7 @@ export const chatbot_setting = {
     show_avatar: true,
     quick_reply_bg_transparent: true,
     carousel_msg_display_type: 'default', // default, fixed, actual
+    header_tag: true, //to hide and show tag type header for small screen
     query_params: {
       enable: true,
       query_param_key: 'chatbotopen',

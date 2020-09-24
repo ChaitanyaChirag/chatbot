@@ -381,7 +381,7 @@ class ChatBot extends Component {
               sendFeedback={actions.sendFeedback}
             />
             {
-              screen_height < 420 &&
+              chatbot_setting.chat_interface.header_tag && screen_height < 420 &&
               <HeaderTag />
             }
           </Suspense>
