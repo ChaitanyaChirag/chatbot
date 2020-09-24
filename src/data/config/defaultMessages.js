@@ -1,4 +1,4 @@
-import { MESSAGE_SENDER, MESSAGE_TYPES, BUTTON_TYPES } from './constants'
+import { MESSAGE_SENDER, MESSAGE_TYPES, BUTTON_SUB_TYPES, BUTTON_TYPES } from './constants'
 
 export const web = [
   {
@@ -49,6 +49,11 @@ export const web = [
           type: BUTTON_TYPES.DEFAULT,
           text: "Join Vodafone Idea Family",
           url: ""
+        },
+        {
+          type: BUTTON_TYPES.CUSTOM,
+          text: "Share Location",
+          subtype: BUTTON_SUB_TYPES.SHARE_LOCATION
         }
       ]
     },

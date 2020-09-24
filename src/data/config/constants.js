@@ -54,6 +54,7 @@ export const MESSAGE_TYPES = {
   UPLOAD_FILE: "uploadFile",
   FILE: "file",
   SYSTEM_TEXT: "systemText",
+  LOCATION: "location"
 };
 
 export const MESSAGE_SUBTYPES = {
@@ -80,8 +81,9 @@ export const BUTTON_TYPES = {
 };
 
 export const BUTTON_SUB_TYPES = {
-  DISH_OFFERS: "dishOffers",
-  CHECKBOX_SUBMIT: "checkboxSubmit",
+    DISH_OFFERS: "dishOffers",
+    CHECKBOX_SUBMIT: "checkboxSubmit",
+    SHARE_LOCATION: "shareLocation",
 };
 
 export const MESSAGE_SENDER = {
