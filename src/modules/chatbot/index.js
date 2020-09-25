@@ -226,7 +226,6 @@ class ChatBot extends Component {
     }
     if (reqFields !== answeredQues) {
       showMessage('error', 'All fields are required')
-      console.log('All fields reqqqqq')
     } else {
       const payload = {
         psid: chat_details.psid,
