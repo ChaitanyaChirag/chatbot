@@ -210,15 +210,34 @@ class ChatBot extends Component {
   submitEndFormFormData = () => {
     const { end_chat_form_data } = this.state;
     const { actions, chat_details } = this.props;
-    const payload = {
-      psid: chat_details.psid,
-      formData: end_chat_form_data
-    };
-    actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
-      this.closeWebView('endChatSubmit', {})
-      actions.handleChatbotInterface(false);
-      this.onClickCloseIcon();
-    });
+    let reqFields = 0
+    let answeredQues = 0
+    for (var key in chat_details.end_chat.form) {
+      let x = chat_details.end_chat.form[key].input_props.name
+      if (chat_details.end_chat.form.hasOwnProperty(key)) {
+        let value = chat_details.end_chat.form[key]
+        if (value.input_props.required) {
+          reqFields = reqFields + 1
+        } 
+        if (end_chat_form_data.hasOwnProperty(x) && value.input_props.required) {
+          answeredQues = answeredQues + 1
+        }
+      }
+    }
+    if (reqFields !== answeredQues) {
+      showMessage('error', 'All fields are required')
+      console.log('All fields reqqqqq')
+    } else {
+      const payload = {
+        psid: chat_details.psid,
+        formData: end_chat_form_data
+      };
+      actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
+        this.closeWebView('endChatSubmit', {})
+        actions.handleChatbotInterface(false);
+        this.onClickCloseIcon();
+      });
+    }  
   };
 
   beforeFileUpload = file => {
