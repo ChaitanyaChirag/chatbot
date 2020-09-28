@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+import { RatingItem_sad, RatingItem_normal, RatingItem_happy } from '../../data/assets'
+
 const RatingItem = ({
   title,
   name,
@@ -18,9 +20,21 @@ const RatingItem = ({
   const [selectedValue, setSelectedValue] = useState(null)
   const size = !includeZero ? totalCount : totalCount + 1
   const eachWidth = (100 / totalCount).toFixed(2)
+  let imageUrl = ""
 
   const handleRatingClick = rating => {
     setSelectedValue(rating)
+    if (rating <= lowCount) {
+      imageUrl = RatingItem_sad
+    } else if (rating > lowCount && rating <= lowCount + midCount) {
+      imageUrl = RatingItem_normal
+    } else {
+      imageUrl = RatingItem_happy
+    }
+    let emoji = document.getElementById(`${name}`)
+    emoji.src = imageUrl
+    emoji.style.display = "inline"
+    setTimeout(() => { emoji.style.display = "none" }, 2000)
     onChange(name, rating)
   }
 
@@ -30,6 +44,7 @@ const RatingItem = ({
         title &&
         <p className='ori-b-mrgn-5 ori-capitalize-first'>{title}</p>
       }
+      <img id={`${name}`} src={imageUrl} alt="" className="ori-b-mrgn-5" style={{ display: 'none', width: '40px', height: '30px'}} />
       <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex ori-overflow-hidden' >
         {[...Array(size)].map((_, index) => {
           const ratingValue = !includeZero ? index + 1 : index
