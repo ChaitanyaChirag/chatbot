@@ -210,23 +210,13 @@ class ChatBot extends Component {
   submitEndFormFormData = () => {
     const { end_chat_form_data } = this.state;
     const { actions, chat_details } = this.props;
-    let reqFields = 0
-    let answeredQues = 0
-    for (var key in chat_details.end_chat.form) {
-      let inputName = chat_details.end_chat.form[key].input_props.name
-      if (chat_details.end_chat.form.hasOwnProperty(key)) {
-        let value = chat_details.end_chat.form[key]
-        if (value.input_props.required) {
-          reqFields = reqFields + 1
-        } 
-        if (end_chat_form_data.hasOwnProperty(inputName) && value.input_props.required) {
-          answeredQues = answeredQues + 1
-        }
-      }
-    }
-    if (reqFields !== answeredQues) {
-      showMessage('error', 'All fields are required')
-    } else {
+    let valid = true
+    chat_details.end_chat.form.forEach( item => {
+      if (item.input_props.required && !end_chat_form_data.hasOwnProperty(item.input_props.name)) 
+        valid = false
+      return false
+    })
+    if(valid) {
       const payload = {
         psid: chat_details.psid,
         formData: end_chat_form_data
@@ -236,6 +226,8 @@ class ChatBot extends Component {
         actions.handleChatbotInterface(false);
         this.onClickCloseIcon();
       });
+    } else {
+      showMessage('error', 'All fields are required')
     }  
   };
 
