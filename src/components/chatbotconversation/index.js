@@ -54,8 +54,8 @@ class ChatBotConversation extends React.PureComponent {
     if (prevProps.messages.length > 0 && messages.length > 0 && prevProps.messages.length !== messages.length) {
       if (chatbot_setting.chat_interface.scroll_upto_first_response_only && messages.length > defaultMessageLength) {
         if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER || prevProps.messages[prevProps.messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER) {
-          const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? 'start' : 'end'
-          this.scrollRef.current.scrollIntoView({ behavior: "smooth", block })
+          // const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? 'start' : 'end'
+          this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
         }
       } else {
         this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
