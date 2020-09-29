@@ -52,6 +52,7 @@ export const chatbot_setting = {
     show_bg_image: true, // to enable chatinterface background
     show_avatar: true,
     quick_reply_bg_transparent: true,
+    scroll_upto_first_response_only: true,
     carousel_msg_display_type: 'default', // default, fixed, actual
     header_tag: true, //to hide and show tag type header for small screen
     query_params: {
