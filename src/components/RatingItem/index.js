@@ -44,7 +44,7 @@ const RatingItem = ({
         title &&
         <p className='ori-b-mrgn-5 ori-capitalize-first'>{title}</p>
       }
-      <img id={`${name}`} src={imageUrl} alt="" className="ori-b-mrgn-5" style={{ display: 'none', width: '40px', height: '30px'}} />
+      <img id={`${name}`} src={imageUrl} alt="" className="ori-b-mrgn-5" style={{ display: 'none', width: '40px', height: '40px'}} />
       <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex ori-overflow-hidden' >
         {[...Array(size)].map((_, index) => {
           const ratingValue = !includeZero ? index + 1 : index
