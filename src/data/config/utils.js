@@ -1,7 +1,5 @@
 import message from 'antd/lib/message';
 
-// import { default_messages, android_default_messages } from './constants';
-
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
