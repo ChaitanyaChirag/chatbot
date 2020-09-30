@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { RatingItem_sad, RatingItem_normal, RatingItem_happy } from '../../data/assets'
+import { emojiHappy, emojiSad, emojiSmile } from '../../data/assets'
 
 const RatingItem = ({
   title,
@@ -18,24 +18,30 @@ const RatingItem = ({
   includeZero
 }) => {
   const [selectedValue, setSelectedValue] = useState(null)
+  const [showEmoji, setShowEmoji] = useState(false)
+
+  let timer = useRef(null)
+
   const size = !includeZero ? totalCount : totalCount + 1
   const eachWidth = (100 / totalCount).toFixed(2)
-  let imageUrl = ""
+  const imageSrc = selectedValue <= lowCount ? emojiSad : (selectedValue > lowCount && selectedValue <= lowCount + midCount ? emojiSmile : emojiHappy)
+
+  useEffect(() => {
+    if (selectedValue) {
+      setShowEmoji(true)
+      timer.current = setTimeout(() => setShowEmoji(false), 3000)
+    }
+    return () => {
+      if (timer.current)
+        clearTimeout(timer.current)
+    }
+  }, [selectedValue])
 
   const handleRatingClick = rating => {
-    setSelectedValue(rating)
-    if (rating <= lowCount) {
-      imageUrl = RatingItem_sad
-    } else if (rating > lowCount && rating <= lowCount + midCount) {
-      imageUrl = RatingItem_normal
-    } else {
-      imageUrl = RatingItem_happy
+    if (rating !== selectedValue) {
+      setSelectedValue(rating)
+      onChange(name, rating)
     }
-    let emoji = document.getElementById(`${name}`)
-    emoji.src = imageUrl
-    emoji.style.display = "inline"
-    setTimeout(() => { emoji.style.display = "none" }, 2000)
-    onChange(name, rating)
   }
 
   return (
@@ -44,7 +50,15 @@ const RatingItem = ({
         title &&
         <p className='ori-b-mrgn-5 ori-capitalize-first'>{title}</p>
       }
-      <img id={`${name}`} src={imageUrl} alt="" className="ori-b-mrgn-5" style={{ display: 'none' }} />
+      {
+        showEmoji &&
+        <img
+          src={imageSrc}
+          alt=""
+          style={{height: '50px', width: '50px'}}
+          className="ori-animated ori-infinite ori-pulse ori-b-mrgn-5"
+        />
+      }
       <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex ori-overflow-hidden' >
         {[...Array(size)].map((_, index) => {
           const ratingValue = !includeZero ? index + 1 : index

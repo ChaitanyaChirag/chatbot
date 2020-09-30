@@ -3,9 +3,9 @@ const logo = require('./logo.png')
 const trigger = require('./trigger.png')
 const poweredby = require('./poweredby.png')
 const lottiejson = require('./lottie.json')
-const RatingItem_sad = require('./RatingItem-sad.png')
-const RatingItem_normal = require('./RatingItem-normal.png')
-const RatingItem_happy = require('./RatingItem-happy.png')
+const emojiSad = require('./emojiSad.png')
+const emojiSmile = require('./emojiSmile.png')
+const emojiHappy = require('./emojiHappy.png')
 
 module.exports = {
   background,
@@ -13,7 +13,7 @@ module.exports = {
   trigger,
   poweredby,
   lottiejson,
-  RatingItem_sad,
-  RatingItem_normal,
-  RatingItem_happy,
+  emojiSad,
+  emojiSmile,
+  emojiHappy
 }
