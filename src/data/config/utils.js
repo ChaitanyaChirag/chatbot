@@ -26,7 +26,7 @@ export const showMessage = (type, msg) => {
       duration: 2,
       maxCount: 1,
       top: 75,
-      getContainer: () => node,
+      getContainer: () => node
     });
     message[type](msg);
   }

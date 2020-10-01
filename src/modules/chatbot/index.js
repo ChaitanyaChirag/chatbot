@@ -210,15 +210,20 @@ class ChatBot extends Component {
   submitEndFormFormData = () => {
     const { end_chat_form_data } = this.state;
     const { actions, chat_details } = this.props;
-    const payload = {
-      psid: chat_details.psid,
-      formData: end_chat_form_data
-    };
-    actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
-      this.closeWebView('endChatSubmit', {})
-      actions.handleChatbotInterface(false);
-      this.onClickCloseIcon();
-    });
+    const index = chat_details.end_chat.form.findIndex(item => item.input_props && item.input_props.required && !end_chat_form_data[item.input_props.name])
+    if (index === -1) {
+      const payload = {
+        psid: chat_details.psid,
+        formData: end_chat_form_data
+      };
+      actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
+        this.closeWebView('endChatSubmit', {})
+        actions.handleChatbotInterface(false);
+        this.onClickCloseIcon();
+      });
+    } else {
+      showMessage('error', 'All fields are required')
+    }
   };
 
   beforeFileUpload = file => {
