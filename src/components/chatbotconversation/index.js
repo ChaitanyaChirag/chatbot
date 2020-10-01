@@ -69,6 +69,8 @@ class ChatBotConversation extends React.PureComponent {
             const offset = firstResChild.offsetTop - container.scrollTop
             if (offset >= unscrolledHeight)
               this.scrollRef.current.scrollIntoView({ behavior: "smooth", block })
+            else if(block === 'start')
+              container.scrollBy(0, 40)
           }
         }
       } else {
