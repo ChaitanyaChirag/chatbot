@@ -95,7 +95,7 @@ class EndChat extends React.PureComponent {
 
                 case "rating":
                   return (
-                    <Suspense fallback={null}>
+                    <Suspense key={index} fallback={null}>
                       <RatingItem
                         title={form_item.title}
                         {...form_item.input_props}
