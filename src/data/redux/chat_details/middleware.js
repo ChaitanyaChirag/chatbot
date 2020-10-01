@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-import { EVENTS, MESSAGE_READ_STATUS, DEFAULT_END_CHAT_STATE } from '../../config/constants';
+import { EVENTS, MESSAGE_READ_STATUS, DEFAULT_END_CHAT_STATE, ALLOWED_MESSAGE_TYPES } from '../../config/constants';
 import {
   getSocketUrl,
   chatbot_setting,
@@ -107,6 +107,7 @@ const registerSocketListener = (store, socket) => {
             }
           });
         }
+        if(payload.message.type && ALLOWED_MESSAGE_TYPES.includes(payload.message.type))
         store.dispatch({
           type: actionTypes.PUSH_RESPONSE_MESSAGE,
           payload

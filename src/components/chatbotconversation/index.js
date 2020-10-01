@@ -29,12 +29,14 @@ import {
   MESSAGE_SUBTYPES,
   MESSAGE_READ_STATUS
 } from '../../data/config/constants';
-import { chatbot_setting } from '../../data/config/urls';
+import { chatbot_setting, chatbot_default_messages } from '../../data/config/urls';
 import { formatTime, formatDate } from '../../data/config/utils';
 import { logo } from '../../data/assets';
 
 import DotsLoader from '../dotsloader';
 import ErrorBoundary from '../errorboundary';
+
+const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
 class ChatBotConversation extends React.PureComponent {
   constructor(props) {
@@ -49,8 +51,16 @@ class ChatBotConversation extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     const { messages } = this.props;
-    if (prevProps.messages.length !== messages.length)
-      this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
+    if (prevProps.messages.length > 0 && messages.length > 0 && prevProps.messages.length !== messages.length) {
+      if (chatbot_setting.chat_interface.scroll_upto_first_response_only && messages.length > defaultMessageLength) {
+        if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER || prevProps.messages[prevProps.messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER) {
+          // const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? 'start' : 'end'
+          this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
+        }
+      } else {
+        this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
+      }
+    }
   }
 
   isTimeStampTagVisible = (timestamp, prev_timestamp) => {
@@ -121,7 +131,7 @@ class ChatBotConversation extends React.PureComponent {
             const admin = message.sender === MESSAGE_SENDER.ADMIN;
             const chatbot = message.sender === MESSAGE_SENDER.CHATBOT;
 
-            const show_textMessage = message.type === MESSAGE_TYPES.TEXT;
+            const show_textMessage = message.type === MESSAGE_TYPES.TEXT && message.payload && message.payload.text;
             const show_listMessage = message.type === MESSAGE_TYPES.LIST;
             const show_textWithButtons = message.type === MESSAGE_TYPES.TEXT_WITH_BUTTONS;
             const show_checkboxWithMedia = message.type === MESSAGE_TYPES.CHECKBOX_WITH_MEDIA;

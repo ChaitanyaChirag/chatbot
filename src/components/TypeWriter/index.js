@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import './index.scss'
@@ -15,7 +15,7 @@ const defaultState = {
 
 const TypeWriter = ({ textData, className, onClick }) => {
   const [state, setState] = useState(defaultState);
-  const containerRef = useRef()
+  // const containerRef = useRef()
 
   useEffect(() => {
     let timer = "";
@@ -29,7 +29,7 @@ const TypeWriter = ({ textData, className, onClick }) => {
     };
     handleType();
     return () => clearTimeout(timer);
-  }, [state.isDeleting]);
+  }, [state.isDeleting, state.typingSpeed]);
 
   useEffect(() => {
     if (!state.isDeleting && state.text === state.message) {
@@ -49,10 +49,10 @@ const TypeWriter = ({ textData, className, onClick }) => {
     }
   }, [state.text, state.message, state.isDeleting, textData]);
 
-  useEffect(() => {
-    if (containerRef && containerRef.current)
-      containerRef.current.scrollLeft += 10
-  }, [state.text])
+  // useEffect(() => {
+  //   if (containerRef && containerRef.current)
+  //     containerRef.current.scrollLeft += 10
+  // }, [state.text])
 
   const getCurrentText = currentState => {
     return currentState.isDeleting
@@ -72,7 +72,7 @@ const TypeWriter = ({ textData, className, onClick }) => {
 
   return (
     <div
-      ref={containerRef}
+      // ref={containerRef}
       className={`oriTypeWritterContainer ${className}`}
       onClick={onClick}
     >
