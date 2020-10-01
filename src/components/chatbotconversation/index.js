@@ -30,7 +30,7 @@ import {
   MESSAGE_READ_STATUS
 } from '../../data/config/constants';
 import { chatbot_setting, chatbot_default_messages } from '../../data/config/urls';
-import { formatTime, formatDate, checkInView } from '../../data/config/utils';
+import { formatTime, formatDate } from '../../data/config/utils';
 import { logo } from '../../data/assets';
 
 import DotsLoader from '../dotsloader';
@@ -43,6 +43,7 @@ class ChatBotConversation extends React.PureComponent {
     super(props)
     this.scrollRef = React.createRef();
     this.chatbodyRef = React.createRef();
+    this.firstResChildIndex = null
   }
 
   componentDidMount() {
@@ -53,21 +54,21 @@ class ChatBotConversation extends React.PureComponent {
     const { messages } = this.props;
     if (prevProps.messages.length > 0 && messages.length > 0 && prevProps.messages.length !== messages.length) {
       if (chatbot_setting.chat_interface.scroll_upto_first_response_only && messages.length > defaultMessageLength) {
+        const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? 'start' : 'end'
         if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER || prevProps.messages[prevProps.messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER) {
-          this.scrollRef.current.scrollIntoView({ behavior: "auto", block: 'center', inline: 'center' })
-        } else if(messages[messages.length - 1].sender !== MESSAGE_SENDER.CUSTOMER && prevProps.messages[prevProps.messages.length - 1].sender !== MESSAGE_SENDER.CUSTOMER){
+          if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER)
+            this.firstResChildIndex = null
+          else if (prevProps.messages[prevProps.messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER)
+            this.firstResChildIndex = prevProps.messages.length
+          this.scrollRef.current.scrollIntoView({ behavior: "smooth", block })
+        } else if (messages[messages.length - 1].sender !== MESSAGE_SENDER.CUSTOMER && prevProps.messages[prevProps.messages.length - 1].sender !== MESSAGE_SENDER.CUSTOMER) {
           const container = document.getElementById('oriChatbotConversationContainer')
-          const firstResChild = document.getElementById(`index-${prevProps.messages.length - 1}`)
-          if(container && firstResChild){
-          console.log('container.clientHeight', container.clientHeight)
-          console.log('container.scrollHeight', container.scrollHeight)
-          console.log('container.scrollTop', container.scrollTop)
-          console.log('unscrolled Height', container.scrollHeight - container.clientHeight - container.scrollTop)
-          console.log('firstResChild.offsetTop', firstResChild.offsetTop)
-          const offset = firstResChild.offsetTop - container.scrollTop 
-          console.log('firstResChild offset', offset)
-          const currentChild=document.getElementById(`index-${messages.length - 1}`)
-
+          const firstResChild = document.getElementById(`index-${this.firstResChildIndex}`)
+          if (container && firstResChild) {
+            const unscrolledHeight = container.scrollHeight - container.offsetHeight - container.scrollTop
+            const offset = firstResChild.offsetTop - container.scrollTop
+            if (offset >= unscrolledHeight)
+              this.scrollRef.current.scrollIntoView({ behavior: "smooth", block })
           }
         }
       } else {
