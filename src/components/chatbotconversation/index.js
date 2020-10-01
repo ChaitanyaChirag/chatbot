@@ -30,7 +30,7 @@ import {
   MESSAGE_READ_STATUS
 } from '../../data/config/constants';
 import { chatbot_setting, chatbot_default_messages } from '../../data/config/urls';
-import { formatTime, formatDate } from '../../data/config/utils';
+import { formatTime, formatDate, checkInView } from '../../data/config/utils';
 import { logo } from '../../data/assets';
 
 import DotsLoader from '../dotsloader';
@@ -54,8 +54,21 @@ class ChatBotConversation extends React.PureComponent {
     if (prevProps.messages.length > 0 && messages.length > 0 && prevProps.messages.length !== messages.length) {
       if (chatbot_setting.chat_interface.scroll_upto_first_response_only && messages.length > defaultMessageLength) {
         if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER || prevProps.messages[prevProps.messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER) {
-          // const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? 'start' : 'end'
-          this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
+          this.scrollRef.current.scrollIntoView({ behavior: "auto", block: 'center', inline: 'center' })
+        } else if(messages[messages.length - 1].sender !== MESSAGE_SENDER.CUSTOMER && prevProps.messages[prevProps.messages.length - 1].sender !== MESSAGE_SENDER.CUSTOMER){
+          const container = document.getElementById('oriChatbotConversationContainer')
+          const firstResChild = document.getElementById(`index-${prevProps.messages.length - 1}`)
+          if(container && firstResChild){
+          console.log('container.clientHeight', container.clientHeight)
+          console.log('container.scrollHeight', container.scrollHeight)
+          console.log('container.scrollTop', container.scrollTop)
+          console.log('unscrolled Height', container.scrollHeight - container.clientHeight - container.scrollTop)
+          console.log('firstResChild.offsetTop', firstResChild.offsetTop)
+          const offset = firstResChild.offsetTop - container.scrollTop 
+          console.log('firstResChild offset', offset)
+          const currentChild=document.getElementById(`index-${messages.length - 1}`)
+
+          }
         }
       } else {
         this.scrollRef.current.scrollIntoView({ behavior: "smooth" })
@@ -112,6 +125,7 @@ class ChatBotConversation extends React.PureComponent {
 
     return (
       <div
+        id='oriChatbotConversationContainer'
         className={classNames("ori-t-pad-10 ori-b-pad-40 oriChatBotConversationContainer",
           {
             "ori-cursor-ptr ori-no-b-pad": stack_view,
@@ -172,7 +186,7 @@ class ChatBotConversation extends React.PureComponent {
             if (show_textMessage || show_listMessage || show_textWithMedia || show_checkboxWithMedia || show_recharge || show_rechargeDetails || show_offers || show_rechargeHistory || show_carousel || show_promptmsg || show_uploadfile) {
               return (
                 <ErrorBoundary key={index}>
-                  <div className="ori-animated ori-fade-in">
+                  <div id={`index-${index}`} className="ori-animated ori-fade-in">
                     {
                       show_timestamp_tag &&
                       <div className="ori-flex-row ori-flex-jc ori-pad-5">

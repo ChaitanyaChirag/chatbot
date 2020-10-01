@@ -32,6 +32,27 @@ export const showMessage = (type, msg) => {
   }
 };
 
+export const checkInView = (container, element, partial) => {
+
+  //Get container properties
+  let cTop = container.scrollTop;
+  let cBottom = cTop + container.clientHeight;
+
+  //Get element properties
+  let eTop = element.offsetTop;
+  let eBottom = eTop + element.clientHeight;
+
+  //Check if in view    
+  let isTotal = (eTop >= cTop && eBottom <= cBottom);
+  let isPartial = partial && (
+    (eTop < cTop && eBottom > cTop) ||
+    (eBottom > cBottom && eTop < cBottom)
+  );
+
+  //Return outcome
+  return (isTotal || isPartial);
+}
+
 export const fetchWithTimeout = (url, options, timeout = 5000) => {
   return Promise.race([
     fetch(url, options),
