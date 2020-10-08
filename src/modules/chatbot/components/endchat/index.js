@@ -120,7 +120,14 @@ class EndChat extends React.PureComponent {
                         {
                           form_item.options && form_item.options.map((option, index) => {
                             return (
-                              <Option key={index} name={form_item.input_props.name} value={option.value}>{option.name}</Option>
+                              <Option
+                                key={index} 
+                                name={form_item.input_props.name} 
+                                value={option.value}
+                                style={{ whiteSpace: "normal" }}
+                              >
+                                {option.name}
+                              </Option>
                             );
                           })
                         }
@@ -185,7 +192,7 @@ class EndChat extends React.PureComponent {
                   {
                     end_chat.description &&
                     <div className="ori-block-text-overflow-dotted ori-dotted-after-xs-3">
-                      <p className="ori-animated ori-fade-in ori-font-xs ori-text-center">{end_chat.description}</p>
+                      <p className="ori-animated ori-fade-in ori-font-bold ori-font-xs ori-text-center">{end_chat.description}</p>
                     </div>
                   }
                 </div>
