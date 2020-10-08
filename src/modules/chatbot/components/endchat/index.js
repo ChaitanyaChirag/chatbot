@@ -185,7 +185,7 @@ class EndChat extends React.PureComponent {
                   {
                     end_chat.description &&
                     <div className="ori-block-text-overflow-dotted ori-dotted-after-xs-3">
-                      <p className="ori-animated ori-fade-in ori-font-xs ori-text-center">{end_chat.description}</p>
+                      <p className="ori-animated ori-fade-in ori-font-bold ori-font-xs ori-text-center">{end_chat.description}</p>
                     </div>
                   }
                 </div>
