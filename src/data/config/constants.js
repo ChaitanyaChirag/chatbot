@@ -8,7 +8,8 @@ export const DEFAULT_END_CHAT_STATE = {
   show_resolved_card: false,
   show_form_card: false,
   form: [],
-  description: null,
+  formTitle: '',
+  formSubTitle: ''
 }
 
 export const INFO_CONTENT_TYPE = {

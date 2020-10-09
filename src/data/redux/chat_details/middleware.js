@@ -177,7 +177,8 @@ const registerSocketListener = (store, socket) => {
             visible: true,
             show_form_card: true,
             form: data.formData,
-            description: data.formTitle ? data.formTitle : null
+            formTitle: data.formTitle ? data.formTitle : '',
+            formSubTitle: data.formSubTitle ? data.formSubTitle : '',
           }
         }));
       else

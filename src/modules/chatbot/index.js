@@ -194,7 +194,8 @@ class ChatBot extends Component {
                 visible: true,
                 show_form_card: true,
                 form: res.data.formData,
-                description: res.data.formTitle ? res.data.formTitle : null,
+                formTitle: res.data.formTitle ? res.data.formTitle : '',
+                formSubTitle: res.data.formSubTitle ? res.data.formSubTitle : '',
               }
             });
           else {
