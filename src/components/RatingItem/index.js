@@ -27,7 +27,7 @@ const RatingItem = ({
   const imageSrc = selectedValue <= lowCount ? emojiSad : (selectedValue > lowCount && selectedValue <= lowCount + midCount ? emojiSmile : emojiHappy)
 
   useEffect(() => {
-    if (selectedValue) {
+    if (selectedValue !== null) {
       setShowEmoji(true)
       timer.current = setTimeout(() => setShowEmoji(false), 3000)
     }
