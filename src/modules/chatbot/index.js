@@ -211,7 +211,7 @@ class ChatBot extends Component {
   submitEndFormFormData = () => {
     const { end_chat_form_data } = this.state;
     const { actions, chat_details } = this.props;
-    const index = chat_details.end_chat.form.findIndex(item => item.input_props && item.input_props.required && !end_chat_form_data[item.input_props.name])
+    const index = chat_details.end_chat.form.findIndex(item => item.input_props && item.input_props.required && !end_chat_form_data.hasOwnProperty(item.input_props.name))
     if (index === -1) {
       const payload = {
         psid: chat_details.psid,
