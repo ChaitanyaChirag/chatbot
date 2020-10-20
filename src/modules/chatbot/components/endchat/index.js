@@ -169,12 +169,16 @@ class EndChat extends React.PureComponent {
 
   componentDidUpdate() {
     const { end_chat, closeEndChatPopup } = this.props
+    let timeout = chatbot_setting.auto_close_feedback_form
     if (end_chat.show_form_card) {
+      setTimeout(() => {
+        showMessage('error', '5 seconds remaining')
+      }, timeout - 5000)
       setTimeout(() => {
         console.log('Feedback Form Timeout')
         showMessage('error', 'Feedback Form Timeout')
         closeEndChatPopup()
-      }, chatbot_setting.auto_close_feedback_form)
+      }, timeout)
     }
   }
 
