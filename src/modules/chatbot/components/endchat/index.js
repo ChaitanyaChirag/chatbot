@@ -13,6 +13,8 @@ import { LangContext } from '../../../context';
 
 import DelayComponent from '../../../../components/delaycomponent';
 
+import { showMessage } from '../../../../data/config/utils'
+
 const PoweredBy = lazy(() => import('../../../../components/poweredby'));
 const RatingItem = lazy(() => import('../../../../components/RatingItem'))
 
@@ -164,6 +166,17 @@ class EndChat extends React.PureComponent {
         </div>
       );
   };
+
+  componentDidUpdate() {
+    const { end_chat, closeEndChatPopup } = this.props
+    if (end_chat.show_form_card) {
+      setTimeout(() => {
+        console.log('Feedback Form Timeout')
+        showMessage('error', 'Feedback Form Timeout')
+        closeEndChatPopup()
+      }, chatbot_setting.auto_close_feedback_form)
+    }
+  }
 
   render() {
     const { isMounted, end_chat } = this.props;
