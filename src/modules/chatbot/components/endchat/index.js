@@ -21,6 +21,27 @@ const RatingItem = lazy(() => import('../../../../components/RatingItem'))
 const { Option } = Select;
 
 class EndChat extends React.PureComponent {
+  timer = null
+
+  componentDidUpdate(prevProps) {
+    const { end_chat, closeEndChatPopup } = this.props
+    if (!prevProps.end_chat.show_form_card && end_chat.show_form_card) {
+      if (this.timer)
+        clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        showMessage('error', 'Feedback Form Timeout')
+        closeEndChatPopup()
+      }, chatbot_setting.auto_close_feedback_form)
+    } else if (prevProps.end_chat.show_form_card && !end_chat.show_form_card && this.timer) {
+      clearTimeout(this.timer)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer)
+      clearTimeout(this.timer)
+  }
+
   handleFormInputChange = event => {
     const { handleFormItemChange } = this.props;
     handleFormItemChange(event.target.name, event.target.value)
@@ -166,34 +187,6 @@ class EndChat extends React.PureComponent {
         </div>
       );
   };
-
-  componentDidUpdate() {
-    const { end_chat, closeEndChatPopup } = this.props
-    let timeout = chatbot_setting.auto_close_feedback_form
-    let timer1, timer2
-    function setTimer() {
-      timer1 = setTimeout(() => {
-        showMessage('error', '5 seconds remaining')
-      }, timeout - 5000)
-      timer2 = setTimeout(() => {
-        console.log('Feedback Form Timeout')
-        showMessage('error', 'Feedback Form Timeout')
-        closeEndChatPopup()
-      }, timeout)
-    }
-    function clearTimer() {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-      console.log("clearTimer")
-    }
-    if (end_chat.show_form_card) {
-      setTimer()
-    }
-    if (!end_chat.show_form_card) {
-      clearTimer()
-      console.log("clear")
-    }
-  }
 
   render() {
     const { isMounted, end_chat } = this.props;
