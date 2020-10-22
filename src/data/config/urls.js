@@ -147,7 +147,7 @@ export const translator = {
 }
 
 export const brand_features = {
-  enable: true,
+  enable: false,
   getBrandData() {
     const data = {}
     if (this.enable) {
