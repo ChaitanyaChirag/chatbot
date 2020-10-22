@@ -13,12 +13,35 @@ import { LangContext } from '../../../context';
 
 import DelayComponent from '../../../../components/delaycomponent';
 
+import { showMessage } from '../../../../data/config/utils'
+
 const PoweredBy = lazy(() => import('../../../../components/poweredby'));
 const RatingItem = lazy(() => import('../../../../components/RatingItem'))
 
 const { Option } = Select;
 
 class EndChat extends React.PureComponent {
+  timer = null
+
+  componentDidUpdate(prevProps) {
+    const { end_chat, closeEndChatPopup } = this.props
+    if (!prevProps.end_chat.show_form_card && end_chat.show_form_card) {
+      if (this.timer)
+        clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        showMessage('error', 'Feedback Form Timeout')
+        closeEndChatPopup()
+      }, chatbot_setting.auto_close_feedback_form)
+    } else if (prevProps.end_chat.show_form_card && !end_chat.show_form_card && this.timer) {
+      clearTimeout(this.timer)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer)
+      clearTimeout(this.timer)
+  }
+
   handleFormInputChange = event => {
     const { handleFormItemChange } = this.props;
     handleFormItemChange(event.target.name, event.target.value)
