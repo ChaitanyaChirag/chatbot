@@ -145,3 +145,16 @@ export const translator = {
     return lang
   }
 }
+
+export const brand_features = {
+  enable: true,
+  getBrandData() {
+    const data = {}
+    if (this.enable) {
+      //=========== BRAND SPECIFIC LOGIC ==========
+
+      //=================== END ===================
+    }
+    return data
+  }
+}

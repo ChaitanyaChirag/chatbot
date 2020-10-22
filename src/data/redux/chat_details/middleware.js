@@ -5,7 +5,8 @@ import {
   getSocketUrl,
   chatbot_setting,
   chatbot_client_info,
-  chatbot_default_messages
+  chatbot_default_messages,
+  brand_features
 } from '../../config/urls';
 import { log, getCookie, uniqueId } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
@@ -33,8 +34,10 @@ const registerSocketListener = (store, socket) => {
         variable_name: chat_details.variable_name,
         send_variable_to_apiai: chat_details.send_variable_to_apiai,
         sendVariableToLS: chat_details.sendVariableToLS,
-        skipLS: chat_details.skipLS
+        skipLS: chat_details.skipLS,
       };
+      if(brand_features.enable)
+        data.brandData = brand_features.getBrandData()
       if (query_params.has(chatbot_setting.auto_emit_response.query_param_key)) {
         const text = query_params.get(chatbot_setting.auto_emit_response.query_param_key);
         data.text = text;
@@ -107,11 +110,11 @@ const registerSocketListener = (store, socket) => {
             }
           });
         }
-        if(payload.message.type && ALLOWED_MESSAGE_TYPES.includes(payload.message.type))
-        store.dispatch({
-          type: actionTypes.PUSH_RESPONSE_MESSAGE,
-          payload
-        });
+        if (payload.message.type && ALLOWED_MESSAGE_TYPES.includes(payload.message.type))
+          store.dispatch({
+            type: actionTypes.PUSH_RESPONSE_MESSAGE,
+            payload
+          });
       } else {
         log('response data format is not correct', res);
       }
