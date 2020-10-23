@@ -5,8 +5,7 @@ import {
   getSocketUrl,
   chatbot_setting,
   chatbot_client_info,
-  chatbot_default_messages,
-  brand_features
+  chatbot_default_messages
 } from '../../config/urls';
 import { log, getCookie, uniqueId } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
@@ -36,8 +35,6 @@ const registerSocketListener = (store, socket) => {
         sendVariableToLS: chat_details.sendVariableToLS,
         skipLS: chat_details.skipLS,
       };
-      if(brand_features.enable)
-        data.brandData = brand_features.getBrandData()
       if (query_params.has(chatbot_setting.auto_emit_response.query_param_key)) {
         const text = query_params.get(chatbot_setting.auto_emit_response.query_param_key);
         data.text = text;

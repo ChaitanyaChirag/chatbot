@@ -36,13 +36,17 @@ import {
   chatbot_client_info,
   chatbot_setting,
   translator,
-  network_check_url
+  network_check_url,
+  chatbot_default_messages,
+  brand_features
 } from '../data/config/urls';
 
 import TriggerChatBot from '../components/triggerchatbot';
 
 const ChatBot = React.lazy(() => import('./chatbot'));
 const NotificationBot = React.lazy(() => import('./notificationbot'));
+
+const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
 class AppContainer extends Component {
   constructor(props) {
@@ -262,6 +266,9 @@ class AppContainer extends Component {
       sendVariableToLS: chat_details.sendVariableToLS,
       skipLS: chat_details.skipLS
     };
+    if (brand_features.enable && chat_details.messages.length <= defaultMessageLength) {
+      data.brandData = brand_features.getBrandData()
+    }
     if ((android || ios) && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
       data.lockedParams = JSON.parse(localStorage.getItem(LOCAL_STORAGE.APP_PARAMS));
       localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS);
