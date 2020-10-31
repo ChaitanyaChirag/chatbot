@@ -214,7 +214,7 @@ class EndChat extends React.PureComponent {
                   <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
                   {
                     end_chat.formTitle &&
-                    <p className="ori-animated ori-fade-in ori-font-bold ori-font-sm ori-text-center">{end_chat.formTitle}</p>
+                    <p className="ori-animated ori-fade-in ori-font-bold ori-font-md ori-text-center">{end_chat.formTitle}</p>
                   }
                   {
                     end_chat.formSubTitle &&
