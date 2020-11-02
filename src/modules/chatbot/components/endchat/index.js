@@ -90,7 +90,7 @@ const EndChat = ({
                       {
                         form_item.title &&
                         <div
-                          className="ori-capitalize ori-b-mrgn-7"
+                          className="ori-b-mrgn-7"
                           style={{ lineHeight: '1.3' }}
                         >
                           {form_item.title}
@@ -110,7 +110,7 @@ const EndChat = ({
                       {
                         form_item.title &&
                         <div
-                          className="ori-capitalize ori-b-mrgn-7"
+                          className="ori-b-mrgn-7"
                           style={{ lineHeight: '1.3' }}
                         >
                           {form_item.title}
@@ -140,7 +140,7 @@ const EndChat = ({
                     <div key={index} id={`select-${index}`} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div className="ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
                       }
                       <Select
                         className="ori-full-width ori-font-xs"
