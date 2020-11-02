@@ -30,7 +30,7 @@ export const chatbot_client_info = {
 };
 
 export const chatbot_setting = {
-  auto_close_feedback_form: 15 * 60 * 1000, //in milliseconds only
+  auto_close_feedback_form: 5 * 1000, //in milliseconds only
   automate_connection_time: 3600, //in seceond only
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
   security: {

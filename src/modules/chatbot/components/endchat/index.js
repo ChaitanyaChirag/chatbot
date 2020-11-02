@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from 'antd/lib/button';
@@ -20,41 +20,41 @@ const RatingItem = lazy(() => import('../../../../components/RatingItem'))
 
 const { Option } = Select;
 
-class EndChat extends React.PureComponent {
-  timer = null
+const EndChat = ({
+  isMounted,
+  is_socket_connected,
+  end_chat,
+  closeEndChatPopup,
+  handleFormItemChange,
+  confirmEndConversation,
+  submitFormData
+}) => {
+  const timer = useRef(false)
 
-  componentDidUpdate(prevProps) {
-    const { end_chat, closeEndChatPopup } = this.props
-    if (!prevProps.end_chat.show_form_card && end_chat.show_form_card) {
-      if (this.timer)
-        clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        showMessage('error', 'Feedback Form Timeout')
+  useEffect(() => {
+    if (end_chat.show_form_card) {
+      timer.current = setTimeout(() => {
+        showMessage('warning', 'Feedback Form Timeout')
         closeEndChatPopup()
       }, chatbot_setting.auto_close_feedback_form)
-    } else if (prevProps.end_chat.show_form_card && !end_chat.show_form_card && this.timer) {
-      clearTimeout(this.timer)
     }
-  }
+    return () => {
+      if (timer.current)
+        clearTimeout(timer.current)
+    }
+  }, [closeEndChatPopup, end_chat.show_form_card])
 
-  componentWillUnmount() {
-    if (this.timer)
-      clearTimeout(this.timer)
-  }
 
-  handleFormInputChange = event => {
-    const { handleFormItemChange } = this.props;
+  const handleFormInputChange = event => {
     handleFormItemChange(event.target.name, event.target.value)
   }
 
-  handleFormSelectChange = (value, option) => {
-    const { handleFormItemChange } = this.props;
+  const handleFormSelectChange = (value, option) => {
     if (option && option.props && option.props.name)
       handleFormItemChange(option.props.name, value)
   }
 
-  renderSessionCloseConfirmation = lang => {
-    const { end_chat, closeEndChatPopup, confirmEndConversation } = this.props;
+  const renderSessionCloseConfirmation = lang => {
     if (end_chat.show_confirmation_card)
       return (
         <InfoCard
@@ -66,8 +66,7 @@ class EndChat extends React.PureComponent {
       );
   };
 
-  renderResolvedChatInfo = lang => {
-    const { end_chat, confirmEndConversation } = this.props;
+  const renderResolvedChatInfo = lang => {
     if (end_chat.show_resolved_card)
       return (
         <InfoCard
@@ -78,8 +77,7 @@ class EndChat extends React.PureComponent {
       );
   };
 
-  renderDynamicForm = lang => {
-    const { is_socket_connected, end_chat, closeEndChatPopup, handleFormItemChange, submitFormData } = this.props;
+  const renderDynamicForm = lang => {
     if (end_chat.show_form_card)
       return (
         <div className="ori-pad-15 ori-bg-white ori-box-shadow ori-border-radius-5 ori-tb-mrgn-5">
@@ -91,12 +89,17 @@ class EndChat extends React.PureComponent {
                     <div key={index} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div
+                          className="ori-capitalize ori-b-mrgn-7"
+                          style={{ lineHeight: '1.3' }}
+                        >
+                          {form_item.title}
+                        </div>
                       }
                       <Input
                         className="ori-font-xs"
                         {...form_item.input_props}
-                        onChange={this.handleFormInputChange}
+                        onChange={handleFormInputChange}
                       />
                     </div>
                   );
@@ -106,12 +109,17 @@ class EndChat extends React.PureComponent {
                     <div key={index} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-capitalize ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div
+                          className="ori-capitalize ori-b-mrgn-7"
+                          style={{ lineHeight: '1.3' }}
+                        >
+                          {form_item.title}
+                        </div>
                       }
                       <Input.TextArea
                         className="ori-font-xs"
                         {...form_item.input_props}
-                        onChange={this.handleFormInputChange}
+                        onChange={handleFormInputChange}
                       />
                     </div>
                   );
@@ -138,7 +146,7 @@ class EndChat extends React.PureComponent {
                         className="ori-full-width ori-font-xs"
                         getPopupContainer={() => document.getElementById(`select-${index}`)}
                         {...form_item.input_props}
-                        onChange={this.handleFormSelectChange}
+                        onChange={handleFormSelectChange}
                       >
                         {
                           form_item.options && form_item.options.map((option, index) => {
@@ -188,62 +196,60 @@ class EndChat extends React.PureComponent {
       );
   };
 
-  render() {
-    const { isMounted, end_chat } = this.props;
-    return (
-      <LangContext.Consumer>
-        {
-          lang => (
-            <div
-              className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994",
-                {
-                  "ori-fade-in": isMounted,
-                  "ori-fade-out": !isMounted,
-                  "ori-z-index-99995": end_chat.show_resolved_card,
-                }
-              )}
-              style={{
-                backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
-              }}
-            >
-              <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
-                <div>
-                  <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
-                    <Avatar style={{ height: '55px', width: '55px' }} src={logo} />
-                  </div>
-                  <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
-                  {
-                    end_chat.formTitle &&
-                    <p className="ori-animated ori-fade-in ori-font-bold ori-font-md ori-text-center">{end_chat.formTitle}</p>
-                  }
-                  {
-                    end_chat.formSubTitle &&
-                    <div className="ori-block-text-overflow-dotted ori-dotted-after-xs-3">
-                      <p className="ori-animated ori-fade-in ori-font-xs ori-text-center">{end_chat.formSubTitle}</p>
-                    </div>
-                  }
-                </div>
-              </div>
-              <div className="ori-absolute ori-align-full">
-                <div className="ori-relative ori-full-parent-height ori-full-width ori-overflow-y-auto ori-text-center" style={{ padding: "190px 15px 30px 15px" }}>
-                  {this.renderSessionCloseConfirmation(lang)}
-                  {this.renderResolvedChatInfo(lang)}
-                  {this.renderDynamicForm(lang)}
-                </div>
-              </div>
+  return (
+    <LangContext.Consumer>
+      {
+        lang => (
+          <div
+            className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994",
               {
-                chatbot_setting.powered_by.visibility &&
-                <Suspense fallback={null}>
-                  <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center ori-bg-white ori-box-shadow" />
-                </Suspense>
+                "ori-fade-in": isMounted,
+                "ori-fade-out": !isMounted,
+                "ori-z-index-99995": end_chat.show_resolved_card,
               }
+            )}
+            style={{
+              backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
+            }}
+          >
+            <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
+              <div>
+                <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
+                  <Avatar style={{ height: '55px', width: '55px' }} src={logo} />
+                </div>
+                <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
+                {
+                  end_chat.formTitle &&
+                  <p className="ori-animated ori-fade-in ori-font-bold ori-font-md ori-text-center">{end_chat.formTitle}</p>
+                }
+                {
+                  end_chat.formSubTitle &&
+                  <div className="ori-block-text-overflow-dotted ori-dotted-after-xs-3">
+                    <p className="ori-animated ori-fade-in ori-font-xs ori-text-center">{end_chat.formSubTitle}</p>
+                  </div>
+                }
+              </div>
             </div>
-          )
-        }
-      </LangContext.Consumer>
-    );
-  }
+            <div className="ori-absolute ori-align-full">
+              <div className="ori-relative ori-full-parent-height ori-full-width ori-overflow-y-auto ori-text-center" style={{ padding: "190px 15px 30px 15px" }}>
+                {renderSessionCloseConfirmation(lang)}
+                {renderResolvedChatInfo(lang)}
+                {renderDynamicForm(lang)}
+              </div>
+            </div>
+            {
+              chatbot_setting.powered_by.visibility &&
+              <Suspense fallback={null}>
+                <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center ori-bg-white ori-box-shadow" />
+              </Suspense>
+            }
+          </div>
+        )
+      }
+    </LangContext.Consumer>
+  );
 }
+
 
 const InfoCard = props => {
   const { title, ok_text, onClickCancel, onClickOk } = props;
