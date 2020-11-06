@@ -52,6 +52,7 @@ export const chatbot_setting = {
   chat_interface: {
     show_bg_image: true, // to enable chatinterface background
     show_avatar: true,
+    avatar_shape: "square", // circle || square
     quick_reply_bg_transparent: true,
     scroll_upto_first_response_only: true,
     carousel_msg_display_type: 'default', // default, fixed, actual

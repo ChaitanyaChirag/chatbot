@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Avatar from 'antd/lib/avatar'
 
-import { translator } from '../../../../data/config/urls'
+import { translator, chatbot_setting } from '../../../../data/config/urls'
 import { logo } from '../../../../data/assets';
 
 import { LangContext } from '../../../context'
@@ -21,7 +21,11 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
           }}
         >
           <div className="ori-flex-row">
-            <Avatar src={logo} size="large" />
+            <Avatar 
+              src={logo} 
+              size="large" 
+              shape={chatbot_setting.chat_interface.avatar_shape}
+              />
             <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: 1.3 }}>
               <p className="ori-capitalize ori-font-md ori-font-medium ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
               </p>

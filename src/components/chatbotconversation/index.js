@@ -69,7 +69,7 @@ class ChatBotConversation extends React.PureComponent {
             const offset = firstResChild.offsetTop - container.scrollTop
             if (offset >= unscrolledHeight)
               this.scrollRef.current.scrollIntoView({ behavior: "smooth", block })
-            else if(block === 'start')
+            else if (block === 'start')
               container.scrollBy(0, 40)
           }
         }
@@ -210,13 +210,20 @@ class ChatBotConversation extends React.PureComponent {
                       {
                         chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
                         <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                          <Avatar src={sender_img_url !== "" ? sender_img_url : logo} />
+                          <Avatar
+                            src={sender_img_url !== "" ? sender_img_url : logo}
+                            shape={chatbot_setting.chat_interface.avatar_shape}
+                          />
                         </div>
                       }
                       {
                         chatbot_setting.chat_interface.show_avatar && first_msg && admin &&
                         <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                          <Avatar src={sender_img_url} className="ori-font-default ori-capitalize ori-bg-white">{sender_title.charAt(0)}</Avatar>
+                          <Avatar 
+                            src={sender_img_url} 
+                            className="ori-font-default ori-capitalize ori-bg-white"
+                            shape={chatbot_setting.chat_interface.avatar_shape}
+                            >{sender_title.charAt(0)}</Avatar>
                         </div>
                       }
                       <div
