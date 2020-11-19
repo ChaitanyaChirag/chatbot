@@ -1,6 +1,6 @@
-@import "./colors.scss";
-@import "./variables.scss";
-@import "./mixins.scss";
+@import './colors.scss';
+@import './variables.scss';
+@import './mixins.scss';
 
 .ori-app-container {
     /*---------------------  BASE RULE FOR PROJECT  ---------------------*/
@@ -348,6 +348,10 @@
 
     .ori-box-shadow {
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.11);
+    }
+
+    .ori-box-shadow-light {
+        box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.04);
     }
 
     .ori-box-shadow-dark {

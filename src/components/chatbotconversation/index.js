@@ -219,17 +219,19 @@ class ChatBotConversation extends React.PureComponent {
                       {
                         chatbot_setting.chat_interface.show_avatar && first_msg && admin &&
                         <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
-                          <Avatar 
-                            src={sender_img_url} 
+                          <Avatar
+                            src={sender_img_url}
                             className="ori-font-default ori-capitalize ori-bg-white"
                             shape={chatbot_setting.chat_interface.avatar_shape}
-                            >{sender_title.charAt(0)}</Avatar>
+                          >{sender_title.charAt(0)}</Avatar>
                         </div>
                       }
                       <div
                         className={classNames("ori-pad-7 ori-b-mrgn-5 ori-border-radius-10 msgBox",
                           {
                             "ori-t-mrgn-15 firstMsg": first_msg,
+                            "ori-box-shadow-light": chatbot_setting.chat_interface.bubble_shadow && !notification_bot,
+                            "ori-border-light": chatbot_setting.chat_interface.bubble_border && !notification_bot,
                             "defaultMsgBox": !notification_bot,
                             "gradientBubble": !notification_bot && chatbot_setting.gradient.sender_bubble,
                             "notificationMsgBox": notification_bot && !stack_view,
