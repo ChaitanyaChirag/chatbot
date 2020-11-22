@@ -36,7 +36,12 @@ const InfoContent = ({ type, onClose }) => (
                         info.subtitle &&
                         <p className="ori-font-xs">{info.subtitle}</p>
                       }
-                      <p className="ori-font-xs ori-font-light ori-b-mrgn-10">{info.content} </p>
+                      {
+                        info.type === 'html' ?
+                          <div dangerouslySetInnerHTML={{ __html: info.content }} />
+                          :
+                          <p className="ori-font-xs ori-font-light ori-b-mrgn-10">{info.content} </p>
+                      }
                     </React.Fragment>
                   )
                 })
