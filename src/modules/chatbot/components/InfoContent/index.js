@@ -20,9 +20,14 @@ const InfoContent = ({ type, onClose }) => (
                 style={{ top: "7px", right: "7px" }}
                 onClick={onClose}
               />
-              <p className="ori-text-center ori-font-md ori-b-mrgn-10">
-                {translator.text[lang].info_content[type].header}
-              </p>
+              {
+                translator.text[lang].info_content[type].headerType === 'html' ?
+                  <div dangerouslySetInnerHTML={{ __html: translator.text[lang].info_content[type].header }} />
+                  :
+                  <p className="ori-text-center ori-font-md ori-b-mrgn-10">
+                    {translator.text[lang].info_content[type].header}
+                  </p>
+              }
               {
                 translator.text[lang].info_content[type].data &&
                 translator.text[lang].info_content[type].data.map((info, index) => {
