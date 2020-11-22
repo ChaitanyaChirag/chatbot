@@ -21,30 +21,30 @@
 
 .ori-btn-default {
     &:hover, &:focus {
-        color: $button !important;
-        border: 1px solid $button !important;
+        color: $btn-ghost !important;
+        border: 1px solid $btn-ghost !important;
     }
 }
 
 .ori-btn-ghost-primary {
-    color: $button !important;
-    border: 1px solid $button !important;
+    color: $btn-ghost !important;
+    border: 1px solid $btn-ghost !important;
     height: auto !important;
     line-height: unset !important;
 
     &:hover, &:focus, &.active {
-        box-shadow: 0 0 6px 0 $button;
+        box-shadow: 0 0 6px 0 $btn-ghost;
     }
 }
 
 .ori-btn-fill-primary {
-    color: $white !important;
-    background-color: $button !important;
-    border-color: $button !important;
+    color: $btn-fill-font !important;
+    background-color: $btn-fill !important;
+    border-color: $btn-fill !important;
 
     &:hover, &:focus, &.active {
-        background-color: $button-hover !important;
-        border-color: $button-hover !important;
+        background-color: $btn-fill-hover !important;
+        border-color: $btn-fill-hover !important;
     }
 
     &:hover {
@@ -53,15 +53,15 @@
 }
 
 .ori-btn-tag-primary {
-    color: $button !important;
-    background-color: $button-hover !important;
+    color: $primary !important;
+    background-color: $primary-bg-light !important;
     border: 1px solid transparent !important;
     height: auto !important;
     line-height: unset !important;
 
     &:hover, &:focus {
-        border-color: $button !important;
-        background-color: $button !important;
+        border-color: $primary !important;
+        background-color: $primary !important;
         color: $white !important;
     }
 }

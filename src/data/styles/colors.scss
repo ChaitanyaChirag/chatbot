@@ -4,8 +4,10 @@
 
 $primary: #ed3837 !default;
 $primary-bg-light: tint($primary, 90%);
-$button: $primary;
-$button-hover: tint($primary, 30%);;
+$btn-fill: $primary;
+$btn-fill-hover: tint($primary, 30%);
+$btn-fill-font: #fff;
+$btn-ghost: $primary;
 
 $gradient-primary: #be2d2c;
 $gradient-primary-percent: 0%;
