@@ -51,11 +51,15 @@ const InfoContent = ({ type, onClose }) => (
                   )
                 })
               }
-              <div className="ori-flex ori-flex-jc">
-                <Button size="small" className="ori-btn-fill-primary" onClick={onClose}>
-                  {translator.text[lang].close}
-                </Button>
-              </div>
+              {
+                translator.text[lang].info_content[type].data &&
+                translator.text[lang].info_content[type].data.length > 0 &&
+                <div className="ori-flex ori-flex-jc">
+                  <Button size="small" className="ori-btn-fill-primary" onClick={onClose}>
+                    {translator.text[lang].close}
+                  </Button>
+                </div>
+              }
             </div>
           )
         return (
