@@ -52,6 +52,7 @@ class ChatBot extends Component {
   state = {
     show_menu: false,
     show_feedback: false,
+    show_clear_chat_popconfirm: false,
     info_content_type: null,
     end_chat_form_data: {},
     file: null,
@@ -105,10 +106,18 @@ class ChatBot extends Component {
         actions.updateChatsState({ messages: [] })
         localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
         localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
-        this.closeMenu();
       });
+      this.closeClearChatPopConfirm()
     }
   };
+
+  showClearChatPopConfirm = () => {
+    this.setState({ show_menu: false }, () => {
+      setTimeout(() => {
+        this.setState({ show_clear_chat_popconfirm: true })
+      }, 500)
+    });
+  }
 
   showFeedback = () => {
     this.setState({ show_menu: false }, () => {
@@ -132,7 +141,11 @@ class ChatBot extends Component {
 
   closeInfoContent = () => {
     this.setState({ info_content_type: null })
-  }
+  };
+
+  closeClearChatPopConfirm = () => {
+    this.setState({ show_clear_chat_popconfirm: false })
+  };
 
   minimizeChatbotInterface = () => {
     this.props.actions.handleChatbotInterface(false);
@@ -278,7 +291,8 @@ class ChatBot extends Component {
       show_file_preview,
       info_content_type,
       file,
-      fileUrl
+      fileUrl,
+      show_clear_chat_popconfirm
     } = this.state;
     const {
       chat_details,
@@ -336,18 +350,46 @@ class ChatBot extends Component {
           <Suspense fallback={null}>
             <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
             <CustomModal
-              isMounted={chat_details.downtime.isDownTime || info_content_type !== null}
+              isMounted={chat_details.downtime.isDownTime || info_content_type !== null || show_clear_chat_popconfirm}
               delayUnmountTime={400}
             >
               {
                 chat_details.downtime.isDownTime &&
                 <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
-                  <DownTime downtime={chat_details.downtime} onDowntimeComplete={this.onDowntimeComplete} />
+                  <DownTime
+                    downtime={chat_details.downtime}
+                    onDowntimeComplete={this.onDowntimeComplete}
+                  />
                 </div>
               }
               {
                 info_content_type &&
-                <InfoContent type={info_content_type} onClose={this.closeInfoContent} />
+                <InfoContent
+                  type={info_content_type}
+                  onClose={this.closeInfoContent}
+                />
+              }
+              {
+                show_clear_chat_popconfirm &&
+                <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
+                  Are you sure you want to clear the chat?
+                  <div className="ori-flex ori-flex-jfe ori-t-pad-10">
+                    <Button
+                      size="small"
+                      className="ori-btn-default"
+                      onClick={this.closeClearChatPopConfirm}
+                    >
+                      No
+                    </Button>
+                    <Button
+                      size="small"
+                      className="ori-btn-fill-primary ori-l-mrgn-10"
+                      onClick={this.handleResetChat}
+                    >
+                      Yes
+                    </Button>
+                  </div>
+                </div>
               }
             </CustomModal>
             <EndChat
@@ -374,7 +416,7 @@ class ChatBot extends Component {
               isMounted={show_menu}
               delayUnmountTime={400}
               closeMenu={this.closeMenu}
-              handleResetChat={this.handleResetChat}
+              handleResetChat={this.showClearChatPopConfirm}
               showFeedback={this.showFeedback}
               showInfoContent={this.showInfoContent}
             />

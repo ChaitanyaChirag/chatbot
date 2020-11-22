@@ -6,7 +6,7 @@ $primary: #ed3837 !default;
 $primary-bg-light: tint($primary, 90%);
 $notification_stack_bg: #666;
 $button: $primary;
-$button-hover: $primary-bg-light;
+$button-hover: tint($primary, 30%);;
 
 $gradient-primary: #be2d2c;
 $gradient-primary-percent: 0%;
