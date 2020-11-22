@@ -4,7 +4,6 @@
 
 $primary: #ed3837 !default;
 $primary-bg-light: tint($primary, 90%);
-$notification_stack_bg: #666;
 $button: $primary;
 $button-hover: tint($primary, 30%);;
 
@@ -72,5 +71,5 @@ $notification_bot_server_bubble_bg: $default;
 $notification_bot_server_bubble_font: $font-chat;
 $notification_bot_sender_bubble_bg: $primary;
 $notification_bot_sender_bubble_font: $white;
-$notification_stack_bubble_bg: $notification_stack_bg;
+$notification_stack_bubble_bg: #666;
 $notification_stack_bubble_font: $white;
