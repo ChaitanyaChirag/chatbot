@@ -27,7 +27,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
               shape={chatbot_setting.chat_interface.avatar_shape}
               />
             <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: 1.3 }}>
-              <p className="ori-capitalize ori-font-md ori-font-medium ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
+              <p className="ori-capitalize ori-font-md ori-font-bold ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
               </p>
               <span className="ori-font-header-light ori-font-xs">
                 <span
