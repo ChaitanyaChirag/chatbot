@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
 
-import { translator } from '../../../../data/config/urls';
+import { translator, chatbot_setting } from '../../../../data/config/urls';
 import { uniqueId } from '../../../../data/config/utils';
 import { logo } from '../../../../data/assets';
 
@@ -81,9 +81,12 @@ class FeedbackComponent extends React.PureComponent {
               }}
             >
               <div className="ori-relative ori-bg-white ori-border-radius-3 ori-pad-15 feedbackContainer">
-                <div className="ori-absolute avatarContainer">
-                  <img src={logo} alt="" className="ori-img-contain" />
-                </div>
+                {
+                  chatbot_setting.chat_interface.show_feedback_avatar &&
+                  <div className="ori-absolute avatarContainer">
+                    <img src={logo} alt="" className="ori-img-contain" />
+                  </div>
+                }
                 <div className="ori-absolute ori-pad-5 flex alignFeedbackClose" onClick={closeFeedback}>
                   <CloseIcon size={16} className="ori-font-white" />
                 </div>

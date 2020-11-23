@@ -52,6 +52,7 @@ export const chatbot_setting = {
   chat_interface: {
     show_bg_image: true, // to enable chatinterface background
     show_avatar: true,
+    show_feedback_avatar: true,
     bubble_shadow: true,
     bubble_border: false,
     avatar_shape: "square", // circle || square
