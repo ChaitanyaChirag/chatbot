@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+import { chatbot_setting } from '../../data/config/urls'
 import { emojiHappy, emojiSad, emojiSmile } from '../../data/assets'
 
 const RatingItem = ({
@@ -51,7 +52,7 @@ const RatingItem = ({
         <p className='ori-b-mrgn-5 ori-capitalize-first'>{title}</p>
       }
       {
-        showEmoji &&
+        chatbot_setting.chat_interface.show_feedback_emoji && showEmoji &&
         <img
           src={imageSrc}
           alt=""
