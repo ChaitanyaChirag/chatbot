@@ -1,6 +1,6 @@
-@import "../../data/styles/colors.scss";
-@import "../../data/styles/mixins.scss";
-@import "../../data/styles/variables.scss";
+@import '../../data/styles/colors.scss';
+@import '../../data/styles/mixins.scss';
+@import '../../data/styles/variables.scss';
 
 .oriChatBotConversationContainer {
     flex: 1;
@@ -20,7 +20,7 @@
     }
 
     .stackViewBubble {
-      border-bottom-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
     }
 
     .msgContainer {
@@ -61,6 +61,17 @@
             }
         }
 
+        .ori-mt-checkboxGroup {
+            .ant-checkbox-wrapper {
+                display: block;
+                margin: 0;
+            }
+
+            .ant-checkbox {
+                margin-right: 8px;
+            }
+        }
+
         .oriCarousel {
             padding: 5px 7px;
         }
@@ -87,7 +98,7 @@
         }
 
         .bubbleFooter {
-          color: $chatbot-server-bubble-footer-font;
+            color: $chatbot-server-bubble-footer-font;
         }
     }
 
@@ -115,7 +126,7 @@
         }
 
         .bubbleFooter {
-          color: $chatbot-sender-bubble-footer-font;
+            color: $chatbot-sender-bubble-footer-font;
         }
     }
 }
