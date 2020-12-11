@@ -20,7 +20,7 @@ export const chatbot_client_info = {
   trigger: {
     visibility: false, //to enable custom trigger
     icon_height: 70, //in number only
-    mobile_icon_width: 70, //in number only
+    mobile_icon_height: 70, //in number only
     animation_duration: 2000, // in milliseceond only
     lottie_visibility: true, // to enable lottie icon
     lottie_icon_height: 70,
