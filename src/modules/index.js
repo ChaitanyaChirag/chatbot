@@ -502,6 +502,7 @@ class AppContainer extends Component {
             className="ori-animated ori-fade-in notificationBadge"
           >
             <TriggerChatBot
+              mobile={page_details.device_data.screen_width < 481}
               is_chat_open={chat_details.is_chat_open}
               handleSocketConnection={this.handleSocketConnection}
             />

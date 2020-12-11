@@ -18,7 +18,7 @@ class TriggerChatBot extends React.PureComponent {
   };
 
   render() {
-    const { is_chat_open } = this.props;
+    const { is_chat_open, mobile } = this.props;
 
     return (
       <div className="ori-fixed ori-animated ori-zoom-in oriTriggerChatBotContainer" onClick={this.handleChatInterfaceView}>
@@ -33,7 +33,7 @@ class TriggerChatBot extends React.PureComponent {
           <div
             className="ori-animated ori-pulse ori-infinite"
             style={{
-              height: `${chatbot_client_info.trigger.icon_height}px`,
+              height: `${mobile ? chatbot_client_info.trigger.mobile_icon_height : chatbot_client_info.trigger.icon_height}px`,
               animationDuration: `${chatbot_client_info.trigger.animation_duration}ms`
             }}
           >
@@ -72,6 +72,11 @@ class TriggerChatBot extends React.PureComponent {
 TriggerChatBot.propTypes = {
   is_chat_open: PropTypes.bool.isRequired,
   handleSocketConnection: PropTypes.func,
+  mobile: PropTypes.bool
 };
+
+TriggerChatBot.defaultProps = {
+  mobile: false
+}
 
 export default TriggerChatBot;
