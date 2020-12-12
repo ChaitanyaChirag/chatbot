@@ -68,6 +68,7 @@ class AppContainer extends Component {
     const { chat_details, actions } = this.props;
     const android = isAndroid();
     const ios = isIOS();
+    const mobile = window.innerWidth < 768
     let self = this;
     const lang = translator.getLanguage()
     this.setState({ lang })
@@ -130,7 +131,7 @@ class AppContainer extends Component {
       } else if (last_emit) {
         let current_time = new Date().getTime();
         let time_gap = (current_time - last_emit) / 1000;
-        if (time_gap < chatbot_setting.automate_connection_time)
+        if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
           actions.makeSocketConnection();
         else
           actions.handleChatbotInterface(false);
