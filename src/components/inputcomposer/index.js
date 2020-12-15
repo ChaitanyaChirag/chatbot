@@ -44,7 +44,7 @@ class InputComposer extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     const { transcript, listening } = this.props;
-    if (chatbot_setting.chat_interface.speech_recognition.enable && listening && prevProps.transcript !== transcript) {
+    if (chatbot_setting.chat_interface.speech_recognition && listening && prevProps.transcript !== transcript) {
       this.setState({ input_message: transcript });
     }
   }
@@ -204,7 +204,7 @@ class InputComposer extends React.PureComponent {
                         </Button>
                       }
                       {
-                        chatbot_setting.chat_interface.speech_recognition.enable && input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
+                        chatbot_setting.chat_interface.speech_recognition && input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
                         <Button className={classNames("ori-pad-5 sendButton",
                           {
                             "sendBtnActive": listening

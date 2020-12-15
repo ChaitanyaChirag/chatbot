@@ -1,11 +1,17 @@
 import io from 'socket.io-client';
 
-import { EVENTS, MESSAGE_READ_STATUS, DEFAULT_END_CHAT_STATE, ALLOWED_MESSAGE_TYPES } from '../../config/constants';
+import {
+  EVENTS,
+  MESSAGE_READ_STATUS,
+  DEFAULT_END_CHAT_STATE,
+  ALLOWED_MESSAGE_TYPES,
+  MESSAGE_TYPES
+} from '../../config/constants';
 import {
   getSocketUrl,
   chatbot_setting,
   chatbot_client_info,
-  chatbot_default_messages
+  chatbot_default_messages,
 } from '../../config/urls';
 import { log, getCookie, uniqueId } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
@@ -21,26 +27,28 @@ const registerSocketListener = (store, socket) => {
       socket_request_processing: false
     }));
     const default_messages = chatbot_default_messages.getDefaultMessages();
-    if (chatbot_setting.auto_emit_response.enable && chat_details.messages.length <= default_messages.length) {
+    if (chatbot_setting.auto_emit_message.enable && chat_details.messages.length <= default_messages.length) {
       const query_params = new URLSearchParams(window.location.search);
-      const data = {
-        ...chatbot_setting.auto_emit_response.payload,
-        session_id: socket.io.engine.id,
-        current_session_id: socket.io.engine.id,
-        sender_id: chatbot_client_info.sender_id,
-        navigator_userAgent: navigator.userAgent,
-        navigator_platform: navigator.platform,
-        variable_name: chat_details.variable_name,
-        send_variable_to_apiai: chat_details.send_variable_to_apiai,
-        sendVariableToLS: chat_details.sendVariableToLS,
-        skipLS: chat_details.skipLS,
-      };
-      if (query_params.has(chatbot_setting.auto_emit_response.query_param_key)) {
-        const text = query_params.get(chatbot_setting.auto_emit_response.query_param_key);
-        data.text = text;
+      if (query_params.has(chatbot_setting.auto_emit_message.query_param_key)) {
+        const text = query_params.get(chatbot_setting.auto_emit_message.query_param_key);
+        if (text) {
+          const data = {
+            text,
+            type: MESSAGE_TYPES.TEXT,
+            session_id: socket.io.engine.id,
+            current_session_id: socket.io.engine.id,
+            sender_id: chatbot_client_info.sender_id,
+            navigator_userAgent: navigator.userAgent,
+            navigator_platform: navigator.platform,
+            variable_name: chat_details.variable_name,
+            send_variable_to_apiai: chat_details.send_variable_to_apiai,
+            sendVariableToLS: chat_details.sendVariableToLS,
+            skipLS: chat_details.skipLS,
+          };
+          log('auto emit message data', data);
+          socket.emit(EVENTS.NEW_MESSAGE, data);
+        }
       }
-      console.log('first emit data', data);
-      socket.emit(EVENTS.NEW_MESSAGE, data);
     }
     if (chat_details.psid) {
       const payload = {

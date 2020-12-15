@@ -74,17 +74,11 @@ export const chatbot_setting = {
       deleting_speed: 30,
       typing_speed: 150
     },
-    speech_recognition: {
-      enable: true,
-    }
+    speech_recognition: true
   },
-  auto_emit_response: {
-    enable: false,
-    query_param_key: 'oribotmessage',
-    payload: {
-      type: MESSAGE_TYPES.TEXT,
-      text: "first emit message",
-    }
+  auto_emit_message: {
+    enable: true,
+    query_param_key: 'oribotmessage'
   },
   menu: {
     visible: true,
