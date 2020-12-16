@@ -12,6 +12,7 @@ import {
   chatbot_setting,
   chatbot_client_info,
   chatbot_default_messages,
+  brand_features
 } from '../../config/urls';
 import { log, getCookie, uniqueId } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
@@ -45,6 +46,8 @@ const registerSocketListener = (store, socket) => {
             sendVariableToLS: chat_details.sendVariableToLS,
             skipLS: chat_details.skipLS,
           };
+          if (chatbot_setting.auto_emit_message.send_brand_data)
+            data.brandData = brand_features.getBrandData()
           log('auto emit message data', data);
           socket.emit(EVENTS.NEW_MESSAGE, data);
         }

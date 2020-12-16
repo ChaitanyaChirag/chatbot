@@ -67,7 +67,7 @@ export const chatbot_setting = {
     header_tag: true, //to hide and show tag type header for small screen
     query_params: {
       enable: true,
-      query_param_key: 'chatbotopen',
+      query_param_key: 'chatbotopen'
     },
     type_writer: {
       enable: false,
@@ -78,7 +78,8 @@ export const chatbot_setting = {
   },
   auto_emit_message: {
     enable: true,
-    query_param_key: 'oribotmessage'
+    query_param_key: 'oribotmessage',
+    send_brand_data: false 
   },
   menu: {
     visible: true,
