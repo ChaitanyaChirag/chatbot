@@ -1,14 +1,16 @@
 @import "../../../../data/styles/colors.scss";
 
 .oriQuickReplyContainer {
-    padding: 4px 25px;
+    padding: 4px 10px;
 
     .alignLeft {
         left: -4px;
+        z-index: 1;
     }
 
     .alignRight {
         right: -4px;
+        z-index: 1;
     }
 
     .quickReplyBodyContainer {
