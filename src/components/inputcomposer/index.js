@@ -183,11 +183,10 @@ class InputComposer extends React.PureComponent {
                         maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3
                       }}
                       value={input_message}
-                      // name="input_message"
                       disabled={is_input_lock}
                       onKeyDown={this.inputKeyDown}
                       onChange={this.handleInputChange}
-                      autoFocus
+                      autoFocus={!(this.is_android || this.is_ios)}
                     />
                     <div className="ori-animated ori-fade-in ori-absolute ori-flex-row ori-flex-jfe alignRightIcons">
                       {
