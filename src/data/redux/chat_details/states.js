@@ -45,7 +45,8 @@ const states = {
     notification: {
       visible: false,
       message: ""
-    }
+    },
+    loading: false
   },
 };
 

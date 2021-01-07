@@ -34,7 +34,8 @@ const DownTime = React.lazy(() => import('./components/downtime'));
 const CustomModal = React.lazy(() => import('../../components/custommodal'));
 const ShowNotification = React.lazy(() => import('./components/shownotification'));
 const InfoContent = React.lazy(() => import('./components/InfoContent'));
-const PoweredBy = React.lazy(() => import('../../components/poweredby'))
+const PoweredBy = React.lazy(() => import('../../components/poweredby'));
+const DotsLoader = React.lazy(() => import('../../components/dotsloader'))
 
 const androidTabletStyle = {
   width: '100%',
@@ -196,8 +197,10 @@ class ChatBot extends Component {
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
     } else {
+      actions.updateChatsState({ loading: true })
       actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload, (err, res) => {
         console.log(payload, err, res);
+        actions.updateChatsState({ loading: false })
         if (!err) {
           this.handleResetChat();
           if (res && res.data && res.data.formData)
@@ -230,9 +233,11 @@ class ChatBot extends Component {
         psid: chat_details.psid,
         formData: end_chat_form_data
       };
+      actions.updateChatsState({ loading: true })
       actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
         this.closeWebView('endChatSubmit', {})
         actions.handleChatbotInterface(false);
+        actions.updateChatsState({ loading: false })
         this.onClickCloseIcon();
       });
     } else {
@@ -329,6 +334,14 @@ class ChatBot extends Component {
             backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
           }}
         >
+          {
+            chat_details.loading &&
+            <div className="ori-absolute ori-z-index-99995 ori-align-full ori-flex-column ori-flex-center ori-bg-black-light">
+              <Suspense fallback={null}>
+                <DotsLoader container_class="ori-bg-white ori-pad-15 ori-border-radius-3" />
+              </Suspense>
+            </div>
+          }
           <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
             {
               !this.is_app && !chat_details.end_chat.visible &&
