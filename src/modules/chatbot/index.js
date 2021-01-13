@@ -475,11 +475,11 @@ class ChatBot extends Component {
               </Suspense>
             }
             {
-              chat_details.quick_replies && chat_details.quick_replies.length > 0 &&
+              chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
               <Suspense fallback={null}>
                 <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
                   <QuickReply
-                    quick_replies={chat_details.quick_replies}
+                    quick_replies={chat_details.messages[chat_details.messages.length - 1].quickReplies}
                     sendTextToServer={sendTextToServer}
                   />
                 </div>

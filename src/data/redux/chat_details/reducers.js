@@ -58,7 +58,7 @@ const chat_details = (state = states.chat_details, action) => {
         send_variable_to_apiai: false,
         sendVariableToLS: false,
         variable_name: '',
-        quick_replies: [],
+        // quick_replies: [],
         is_input_lock: false,
       };
     }
@@ -79,7 +79,7 @@ const chat_details = (state = states.chat_details, action) => {
         notification_count,
         unseen_messages,
         messages: [...state.messages, action.payload.message],
-        quick_replies: action.payload.message.quickReplies ? action.payload.message.quickReplies : [],
+        // quick_replies: action.payload.message.quickReplies ? action.payload.message.quickReplies : [],
         is_input_lock: action.payload.message.inputLock ? action.payload.message.inputLock : false,
         input_lock_text: action.payload.message.inputLockMessage ? action.payload.message.inputLockMessage : "please select any option to proceed",
         skipLS: action.payload.message.skipLS,

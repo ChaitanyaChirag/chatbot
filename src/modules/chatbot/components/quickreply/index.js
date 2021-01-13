@@ -130,3 +130,7 @@ QuickReply.propTypes = {
   quick_replies: PropTypes.array,
   sendTextToServer: PropTypes.func,
 };
+
+QuickReply.defaultProps = {
+  quick_replies: []
+}

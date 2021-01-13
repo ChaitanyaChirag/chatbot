@@ -32,7 +32,7 @@ const states = {
     notification_count: getDataFromLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, 0),
     is_chat_open: getDataFromLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN, false),
     end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT, DEFAULT_END_CHAT_STATE),
-    quick_replies: getPreviousMessageData('quickReplies', []),
+    // quick_replies: getPreviousMessageData('quickReplies', []),
     is_input_lock: getPreviousMessageData('inputLock', false),
     input_lock_text: getPreviousMessageData('inputLockMessage', 'please select any option to proceed'),
     skipLS: getPreviousMessageData('skipLS', false),
