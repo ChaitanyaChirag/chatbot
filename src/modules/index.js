@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Badge from 'antd/lib/badge';
+import classNames from 'classnames';
 import merge from 'lodash/merge';
 import SendingIcon from 'react-icons/lib/md/rotate-right';
 
@@ -20,7 +21,8 @@ import {
   BUTTON_SUB_TYPES,
   MESSAGE_SENDER,
   MESSAGE_READ_STATUS,
-  EVENTS
+  EVENTS,
+  CHATBOT_TYPE
 } from '../data/config/constants';
 import {
   LOCAL_STORAGE,
@@ -56,6 +58,7 @@ class AppContainer extends Component {
     this.chatbotRef = React.createRef();
     this.state = {
       lang: LANGUAGES.ENGLISH,
+      render_chatbot: props.chat_details.is_chat_open,
       selected_checkbox_values: [],
       selected_offer: {
         offer_id: null,
@@ -120,34 +123,43 @@ class AppContainer extends Component {
       }
       actions.handleChatbotInterface(true);
     } else if (!chat_details.is_socket_connected) {
-      let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
-      const query_params = new URLSearchParams(window.location.search);
-      if (chatbot_setting.chat_interface.query_params.enable && query_params.has(chatbot_setting.chat_interface.query_params.query_param_key)) {
-        const query_param_value = query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)
-        if (query_param_value === "true")
-          this.handleSocketConnection(true)
-        else if (query_param_value === "false")
-          actions.handleChatbotInterface(false)
-      } else if (last_emit) {
-        let current_time = new Date().getTime();
-        let time_gap = (current_time - last_emit) / 1000;
-        if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
-          actions.makeSocketConnection();
-        else
-          actions.handleChatbotInterface(false);
-        if (time_gap > chatbot_setting.automate_reset_chat_time) {
-          actions.updateChatsState({ messages: [] })
-          localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
-        }
+      if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
+        actions.makeSocketConnection();
       } else {
-        actions.handleChatbotInterface(false);
+        let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
+        const query_params = new URLSearchParams(window.location.search);
+        if (chatbot_setting.chat_interface.query_params.enable && query_params.has(chatbot_setting.chat_interface.query_params.query_param_key)) {
+          const query_param_value = query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)
+          if (query_param_value === "true")
+            this.handleSocketConnection(true)
+          else if (query_param_value === "false")
+            actions.handleChatbotInterface(false)
+        } else if (last_emit) {
+          let current_time = new Date().getTime();
+          let time_gap = (current_time - last_emit) / 1000;
+          if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
+            actions.makeSocketConnection();
+          else
+            actions.handleChatbotInterface(false);
+          if (time_gap > chatbot_setting.automate_reset_chat_time) {
+            actions.updateChatsState({ messages: [] })
+            localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
+          }
+        } else {
+          actions.handleChatbotInterface(false);
+        }
       }
     }
   }
 
   componentDidUpdate(prevProps) {
     const { actions } = this.props;
-    const { is_socket_connected, is_internet_connected } = this.props.chat_details;
+    const { is_socket_connected, is_internet_connected, is_chat_open } = this.props.chat_details;
+    if (prevProps.chat_details.is_chat_open && !is_chat_open) {
+      setTimeout(() => this.setState({ render_chatbot: false }), 400);
+    } else if (!prevProps.chat_details.is_chat_open && is_chat_open) {
+      this.setState({ render_chatbot: true })
+    }
     if (!prevProps.chat_details.is_internet_connected && is_internet_connected && !is_socket_connected)
       actions.callSocketMethod('open')
     else if (prevProps.chat_details.is_internet_connected && !is_internet_connected && is_socket_connected)
@@ -267,7 +279,7 @@ class AppContainer extends Component {
       sendVariableToLS: chat_details.sendVariableToLS,
       skipLS: chat_details.skipLS
     };
-    if (brand_features.enable && chat_details.messages.length <= defaultMessageLength) {
+    if (chat_details.messages.length <= defaultMessageLength) {
       data.brandData = brand_features.getBrandData()
     }
     if ((android || ios) && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
@@ -494,34 +506,86 @@ class AppContainer extends Component {
     const { page_details, chat_details, actions } = this.props;
     if (chatbot_setting.security.enable && !chat_details.secure)
       return null
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN)
+      return (
+        <LangContext.Provider value={this.state.lang}>
+          <div className="ori-app-container ori-ant-design-container oriFullScreenBot oriAppContainer">
+            <Suspense fallback={null}>
+              <div
+                className={classNames("ori-animate ori-fade-in ori-overflow-hidden",
+                  {
+                    "ori-full-width ori-full-parent-height": page_details.device_data.screen_width < 768,
+                    "ori-box-shadow-dark ori-border-light ori-border-radius-3 ori-mrgn-auto": page_details.device_data.screen_width >= 768
+                  }
+                )}
+                style={
+                  page_details.device_data.screen_width >= 768 ?
+                    {
+                      height: '85%',
+                      minHeight: '500px',
+                      maxHeight: '700px',
+                      width: '550px',
+                    } : {}
+                }
+              >
+                <ChatBot
+                  ref={this.chatbotRef}
+                  screen_height={page_details.device_data.screen_height}
+                  chat_details={chat_details}
+                  actions={actions}
+                  sendTextToServer={this.sendTextToServer}
+                  handleMsgBtnClick={this.handleMsgBtnClick}
+                  handleFileUpload={this.handleFileUpload}
+                  handleOfferSelection={this.handleOfferSelection}
+                  onChangeCheckbox={this.onChangeCheckbox}
+                />
+              </div>
+            </Suspense>
+          </div>
+        </LangContext.Provider>
+      )
     return (
       <LangContext.Provider value={this.state.lang}>
         <div className="ori-app-container ori-ant-design-container oriAppContainer">
-          <Badge
-            count={chat_details.notification_count}
-            overflowCount={9}
-            className="ori-animated ori-fade-in notificationBadge"
-          >
-            <TriggerChatBot
-              mobile={page_details.device_data.screen_width < 481}
-              is_chat_open={chat_details.is_chat_open}
-              handleSocketConnection={this.handleSocketConnection}
-            />
-          </Badge>
+          {
+            (page_details.device_data.screen_width > 480 || (page_details.device_data.screen_width < 481 && !chat_details.is_chat_open)) &&
+            <Badge
+              count={chat_details.notification_count}
+              overflowCount={9}
+              className="ori-animated ori-fade-in notificationBadge"
+            >
+              <TriggerChatBot
+                mobile={page_details.device_data.screen_width < 481}
+                is_chat_open={chat_details.is_chat_open}
+                handleSocketConnection={this.handleSocketConnection}
+              />
+            </Badge>
+          }
           <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
             {
-              chat_details.is_chat_open &&
-              <ChatBot
-                ref={this.chatbotRef}
-                screen_height={page_details.device_data.screen_height}
-                chat_details={chat_details}
-                actions={actions}
-                sendTextToServer={this.sendTextToServer}
-                handleMsgBtnClick={this.handleMsgBtnClick}
-                handleFileUpload={this.handleFileUpload}
-                handleOfferSelection={this.handleOfferSelection}
-                onChangeCheckbox={this.onChangeCheckbox}
-              />
+              this.state.render_chatbot &&
+              <div
+                className={classNames("ori-fixed ori-animated ori-animation-half ori-z-index-99992 ori-overflow-hidden chatbotContainer",
+                  {
+                    [chatbot_setting.chat_interface.container_style.in_animation]: chat_details.is_chat_open,
+                    [chatbot_setting.chat_interface.container_style.out_animation]: !chat_details.is_chat_open
+                  })}
+                style={
+                  page_details.device_data.screen_width < 481 ? chatbot_setting.chat_interface.container_style.mobile : chatbot_setting.chat_interface.container_style.web
+                }
+              >
+                <ChatBot
+                  ref={this.chatbotRef}
+                  screen_height={page_details.device_data.screen_height}
+                  chat_details={chat_details}
+                  actions={actions}
+                  sendTextToServer={this.sendTextToServer}
+                  handleMsgBtnClick={this.handleMsgBtnClick}
+                  handleFileUpload={this.handleFileUpload}
+                  handleOfferSelection={this.handleOfferSelection}
+                  onChangeCheckbox={this.onChangeCheckbox}
+                />
+              </div>
             }
             {
               chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
