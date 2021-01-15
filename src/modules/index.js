@@ -42,6 +42,7 @@ import {
   chatbot_default_messages,
   brand_features
 } from '../data/config/urls';
+import { outerBackground } from '../data/assets'
 
 import TriggerChatBot from '../components/triggerchatbot';
 
@@ -509,13 +510,19 @@ class AppContainer extends Component {
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN)
       return (
         <LangContext.Provider value={this.state.lang}>
-          <div className="ori-app-container ori-ant-design-container oriFullScreenBot oriAppContainer">
+          <div 
+            className="ori-app-container ori-ant-design-container oriFullScreenBot oriAppContainer"
+            style={{
+              backgroundImage: `url(${outerBackground})`,
+              
+            }}
+            >
             <Suspense fallback={null}>
               <div
                 className={classNames("ori-animate ori-fade-in ori-overflow-hidden",
                   {
                     "ori-full-width ori-full-parent-height": page_details.device_data.screen_width < 768,
-                    "ori-box-shadow-dark ori-border-light ori-border-radius-3 ori-mrgn-auto": page_details.device_data.screen_width >= 768
+                    "ori-box-shadow-dark ori-border-light ori-border-radius-10 ori-mrgn-auto": page_details.device_data.screen_width >= 768
                   }
                 )}
                 style={

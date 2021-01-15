@@ -6,6 +6,7 @@ const lottiejson = require('./lottie.json')
 const emojiSad = require('./emojiSad.png')
 const emojiSmile = require('./emojiSmile.png')
 const emojiHappy = require('./emojiHappy.png')
+const outerBackground = require('./outerBackground.jpg')
 
 module.exports = {
   background,
@@ -15,5 +16,6 @@ module.exports = {
   lottiejson,
   emojiSad,
   emojiSmile,
-  emojiHappy
+  emojiHappy,
+  outerBackground
 }

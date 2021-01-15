@@ -23,7 +23,10 @@
 }
 
 .oriFullScreenBot {
-  top: 0;
-  left: 0;
-  display: flex;
+    top: 0;
+    left: 0;
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
