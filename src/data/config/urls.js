@@ -1,5 +1,5 @@
 import { getPsid, getPlatform, isAndroid } from './utils';
-import { MESSAGE_TYPES, LANGUAGES } from './constants';
+import { CHATBOT_TYPE, LANGUAGES } from './constants';
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
 
@@ -30,8 +30,9 @@ export const chatbot_client_info = {
 };
 
 export const chatbot_setting = {
-  auto_close_feedback_form: 5 * 1000, 
-  auto_close_chatbot_on_refresh:{
+  chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
+  auto_close_feedback_form: 5 * 1000,
+  auto_close_chatbot_on_refresh: {
     web_enable: false,
     mobile_enable: false
   },//in milliseconds only
@@ -74,13 +75,34 @@ export const chatbot_setting = {
       deleting_speed: 30,
       typing_speed: 150
     },
-    speech_recognition: true
+    
+    container_style: {
+      mobile: {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+      },
+      web: {
+        right: '20px',
+        bottom: '110px',
+        height: `calc(100% - 130px)`,
+        maxHeight: '600px',
+        width: '375px',
+        boxShadow: "0 5px 40px 0 rgba(0, 0, 0, 0.15)",
+        borderRadius: '3px'
+      },
+      in_animation: 'ori-fade-in',
+      out_animation: 'ori-fade-out'
+    }
   },
   auto_emit_message: {
     enable: true,
     query_param_key: 'oribotmessage',
-    send_brand_data: false 
+    send_brand_data: false
   },
+  speech_recognition: true,
+  minimize_bot: false,
   menu: {
     visible: true,
     children: {
@@ -151,14 +173,16 @@ export const translator = {
 }
 
 export const brand_features = {
-  enable: false,
   getBrandData() {
     const data = {}
-    if (this.enable) {
-      //=========== BRAND SPECIFIC LOGIC ==========
+    //=========== BRAND SPECIFIC LOGIC ==========
 
-      //=================== END ===================
-    }
+    //=================== END ===================
     return data
+  },
+  doBrandLogicOnEndChat() {
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
+      window.top.close()
+    }
   }
 }

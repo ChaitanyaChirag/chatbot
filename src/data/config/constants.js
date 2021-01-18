@@ -2,6 +2,12 @@ export const ERROR_BOUNDARY_TYPE = {
   ERROR: "error",
 };
 
+export const CHATBOT_TYPE = {
+  DEFAULT: 'default',
+  FULL_SCREEN: 'fullScreen',
+  ADSTER: 'adster'
+}
+
 export const DEFAULT_END_CHAT_STATE = {
   visible: false,
   show_confirmation_card: false,
@@ -99,9 +105,9 @@ export const BUTTON_TYPES = {
 };
 
 export const BUTTON_SUB_TYPES = {
-    DISH_OFFERS: "dishOffers",
-    CHECKBOX_SUBMIT: "checkboxSubmit",
-    SHARE_LOCATION: "shareLocation",
+  DISH_OFFERS: "dishOffers",
+  CHECKBOX_SUBMIT: "checkboxSubmit",
+  SHARE_LOCATION: "shareLocation",
 };
 
 export const MESSAGE_SENDER = {

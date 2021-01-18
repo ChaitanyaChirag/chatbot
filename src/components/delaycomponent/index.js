@@ -7,11 +7,11 @@ const DelayComponent = Component => {
       shouldRender: this.props.isMounted
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
       const { isMounted, delayMountTime, delayUnmountTime } = this.props;
-      if ((isMounted && !nextProps.isMounted)) {
-        setTimeout(() => this.setState({ shouldRender: false }), delayUnmountTime)
-      } else if (!isMounted && nextProps.isMounted) {
+      if (prevProps.isMounted && !isMounted) {
+        setTimeout(() => this.setState({ shouldRender: false }), delayUnmountTime);
+      } else if (!prevProps.isMounted && isMounted) {
         setTimeout(() => this.setState({ shouldRender: true }), delayMountTime)
       }
     }

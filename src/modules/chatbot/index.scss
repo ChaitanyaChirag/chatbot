@@ -1,68 +1,39 @@
-@import "../../data/styles/colors.scss";
-
-@media only screen and (max-width: 480px), screen and (max-width: 767px) and (max-height: 480px) and (orientation: landscape) {
-    .oriChatBotContainer {
-        width: 100% !important;
-        height: 100% !important;
-        bottom: 0px;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        border-radius: 1px !important;
-    }
-}
-
-@media only screen and (min-width: 481px) {
-    .oriChatBotContainer {
-        width: 375px;
-        height: calc(100% - 20px - 70px - 20px - 20px);
-        right: 20px;
-        max-height: 590px;
-        min-height: 250px;
-        border-radius: 8px;
-    }
-}
+@import '../../data/styles/colors.scss';
 
 .oriChatBotContainer {
-    overflow: hidden;
-    color: $chatbot-font-color !important;
-    box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: 100%;
+    background-color: $chatbot-body-bg;
 
-    .chatBotContentContainer {
-        width: 100%;
-        height: 100%;
-        background-color: $chatbot-body-bg;
+    .chatIcons {
+        color: $font-color-light;
 
-        .chatIcons {
-            color: $font-color-light;
-
-            &:hover {
-                color: $chatbot-font-color;
-            }
+        &:hover {
+            color: $chatbot-font-color;
         }
+    }
 
-        .minimizeIcon {
-            border-bottom: 2px solid $chatbot-header-font-light;
-            cursor: pointer;
+    .minimizeIcon {
+        border-bottom: 2px solid $chatbot-header-font-light;
+        cursor: pointer;
 
-            &:hover {
-                border-bottom-color: $chatbot-header-font;
-            }
+        &:hover {
+            border-bottom-color: $chatbot-header-font;
         }
+    }
 
-        .alignMenu {
-            bottom: 15px;
-            left: 10px;
-        }
+    .alignMenu {
+        bottom: 15px;
+        left: 10px;
+    }
 
-        .chatFooterContainer {
-            min-height: 55px;
-            max-height: 110px;
-            width: inherit;
-            padding-top: 10px;
-            padding-bottom: 13px;
-            background-color: $chatbot-footer-bg;
-            border-top: 1px solid $border-light;
-        }
+    .chatFooterContainer {
+        min-height: 55px;
+        max-height: 110px;
+        width: inherit;
+        padding-top: 10px;
+        padding-bottom: 13px;
+        background-color: $chatbot-footer-bg;
+        border-top: 1px solid $border-light;
     }
 }

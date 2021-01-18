@@ -1,11 +1,10 @@
 /* eslint-disable no-eval */
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
-import { chatbot_setting, chatbot_client_info, chatbot_default_messages } from '../../data/config/urls';
+import { chatbot_setting, chatbot_default_messages, brand_features } from '../../data/config/urls';
 import {
   LOCAL_STORAGE,
   isAndroid,
@@ -37,17 +36,6 @@ const InfoContent = React.lazy(() => import('./components/InfoContent'));
 const PoweredBy = React.lazy(() => import('../../components/poweredby'));
 const DotsLoader = React.lazy(() => import('../../components/dotsloader'))
 
-const androidTabletStyle = {
-  width: '100%',
-  height: '100%',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  right: '0',
-  maxHeight: 'none',
-  minHeight: 'none',
-  borderRadius: '1px'
-};
 
 class ChatBot extends Component {
   state = {
@@ -77,8 +65,8 @@ class ChatBot extends Component {
 
   setDefaultMessages = () => {
     const { actions } = this.props
-    const { is_socket_connected, messages } = this.props.chat_details
-    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected) {
+    const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
+    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && is_chat_open) {
       this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {
@@ -193,9 +181,10 @@ class ChatBot extends Component {
       actions.updateChatsState({ messages: [] })
       localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
       localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
-      this.closeWebView('endChatSubmit', {})
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
+      this.closeWebView('endChatSubmit', {})
+      brand_features.doBrandLogicOnEndChat()
     } else {
       actions.updateChatsState({ loading: true })
       actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload, (err, res) => {
@@ -215,9 +204,10 @@ class ChatBot extends Component {
               }
             });
           else {
-            this.closeWebView('endChatSubmit', {})
             actions.handleChatbotInterface(false);
             this.onClickCloseIcon();
+            this.closeWebView('endChatSubmit', {})
+            brand_features.doBrandLogicOnEndChat()
           }
         }
       });
@@ -235,10 +225,11 @@ class ChatBot extends Component {
       };
       actions.updateChatsState({ loading: true })
       actions.emitCustomEvent(EVENTS.END_CONVERSATION_FORM_SUBMIT, payload, () => {
-        this.closeWebView('endChatSubmit', {})
         actions.handleChatbotInterface(false);
         actions.updateChatsState({ loading: false })
         this.onClickCloseIcon();
+        this.closeWebView('endChatSubmit', {})
+        brand_features.doBrandLogicOnEndChat()
       });
     } else {
       showMessage('error', 'All fields are required')
@@ -310,194 +301,177 @@ class ChatBot extends Component {
       screen_height
     } = this.props;
 
-    let containerStyle = {
-      bottom: chatbot_client_info.trigger.show_close_icon ? 'calc(20px + 70px + 20px)' : 0,
-      borderRadius: chatbot_client_info.trigger.show_close_icon ? '8px' : '8px 8px 0px 0px',
-    };
-    if (this.is_app)
-      containerStyle = { ...containerStyle, ...androidTabletStyle };
-
     return (
       <div
-        className={classNames("ori-fixed ori-animated ori-z-index-99992 oriChatBotContainer",
-          {
-            "ori-fade-in-up": !chatbot_client_info.trigger.show_close_icon && !this.is_app,
-            "ori-fade-in": (chatbot_client_info.trigger.show_close_icon || this.is_app)
-          }
-        )}
-        style={containerStyle}
+        id="chatbotContentContainer"
+        className="ori-relative ori-flex-column oriChatBotContainer"
+        style={{
+          backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
+        }}
       >
+        {
+          chat_details.loading &&
+          <div className="ori-absolute ori-z-index-99995 ori-align-full ori-flex-column ori-flex-center ori-bg-black-light">
+            <Suspense fallback={null}>
+              <DotsLoader container_class="ori-bg-white ori-pad-15 ori-border-radius-3" />
+            </Suspense>
+          </div>
+        }
+        <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
+          {
+            chatbot_setting.minimize_bot && !this.is_app && !chat_details.end_chat.visible &&
+            <div className="ori-pad-5" onClick={this.minimizeChatbotInterface}>
+              <div className="minimizeIcon" style={{ height: '16px', width: '13px' }} />
+            </div>
+          }
+          <div className="ori-lr-pad-5 ori-cursor-ptr chatIcons" onClick={this.onClickCloseIcon}>
+            {
+              chat_details.end_chat.visible ?
+                <div className="ori-font-default-hover-white">
+                  <CloseIcon size={18} />
+                </div>
+                :
+                <Button className="ori-font-xs ori-btn-default" size="small">End chat</Button>
+            }
+          </div>
+        </div>
+        <Suspense fallback={null}>
+          <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
+          <CustomModal
+            isMounted={chat_details.downtime.isDownTime || info_content_type !== null || show_clear_chat_popconfirm}
+            delayUnmountTime={400}
+          >
+            {
+              chat_details.downtime.isDownTime &&
+              <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
+                <DownTime
+                  downtime={chat_details.downtime}
+                  onDowntimeComplete={this.onDowntimeComplete}
+                />
+              </div>
+            }
+            {
+              info_content_type &&
+              <InfoContent
+                type={info_content_type}
+                onClose={this.closeInfoContent}
+              />
+            }
+            {
+              show_clear_chat_popconfirm &&
+              <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
+                Are you sure you want to clear the chat?
+                  <div className="ori-flex ori-flex-jfe ori-t-pad-10">
+                  <Button
+                    size="small"
+                    className="ori-btn-default"
+                    onClick={this.closeClearChatPopConfirm}
+                  >
+                    No
+                    </Button>
+                  <Button
+                    size="small"
+                    className="ori-btn-fill-primary ori-l-mrgn-10"
+                    onClick={this.handleResetChat}
+                  >
+                    Yes
+                    </Button>
+                </div>
+              </div>
+            }
+          </CustomModal>
+          <EndChat
+            isMounted={chat_details.end_chat.visible}
+            delayUnmountTime={400}
+            is_socket_connected={chat_details.is_socket_connected}
+            end_chat={chat_details.end_chat}
+            closeEndChatPopup={this.onClickCloseIcon}
+            confirmEndConversation={this.confirmEndConversation}
+            handleFormItemChange={this.handleFormItemChange}
+            submitFormData={this.submitEndFormFormData}
+          />
+          <PreviewFile
+            isMounted={show_file_preview}
+            delayUnmountTime={400}
+            is_socket_connected={chat_details.is_socket_connected}
+            file={file}
+            fileUrl={fileUrl}
+            onClickCancel={this.onFilePreviewCancel}
+            onClickSend={this.onClickFileSend}
+            onFileRemove={this.onFileRemove}
+          />
+          <Menu
+            isMounted={show_menu}
+            delayUnmountTime={400}
+            closeMenu={this.closeMenu}
+            handleResetChat={this.showClearChatPopConfirm}
+            showFeedback={this.showFeedback}
+            showInfoContent={this.showInfoContent}
+          />
+          <Feedback
+            isMounted={show_feedback}
+            delayUnmountTime={650}
+            is_socket_connected={chat_details.is_socket_connected}
+            closeFeedback={this.closeFeedback}
+            psid={chat_details.psid}
+            sendFeedback={actions.sendFeedback}
+          />
+          {
+            chatbot_setting.chat_interface.header_tag && screen_height < 420 &&
+            <HeaderTag />
+          }
+        </Suspense>
+        {
+          screen_height >= 420 &&
+          <Header />
+        }
+        <ChatBotConversation
+          btn_disabled={!chat_details.is_socket_connected}
+          messages={chat_details.messages}
+          onMessageVoting={actions.onMessageVoting}
+          handleMsgBtnClick={handleMsgBtnClick}
+          handleFileUpload={handleFileUpload}
+          handleOfferSelection={handleOfferSelection}
+          onChangeCheckbox={onChangeCheckbox}
+          is_typing={chat_details.is_typing}
+          typing_text={chat_details.typing_text}
+        />
         <div
-          id="chatbotContentContainer"
-          className="ori-relative ori-flex-column chatBotContentContainer"
+          className="ori-relative ori-flex-column ori-flex-jc chatFooterContainer"
           style={{
-            backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
+            paddingRight: '65px',
+            paddingLeft: chatbot_setting.menu.visible ? '30px' : '10px'
           }}
         >
           {
-            chat_details.loading &&
-            <div className="ori-absolute ori-z-index-99995 ori-align-full ori-flex-column ori-flex-center ori-bg-black-light">
-              <Suspense fallback={null}>
-                <DotsLoader container_class="ori-bg-white ori-pad-15 ori-border-radius-3" />
-              </Suspense>
-            </div>
+            chatbot_setting.powered_by.visibility &&
+            <Suspense fallback={null}>
+              <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
+            </Suspense>
           }
-          <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
-            {
-              !this.is_app && !chat_details.end_chat.visible &&
-              <div className="ori-pad-5" onClick={this.minimizeChatbotInterface}>
-                <div className="minimizeIcon" style={{ height: '16px', width: '13px' }} />
-              </div>
-            }
-            <div className="ori-lr-pad-5 ori-cursor-ptr chatIcons" onClick={this.onClickCloseIcon}>
-              {
-                chat_details.end_chat.visible ?
-                  <div className="ori-font-default-hover-white">
-                    <CloseIcon size={18} />
-                  </div>
-                  :
-                  <Button className="ori-font-xs ori-btn-default" size="small">End chat</Button>
-              }
-            </div>
-          </div>
-          <Suspense fallback={null}>
-            <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
-            <CustomModal
-              isMounted={chat_details.downtime.isDownTime || info_content_type !== null || show_clear_chat_popconfirm}
-              delayUnmountTime={400}
-            >
-              {
-                chat_details.downtime.isDownTime &&
-                <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
-                  <DownTime
-                    downtime={chat_details.downtime}
-                    onDowntimeComplete={this.onDowntimeComplete}
-                  />
-                </div>
-              }
-              {
-                info_content_type &&
-                <InfoContent
-                  type={info_content_type}
-                  onClose={this.closeInfoContent}
-                />
-              }
-              {
-                show_clear_chat_popconfirm &&
-                <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
-                  Are you sure you want to clear the chat?
-                  <div className="ori-flex ori-flex-jfe ori-t-pad-10">
-                    <Button
-                      size="small"
-                      className="ori-btn-default"
-                      onClick={this.closeClearChatPopConfirm}
-                    >
-                      No
-                    </Button>
-                    <Button
-                      size="small"
-                      className="ori-btn-fill-primary ori-l-mrgn-10"
-                      onClick={this.handleResetChat}
-                    >
-                      Yes
-                    </Button>
-                  </div>
-                </div>
-              }
-            </CustomModal>
-            <EndChat
-              isMounted={chat_details.end_chat.visible}
-              delayUnmountTime={400}
-              is_socket_connected={chat_details.is_socket_connected}
-              end_chat={chat_details.end_chat}
-              closeEndChatPopup={this.onClickCloseIcon}
-              confirmEndConversation={this.confirmEndConversation}
-              handleFormItemChange={this.handleFormItemChange}
-              submitFormData={this.submitEndFormFormData}
-            />
-            <PreviewFile
-              isMounted={show_file_preview}
-              delayUnmountTime={400}
-              is_socket_connected={chat_details.is_socket_connected}
-              file={file}
-              fileUrl={fileUrl}
-              onClickCancel={this.onFilePreviewCancel}
-              onClickSend={this.onClickFileSend}
-              onFileRemove={this.onFileRemove}
-            />
-            <Menu
-              isMounted={show_menu}
-              delayUnmountTime={400}
-              closeMenu={this.closeMenu}
-              handleResetChat={this.showClearChatPopConfirm}
-              showFeedback={this.showFeedback}
-              showInfoContent={this.showInfoContent}
-            />
-            <Feedback
-              isMounted={show_feedback}
-              delayUnmountTime={650}
-              is_socket_connected={chat_details.is_socket_connected}
-              closeFeedback={this.closeFeedback}
-              psid={chat_details.psid}
-              sendFeedback={actions.sendFeedback}
-            />
-            {
-              chatbot_setting.chat_interface.header_tag && screen_height < 420 &&
-              <HeaderTag />
-            }
-          </Suspense>
           {
-            screen_height >= 420 &&
-            <Header />
+            chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
+            <Suspense fallback={null}>
+              <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
+                <QuickReply
+                  quick_replies={chat_details.messages[chat_details.messages.length - 1].quickReplies}
+                  sendTextToServer={sendTextToServer}
+                />
+              </div>
+            </Suspense>
           }
-          <ChatBotConversation
-            btn_disabled={!chat_details.is_socket_connected}
-            messages={chat_details.messages}
-            onMessageVoting={actions.onMessageVoting}
-            handleMsgBtnClick={handleMsgBtnClick}
-            handleFileUpload={handleFileUpload}
-            handleOfferSelection={handleOfferSelection}
-            onChangeCheckbox={onChangeCheckbox}
-            is_typing={chat_details.is_typing}
-            typing_text={chat_details.typing_text}
+          <InputComposer
+            psid={chat_details.psid}
+            sendTextToServer={sendTextToServer}
+            is_input_lock={chat_details.is_input_lock}
+            input_lock_text={chat_details.input_lock_text}
+            onClickMenu={this.openMenu}
+            emitCustomEvent={actions.emitCustomEvent}
+            beforeUpload={this.beforeFileUpload}
+            onRemove={this.onFileRemove}
           />
-          <div
-            className="ori-relative ori-flex-column ori-flex-jc chatFooterContainer"
-            style={{
-              paddingRight: '65px',
-              paddingLeft: chatbot_setting.menu.visible ? '30px' : '10px'
-            }}
-          >
-            {
-              chatbot_setting.powered_by.visibility &&
-              <Suspense fallback={null}>
-                <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
-              </Suspense>
-            }
-            {
-              chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
-              <Suspense fallback={null}>
-                <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
-                  <QuickReply
-                    quick_replies={chat_details.messages[chat_details.messages.length - 1].quickReplies}
-                    sendTextToServer={sendTextToServer}
-                  />
-                </div>
-              </Suspense>
-            }
-            <InputComposer
-              psid={chat_details.psid}
-              sendTextToServer={sendTextToServer}
-              is_input_lock={chat_details.is_input_lock}
-              input_lock_text={chat_details.input_lock_text}
-              onClickMenu={this.openMenu}
-              emitCustomEvent={actions.emitCustomEvent}
-              beforeUpload={this.beforeFileUpload}
-              onRemove={this.onFileRemove}
-            />
-          </div>
         </div>
-      </div >
+      </div>
     );
   }
 }

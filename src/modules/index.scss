@@ -1,10 +1,14 @@
-@import "../data/styles/colors.scss";
+@import '../data/styles/colors.scss';
 
 .oriAppContainer {
     z-index: 99990;
     position: fixed;
     right: 0;
     bottom: 0;
+
+    .chatbotContainer {
+        color: $chatbot-font-color !important;
+    }
 
     .notificationBadge {
         top: -18px;
@@ -16,4 +20,13 @@
             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.11);
         }
     }
+}
+
+.oriFullScreenBot {
+    top: 0;
+    left: 0;
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
