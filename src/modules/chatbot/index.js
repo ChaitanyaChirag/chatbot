@@ -14,7 +14,7 @@ import {
   showMessage,
   checkMultipleExtension
 } from '../../data/config/utils';
-import { EVENTS, DEFAULT_END_CHAT_STATE } from '../../data/config/constants';
+import { EVENTS, DEFAULT_END_CHAT_STATE, CHATBOT_TYPE } from '../../data/config/constants';
 import { background } from '../../data/assets'
 
 import './index.scss';
@@ -66,7 +66,7 @@ class ChatBot extends Component {
   setDefaultMessages = () => {
     const { actions } = this.props
     const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
-    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && is_chat_open) {
+    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT ? is_chat_open : true)) {
       this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {
