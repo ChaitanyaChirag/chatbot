@@ -65,8 +65,8 @@ class ChatBot extends Component {
 
   setDefaultMessages = () => {
     const { actions } = this.props
-    const { is_socket_connected, messages } = this.props.chat_details
-    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected) {
+    const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
+    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && is_chat_open) {
       this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {

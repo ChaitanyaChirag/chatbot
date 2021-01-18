@@ -30,7 +30,7 @@ export const chatbot_client_info = {
 };
 
 export const chatbot_setting = {
-  chatbot_type: CHATBOT_TYPE.FULL_SCREEN, // default, fullScreen, adster
+  chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
   auto_close_feedback_form: 5 * 1000,
   auto_close_chatbot_on_refresh: {
     web_enable: false,
