@@ -124,7 +124,7 @@ class ChatBotConversation extends React.PureComponent {
   };
 
   render() {
-    const { messages, is_typing, typing_text, handleMsgBtnClick, onChangeCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
+    const { messages, is_typing, typing_text, handleMsgBtnClick, onSubmitCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
 
     return (
       <div
@@ -259,7 +259,7 @@ class ChatBotConversation extends React.PureComponent {
                         }
                         {
                           show_checkboxWithMedia &&
-                          <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onChangeCheckbox={onChangeCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled} />
+                          <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onSubmitCheckbox={onSubmitCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled} />
                         }
                         {
                           show_recharge &&
@@ -360,7 +360,7 @@ ChatBotConversation.propTypes = {
   onClickStackBubble: PropTypes.func,
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
-  onChangeCheckbox: PropTypes.func,
+  onSubmitCheckbox: PropTypes.func,
   handleOfferSelection: PropTypes.func,
   onMessageVoting: PropTypes.func,
   is_typing: PropTypes.bool,

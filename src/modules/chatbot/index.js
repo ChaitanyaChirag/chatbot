@@ -296,7 +296,7 @@ class ChatBot extends Component {
       handleMsgBtnClick,
       handleFileUpload,
       handleOfferSelection,
-      onChangeCheckbox,
+      onSubmitCheckbox,
       actions,
       screen_height
     } = this.props;
@@ -432,7 +432,7 @@ class ChatBot extends Component {
           handleMsgBtnClick={handleMsgBtnClick}
           handleFileUpload={handleFileUpload}
           handleOfferSelection={handleOfferSelection}
-          onChangeCheckbox={onChangeCheckbox}
+          onSubmitCheckbox={onSubmitCheckbox}
           is_typing={chat_details.is_typing}
           typing_text={chat_details.typing_text}
         />
@@ -464,7 +464,7 @@ class ChatBot extends Component {
             psid={chat_details.psid}
             sendTextToServer={sendTextToServer}
             is_input_lock={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLock}
-            input_lock_text={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLockMessage}
+            input_lock_text={chat_details.messages && chat_details.messages.length > 0 ? chat_details.messages[chat_details.messages.length - 1].inputLockMessage : ''}
             onClickMenu={this.openMenu}
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
@@ -483,7 +483,7 @@ ChatBot.propTypes = {
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
   handleOfferSelection: PropTypes.func,
-  onChangeCheckbox: PropTypes.func,
+  onSubmitCheckbox: PropTypes.func,
 };
 
 export default ChatBot;

@@ -60,7 +60,6 @@ class AppContainer extends Component {
     this.state = {
       lang: LANGUAGES.ENGLISH,
       render_chatbot: props.chat_details.is_chat_open,
-      selected_checkbox_values: [],
       selected_offer: {
         offer_id: null,
         offer_name: null
@@ -262,9 +261,24 @@ class AppContainer extends Component {
     });
   };
 
-  onChangeCheckbox = (selected_checkbox_values) => {
-    this.setState({ selected_checkbox_values });
-  };
+  onSubmitCheckbox = data => {
+    console.log(data)
+    if (data.list && data.list.length > 0) {
+      const cmid = uniqueId();
+      const response = {
+        type: MESSAGE_TYPES.LIST,
+        list: data.list,
+        relayData: data.relayData,
+        cmid
+      };
+      const obj = {
+        payload: { list: data.list },
+        cmid,
+      };
+      this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.LIST, obj);
+      this.emitResponseToServer(response);
+    }
+  }
 
   emitResponseToServer = response => {
     const { chat_details, actions } = this.props;
@@ -341,29 +355,29 @@ class AppContainer extends Component {
         }
         break;
 
-      case BUTTON_SUB_TYPES.CHECKBOX_SUBMIT:
-        if (data.message && data.message.payload && data.message.payload.options) {
-          const { selected_checkbox_values } = this.state;
-          const selected_checkbox_items = data.message.payload.options.filter((item) => {
-            return selected_checkbox_values.findIndex(value => value === item.value) !== -1;
-          });
-          if (selected_checkbox_items.length > 0) {
-            const cmid = uniqueId();
-            const response = {
-              type: MESSAGE_TYPES.LIST,
-              list: selected_checkbox_items,
-              relayData: data.button.relayData,
-              cmid
-            };
-            const obj = {
-              payload: { list: selected_checkbox_items },
-              cmid,
-            };
-            this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.LIST, obj);
-            this.emitResponseToServer(response);
-          }
-        }
-        break;
+      // case BUTTON_SUB_TYPES.CHECKBOX_SUBMIT:
+      //   if (data.message && data.message.payload && data.message.payload.options) {
+      //     const { selected_checkbox_values } = this.state;
+      //     const selected_checkbox_items = data.message.payload.options.filter((item) => {
+      //       return selected_checkbox_values.findIndex(value => value === item.value) !== -1;
+      //     });
+      //     if (selected_checkbox_items.length > 0) {
+      //       const cmid = uniqueId();
+      //       const response = {
+      //         type: MESSAGE_TYPES.LIST,
+      //         list: selected_checkbox_items,
+      //         relayData: data.button.relayData,
+      //         cmid
+      //       };
+      //       const obj = {
+      //         payload: { list: selected_checkbox_items },
+      //         cmid,
+      //       };
+      //       this.pushSenderNewMsgToChatbot(MESSAGE_TYPES.LIST, obj);
+      //       this.emitResponseToServer(response);
+      //     }
+      //   }
+      //   break;
 
       case BUTTON_SUB_TYPES.SHARE_LOCATION:
         if (navigator.geolocation) {
@@ -544,7 +558,7 @@ class AppContainer extends Component {
                   handleMsgBtnClick={this.handleMsgBtnClick}
                   handleFileUpload={this.handleFileUpload}
                   handleOfferSelection={this.handleOfferSelection}
-                  onChangeCheckbox={this.onChangeCheckbox}
+                  onSubmitCheckbox={this.onSubmitCheckbox}
                 />
               </div>
             </Suspense>
@@ -590,7 +604,7 @@ class AppContainer extends Component {
                   handleMsgBtnClick={this.handleMsgBtnClick}
                   handleFileUpload={this.handleFileUpload}
                   handleOfferSelection={this.handleOfferSelection}
-                  onChangeCheckbox={this.onChangeCheckbox}
+                  onSubmitCheckbox={this.onSubmitCheckbox}
                 />
               </div>
             }
@@ -605,7 +619,7 @@ class AppContainer extends Component {
                 handleFileUpload={this.handleFileUpload}
                 handleOfferSelection={this.handleOfferSelection}
                 stack_view={chatbot_setting.notification_bot.stack_view}
-                onChangeCheckbox={this.onChangeCheckbox}
+                onSubmitCheckbox={this.onSubmitCheckbox}
               />
             }
           </Suspense>
