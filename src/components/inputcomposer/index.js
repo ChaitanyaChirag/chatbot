@@ -250,6 +250,7 @@ InputComposer.propTypes = {
 InputComposer.defaultProps = {
   is_input_lock: false,
   notification_bot: false,
+  input_lock_text: 'please select any option to proceed',
   emitCustomEvent: () => { },
 };
 

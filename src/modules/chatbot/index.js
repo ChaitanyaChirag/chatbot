@@ -463,8 +463,8 @@ class ChatBot extends Component {
           <InputComposer
             psid={chat_details.psid}
             sendTextToServer={sendTextToServer}
-            is_input_lock={chat_details.is_input_lock}
-            input_lock_text={chat_details.input_lock_text}
+            is_input_lock={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLock}
+            input_lock_text={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLockMessage}
             onClickMenu={this.openMenu}
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
