@@ -248,7 +248,11 @@ const middleware = () => {
               registerSocketListener(store, socket);
             })
             .catch(() => {
-              socket = io(socket_url);
+              socket = io(socket_url, {
+                extraHeaders: {
+                  sessionInitiateUrl: window.location.href
+                }
+              });
               registerSocketListener(store, socket);
             })
         }
