@@ -238,8 +238,13 @@ const middleware = () => {
           fetch("https://api.ipify.org?format=json")
             .then(response => response.json())
             .then(data => {
+              console.log('data', data, window.location.href)
               const url = `${socket_url}&publicIP=${data.ip}`
-              socket = io(url);
+              socket = io(url, {
+                extraHeaders: {
+                  sessionInitiateUrl: window.location.href
+                }
+              });
               registerSocketListener(store, socket);
             })
             .catch(() => {
