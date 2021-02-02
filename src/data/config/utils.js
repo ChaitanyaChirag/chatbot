@@ -19,6 +19,48 @@ export const log = (...arg) => {
     console.log(...arg)
 }
 
+export const PLATFORM = {
+  ANDROID: "android",
+  IOS: "ios",
+  WEBSITE: "website",
+};
+
+export const getPlatform = () => {
+  let platform = PLATFORM.WEBSITE;
+  if (window.ori_platform && window.ori_platform !== undefined) {
+    platform = window.ori_platform.toLowerCase();
+  }
+  return platform;
+};
+
+export const getPsid = () => {
+  let psid = null;
+  if (localStorage.getItem('psid')) {
+    psid = localStorage.getItem('psid');
+  } else {
+    psid = uniqueId();
+    localStorage.setItem('psid', psid);
+  }
+  return psid;
+};
+
+export const getAuthSocketData = publicIP => {
+  const auth_socket_data = {
+    query: {
+      role: 'user',
+      brandName: 'vodafone',
+      botName: 'vodafone',
+      ver: 1.1,
+      psid: getPsid(),
+      channelName: getPlatform(),
+      sessionInitiatedUrl: window.location.href,
+      publicIP
+    },
+    // timeout: 10000
+  };
+  return auth_socket_data;
+}
+
 export const showMessage = (type, msg) => {
   const node = document.getElementById('chatbotContentContainer');
   if (node) {
@@ -71,19 +113,7 @@ export const getCookie = name => {
   return v ? v[2] : null
 };
 
-export const PLATFORM = {
-  ANDROID: "android",
-  IOS: "ios",
-  WEBSITE: "website",
-};
 
-export const getPlatform = () => {
-  let platform = PLATFORM.WEBSITE;
-  if (window.ori_platform && window.ori_platform !== undefined) {
-    platform = window.ori_platform.toLowerCase();
-  }
-  return platform;
-};
 
 export const isAndroid = () => {
   let platform = getPlatform();
@@ -93,17 +123,6 @@ export const isAndroid = () => {
 export const isIOS = () => {
   let platform = getPlatform();
   return (platform === PLATFORM.IOS);
-};
-
-export const getPsid = () => {
-  let psid = null;
-  if (localStorage.getItem('psid')) {
-    psid = localStorage.getItem('psid');
-  } else {
-    psid = uniqueId();
-    localStorage.setItem('psid', psid);
-  }
-  return psid;
 };
 
 export const LOCAL_STORAGE = {

@@ -3,16 +3,16 @@ import { CHATBOT_TYPE, LANGUAGES } from './constants';
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
 
-const version = 1.1;
-const brandName = 'vodafone';
-const url = "https://vodafone-dev.oriserve.in";
-
+// const version = 1.1;
+// const brandName = 'vodafone';
+// const url = "https://vodafone-dev.oriserve.in";
+export const socket_url = "https://vodafone-dev.oriserve.in/liveConversations";
 export const network_check_url = "https://google.com/";
 
-export const getSocketUrl = () => {
-  const socket_url = `${url}/liveConversations?psid=${getPsid()}&ver=${version}&role=user&brandName=${brandName}&botName=${brandName}&channelName=${getPlatform()}`;
-  return socket_url;
-};
+// export const getSocketUrl = () => {
+//   const socket_url = `${url}/liveConversations?psid=${getPsid()}&ver=${version}&role=user&brandName=${brandName}&botName=${brandName}&channelName=${getPlatform()}`;
+//   return socket_url;
+// };
 
 export const chatbot_client_info = {
   sentry_dsn: "https://fa80a3e669cc4ee78bcb94c405adecba@sentry.io/1512125",
