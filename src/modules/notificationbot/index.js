@@ -62,8 +62,9 @@ class NotificationBot extends React.PureComponent {
             </div>
           }
           <ChatBotConversation
+            psid={chat_details.psid}
             messages={chat_details.unseen_messages}
-            messageVotingSuccess={actions.onMessageVoting}
+            onMessageVoting={actions.onMessageVoting}
             handleMsgBtnClick={handleMsgBtnClick}
             handleOfferSelection={handleOfferSelection}
             onClickStackBubble={this.handleViewMore}

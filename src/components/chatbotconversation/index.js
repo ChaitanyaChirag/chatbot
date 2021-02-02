@@ -101,8 +101,8 @@ class ChatBotConversation extends React.PureComponent {
   };
 
   onClickMessageVoting = (message, voteType) => {
-    const { onMessageVoting } = this.props;
-    const payload = { chatlogId: message.chatlogId, voteType };
+    const { onMessageVoting, psid } = this.props;
+    const payload = { chatlogId: message.chatlogId, voteType, psid };
     onMessageVoting(payload);
   };
 
@@ -356,6 +356,7 @@ class ChatBotConversation extends React.PureComponent {
 }
 
 ChatBotConversation.propTypes = {
+  psid: PropTypes.string,
   messages: PropTypes.array,
   onClickStackBubble: PropTypes.func,
   handleMsgBtnClick: PropTypes.func,

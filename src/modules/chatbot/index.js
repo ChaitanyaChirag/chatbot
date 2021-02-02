@@ -426,6 +426,7 @@ class ChatBot extends Component {
           <Header />
         }
         <ChatBotConversation
+          psid={chat_details.psid}
           btn_disabled={!chat_details.is_socket_connected}
           messages={chat_details.messages}
           onMessageVoting={actions.onMessageVoting}
