@@ -8,13 +8,13 @@ import {
   MESSAGE_TYPES
 } from '../../config/constants';
 import {
-  getSocketUrl,
+  socket_url,
   chatbot_setting,
   chatbot_client_info,
   chatbot_default_messages,
   brand_features
 } from '../../config/urls';
-import { log, getCookie, uniqueId } from '../../config/utils';
+import { log, getCookie, uniqueId, getAuthSocketData } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
 import actionTypes from '../actiontypes';
 
@@ -234,16 +234,18 @@ const middleware = () => {
           store.dispatch(updateChatsState({ socket_request_processing: true }))
           if (socket)
             socket.close()
-          const socket_url = getSocketUrl();
+          // const socket_url = getSocketUrl();
           fetch("https://api.ipify.org?format=json")
             .then(response => response.json())
             .then(data => {
-              const url = `${socket_url}&publicIP=${data.ip}`
-              socket = io(url);
+              // const url = `${socket_url}&publicIP=${data.ip}`
+              const auth_socket_data = getAuthSocketData(data.ip)
+              socket = io(socket_url, auth_socket_data);
               registerSocketListener(store, socket);
             })
             .catch(() => {
-              socket = io(socket_url);
+              const auth_socket_data = getAuthSocketData()
+              socket = io(socket_url, auth_socket_data);
               registerSocketListener(store, socket);
             })
         }
