@@ -234,11 +234,9 @@ const middleware = () => {
           store.dispatch(updateChatsState({ socket_request_processing: true }))
           if (socket)
             socket.close()
-          // const socket_url = getSocketUrl();
           fetch("https://api.ipify.org?format=json")
             .then(response => response.json())
             .then(data => {
-              // const url = `${socket_url}&publicIP=${data.ip}`
               const auth_socket_data = getAuthSocketData(data.ip)
               socket = io(socket_url, auth_socket_data);
               registerSocketListener(store, socket);
