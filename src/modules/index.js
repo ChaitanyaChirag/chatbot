@@ -123,9 +123,19 @@ class AppContainer extends Component {
       }
       actions.handleChatbotInterface(true);
     } else if (!chat_details.is_socket_connected) {
+      const query_params = new URLSearchParams(window.location.search);
       if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
         actions.makeSocketConnection();
+      } else if (chatbot_setting.auto_open_chatbot.enable && query_params.has(chatbot_setting.auto_open_chatbot.query_param_key)) {
+        const query_param_value = query_params.get(chatbot_setting.auto_open_chatbot.query_param_key)
+        if (query_param_value === "true")
+          this.handleSocketConnection(true)
+        else if (query_param_value === "false")
+          actions.handleChatbotInterface(false)
+      } else {
+        actions.handleChatbotInterface(false);
       }
+      
       let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
       if(last_emit){
         let current_time = new Date().getTime();
@@ -138,16 +148,6 @@ class AppContainer extends Component {
           actions.updateChatsState({ messages: [] })
           localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
         }
-      }
-      const query_params = new URLSearchParams(window.location.search);
-      if (chatbot_setting.auto_open_chatbot.enable && query_params.has(chatbot_setting.auto_open_chatbot.query_param_key)) {
-        const query_param_value = query_params.get(chatbot_setting.auto_open_chatbot.query_param_key)
-        if (query_param_value === "true")
-          this.handleSocketConnection(true)
-        else if (query_param_value === "false")
-          actions.handleChatbotInterface(false)
-      } else {
-        actions.handleChatbotInterface(false);
       }
     }
   }
