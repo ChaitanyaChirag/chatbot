@@ -5,7 +5,8 @@ import {
   MESSAGE_READ_STATUS,
   DEFAULT_END_CHAT_STATE,
   ALLOWED_MESSAGE_TYPES,
-  MESSAGE_TYPES
+  MESSAGE_TYPES,
+  LOCAL_STORAGE
 } from '../../config/constants';
 import {
   socket_url,
@@ -48,6 +49,8 @@ const registerSocketListener = (store, socket) => {
           };
           if (chatbot_setting.auto_emit_message.send_brand_data)
             data.brandData = brand_features.getBrandData()
+          if (chatbot_setting.auto_emit_message.update_last_emit)
+            localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, JSON.stringify(new Date().getTime()))
           log('auto emit message data', data);
           socket.emit(EVENTS.NEW_MESSAGE, data);
         }

@@ -67,7 +67,6 @@ export const chatbot_setting = {
       deleting_speed: 30,
       typing_speed: 150
     },
-    
     container_style: {
       mobile: {
         top: 0,
@@ -91,7 +90,8 @@ export const chatbot_setting = {
   auto_emit_message: {
     enable: true,
     query_param_key: 'oribotmessage',
-    send_brand_data: false
+    send_brand_data: false,
+    update_last_emit: true,
   },
   speech_recognition: true,
   minimize_bot: false,

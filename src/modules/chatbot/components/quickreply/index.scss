@@ -16,7 +16,6 @@
     .quickReplyBodyContainer {
         overflow-x: scroll;
         overflow-y: hidden;
-        -ms-overflow-style: none;
         -ms-overflow-style: none; // IE 10+
         overflow: -moz-scrollbars-none; // Firefox
 
