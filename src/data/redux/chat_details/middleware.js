@@ -5,8 +5,7 @@ import {
   MESSAGE_READ_STATUS,
   DEFAULT_END_CHAT_STATE,
   ALLOWED_MESSAGE_TYPES,
-  MESSAGE_TYPES,
-  LOCAL_STORAGE
+  MESSAGE_TYPES
 } from '../../config/constants';
 import {
   socket_url,
@@ -15,7 +14,7 @@ import {
   chatbot_default_messages,
   brand_features
 } from '../../config/urls';
-import { log, getCookie, uniqueId, getAuthSocketData } from '../../config/utils';
+import { log, getCookie, uniqueId, getAuthSocketData, LOCAL_STORAGE } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
 import actionTypes from '../actiontypes';
 
