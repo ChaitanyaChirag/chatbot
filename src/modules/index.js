@@ -125,29 +125,29 @@ class AppContainer extends Component {
     } else if (!chat_details.is_socket_connected) {
       if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
         actions.makeSocketConnection();
-      } else {
-        let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
-        const query_params = new URLSearchParams(window.location.search);
-        if (chatbot_setting.chat_interface.query_params.enable && query_params.has(chatbot_setting.chat_interface.query_params.query_param_key)) {
-          const query_param_value = query_params.get(chatbot_setting.chat_interface.query_params.query_param_key)
-          if (query_param_value === "true")
-            this.handleSocketConnection(true)
-          else if (query_param_value === "false")
-            actions.handleChatbotInterface(false)
-        } else if (last_emit) {
-          let current_time = new Date().getTime();
-          let time_gap = (current_time - last_emit) / 1000;
-          if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
-            actions.makeSocketConnection();
-          else
-            actions.handleChatbotInterface(false);
-          if (time_gap > chatbot_setting.automate_reset_chat_time) {
-            actions.updateChatsState({ messages: [] })
-            localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
-          }
-        } else {
+      }
+      let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
+      if(last_emit){
+        let current_time = new Date().getTime();
+        let time_gap = (current_time - last_emit) / 1000;
+        if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
+          actions.makeSocketConnection();
+        else
           actions.handleChatbotInterface(false);
+        if (time_gap > chatbot_setting.automate_reset_chat_time) {
+          actions.updateChatsState({ messages: [] })
+          localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
         }
+      }
+      const query_params = new URLSearchParams(window.location.search);
+      if (chatbot_setting.auto_open_chatbot.enable && query_params.has(chatbot_setting.auto_open_chatbot.query_param_key)) {
+        const query_param_value = query_params.get(chatbot_setting.auto_open_chatbot.query_param_key)
+        if (query_param_value === "true")
+          this.handleSocketConnection(true)
+        else if (query_param_value === "false")
+          actions.handleChatbotInterface(false)
+      } else {
+        actions.handleChatbotInterface(false);
       }
     }
   }
@@ -524,13 +524,13 @@ class AppContainer extends Component {
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN)
       return (
         <LangContext.Provider value={this.state.lang}>
-          <div 
+          <div
             className="ori-app-container ori-ant-design-container oriFullScreenBot oriAppContainer"
             style={{
               backgroundImage: `url(${outerBackground})`,
-              
+
             }}
-            >
+          >
             <Suspense fallback={null}>
               <div
                 className={classNames("ori-animate ori-fade-in ori-overflow-hidden",

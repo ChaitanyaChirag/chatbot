@@ -58,10 +58,6 @@ export const chatbot_setting = {
     scroll_upto_first_response_only: true,
     carousel_msg_display_type: 'default', // default, fixed, actual
     header_tag: true, //to hide and show tag type header for small screen
-    query_params: {
-      enable: true,
-      query_param_key: 'chatbotopen'
-    },
     type_writer: {
       enable: false,
       deleting_speed: 30,
@@ -87,6 +83,10 @@ export const chatbot_setting = {
       out_animation: 'ori-fade-out'
     }
   },
+  auto_open_chatbot: {
+    enable: true,
+    query_param_key: 'chatbotopen'
+  }, 
   auto_emit_message: {
     enable: true,
     query_param_key: 'oribotmessage',
