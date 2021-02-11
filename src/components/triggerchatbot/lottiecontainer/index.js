@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 
-import { chatbot_client_info } from '../../../data/config/urls';
+import { chatbot_client_info } from '../../../data/config/brandSetup';
 import { lottiejson } from '../../../data/assets'
 
 const LottieContainer = React.memo(() => {

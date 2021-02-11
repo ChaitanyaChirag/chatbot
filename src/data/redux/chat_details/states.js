@@ -1,5 +1,5 @@
 import { MESSAGE_SENDER, DEFAULT_END_CHAT_STATE } from '../../config/constants';
-import { chatbot_setting, chatbot_default_messages } from '../../config/urls';
+import { chatbot_setting, chatbot_default_messages } from '../../config/brandSetup';
 import {
   isAndroid,
   getPsid,

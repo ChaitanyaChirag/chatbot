@@ -1,5 +1,7 @@
 import message from 'antd/lib/message';
 
+import { brandName, botName, role, version } from './urls'
+
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
@@ -47,10 +49,10 @@ export const getPsid = () => {
 export const getAuthSocketData = publicIP => {
   const auth_socket_data = {
     query: {
-      role: 'user',
-      brandName: 'vodafone',
-      botName: 'vodafone',
-      ver: 1.1,
+      role,
+      brandName,
+      botName,
+      ver: version,
       psid: getPsid(),
       channelName: getPlatform(),
       sessionInitiatedUrl: window.location.href,

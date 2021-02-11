@@ -18,7 +18,7 @@ import './index.scss';
 
 import { isAndroid, isIOS } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
-import { chatbot_setting, translator } from '../../data/config/urls';
+import { chatbot_setting, translator } from '../../data/config/brandSetup';
 
 import { LangContext } from '../../modules/context'
 

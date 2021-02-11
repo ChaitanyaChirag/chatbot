@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
 
-import { translator, chatbot_setting } from '../../../../data/config/urls';
+import { translator, chatbot_setting } from '../../../../data/config/brandSetup';
 import { uniqueId } from '../../../../data/config/utils';
 import { logo } from '../../../../data/assets';
 

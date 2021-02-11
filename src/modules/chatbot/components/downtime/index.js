@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import WarningIcon from 'react-icons/lib/io/android-warning'
 
 import { formatDate } from '../../../../data/config/utils'
-import { translator } from '../../../../data/config/urls'
+import { translator } from '../../../../data/config/brandSetup'
 
 import { LangContext } from '../../../context'
 

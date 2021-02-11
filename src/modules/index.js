@@ -38,10 +38,10 @@ import {
   chatbot_client_info,
   chatbot_setting,
   translator,
-  network_check_url,
   chatbot_default_messages,
   brand_features
-} from '../data/config/urls';
+} from '../data/config/brandSetup';
+import { network_check_url } from '../data/config/urls'
 import { outerBackground } from '../data/assets'
 
 import TriggerChatBot from '../components/triggerchatbot';

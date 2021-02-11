@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 
-import { translator } from '../../../../../../data/config/urls';
+import { translator } from '../../../../../../data/config/brandSetup';
 
 import { LangContext } from '../../../../../context';
 

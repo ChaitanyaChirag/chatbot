@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Avatar from 'antd/lib/avatar'
 
-import { translator, chatbot_setting } from '../../../../data/config/urls'
+import { translator, chatbot_setting } from '../../../../data/config/brandSetup'
 import { logo } from '../../../../data/assets';
 
 import { LangContext } from '../../../context'

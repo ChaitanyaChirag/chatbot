@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import StarIcon from 'react-icons/lib/fa/star';
 
-import { translator } from '../../../../../data/config/urls';
+import { translator } from '../../../../../data/config/brandSetup';
 
 import { LangContext } from '../../../../context';
 

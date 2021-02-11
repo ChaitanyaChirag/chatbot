@@ -7,13 +7,13 @@ import {
   ALLOWED_MESSAGE_TYPES,
   MESSAGE_TYPES
 } from '../../config/constants';
+import { socket_url } from '../../config/urls';
 import {
-  socket_url,
   chatbot_setting,
   chatbot_client_info,
   chatbot_default_messages,
   brand_features
-} from '../../config/urls';
+} from '../../config/brandSetup';
 import { log, getCookie, uniqueId, getAuthSocketData, LOCAL_STORAGE } from '../../config/utils';
 import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
 import actionTypes from '../actiontypes';

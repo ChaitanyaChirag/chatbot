@@ -8,7 +8,7 @@ import { init } from '@sentry/browser';
 import createStore from './data/redux/store';
 import * as serviceWorker from './serviceWorker';
 
-import { chatbot_client_info } from './data/config/urls';
+import { chatbot_client_info } from './data/config/brandSetup';
 
 import './data/styles/index.scss';
 

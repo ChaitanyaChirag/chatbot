@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import './index.scss'
 
-import { chatbot_setting } from '../../data/config/urls'
+import { chatbot_setting } from '../../data/config/brandSetup'
 
 const defaultState = {
   text: "",

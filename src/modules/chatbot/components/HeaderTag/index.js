@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { translator } from '../../../../data/config/urls'
+import { translator } from '../../../../data/config/brandSetup'
 
 import { LangContext } from '../../../context'
 

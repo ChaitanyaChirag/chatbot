@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
-import { chatbot_setting, chatbot_default_messages, brand_features } from '../../data/config/urls';
+import { chatbot_setting, chatbot_default_messages, brand_features } from '../../data/config/brandSetup';
 import {
   LOCAL_STORAGE,
   isAndroid,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
-import { translator } from '../../../../data/config/urls'
+import { translator } from '../../../../data/config/brandSetup'
 
 import { LangContext } from '../../../context'
 

@@ -6,7 +6,7 @@ import Avatar from 'antd/lib/avatar';
 import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 
-import { chatbot_setting, translator } from '../../../../data/config/urls';
+import { chatbot_setting, translator } from '../../../../data/config/brandSetup';
 import { background, logo } from '../../../../data/assets'
 
 import { LangContext } from '../../../context';

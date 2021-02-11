@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
 
-import { chatbot_client_info } from '../../data/config/urls';
+import { chatbot_client_info } from '../../data/config/brandSetup';
 import { LOCAL_STORAGE } from '../../data/config/utils';
 
 import NotificationBotHeader from './components/notificationbotheader';

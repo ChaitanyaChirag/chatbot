@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { poweredby } from '../../data/assets'
-import { chatbot_setting, translator } from '../../data/config/urls'
+import { chatbot_setting, translator } from '../../data/config/brandSetup'
 
 import { LangContext } from '../../modules/context'
 

@@ -4,7 +4,7 @@ import Button from 'antd/lib/button';
 
 import './index.scss';
 
-import { chatbot_setting } from '../../../../data/config/urls'
+import { chatbot_setting } from '../../../../data/config/brandSetup'
 
 const DIRECTION = {
   LEFT: "left",

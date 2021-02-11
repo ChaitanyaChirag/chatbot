@@ -8,7 +8,7 @@ import ClearIcon from 'react-icons/lib/md/clear-all';
 
 import './index.scss';
 
-import { chatbot_setting, translator } from '../../../../data/config/urls';
+import { chatbot_setting, translator } from '../../../../data/config/brandSetup';
 import { INFO_CONTENT_TYPE } from '../../../../data/config/constants'
 
 import { LangContext } from "../../../context"

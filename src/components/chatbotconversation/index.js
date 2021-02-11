@@ -29,7 +29,7 @@ import {
   MESSAGE_SUBTYPES,
   MESSAGE_READ_STATUS
 } from '../../data/config/constants';
-import { chatbot_setting, chatbot_default_messages } from '../../data/config/urls';
+import { chatbot_setting, chatbot_default_messages } from '../../data/config/brandSetup';
 import { formatTime, formatDate } from '../../data/config/utils';
 import { logo } from '../../data/assets';
 

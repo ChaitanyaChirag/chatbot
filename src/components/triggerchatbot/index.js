@@ -6,7 +6,7 @@ import ConversationIcon from 'react-icons/lib/fa/comments';
 
 import './index.scss';
 
-import { chatbot_client_info, chatbot_setting } from '../../data/config/urls';
+import { chatbot_client_info, chatbot_setting } from '../../data/config/brandSetup';
 import { trigger } from '../../data/assets';
 
 const LottieContainer = React.lazy(() => import('./lottiecontainer'));

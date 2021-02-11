@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from 'antd/lib/button';
 
-import { translator } from '../../../../data/config/urls';
+import { translator } from '../../../../data/config/brandSetup';
 
 import { LangContext } from '../../../context'
 
