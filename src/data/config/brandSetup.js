@@ -1,7 +1,9 @@
 import { isAndroid } from './utils';
 import { CHATBOT_TYPE, LANGUAGES } from './constants';
+import { background } from '../assets'
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
+
 
 export const chatbot_client_info = {
   sentry_dsn: "https://fa80a3e669cc4ee78bcb94c405adecba@sentry.io/1512125",
@@ -19,7 +21,11 @@ export const chatbot_client_info = {
 };
 
 export const chatbot_setting = {
-  chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
+  chatbot_type: CHATBOT_TYPE.DEFAULT,
+  security: {
+    enable: false,
+    code: "123456",
+  }, // default, fullScreen, adster
   auto_close_feedback_form: 5 * 1000,
   auto_close_chatbot_on_refresh: {
     web_enable: false,
@@ -27,10 +33,18 @@ export const chatbot_setting = {
   },//in milliseconds only
   automate_connection_time: 3600, //in seceond only
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
-  security: {
-    enable: false,
-    code: "123456",
+  auto_open_chatbot: {
+    enable: true,
+    query_param_key: 'chatbotopen'
   },
+  auto_emit_message: {
+    enable: true,
+    query_param_key: 'oribotmessage',
+    send_brand_data: false,
+    update_last_emit: true,
+  },
+  speech_recognition: true,
+  minimize_bot: false,
   gradient: {
     sender_bubble: false,
     trigger: false,
@@ -42,6 +56,21 @@ export const chatbot_setting = {
   notification_bot: {
     visibility: true, // to enable notification popup (set value false in android and ios )
     stack_view: false, // to show to stack view of notification bot
+  },
+  menu: {
+    visible: true,
+    children: {
+      privacy_policy: true,
+      terms_and_conditions: true,
+      feedback: true,
+      clear_chat: true,
+    }
+  },
+  add_file: {
+    web_enable: true,
+    android_enable: true,
+    ios_enable: false,
+    max_file_size_allowed: 500000,
   },
   chat_interface: {
     show_bg_image: true, // to enable chatinterface background
@@ -78,34 +107,10 @@ export const chatbot_setting = {
       },
       in_animation: 'ori-fade-in',
       out_animation: 'ori-fade-out'
+    },
+    chatbot_container_bg_style: {
+      backgroundImage: `url(${background})`
     }
-  },
-  auto_open_chatbot: {
-    enable: true,
-    query_param_key: 'chatbotopen'
-  }, 
-  auto_emit_message: {
-    enable: true,
-    query_param_key: 'oribotmessage',
-    send_brand_data: false,
-    update_last_emit: true,
-  },
-  speech_recognition: true,
-  minimize_bot: false,
-  menu: {
-    visible: true,
-    children: {
-      privacy_policy: true,
-      terms_and_conditions: true,
-      feedback: true,
-      clear_chat: true,
-    }
-  },
-  add_file: {
-    web_enable: true,
-    android_enable: true,
-    ios_enable: false,
-    max_file_size_allowed: 500000,
   }
 };
 

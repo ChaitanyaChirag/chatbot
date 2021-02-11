@@ -15,7 +15,6 @@ import {
   checkMultipleExtension
 } from '../../data/config/utils';
 import { EVENTS, DEFAULT_END_CHAT_STATE, CHATBOT_TYPE } from '../../data/config/constants';
-import { background } from '../../data/assets'
 
 import './index.scss';
 
@@ -305,9 +304,7 @@ class ChatBot extends Component {
       <div
         id="chatbotContentContainer"
         className="ori-relative ori-flex-column oriChatBotContainer"
-        style={{
-          backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
-        }}
+        style={chatbot_setting.chat_interface.show_bg_image ? chatbot_setting.chat_interface.chatbot_container_bg_style : {}}
       >
         {
           chat_details.loading &&
