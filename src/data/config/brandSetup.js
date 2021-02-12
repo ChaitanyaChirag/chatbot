@@ -34,17 +34,17 @@ export const chatbot_setting = {
   automate_connection_time: 3600, //in seceond only
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
   auto_open_chatbot: {
-    enable: true,
+    enable: false,
     query_param_key: 'chatbotopen'
   },
   auto_emit_message: {
-    enable: true,
+    enable: false,
     query_param_key: 'oribotmessage',
     send_brand_data: false,
-    update_last_emit: true,
+    update_last_emit: false,
   },
   speech_recognition: true,
-  minimize_bot: false,
+  minimize_bot: true,
   gradient: {
     sender_bubble: false,
     trigger: false,
@@ -69,7 +69,7 @@ export const chatbot_setting = {
   add_file: {
     web_enable: true,
     android_enable: true,
-    ios_enable: false,
+    ios_enable: true,
     max_file_size_allowed: 500000,
   },
   chat_interface: {
