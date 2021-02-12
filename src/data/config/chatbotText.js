@@ -2,7 +2,7 @@ import { INFO_CONTENT_TYPE } from './constants';
 
 //======= WARNING: All keys are REQUIRED for chatbot text in any language ========
 //----- means keys should be common in all language text.
-//----- copy englishText for any new language text and update the value in that language.
+//----- copy englishText for any new language text and update the value only.
 
 export const english = {
   brandName: "Vodafone",
