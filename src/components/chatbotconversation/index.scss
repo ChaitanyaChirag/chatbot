@@ -19,6 +19,11 @@
         margin-top: 15px;
     }
 
+    .timestampTag {
+      background-color: $timestamp-tag-bg-color;
+      color: $timestamp-tag-font-color;
+    }
+
     .stackViewBubble {
         border-bottom-right-radius: 0 !important;
     }

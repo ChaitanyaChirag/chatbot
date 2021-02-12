@@ -193,7 +193,7 @@ class ChatBotConversation extends React.PureComponent {
                     {
                       show_timestamp_tag &&
                       <div className="ori-flex-row ori-flex-jc ori-pad-5">
-                        <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-bg-header ori-box-shadow">{this.displayTimeStamp(message.timestamp)}</div>
+                        <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-box-shadow timestampTag">{this.displayTimeStamp(message.timestamp)}</div>
                       </div>
                     }
                     <div className={classNames("ori-relative ori-flex-row msgContainer",
