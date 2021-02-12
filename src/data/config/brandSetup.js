@@ -76,10 +76,10 @@ export const chatbot_setting = {
     show_bg_image: true, // to enable chatinterface background
     show_avatar: true,
     show_feedback_avatar: true,
-    show_feedback_emoji: true,
+    show_feedback_emoji: false,
     bubble_shadow: true,
     bubble_border: false,
-    avatar_shape: "square", // circle || square
+    avatar_shape: "circle", // circle || square
     quick_reply_bg_transparent: true,
     scroll_upto_first_response_only: true,
     carousel_msg_display_type: 'default', // default, fixed, actual
@@ -115,7 +115,7 @@ export const chatbot_setting = {
 };
 
 export const chatbot_default_messages = {
-  enable: true,
+  enable: false,
   query_param_key: "msg",
   delay: 1000, // in ms
   messages: {
@@ -143,7 +143,7 @@ export const chatbot_default_messages = {
 }
 
 export const translator = {
-  enable: true,
+  enable: false,
   query_param_key: 'lang',
   text: {
     [LANGUAGES.ENGLISH]: chatbotText.english,
