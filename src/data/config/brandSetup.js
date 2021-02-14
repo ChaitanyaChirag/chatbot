@@ -26,6 +26,7 @@ export const chatbot_setting = {
     enable: false,
     code: "123456",
   }, // default, fullScreen, adster
+  message_voting: true,
   auto_close_feedback_form: 5 * 1000,
   auto_close_chatbot_on_refresh: {
     web_enable: false,

@@ -300,7 +300,7 @@ class ChatBotConversation extends React.PureComponent {
                           <div className="ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb bubbleFooter">
                             <div className="ori-flex-row">
                               {
-                                message.chatlogId && (chatbot || admin) &&
+                                chatbot_setting.message_voting && message.chatlogId && (chatbot || admin) &&
                                 <React.Fragment>
                                   <div className={classNames("ori-flex ori-cursor-ptr ori-r-pad-5", { "ori-font-primary": message.voteType && message.voteType === "upvote" })} onClick={this.onClickMessageVoting.bind(this, message, "upvote")} >
                                     <ThumbUpIcon size={12} />
