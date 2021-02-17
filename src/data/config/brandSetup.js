@@ -177,7 +177,7 @@ export const brand_features = {
   },
   doBrandLogicOnEndChat() {
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
-      window.top.close()
+      
     }
   }
 }
