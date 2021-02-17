@@ -38,6 +38,7 @@ export const chatbot_setting = {
     enable: false,
     query_param_key: 'chatbotopen'
   },
+  send_brand_data_on_user_first_msg: false,
   auto_emit_message: {
     enable: false,
     query_param_key: 'oribotmessage',

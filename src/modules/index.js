@@ -57,6 +57,7 @@ class AppContainer extends Component {
     window.androidObj = function AndroidClass() { };
     this.timeout = false;
     this.chatbotRef = React.createRef();
+    this.userFirstEmit = false;
     this.state = {
       lang: LANGUAGES.ENGLISH,
       render_chatbot: props.chat_details.is_chat_open,
@@ -135,9 +136,9 @@ class AppContainer extends Component {
       } else {
         actions.handleChatbotInterface(false);
       }
-      
+
       let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
-      if(last_emit){
+      if (last_emit) {
         let current_time = new Date().getTime();
         let time_gap = (current_time - last_emit) / 1000;
         if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
@@ -294,7 +295,8 @@ class AppContainer extends Component {
       sendVariableToLS: chat_details.sendVariableToLS,
       skipLS: chat_details.skipLS
     };
-    if (chat_details.messages.length <= defaultMessageLength) {
+    if (!this.userFirstEmit && (chat_details.messages.length <= defaultMessageLength || chatbot_setting.send_brand_data_on_user_first_msg)) {
+      this.userFirstEmit = true
       data.brandData = brand_features.getBrandData()
     }
     if ((android || ios) && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
