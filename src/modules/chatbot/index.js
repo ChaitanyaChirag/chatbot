@@ -235,6 +235,12 @@ class ChatBot extends Component {
     }
   };
 
+  closeEndChatPopup = () => {
+    this.onClickCloseIcon();
+    this.closeWebView('endChatSubmit', {})
+    brand_features.doBrandLogicOnEndChat()
+  }
+
   beforeFileUpload = file => {
     console.log('file', file);
     if (file && file.name && checkMultipleExtension(file.name) && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
@@ -382,7 +388,7 @@ class ChatBot extends Component {
             delayUnmountTime={400}
             is_socket_connected={chat_details.is_socket_connected}
             end_chat={chat_details.end_chat}
-            closeEndChatPopup={this.onClickCloseIcon}
+            closeEndChatPopup={this.closeEndChatPopup}
             confirmEndConversation={this.confirmEndConversation}
             handleFormItemChange={this.handleFormItemChange}
             submitFormData={this.submitEndFormFormData}
