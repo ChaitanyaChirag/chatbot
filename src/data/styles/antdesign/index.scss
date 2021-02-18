@@ -19,4 +19,28 @@
     * also check antd folder in node_modules. if required component is dependent on other component then add other component css 
     * eq: i have used table in chatbot-message-types so i have used table component css. but table component is using pagination component and tooltip component so i have also added css for both pagination and tooltip even i am not using pagination any where seperately. 
     */
+
+    // ---------------------------- START -----------------------------
+    /*
+      below class is added to fix double icons in showMessage function. (when we are using antd@3.13.1 and message is using getContainer config. we are getting double icon in message popup)
+
+      message.config({
+        duration: 2,
+        maxCount: 1,
+        top: 75,
+        getContainer: () => node
+      });
+      message[type](msg);
+
+      To fix this issue we need to either update antd or override css. 
+      now i am overriding css because if i will update antd, i need to update message-types antd peer dependency. also i need to test pagination in Checkbox type message (checkbox was not working properly for lower version of antd)  
+
+      TODO: remove the below css whenever you will update the antd version
+    */
+
+    .anticon-info-circle:before, .anticon-check-circle:before, .anticon-exclamation-circle:before, .anticon-close-circle:before {
+      content: "" !important;
+    }
+
+    // ---------------------------- END -----------------------------
 }
