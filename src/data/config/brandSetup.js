@@ -1,5 +1,5 @@
 import { isAndroid } from './utils';
-import { CHATBOT_TYPE, LANGUAGES } from './constants';
+import { TYPES, CHATBOT_TYPE, LANGUAGES } from './constants';
 import { background } from '../assets'
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
@@ -28,6 +28,7 @@ export const chatbot_setting = {
   }, // default, fullScreen, adster
   message_voting: true,
   auto_close_feedback_form: 2 * 1000 * 60, //in milisecond only
+  feedback_form_rating_type: TYPES.DEFAULT, // default or star
   auto_close_chatbot_on_refresh: {
     web_enable: false,
     mobile_enable: false
@@ -84,7 +85,7 @@ export const chatbot_setting = {
     avatar_shape: "circle", // circle || square
     quick_reply_bg_transparent: true,
     scroll_upto_first_response_only: true,
-    carousel_msg_display_type: 'default', // default, fixed, actual
+    carousel_msg_display_type: TYPES.DEFAULT, // default, fixed, actual
     header_tag: true, //to hide and show tag type header for small screen
     type_writer: {
       enable: false,

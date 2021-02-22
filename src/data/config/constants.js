@@ -8,14 +8,21 @@ export const CHATBOT_TYPE = {
   ADSTER: 'adster'
 }
 
+export const TYPES = {
+  DEFAULT: "default",
+  STAR: "star",
+  FIXED: "fixed",
+  ACTUAL:"actual"
+}
+
 export const DEFAULT_END_CHAT_STATE = {
   visible: false,
   show_confirmation_card: false,
   show_resolved_card: false,
   show_form_card: false,
   form: [],
-  formTitle: '',
-  formSubTitle: ''
+  formTitle: "",
+  formSubTitle: ""
 }
 
 export const INFO_CONTENT_TYPE = {
