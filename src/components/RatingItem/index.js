@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import StarIcon from 'react-icons/lib/fa/star';
 
 import { chatbot_setting } from '../../data/config/brandSetup'
+import { TYPES } from '../../data/config/constants'
 import { emojiHappy, emojiSad, emojiSmile } from '../../data/assets'
 
 const RatingItem = ({
@@ -19,7 +20,7 @@ const RatingItem = ({
   onChange,
   includeZero
 }) => {
-  const [selectedValue, setSelectedValue] = useState(null)
+  const [selectedValue, setSelectedValue] = useState(undefined)
   const [showEmoji, setShowEmoji] = useState(false)
 
   let timer = useRef(null)
@@ -47,60 +48,92 @@ const RatingItem = ({
   }
 
   return (
-    <div className='ori-tb-pad-5'>
+    <div className='ori-tb-pad-10'>
       {
         title &&
-        <p className='ori-b-mrgn-5 ori-capitalize-first'>{title}</p>
+        <p className='ori-b-mrgn-10 ori-capitalize-first'>{title}</p>
       }
       {
         chatbot_setting.chat_interface.show_feedback_emoji && showEmoji &&
         <img
           src={imageSrc}
           alt=""
-          style={{height: '50px', width: '50px'}}
+          style={{ height: '50px', width: '50px' }}
           className="ori-animated ori-infinite ori-pulse ori-b-mrgn-5"
         />
       }
-      <div className='ori-bg-white ori-border-light ori-border-radius-3 ori-flex ori-overflow-hidden' >
+      <div className={
+        classNames('ori-bg-white ori-border-radius-3 ori-flex ori-overflow-hidden',
+          {
+            "ori-border-light": chatbot_setting.feedback_form_rating_type === TYPES.DEFAULT
+          }
+        )}
+      >
         {[...Array(size)].map((_, index) => {
           const ratingValue = !includeZero ? index + 1 : index
-          return (
-            <div
-              key={index}
-              style={{
-                width: `${eachWidth}%`,
-                lineHeight: '28px'
-              }}
-              className={classNames('ori-cursor-ptr ori-text-center ori-overflow-hidden',
-                {
-                  'ori-font-white': selectedValue === ratingValue,
-                  'ori-bg-danger': selectedValue === ratingValue && ratingValue <= lowCount,
-                  'ori-bg-yellow': selectedValue === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
-                  'ori-bg-green': selectedValue === ratingValue && ratingValue > (lowCount + midCount),
-                }
-              )}
-              onClick={() => handleRatingClick(ratingValue)}
-            >
-              {ratingValue}
-            </div>
-          )
+          if (chatbot_setting.feedback_form_rating_type === TYPES.STAR) {
+            return (
+              <div
+                key={index}
+                style={{ width: `${eachWidth}%` }}
+                className={classNames('ori-cursor-ptr ori-text-center ori-font-light ori-overflow-hidden',
+                  {
+                    'ori-font-danger': selectedValue >= ratingValue && selectedValue <= lowCount,
+                    'ori-font-warning': selectedValue >= ratingValue && selectedValue > lowCount && selectedValue <= (lowCount + midCount),
+                    'ori-font-green': selectedValue >= ratingValue && selectedValue > (lowCount + midCount),
+                  }
+                )}
+                onClick={() => handleRatingClick(ratingValue)}
+              >
+                <StarIcon size={26} />
+              </div>
+            )
+          } else
+            return (
+              <div
+                key={index}
+                style={{
+                  width: `${eachWidth}%`,
+                  lineHeight: '28px'
+                }}
+                className={classNames('ori-cursor-ptr ori-text-center ori-overflow-hidden',
+                  {
+                    'ori-font-white': selectedValue === ratingValue,
+                    'ori-bg-danger': selectedValue === ratingValue && ratingValue <= lowCount,
+                    'ori-bg-yellow': selectedValue === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
+                    'ori-bg-green': selectedValue === ratingValue && ratingValue > (lowCount + midCount),
+                  }
+                )}
+                onClick={() => handleRatingClick(ratingValue)}
+              >
+                {ratingValue}
+              </div>
+            )
         })}
       </div>
       <div className='ori-flex ori-t-mrgn-5 ori-font-xs ori-overflow-hidden'>
         <div style={{ width: `${includeZero ? (lowCount + 1) * eachWidth : lowCount * eachWidth}%` }}>
-          <div className='ori-bg-danger' style={{ height: '5px' }} />
+          {
+            chatbot_setting.show_feedback_rating_linebar &&
+            <div className='ori-bg-danger' style={{ height: '5px' }} />
+          }
           <p className='ori-font-light'>{lowText}</p>
         </div>
         <div style={{ width: `${midCount * eachWidth}%` }}>
-          <div className='ori-bg-yellow' style={{ height: '5px' }} />
+          {
+            chatbot_setting.show_feedback_rating_linebar &&
+            <div className='ori-bg-yellow' style={{ height: '5px' }} />
+          }
           <p className='ori-font-light'>{midText}</p>
         </div>
         <div style={{ width: `${highCount * eachWidth}%` }}>
-          <div className='ori-bg-green' style={{ height: '5px' }} />
+          {
+            chatbot_setting.show_feedback_rating_linebar &&
+            <div className='ori-bg-green' style={{ height: '5px' }} />
+          }
           <p className='ori-font-light'>{highText}</p>
         </div>
       </div>
-
     </div>
   )
 }
