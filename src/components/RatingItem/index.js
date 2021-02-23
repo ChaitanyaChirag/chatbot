@@ -18,7 +18,8 @@ const RatingItem = ({
   midText,
   highText,
   onChange,
-  includeZero
+  includeZero,
+  eachItemText
 }) => {
   const [selectedValue, setSelectedValue] = useState(undefined)
   const [showEmoji, setShowEmoji] = useState(false)
@@ -76,7 +77,7 @@ const RatingItem = ({
               <div
                 key={index}
                 style={{ width: `${eachWidth}%` }}
-                className={classNames('ori-cursor-ptr ori-text-center ori-font-light ori-overflow-hidden',
+                className={classNames('ori-cursor-ptr ori-text-center ori-font-light ori-overflow-hidden ori-flex-column ori-flex-center',
                   {
                     'ori-font-danger': selectedValue >= ratingValue && selectedValue <= lowCount,
                     'ori-font-warning': selectedValue >= ratingValue && selectedValue > lowCount && selectedValue <= (lowCount + midCount),
@@ -86,6 +87,10 @@ const RatingItem = ({
                 onClick={() => handleRatingClick(ratingValue)}
               >
                 <StarIcon size={26} />
+                {
+                  eachItemText.length > 0 && eachItemText.length === totalCount &&
+                  <p className="ori-font-light">{eachItemText[index]}</p>
+                }
               </div>
             )
           } else
@@ -111,29 +116,32 @@ const RatingItem = ({
             )
         })}
       </div>
-      <div className='ori-flex ori-t-mrgn-5 ori-font-xs ori-overflow-hidden'>
-        <div style={{ width: `${includeZero ? (lowCount + 1) * eachWidth : lowCount * eachWidth}%` }}>
-          {
-            chatbot_setting.show_feedback_rating_linebar &&
-            <div className='ori-bg-danger' style={{ height: '5px' }} />
-          }
-          <p className='ori-font-light'>{lowText}</p>
+      {
+        (eachItemText.length === 0 || eachItemText.length !== totalCount) &&
+        <div className='ori-flex ori-t-mrgn-5 ori-font-xs ori-overflow-hidden'>
+          <div style={{ width: `${includeZero ? (lowCount + 1) * eachWidth : lowCount * eachWidth}%` }}>
+            {
+              chatbot_setting.show_feedback_rating_linebar &&
+              <div className='ori-bg-danger' style={{ height: '5px' }} />
+            }
+            <p className='ori-font-light'>{lowText}</p>
+          </div>
+          <div style={{ width: `${midCount * eachWidth}%` }}>
+            {
+              chatbot_setting.show_feedback_rating_linebar &&
+              <div className='ori-bg-yellow' style={{ height: '5px' }} />
+            }
+            <p className='ori-font-light'>{midText}</p>
+          </div>
+          <div style={{ width: `${highCount * eachWidth}%` }}>
+            {
+              chatbot_setting.show_feedback_rating_linebar &&
+              <div className='ori-bg-green' style={{ height: '5px' }} />
+            }
+            <p className='ori-font-light'>{highText}</p>
+          </div>
         </div>
-        <div style={{ width: `${midCount * eachWidth}%` }}>
-          {
-            chatbot_setting.show_feedback_rating_linebar &&
-            <div className='ori-bg-yellow' style={{ height: '5px' }} />
-          }
-          <p className='ori-font-light'>{midText}</p>
-        </div>
-        <div style={{ width: `${highCount * eachWidth}%` }}>
-          {
-            chatbot_setting.show_feedback_rating_linebar &&
-            <div className='ori-bg-green' style={{ height: '5px' }} />
-          }
-          <p className='ori-font-light'>{highText}</p>
-        </div>
-      </div>
+      }
     </div>
   )
 }
@@ -150,17 +158,19 @@ RatingItem.propTypes = {
   title: PropTypes.string,
   name: PropTypes.string,
   includeZero: PropTypes.bool,
+  eachItemText: PropTypes.array
 }
 
 RatingItem.defaultProps = {
-  totalCount: 10,
-  lowCount: 6,
-  midCount: 2,
-  highCount: 2,
-  lowText: 'Not at all satisfied',
-  midText: 'Satisfied',
-  highText: 'Extremely satisfied',
-  includeZero: false,
+  totalCount: 10, // total count indicates total size of feedback input box
+  lowCount: 6, // means first 6 boxes will refer lowCount
+  midCount: 2, // second 2 boxes will indicates midCount
+  highCount: 2, //last 2 boxes will indicates highCount
+  lowText: 'Not at all satisfied', // text for lowCount
+  midText: 'Satisfied', // text for midCount
+  highText: 'Extremely satisfied', // text for highCount
+  includeZero: false, // either start with zero or one
+  eachItemText: [] // if it has value, each text will display below each box 
 }
 
 export default RatingItem
