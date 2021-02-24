@@ -229,10 +229,10 @@ const EndChat = ({
                 {
                   chatbot_setting.chat_interface.image_type_brand_name ?
                     <img
-                      style={{ 
+                      style={{
                         height: '40px',
                         margin: '0 auto',
-                        display: 'block' 
+                        display: 'block'
                       }}
                       src={translator.assets[lang].brandName}
                       alt={translator.text[lang].brandName}
