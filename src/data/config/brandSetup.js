@@ -24,13 +24,11 @@ export const translator = {
   query_param_key: 'lang',
   text: {
     [LANGUAGES.ENGLISH]: chatbotText.english,
-    [LANGUAGES.ARABIC]: chatbotText.arabic,
-    [LANGUAGES.HINDI]: chatbotText.hindi
+    [LANGUAGES.ARABIC]: chatbotText.arabic
   },
   assets: {
     [LANGUAGES.ENGLISH]: assets.english,
-    [LANGUAGES.ARABIC]: assets.arabic,
-    [LANGUAGES.HINDI]: assets.hindi
+    [LANGUAGES.ARABIC]: assets.arabic
   },
   getLanguage() {
     let lang = LANGUAGES.ENGLISH

@@ -129,6 +129,5 @@ export const MESSAGE_SENDER = {
 
 export const LANGUAGES = {
   ENGLISH: 'en',
-  ARABIC: 'arabic',
-  HINDI: 'hindi'
+  ARABIC: 'ar',
 };
