@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import Avatar from 'antd/lib/avatar'
 
 import { translator, chatbot_setting } from '../../../../data/config/brandSetup'
-import { logo } from '../../../../data/assets';
 
 import { LangContext } from '../../../context'
 
@@ -22,7 +21,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
         >
           <div className="ori-flex-row">
             <Avatar 
-              src={logo} 
+              src={translator.assets[lang].logo} 
               size="large" 
               shape={chatbot_setting.chat_interface.avatar_shape}
               />

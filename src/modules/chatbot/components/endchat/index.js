@@ -7,7 +7,6 @@ import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 
 import { chatbot_setting, translator } from '../../../../data/config/brandSetup';
-import { background, logo } from '../../../../data/assets'
 
 import { LangContext } from '../../../context';
 
@@ -210,13 +209,22 @@ const EndChat = ({
               }
             )}
             style={{
-              backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${background})` : 'none'
+              backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${translator.assets[lang].background})` : 'none'
             }}
           >
-            <div className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white" style={{ height: '220px' }}>
+            <div
+              className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white"
+              style={{ height: '220px' }}
+            >
               <div>
                 <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
-                  <Avatar style={{ height: '55px', width: '55px' }} src={logo} />
+                  <Avatar
+                    style={{
+                      height: '55px',
+                      width: '55px'
+                    }}
+                    src={translator.assets[lang].logo}
+                  />
                 </div>
                 <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
                 {

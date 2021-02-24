@@ -1,9 +1,8 @@
 import { isAndroid } from './utils';
 import { TYPES, CHATBOT_TYPE, LANGUAGES } from './constants';
-import { background } from '../assets'
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
-
+import * as assets from '../assets'
 
 export const chatbot_client_info = {
   sentry_dsn: "https://fa80a3e669cc4ee78bcb94c405adecba@sentry.io/1512125",
@@ -19,6 +18,35 @@ export const chatbot_client_info = {
     show_close_icon: true,
   }
 };
+
+export const translator = {
+  enable: false,
+  query_param_key: 'lang',
+  text: {
+    [LANGUAGES.ENGLISH]: chatbotText.english,
+    [LANGUAGES.ARABIC]: chatbotText.arabic,
+    [LANGUAGES.HINDI]: chatbotText.hindi
+  },
+  assets: {
+    [LANGUAGES.ENGLISH]: assets.english,
+    [LANGUAGES.ARABIC]: assets.arabic,
+    [LANGUAGES.HINDI]: assets.hindi
+  },
+  getLanguage() {
+    let lang = LANGUAGES.ENGLISH
+    if (this.enable) {
+      //=========== BRAND SPECIFIC LOGIC ==========
+      const query_params = new URLSearchParams(window.location.search);
+      if (query_params.has(this.query_param_key)) {
+        const key = query_params.get(this.query_param_key)
+        if (this.text[key])
+          lang = key
+      }
+      //=================== END ===================
+    }
+    return lang
+  }
+}
 
 export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT,
@@ -113,7 +141,7 @@ export const chatbot_setting = {
       out_animation: 'ori-fade-out'
     },
     chatbot_container_bg_style: {
-      backgroundImage: `url(${background})`
+      backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
     }
   }
 };
@@ -146,30 +174,6 @@ export const chatbot_default_messages = {
   }
 }
 
-export const translator = {
-  enable: false,
-  query_param_key: 'lang',
-  text: {
-    [LANGUAGES.ENGLISH]: chatbotText.english,
-    [LANGUAGES.ARABIC]: chatbotText.arabic,
-    [LANGUAGES.HINDI]: chatbotText.hindi
-  },
-  getLanguage() {
-    let lang = LANGUAGES.ENGLISH
-    if (this.enable) {
-      //=========== BRAND SPECIFIC LOGIC ==========
-      const query_params = new URLSearchParams(window.location.search);
-      if (query_params.has(this.query_param_key)) {
-        const key = query_params.get(this.query_param_key)
-        if (this.text[key])
-          lang = key
-      }
-      //=================== END ===================
-    }
-    return lang
-  }
-}
-
 export const brand_features = {
   getBrandData() {
     const data = {}
@@ -180,7 +184,7 @@ export const brand_features = {
   },
   doBrandLogicOnEndChat() {
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
-      
+
     }
   }
 }

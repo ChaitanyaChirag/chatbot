@@ -42,7 +42,7 @@ import {
   brand_features
 } from '../data/config/brandSetup';
 import { network_check_url } from '../data/config/urls'
-import { outerBackground } from '../data/assets'
+// import { outerBackground } from '../data/assets'
 
 import TriggerChatBot from '../components/triggerchatbot';
 
@@ -529,8 +529,7 @@ class AppContainer extends Component {
           <div
             className="ori-app-container ori-ant-design-container oriFullScreenBot oriAppContainer"
             style={{
-              backgroundImage: `url(${outerBackground})`,
-
+              backgroundImage: `url(${translator.assets[this.state.lang].outerBackground})`,
             }}
           >
             <Suspense fallback={null}>

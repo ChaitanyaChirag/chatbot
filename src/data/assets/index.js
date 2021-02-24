@@ -1,21 +1,35 @@
-const background = require('./background.png')
-const logo = require('./logo.png')
-const trigger = require('./trigger.png')
-const poweredby = require('./poweredby.png')
-const lottiejson = require('./lottie.json')
-const emojiSad = require('./emojiSad.png')
-const emojiSmile = require('./emojiSmile.png')
-const emojiHappy = require('./emojiHappy.png')
-const outerBackground = require('./outerBackground.jpg')
+export const english = {
+  background: require('./background.png'),
+  logo: require('./logo.png'),
+  trigger: require('./trigger.png'),
+  poweredby: require('./poweredby.png'),
+  lottiejson: require('./lottie.json'),
+  lowRating: require('./lowRating.png'),
+  midRating: require('./midRating.png'),
+  highRating: require('./highRating.png'),
+  outerBackground: require('./outerBackground.jpg')
+}
 
-module.exports = {
-  background,
-  logo,
-  trigger,
-  poweredby,
-  lottiejson,
-  emojiSad,
-  emojiSmile,
-  emojiHappy,
-  outerBackground
+export const arabic = {
+  background: require('./background.png'),
+  logo: require('./logo.png'),
+  trigger: require('./trigger.png'),
+  poweredby: require('./poweredby.png'),
+  lottiejson: require('./lottie.json'),
+  lowRating: require('./lowRating.png'),
+  midRating: require('./midRating.png'),
+  highRating: require('./highRating.png'),
+  outerBackground: require('./outerBackground.jpg')
+}
+
+export const hindi = {
+  background: require('./background.png'),
+  logo: require('./logo.png'),
+  trigger: require('./trigger.png'),
+  poweredby: require('./poweredby.png'),
+  lottiejson: require('./lottie.json'),
+  lowRating: require('./lowRating.png'),
+  midRating: require('./midRating.png'),
+  highRating: require('./highRating.png'),
+  outerBackground: require('./outerBackground.jpg')
 }

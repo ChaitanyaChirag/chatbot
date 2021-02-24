@@ -7,7 +7,6 @@ import './index.scss';
 
 import { translator, chatbot_setting } from '../../../../data/config/brandSetup';
 import { uniqueId } from '../../../../data/config/utils';
-import { logo } from '../../../../data/assets';
 
 import { LangContext } from '../../../context';
 
@@ -84,7 +83,11 @@ class FeedbackComponent extends React.PureComponent {
                 {
                   chatbot_setting.chat_interface.show_feedback_avatar &&
                   <div className="ori-absolute avatarContainer">
-                    <img src={logo} alt="" className="ori-img-contain" />
+                    <img
+                      src={translator.assets[lang].logo}
+                      alt=""
+                      className="ori-img-contain"
+                    />
                   </div>
                 }
                 <div className="ori-absolute ori-pad-5 flex alignFeedbackClose" onClick={closeFeedback}>
