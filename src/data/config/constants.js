@@ -12,7 +12,10 @@ export const TYPES = {
   DEFAULT: "default",
   STAR: "star",
   FIXED: "fixed",
-  ACTUAL:"actual"
+  ACTUAL:"actual",
+  SKIP: "skip",
+  FORM_SUBMIT: "formSubmit",
+  END_CHAT: "endChat"
 }
 
 export const DEFAULT_END_CHAT_STATE = {

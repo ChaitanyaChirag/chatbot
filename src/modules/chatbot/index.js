@@ -14,7 +14,7 @@ import {
   showMessage,
   checkMultipleExtension
 } from '../../data/config/utils';
-import { EVENTS, DEFAULT_END_CHAT_STATE, CHATBOT_TYPE } from '../../data/config/constants';
+import { EVENTS, DEFAULT_END_CHAT_STATE, CHATBOT_TYPE, TYPES } from '../../data/config/constants';
 
 import './index.scss';
 
@@ -183,7 +183,7 @@ class ChatBot extends Component {
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
       this.closeWebView('endChatSubmit', {})
-      brand_features.doBrandLogicOnEndChat()
+      brand_features.doBrandLogicOnEndChat(TYPES.END_CHAT)
     } else {
       actions.updateChatsState({ loading: true })
       actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload, (err, res) => {
@@ -206,7 +206,7 @@ class ChatBot extends Component {
             actions.handleChatbotInterface(false);
             this.onClickCloseIcon();
             this.closeWebView('endChatSubmit', {})
-            brand_features.doBrandLogicOnEndChat()
+            brand_features.doBrandLogicOnEndChat(TYPES.END_CHAT)
           }
         }
       });
@@ -228,7 +228,7 @@ class ChatBot extends Component {
         actions.updateChatsState({ loading: false })
         this.onClickCloseIcon();
         this.closeWebView('endChatSubmit', {})
-        brand_features.doBrandLogicOnEndChat()
+        brand_features.doBrandLogicOnEndChat(TYPES.FORM_SUBMIT)
       });
     } else {
       showMessage('error', 'All fields are required')
@@ -240,7 +240,7 @@ class ChatBot extends Component {
     this.onClickCloseIcon();
     this.closeWebView('endChatSubmit', {})
     actions.handleChatbotInterface(false);
-    brand_features.doBrandLogicOnEndChat()
+    brand_features.doBrandLogicOnEndChat(TYPES.SKIP)
   }
 
   beforeFileUpload = file => {
