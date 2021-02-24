@@ -226,7 +226,19 @@ const EndChat = ({
                     src={translator.assets[lang].logo}
                   />
                 </div>
-                <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
+                {
+                  chatbot_setting.chat_interface.image_type_brand_name ?
+                    <img
+                      style={{ 
+                        height: '40px',
+                        margin: '0 auto',
+                        display: 'block' 
+                      }}
+                      src={translator.assets[lang].brandName}
+                      alt={translator.text[lang].brandName}
+                    /> :
+                    <p className="ori-lr-mrgn-10 ori-font-lg ori-text-center">{translator.text[lang].brandName}</p>
+                }
                 {
                   end_chat.formTitle &&
                   <p className="ori-animated ori-fade-in ori-font-bold ori-font-md ori-text-center">{end_chat.formTitle}</p>

@@ -1,4 +1,5 @@
 export const english = {
+  brandName: require('./logo.png'),
   background: require('./background.png'),
   logo: require('./logo.png'),
   trigger: require('./trigger.png'),
@@ -11,6 +12,7 @@ export const english = {
 }
 
 export const arabic = {
+  brandName: require('./logo.png'),
   background: require('./background.png'),
   logo: require('./logo.png'),
   trigger: require('./trigger.png'),
@@ -23,6 +25,7 @@ export const arabic = {
 }
 
 export const hindi = {
+  brandName: require('./logo.png'),
   background: require('./background.png'),
   logo: require('./logo.png'),
   trigger: require('./trigger.png'),

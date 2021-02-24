@@ -20,14 +20,24 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
           }}
         >
           <div className="ori-flex-row">
-            <Avatar 
-              src={translator.assets[lang].logo} 
-              size="large" 
+            <Avatar
+              src={translator.assets[lang].logo}
+              size="large"
               shape={chatbot_setting.chat_interface.avatar_shape}
-              />
+            />
             <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: 1.3 }}>
-              <p className="ori-capitalize ori-font-md ori-font-bold ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
-              </p>
+              {
+                chatbot_setting.chat_interface.image_type_brand_name ?
+                  <div>
+                    <img
+                      src={translator.assets[lang].brandName}
+                      style={{ height: '30px' }}
+                      alt={translator.text[lang].brandName}
+                    />
+                  </div> :
+                  <p className="ori-capitalize ori-font-md ori-font-bold ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
+                  </p>
+              }
               <span className="ori-font-header-light ori-font-xs">
                 <span
                   className={classNames(
