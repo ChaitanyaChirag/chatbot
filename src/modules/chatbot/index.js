@@ -213,7 +213,7 @@ class ChatBot extends Component {
     }
   };
 
-  submitEndFormFormData = () => {
+  submitEndChatFormData = () => {
     const { end_chat_form_data } = this.state;
     const { actions, chat_details } = this.props;
     const index = chat_details.end_chat.form.findIndex(item => item.input_props && item.input_props.required && !end_chat_form_data.hasOwnProperty(item.input_props.name))
@@ -235,9 +235,11 @@ class ChatBot extends Component {
     }
   };
 
-  closeEndChatPopup = () => {
+  skipEndChatForm = () => {
+    const { actions } = this.props
     this.onClickCloseIcon();
     this.closeWebView('endChatSubmit', {})
+    actions.handleChatbotInterface(false);
     brand_features.doBrandLogicOnEndChat()
   }
 
@@ -388,10 +390,11 @@ class ChatBot extends Component {
             delayUnmountTime={400}
             is_socket_connected={chat_details.is_socket_connected}
             end_chat={chat_details.end_chat}
-            closeEndChatPopup={this.closeEndChatPopup}
+            cancelEndConversation={this.onClickCloseIcon}
             confirmEndConversation={this.confirmEndConversation}
             handleFormItemChange={this.handleFormItemChange}
-            submitFormData={this.submitEndFormFormData}
+            submitForm={this.submitEndChatFormData}
+            skipForm={this.skipEndChatForm}
           />
           <PreviewFile
             isMounted={show_file_preview}

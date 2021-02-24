@@ -24,10 +24,11 @@ const EndChat = ({
   isMounted,
   is_socket_connected,
   end_chat,
-  closeEndChatPopup,
-  handleFormItemChange,
+  cancelEndConversation,
   confirmEndConversation,
-  submitFormData
+  handleFormItemChange,
+  submitForm,
+  skipForm
 }) => {
   const timer = useRef(false)
 
@@ -35,14 +36,14 @@ const EndChat = ({
     if (end_chat.show_form_card) {
       timer.current = setTimeout(() => {
         showMessage('warning', 'Feedback Form Timeout')
-        closeEndChatPopup()
+        skipForm()
       }, chatbot_setting.auto_close_feedback_form)
     }
     return () => {
       if (timer.current)
         clearTimeout(timer.current)
     }
-  }, [closeEndChatPopup, end_chat.show_form_card])
+  }, [skipForm, end_chat.show_form_card])
 
 
   const handleFormInputChange = event => {
@@ -60,7 +61,7 @@ const EndChat = ({
         <InfoCard
           title={translator.text[lang].sessionCloseConfirmation}
           ok_text={translator.text[lang].confirm}
-          onClickCancel={closeEndChatPopup}
+          onClickCancel={cancelEndConversation}
           onClickOk={confirmEndConversation}
         />
       );
@@ -175,7 +176,7 @@ const EndChat = ({
             <Button
               className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary"
               size="small"
-              onClick={closeEndChatPopup}
+              onClick={skipForm}
             >
               {translator.text[lang].skip}
             </Button>
@@ -187,7 +188,7 @@ const EndChat = ({
               )}
               size="small"
               disabled={!is_socket_connected}
-              onClick={submitFormData}
+              onClick={submitForm}
             >
               {is_socket_connected ? translator.text[lang].submit : translator.text[lang].connecting}
             </Button>
@@ -289,10 +290,11 @@ EndChat.propTypes = {
   isMounted: PropTypes.bool,
   is_socket_connected: PropTypes.bool,
   end_chat: PropTypes.object,
-  closeEndChatPopup: PropTypes.func,
+  cancelEndConversation: PropTypes.func,
   confirmEndConversation: PropTypes.func,
   handleFormItemChange: PropTypes.func,
-  submitFormData: PropTypes.func,
+  submitForm: PropTypes.func,
+  skipForm: PropTypes.func
 };
 
 EndChat.defaultProps = {
