@@ -2,11 +2,11 @@ import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
-import ConversationIcon from 'react-icons/lib/fa/comments';
 
 import './index.scss';
 
-import { chatbot_client_info, chatbot_setting, translator } from '../../data/config/brandSetup';
+import { chatbot_setting, translator } from '../../data/config/brandSetup';
+import { TYPES } from '../../data/config/constants'
 import { LangContext } from '../../modules/context'
 
 const LottieContainer = React.lazy(() => import('./lottiecontainer'));
@@ -23,24 +23,40 @@ class TriggerChatBot extends React.PureComponent {
       <LangContext.Consumer>
         {
           lang => (
-            <div
-              className="ori-fixed ori-animated ori-zoom-in oriTriggerChatBotContainer"
-              onClick={this.handleChatInterfaceView}
-            >
-              <Suspense fallback={null}>
-                {
-                  !is_chat_open && chatbot_client_info.trigger.lottie_visibility &&
-                  <LottieContainer />
-                }
-              </Suspense>
+            <React.Fragment>
               {
-                chatbot_client_info.trigger.visibility && !is_chat_open &&
+                is_chat_open && chatbot_setting.show_trigger_close &&
                 <div
-                  className="ori-animated ori-pulse ori-infinite"
-                  style={{
-                    height: `${mobile ? chatbot_client_info.trigger.mobile_icon_height : chatbot_client_info.trigger.icon_height}px`,
-                    animationDuration: `${chatbot_client_info.trigger.animation_duration}ms`
-                  }}
+                  className={classNames("ori-fixed ori-zindex-99991 ori-cursor-ptr ori-flex-row ori-flex-center closeIconContainer",
+                    {
+                      "ori-bg-gradient": chatbot_setting.gradient.trigger,
+                      "ori-bg-primary": !chatbot_setting.gradient.trigger
+                    }
+                  )}
+                  style={chatbot_setting.trigger.close_style}
+                  onClick={this.handleChatInterfaceView}
+                >
+                  <CloseIcon size={28} />
+                </div>
+              }
+              {
+                !is_chat_open && chatbot_setting.trigger_type === TYPES.LOTTIE &&
+                <Suspense fallback={null}>
+                  <div
+                    className="ori-fixed ori-zindex-99991 ori-cursor-ptr"
+                    style={mobile ? chatbot_setting.trigger.lottie_style_sm : chatbot_setting.trigger.lottie_style_lg}
+                    onClick={this.handleChatInterfaceView}
+                  >
+                    <LottieContainer />
+                  </div>
+                </Suspense>
+              }
+              {
+                !is_chat_open && chatbot_setting.trigger_type === TYPES.DEFAULT &&
+                <div
+                  className="ori-fixed ori-zindex-99991 ori-cursor-ptr ori-animated ori-pulse ori-infinite"
+                  style={mobile ? chatbot_setting.trigger.image_style_sm : chatbot_setting.trigger.image_style_lg}
+                  onClick={this.handleChatInterfaceView}
                 >
                   <img
                     src={translator.assets[lang].trigger}
@@ -49,31 +65,7 @@ class TriggerChatBot extends React.PureComponent {
                   />
                 </div>
               }
-              {
-                !chatbot_client_info.trigger.visibility && !chatbot_client_info.trigger.lottie_visibility && !is_chat_open &&
-                <div className={classNames("ori-flex-row ori-flex-center triggerIconContainer",
-                  {
-                    "ori-bg-gradient": chatbot_setting.gradient.trigger,
-                    "ori-bg-primary": !chatbot_setting.gradient.trigger
-                  }
-                )}
-                >
-                  <ConversationIcon size={30} />
-                </div>
-              }
-              {
-                is_chat_open && chatbot_client_info.trigger.show_close_icon &&
-                <div className={classNames("ori-flex-row ori-flex-center triggerIconContainer",
-                  {
-                    "ori-bg-gradient": chatbot_setting.gradient.trigger,
-                    "ori-bg-primary": !chatbot_setting.gradient.trigger
-                  }
-                )}
-                >
-                  <CloseIcon size={28} />
-                </div>
-              }
-            </div>
+            </React.Fragment>
           )
         }
       </LangContext.Consumer>

@@ -35,13 +35,12 @@ import {
   showMessage
 } from '../data/config/utils';
 import {
-  chatbot_client_info,
   chatbot_setting,
   translator,
   chatbot_default_messages,
   brand_features
 } from '../data/config/brandSetup';
-import { network_check_url } from '../data/config/urls'
+import { networkCheckUrl, senderId } from '../data/config/urls'
 // import { outerBackground } from '../data/assets'
 
 import TriggerChatBot from '../components/triggerchatbot';
@@ -194,7 +193,7 @@ class AppContainer extends Component {
     if (navigator.onLine) {
       if (!chat_details.internet_connection_checking) {
         actions.updateChatsState({ internet_connection_checking: true })
-        fetchWithTimeout(network_check_url, {
+        fetchWithTimeout(networkCheckUrl, {
           mode: 'no-cors',
         }).then(() => {
           actions.updateChatsState({
@@ -287,7 +286,7 @@ class AppContainer extends Component {
     const ios = isIOS();
     const data = {
       ...response,
-      sender_id: chatbot_client_info.sender_id,
+      sender_id: senderId,
       navigator_userAgent: navigator.userAgent,
       navigator_platform: navigator.platform,
       variable_name: chat_details.variable_name,
@@ -312,7 +311,7 @@ class AppContainer extends Component {
     const { actions } = this.props;
     const user_message = {
       type,
-      sender_id: chatbot_client_info.sender_id,
+      sender_id: senderId,
       timestamp: new Date(),
       sender: MESSAGE_SENDER.CUSTOMER,
       readStatus: MESSAGE_READ_STATUS.SENDING,

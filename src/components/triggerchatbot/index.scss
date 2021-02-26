@@ -1,20 +1,11 @@
-@import "../../data/styles/colors.scss";
-@import "../../data/styles/mixins.scss";
+@import '../../data/styles/colors.scss';
+@import '../../data/styles/mixins.scss';
 
-.oriTriggerChatBotContainer {
-    right: 20px;
-    bottom: 20px;
-    z-index: 99991;
-    cursor: pointer;
+.closeIconContainer {
+    color: $white;
+    box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.24);
 
-    .triggerIconContainer {
-        @include create-circle(70px, 70px);
-
-        color: $white;
-        box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.24);
-
-        &:hover {
-            background-color: $primary-light;
-        }
+    &:hover {
+        background-color: $primary-light;
     }
 }

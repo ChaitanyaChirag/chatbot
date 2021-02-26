@@ -4,21 +4,6 @@ import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
 import * as assets from '../assets'
 
-export const chatbot_client_info = {
-  sentry_dsn: "https://fa80a3e669cc4ee78bcb94c405adecba@sentry.io/1512125",
-  sender_id: "dish_chat_client",
-  trigger: {
-    visibility: false, //to enable custom trigger
-    icon_height: 70, //in number only
-    mobile_icon_height: 70, //in number only
-    animation_duration: 2000, // in milliseceond only
-    lottie_visibility: true, // to enable lottie icon
-    lottie_icon_height: 70,
-    lottie_icon_width: 70,
-    show_close_icon: true,
-  }
-};
-
 export const translator = {
   enable: false,
   query_param_key: 'lang',
@@ -48,6 +33,8 @@ export const translator = {
 
 export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT,
+  trigger_type: TYPES.DEFAULT,
+  show_trigger_close: true,
   security: {
     enable: false,
     code: "123456",
@@ -82,10 +69,6 @@ export const chatbot_setting = {
   powered_by: {
     visibility: true, // to enable powered by tag
     target_url: "http://oriserve.com/"
-  },
-  notification_bot: {
-    visibility: true, // to enable notification popup (set value false in android and ios )
-    stack_view: false, // to show to stack view of notification bot
   },
   menu: {
     visible: true,
@@ -141,6 +124,45 @@ export const chatbot_setting = {
     },
     chatbot_container_bg_style: {
       backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
+    }
+  },
+  notification_bot: {
+    visibility: true, // to enable notification popup (set value false in android and ios )
+    stack_view: false, // to show to stack view of notification bot
+    bottom_height_lg: 110,
+    bottom_height_sm: 100
+  },
+  trigger: {
+    lottie: {
+      height: 70,
+      width: 70
+    },
+    lottie_style_lg: {
+      right: '20px',
+      bottom: '20px'
+    },
+    lottie_style_sm: {
+      right: '20px',
+      bottom: '20px'
+    },
+    image_style_lg: {
+      right: '20px',
+      bottom: '20px',
+      animationDuration: '2000ms',
+      height: '70px'
+    },
+    image_style_sm: {
+      right: '20px',
+      bottom: '20px',
+      animationDuration: '2000ms',
+      height: '60px'
+    },
+    close_style: {
+      right: '20px',
+      bottom: '20px',
+      height: '70px',
+      width: '70px',
+      borderRadius: '50%'
     }
   }
 };

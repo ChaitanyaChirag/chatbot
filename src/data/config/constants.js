@@ -15,7 +15,9 @@ export const TYPES = {
   ACTUAL:"actual",
   SKIP: "skip",
   FORM_SUBMIT: "formSubmit",
-  END_CHAT: "endChat"
+  END_CHAT: "endChat",
+  LOTTIE: "lottie",
+  IMAGE: "image"
 }
 
 export const DEFAULT_END_CHAT_STATE = {

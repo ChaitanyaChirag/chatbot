@@ -1,25 +1,22 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 
-import { chatbot_client_info } from '../../../data/config/brandSetup';
-import lottiejson  from '../../../data/assets/lottie.json'
+import { chatbot_setting } from '../../../data/config/brandSetup';
+import lottiejson from '../../../data/assets/lottie.json'
 
-const LottieContainer = React.memo(() => {
-  return (
-    <Lottie
-      options={{
-        loop: true,
-        autoplay: true,
-        animationData: lottiejson,
-        rendererSettings: {
-          preserveAspectRatio: 'xMidYMid slice'
-        }
-      }}
-      height={chatbot_client_info.trigger.lottie_icon_height}
-      width={chatbot_client_info.trigger.lottie_icon_width}
-    />
-  )
-})
-
+const LottieContainer = React.memo(() => (
+  <Lottie
+    options={{
+      loop: true,
+      autoplay: true,
+      animationData: lottiejson,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+      }
+    }}
+    height={chatbot_setting.trigger.lottie.height}
+    width={chatbot_setting.trigger.lottie.width}
+  />
+))
 
 export default LottieContainer;

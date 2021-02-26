@@ -7,10 +7,9 @@ import {
   ALLOWED_MESSAGE_TYPES,
   MESSAGE_TYPES
 } from '../../config/constants';
-import { socket_url } from '../../config/urls';
+import { socketUrl, senderId } from '../../config/urls';
 import {
   chatbot_setting,
-  chatbot_client_info,
   chatbot_default_messages,
   brand_features
 } from '../../config/brandSetup';
@@ -38,7 +37,7 @@ const registerSocketListener = (store, socket) => {
             type: MESSAGE_TYPES.TEXT,
             session_id: socket.io.engine.id,
             current_session_id: socket.io.engine.id,
-            sender_id: chatbot_client_info.sender_id,
+            sender_id: senderId,
             navigator_userAgent: navigator.userAgent,
             navigator_platform: navigator.platform,
             variable_name: chat_details.variable_name,
@@ -240,12 +239,12 @@ const middleware = () => {
             .then(response => response.json())
             .then(data => {
               const auth_socket_data = getAuthSocketData(data.ip)
-              socket = io(socket_url, auth_socket_data);
+              socket = io(socketUrl, auth_socket_data);
               registerSocketListener(store, socket);
             })
             .catch(() => {
               const auth_socket_data = getAuthSocketData()
-              socket = io(socket_url, auth_socket_data);
+              socket = io(socketUrl, auth_socket_data);
               registerSocketListener(store, socket);
             })
         }

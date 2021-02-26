@@ -5,7 +5,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
 
-import { chatbot_client_info } from '../../data/config/brandSetup';
+import { chatbot_setting } from '../../data/config/brandSetup';
 import { LOCAL_STORAGE } from '../../data/config/utils';
 
 import NotificationBotHeader from './components/notificationbotheader';
@@ -47,8 +47,23 @@ class NotificationBot extends React.PureComponent {
     const { show_header } = this.state;
     const mobile = page_details.device_data.screen_width && page_details.device_data.screen_width < 481;
     return (
-      <div className="ori-fixed  oriNotificationBotContainer" style={{ bottom: mobile ? `${chatbot_client_info.trigger.mobile_icon_height + 20 + 20}px` : `${chatbot_client_info.trigger.icon_height + 20 + 10}px` }}>
-        <div className={classNames("ori-relative ori-flex-column  oriNotificationBotContentContainer", { "ori-no-tb-pad": stack_view })} style={{ maxHeight: mobile ? `calc(100vh - ${chatbot_client_info.trigger.mobile_icon_height + 20 + 20 + 20}px)` : `calc(100vh - ${chatbot_client_info.trigger.icon_height + 20 + 20 + 20}px)` }} onMouseOver={this.showHeader} onMouseOut={this.hideHeader}>
+      <div
+        className="ori-fixed oriNotificationBotContainer"
+        style={{
+          bottom: mobile ? `${chatbot_setting.notification_bot.bottom_height_sm}px` : `${chatbot_setting.notification_bot.bottom_height_lg}px`
+        }}
+      >
+        <div
+          className={classNames("ori-relative ori-flex-column oriNotificationBotContentContainer",
+            {
+              "ori-no-tb-pad": stack_view
+            })}
+          style={{
+            maxHeight: mobile ? `calc(100vh - ${chatbot_setting.notification_bot.bottom_height_sm + 20}px)` : `calc(100vh - ${chatbot_setting.notification_bot.bottom_height_lg + 20}px)`
+          }}
+          onMouseOver={this.showHeader}
+          onMouseOut={this.hideHeader}
+        >
           {
             !stack_view &&
             <div className={classNames("ori-absolute notificationBotHeader", { "ori-display-none": !show_header })}>
