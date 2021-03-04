@@ -258,7 +258,12 @@ class ChatBotConversation extends React.PureComponent {
                               }
                               {
                                 show_textWithMedia &&
-                                <TextWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                                <TextWithMedia
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  btn_hidden={stack_view}
+                                  btn_disabled={btn_disabled || (message.payload.disableBtnAfterReply && (index !== (messages.length - 1)))}
+                                />
                               }
                               {
                                 show_checkboxWithMedia &&
