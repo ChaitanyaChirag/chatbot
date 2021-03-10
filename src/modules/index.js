@@ -60,6 +60,7 @@ class AppContainer extends Component {
     this.state = {
       lang: LANGUAGES.ENGLISH,
       render_chatbot: props.chat_details.is_chat_open,
+      bot_popup_payload: null,
       selected_offer: {
         offer_id: null,
         offer_name: null
@@ -154,11 +155,16 @@ class AppContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const { actions } = this.props;
+    const { bot_popup_payload } = this.state
     const { is_socket_connected, is_internet_connected, is_chat_open } = this.props.chat_details;
     if (prevProps.chat_details.is_chat_open && !is_chat_open) {
       setTimeout(() => this.setState({ render_chatbot: false }), 400);
     } else if (!prevProps.chat_details.is_chat_open && is_chat_open) {
       this.setState({ render_chatbot: true })
+    }
+    if (!prevProps.chat_details.is_socket_connected && is_socket_connected && bot_popup_payload) {
+      actions.handleBotPopupRequest(bot_popup_payload)
+      this.setState({ bot_popup_payload: null })
     }
     if (!prevProps.chat_details.is_internet_connected && is_internet_connected && !is_socket_connected)
       actions.callSocketMethod('open')
@@ -221,7 +227,12 @@ class AppContainer extends Component {
       params: params,
       psid: chat_details.psid
     };
-    actions.handleBotPopupRequest(payload);
+    if (chat_details.is_socket_connected)
+      actions.handleBotPopupRequest(payload)
+    else {
+      this.setState({ bot_popup_payload: payload })
+      actions.makeSocketConnection()
+    }
   };
 
   handleSocketConnection = bool => {
