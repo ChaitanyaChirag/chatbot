@@ -308,7 +308,7 @@ class ChatBotConversation extends React.PureComponent {
                                 <div className="ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb bubbleFooter">
                                   <div className="ori-flex-row">
                                     {
-                                      chatbot_setting.message_voting && message.chatlogId && (chatbot || admin) &&
+                                     !notification_bot && chatbot_setting.message_voting && message.chatlogId && (chatbot || admin) &&
                                       <React.Fragment>
                                         <div className={classNames("ori-flex ori-cursor-ptr ori-r-pad-5", { "ori-font-primary": message.voteType && message.voteType === "upvote" })} onClick={this.onClickMessageVoting.bind(this, message, "upvote")} >
                                           <ThumbUpIcon size={12} />
@@ -327,7 +327,7 @@ class ChatBotConversation extends React.PureComponent {
                                         <span className="ori-font-xxs ori-flex-column ori-flex-jfe ori-uppercase">{formatTime(message.timestamp, { hour: "2-digit", minute: "2-digit" })}</span>
                                       }
                                       {
-                                        customer && message.readStatus && !stack_view &&
+                                        customer && message.readStatus && !notification_bot &&
                                         this.renderReadStatusIcon(message.readStatus)
                                       }
                                     </div>
