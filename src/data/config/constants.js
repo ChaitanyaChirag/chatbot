@@ -97,7 +97,7 @@ export const MESSAGE_SUBTYPES = {
   DISH_RECHARGE: "dishRecharge",
   DISH_RECHARGE_DETAILS: "dishRechargeDetails",
   DISH_OFFERS: "dishOffers",
-  DISH_RECHARGE_HISTORY: "dishRechargeHistory",
+  DISH_RECHARGE_HISTORY: "dishRechargeHistory"
 };
 
 export const MESSAGE_READ_STATUS = {

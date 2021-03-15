@@ -27,6 +27,14 @@ export const PLATFORM = {
   WEBSITE: "website",
 };
 
+export const isEmptyObject = obj => {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop))
+      return false
+  }
+  return true
+}
+
 export const getPlatform = () => {
   let platform = PLATFORM.WEBSITE;
   if (window.ori_platform && window.ori_platform !== undefined) {
@@ -131,12 +139,13 @@ export const LOCAL_STORAGE = {
   MESSAGES: getPsid,
   UNSEEN_MESSAGES: "unseen_messages",
   NOTIFICATION_COUNT: "notification_count",
-  LAST_EMIT: "last_emit",
+  LAST_EMIT: "lastemit",
   PSID: "psid",
   IS_CHAT_OPEN: "is_chat_open",
   ANDROID: "android",
-  APP_PARAMS: "app_params",
-  END_CHAT: "end_chat"
+  APP_PARAMS: "appparams",
+  END_CHAT: "end_chat",
+  DISABLE_MESSAGE_AFTER_USER_REPLY: "msgdsblaftrusr"
 };
 
 export const getDataFromLocalStorage = (key, undefined_return_value) => {

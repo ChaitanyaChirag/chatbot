@@ -78,6 +78,8 @@ class NotificationBot extends React.PureComponent {
           }
           <ChatBotConversation
             psid={chat_details.psid}
+            btn_disabled={!chat_details.is_socket_connected}
+            disable_msg_after_reply={chat_details.disable_msg_after_reply}
             messages={chat_details.unseen_messages}
             onMessageVoting={actions.onMessageVoting}
             handleMsgBtnClick={handleMsgBtnClick}

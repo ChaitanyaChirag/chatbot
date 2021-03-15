@@ -124,7 +124,7 @@ class ChatBotConversation extends React.PureComponent {
   };
 
   render() {
-    const { messages, is_typing, typing_text, handleMsgBtnClick, onSubmitCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
+    const { messages, disable_msg_after_reply, is_typing, typing_text, handleMsgBtnClick, onSubmitCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
 
     return (
       <LangContext.Consumer>
@@ -262,7 +262,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   btn_hidden={stack_view}
-                                  btn_disabled={btn_disabled || (message.payload.disableBtnAfterReply && (index !== (messages.length - 1)))}
+                                  btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]}
                                 />
                               }
                               {
@@ -308,7 +308,7 @@ class ChatBotConversation extends React.PureComponent {
                                 <div className="ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb bubbleFooter">
                                   <div className="ori-flex-row">
                                     {
-                                     !notification_bot && chatbot_setting.message_voting && message.chatlogId && (chatbot || admin) &&
+                                      !notification_bot && chatbot_setting.message_voting && message.chatlogId && (chatbot || admin) &&
                                       <React.Fragment>
                                         <div className={classNames("ori-flex ori-cursor-ptr ori-r-pad-5", { "ori-font-primary": message.voteType && message.voteType === "upvote" })} onClick={this.onClickMessageVoting.bind(this, message, "upvote")} >
                                           <ThumbUpIcon size={12} />
@@ -369,6 +369,7 @@ class ChatBotConversation extends React.PureComponent {
 ChatBotConversation.propTypes = {
   psid: PropTypes.string,
   messages: PropTypes.array,
+  disable_msg_after_reply: PropTypes.array,
   onClickStackBubble: PropTypes.func,
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
@@ -383,6 +384,7 @@ ChatBotConversation.propTypes = {
 };
 
 ChatBotConversation.defaultProps = {
+  disable_msg_after_reply: [],
   notification_bot: false,
   typing_text: "",
   is_typing: false,

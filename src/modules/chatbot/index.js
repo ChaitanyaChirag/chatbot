@@ -91,7 +91,11 @@ class ChatBot extends Component {
     if (is_socket_connected) {
       const payload = { psid };
       actions.resetChat(payload, () => {
-        actions.updateChatsState({ messages: [] })
+        actions.updateChatsState({ 
+          messages: [], 
+          disable_msg_after_reply: {} 
+        })
+        localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
         localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
         localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
       });
@@ -177,7 +181,11 @@ class ChatBot extends Component {
       psid: chat_details.psid,
     };
     if (!chat_details.is_socket_connected) {
-      actions.updateChatsState({ messages: [] })
+      actions.updateChatsState({ 
+        messages: [], 
+        disable_msg_after_reply: {} 
+      })
+      localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
       localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
       localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
       actions.handleChatbotInterface(false);
@@ -434,6 +442,7 @@ class ChatBot extends Component {
         <ChatBotConversation
           psid={chat_details.psid}
           btn_disabled={!chat_details.is_socket_connected}
+          disable_msg_after_reply={chat_details.disable_msg_after_reply}
           messages={chat_details.messages}
           onMessageVoting={actions.onMessageVoting}
           handleMsgBtnClick={handleMsgBtnClick}

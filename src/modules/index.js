@@ -146,7 +146,11 @@ class AppContainer extends Component {
         else
           actions.handleChatbotInterface(false);
         if (time_gap > chatbot_setting.automate_reset_chat_time) {
-          actions.updateChatsState({ messages: [] })
+          actions.updateChatsState({ 
+            messages: [], 
+            disable_msg_after_reply: {} 
+          })
+          localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
           localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
         }
       }

@@ -2,7 +2,7 @@ import findLastIndex from 'lodash/findLastIndex';
 
 import actionTypes from '../actiontypes';
 import states from './states';
-import { LOCAL_STORAGE, setDataInLocalStorage } from '../../config/utils';
+import { LOCAL_STORAGE, setDataInLocalStorage, isEmptyObject } from '../../config/utils';
 import { MESSAGE_READ_STATUS, MESSAGE_SENDER } from '../../config/constants';
 
 const chat_details = (state = states.chat_details, action) => {
@@ -42,24 +42,30 @@ const chat_details = (state = states.chat_details, action) => {
       setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), [...state.messages, action.payload.message]);
       let unseen_messages = [...state.unseen_messages];
       let notification_count = state.notification_count;
+      let disable_msg_after_reply = { ...state.disable_msg_after_reply };
       if (!state.is_chat_open) {
         unseen_messages = [...state.unseen_messages, action.payload.message];
         notification_count = 0;
         setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, unseen_messages);
         setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, notification_count);
       }
+      if (!isEmptyObject(state.disable_msg_after_reply)) {
+        Object.keys(disable_msg_after_reply).forEach(key => {
+          disable_msg_after_reply[key] = true
+        })
+        setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY, disable_msg_after_reply)
+      }
 
       return {
         ...state,
         unseen_messages,
         notification_count,
+        disable_msg_after_reply,
         messages: [...state.messages, action.payload.message],
         skipLS: false,
         send_variable_to_apiai: false,
         sendVariableToLS: false,
         variable_name: '',
-        // quick_replies: [],
-        // is_input_lock: false,
       };
     }
 
@@ -67,6 +73,11 @@ const chat_details = (state = states.chat_details, action) => {
       setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), [...state.messages, action.payload.message]);
       let notification_count = state.notification_count;
       let unseen_messages = [...state.unseen_messages];
+      let disable_msg_after_reply = { ...state.disable_msg_after_reply };
+      if (action.payload.message.disableAfterUserReply) {
+        disable_msg_after_reply[action.payload.message.chatlogId] = false
+        setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY, disable_msg_after_reply);
+      }
       if (!state.is_chat_open) {
         notification_count++;
         unseen_messages = [...state.unseen_messages, action.payload.message];
@@ -78,10 +89,8 @@ const chat_details = (state = states.chat_details, action) => {
         ...state,
         notification_count,
         unseen_messages,
+        disable_msg_after_reply,
         messages: [...state.messages, action.payload.message],
-        // quick_replies: action.payload.message.quickReplies ? action.payload.message.quickReplies : [],
-        // is_input_lock: action.payload.message.inputLock ? action.payload.message.inputLock : false,
-        // input_lock_text: action.payload.message.inputLockMessage ? action.payload.message.inputLockMessage : "please select any option to proceed",
         skipLS: action.payload.message.skipLS,
         sendVariableToLS: action.payload.message.sendVariableToLS,
         send_variable_to_apiai: action.payload.message.send_variable_to_apiai,
