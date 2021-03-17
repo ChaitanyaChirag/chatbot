@@ -437,6 +437,15 @@ class AppContainer extends Component {
                 eval("if(textToIos) textToIos(data)");
               }
             } else {
+              if(data.button.target=='new_window'){
+                let newHeight=window.innerHeight -(window.innerHeight)/2;
+                let newWidth=window.innerWidth -(window.innerWidth)/2;
+                let leftm = (window.innerWidth - newWidth) / 4;
+                let topm = (window.innerHeight - newHeight) / 4
+                window.open(data.button.url, 
+                         'newwindow', 
+                         `width=${newWidth},height=${newHeight},top=${topm},left=${leftm} `);
+              }
               window.open(data.button.url, '_blank');
             }
           }

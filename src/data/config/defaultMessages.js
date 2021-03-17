@@ -41,9 +41,10 @@ export const web = [
           url: ""
         },
         {
-          type: BUTTON_TYPES.DEFAULT,
-          text: "Postpaid",
-          url: ""
+          type: BUTTON_TYPES.LINK,
+          target:'new_window',
+          text: "LINK",
+          url: "https://oriserve.com/"
         },
         {
           type: BUTTON_TYPES.DEFAULT,
