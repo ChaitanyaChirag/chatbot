@@ -146,9 +146,9 @@ class AppContainer extends Component {
         else
           actions.handleChatbotInterface(false);
         if (time_gap > chatbot_setting.automate_reset_chat_time) {
-          actions.updateChatsState({ 
-            messages: [], 
-            disable_msg_after_reply: {} 
+          actions.updateChatsState({
+            messages: [],
+            disable_msg_after_reply: {}
           })
           localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
           localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
@@ -432,8 +432,10 @@ class AppContainer extends Component {
             } else if (isIOS()) {
               if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.textToIosForWebkit)
                 window.webkit.messageHandlers.textToIosForWebkit.postMessage({ data })
-              else
+              else {
+                // eslint-disable-next-line no-eval
                 eval("if(textToIos) textToIos(data)");
+              }
             } else {
               window.open(data.button.url, '_blank');
             }
