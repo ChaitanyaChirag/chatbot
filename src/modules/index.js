@@ -38,7 +38,7 @@ import {
   chatbot_setting,
   translator,
   chatbot_default_messages,
-  brand_features
+  brand_features,
 } from '../data/config/brandSetup';
 import { networkCheckUrl, senderId } from '../data/config/urls'
 // import { outerBackground } from '../data/assets'
@@ -438,15 +438,10 @@ class AppContainer extends Component {
               }
             } else {
               if(data.button.target=='new_window'){
-                let newHeight=window.innerHeight -(window.innerHeight)/2;
-                let newWidth=window.innerWidth -(window.innerWidth)/2;
-                let leftm = (window.innerWidth - newWidth) / 4;
-                let topm = (window.innerHeight - newHeight) / 4
-                window.open(data.button.url, 
-                         'newwindow', 
-                         `width=${newWidth},height=${newHeight},top=${topm},left=${leftm} `);
+                window.open(data.button.url, 'newwindow',`width=${chatbot_setting.new_window_positon_and_size.width},height=${chatbot_setting.new_window_positon_and_size.height},top=${chatbot_setting.new_window_positon_and_size.top},left=${chatbot_setting.new_window_positon_and_size.left} `);
+              }else{
+                window.open(data.button.url, '_blank');
               }
-              window.open(data.button.url, '_blank');
             }
           }
           break;
