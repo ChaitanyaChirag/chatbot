@@ -267,7 +267,7 @@ class ChatBotConversation extends React.PureComponent {
                               }
                               {
                                 show_checkboxWithMedia &&
-                                <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onSubmitCheckbox={onSubmitCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled} />
+                                <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onSubmitCheckbox={onSubmitCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]} />
                               }
                               {
                                 show_recharge &&
@@ -291,7 +291,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   btn_hidden={stack_view}
-                                  btn_disabled={btn_disabled}
+                                  btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]}
                                   display_type={chatbot_setting.chat_interface.carousel_msg_display_type}
                                 />
                               }
@@ -301,7 +301,7 @@ class ChatBotConversation extends React.PureComponent {
                               }
                               {
                                 show_uploadfile &&
-                                <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
+                                <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
                               }
                               {
                                 (message.timestamp || message.chatlogId) &&
@@ -369,7 +369,7 @@ class ChatBotConversation extends React.PureComponent {
 ChatBotConversation.propTypes = {
   psid: PropTypes.string,
   messages: PropTypes.array,
-  disable_msg_after_reply: PropTypes.array,
+  disable_msg_after_reply: PropTypes.object,
   onClickStackBubble: PropTypes.func,
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
@@ -384,7 +384,7 @@ ChatBotConversation.propTypes = {
 };
 
 ChatBotConversation.defaultProps = {
-  disable_msg_after_reply: [],
+  disable_msg_after_reply: {},
   notification_bot: false,
   typing_text: "",
   is_typing: false,
