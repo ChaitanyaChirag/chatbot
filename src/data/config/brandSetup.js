@@ -35,6 +35,12 @@ export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT,
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
+  new_window_positon_and_size:{
+    height: window.innerHeight/2,
+    width: window.innerWidth/2,
+    left: window.innerWidth/8,
+    top: window.innerHeight/8,
+  },
   security: {
     enable: false,
     code: "123456",
