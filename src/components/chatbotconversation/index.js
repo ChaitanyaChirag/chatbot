@@ -267,23 +267,51 @@ class ChatBotConversation extends React.PureComponent {
                               }
                               {
                                 show_checkboxWithMedia &&
-                                <CheckboxWithMedia message={message} handleMsgBtnClick={handleMsgBtnClick} onSubmitCheckbox={onSubmitCheckbox} checkbox_disabled={index !== (messages.length - 1)} btn_hidden={stack_view || index !== (messages.length - 1)} btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]} />
+                                <CheckboxWithMedia
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  onSubmitCheckbox={onSubmitCheckbox}
+                                  checkbox_disabled={index !== (messages.length - 1)}
+                                  btn_hidden={stack_view || index !== (messages.length - 1)}
+                                  btn_disabled={btn_disabled}
+                                />
                               }
                               {
                                 show_recharge &&
-                                <Recharge message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                                <Recharge
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  btn_hidden={stack_view}
+                                  btn_disabled={btn_disabled}
+                                />
                               }
                               {
                                 show_rechargeDetails &&
-                                <RechargeDetails message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                                <RechargeDetails
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  btn_hidden={stack_view}
+                                  btn_disabled={btn_disabled}
+                                />
                               }
                               {
                                 show_offers &&
-                                <Offers message={message} handleMsgBtnClick={handleMsgBtnClick} handleOfferSelection={this.props.handleOfferSelection} disable_offer={index !== (messages.length - 1) || stack_view} btn_disabled={btn_disabled} />
+                                <Offers
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  handleOfferSelection={this.props.handleOfferSelection}
+                                  disable_offer={index !== (messages.length - 1) || stack_view}
+                                  btn_disabled={btn_disabled}
+                                />
                               }
                               {
                                 show_rechargeHistory &&
-                                <RechargeHistory message={message} handleMsgBtnClick={handleMsgBtnClick} btn_hidden={stack_view} btn_disabled={btn_disabled} />
+                                <RechargeHistory
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  btn_hidden={stack_view}
+                                  btn_disabled={btn_disabled}
+                                />
                               }
                               {
                                 show_carousel &&
@@ -297,11 +325,22 @@ class ChatBotConversation extends React.PureComponent {
                               }
                               {
                                 show_promptmsg &&
-                                <PromptMsg message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={index !== (messages.length - 1) || btn_disabled} btn_hidden={stack_view} />
+                                <PromptMsg
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  btn_disabled={index !== (messages.length - 1) || btn_disabled}
+                                  btn_hidden={stack_view}
+                                />
                               }
                               {
                                 show_uploadfile &&
-                                <UploadFile message={message} handleMsgBtnClick={handleMsgBtnClick} btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]} handleFileUpload={handleFileUpload} disabled={index !== (messages.length - 1) || stack_view} />
+                                <UploadFile
+                                  message={message}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                  btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]}
+                                  handleFileUpload={handleFileUpload}
+                                  disabled={index !== (messages.length - 1) || stack_view}
+                                />
                               }
                               {
                                 (message.timestamp || message.chatlogId) &&
