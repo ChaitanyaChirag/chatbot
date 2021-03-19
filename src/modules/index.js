@@ -439,7 +439,7 @@ class AppContainer extends Component {
             } else {
               if (data.button.target === 'newwindow') {
                 console.log('open link in new window')
-                window.open(data.button.url, 'newwindow', `width=${chatbot_setting.new_window_positon_and_size.width},height=${chatbot_setting.new_window_positon_and_size.height},top=${chatbot_setting.new_window_positon_and_size.top},left=${chatbot_setting.new_window_positon_and_size.left} `);
+                window.open(data.button.url, 'newwindow', `width=${chatbot_setting.new_window_positon_and_size.width},height=${chatbot_setting.new_window_positon_and_size.height},top=${chatbot_setting.new_window_positon_and_size.top},left=${chatbot_setting.new_window_positon_and_size.left} resizable=yes, location=yes, scrollbars=yes`);
               } else {
                 window.open(data.button.url, '_blank');
               }
