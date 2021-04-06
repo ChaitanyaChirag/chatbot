@@ -15,6 +15,7 @@ import * as chatActions from '../data/redux/chat_details/actions';
 import * as pageActions from '../data/redux/page_details/actions';
 
 import {
+  LOCAL_STORAGE,
   LANGUAGES,
   MESSAGE_TYPES,
   BUTTON_TYPES,
@@ -22,23 +23,26 @@ import {
   MESSAGE_SENDER,
   MESSAGE_READ_STATUS,
   EVENTS,
-  CHATBOT_TYPE
+  CHATBOT_TYPE,
+  PLATFORM
 } from '../data/config/constants';
 import {
-  LOCAL_STORAGE,
-  PLATFORM,
   checkDevice,
   isAndroid,
   isIOS,
   uniqueId,
   fetchWithTimeout,
-  showMessage
+  showMessage,
+  clearAllDataFromLocalStorage,
+  getDataFromLocalStorage,
+  setDataInLocalStorage
 } from '../data/config/utils';
 import {
   chatbot_setting,
   translator,
   chatbot_default_messages,
   brand_features,
+  chatbot_psids
 } from '../data/config/brandSetup';
 import { networkCheckUrl, senderId } from '../data/config/urls'
 // import { outerBackground } from '../data/assets'
@@ -108,12 +112,13 @@ class AppContainer extends Component {
         } else if (update_type === 'psid') {
           data = JSON.parse(data);
           if (data.psid) {
-            localStorage.setItem(LOCAL_STORAGE.PSID, data.psid);
+            clearAllDataFromLocalStorage(chat_details.psid)
             actions.updateChatsState({ psid: data.psid });
+            chatbot_psids.setPsid(data.psid)
           }
-          if (data.params) {
-            localStorage.setItem(LOCAL_STORAGE.APP_PARAMS, JSON.stringify(data.params));
-          }
+          if (data.params)
+            setDataInLocalStorage(LOCAL_STORAGE.APP_PARAMS + chat_details.psid, data.params)
+
           if (!chat_details.is_socket_connected) {
             actions.updateChatsState({ messages: [] })
             actions.makeSocketConnection();
@@ -137,7 +142,7 @@ class AppContainer extends Component {
         actions.handleChatbotInterface(false);
       }
 
-      let last_emit = localStorage.getItem(LOCAL_STORAGE.LAST_EMIT) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE.LAST_EMIT)) : null;
+      let last_emit = getDataFromLocalStorage(LOCAL_STORAGE.LAST_EMIT + chat_details.psid, null)
       if (last_emit) {
         let current_time = new Date().getTime();
         let time_gap = (current_time - last_emit) / 1000;
@@ -150,8 +155,8 @@ class AppContainer extends Component {
             messages: [],
             disable_msg_after_reply: {}
           })
-          localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
-          localStorage.setItem(LOCAL_STORAGE.MESSAGES, JSON.stringify([]));
+          localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + chat_details.psid)
+          localStorage.removeItem(LOCAL_STORAGE.MESSAGES + chat_details.psid);
         }
       }
     }
@@ -313,13 +318,16 @@ class AppContainer extends Component {
       this.userFirstEmit = true
       data.brandData = brand_features.getBrandData()
     }
-    if ((android || ios) && localStorage.getItem(LOCAL_STORAGE.APP_PARAMS)) {
-      data.lockedParams = JSON.parse(localStorage.getItem(LOCAL_STORAGE.APP_PARAMS));
-      localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS);
+
+    if (android || ios) {
+      const lockedParams = getDataFromLocalStorage(LOCAL_STORAGE.APP_PARAMS + chat_details.psid, null)
+      if (lockedParams) {
+        data.lockedParams = lockedParams
+        localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS + chat_details.psid);
+      }
     }
     actions.emitNewMessageToServer(data);
-    let emit_time = new Date().getTime();
-    localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, JSON.stringify(emit_time));
+    setDataInLocalStorage(LOCAL_STORAGE.LAST_EMIT + chat_details.psid, new Date().getTime())
   };
 
   pushSenderNewMsgToChatbot = (type, data) => {

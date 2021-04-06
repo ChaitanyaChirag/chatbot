@@ -6,7 +6,6 @@ import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_default_messages, brand_features } from '../../data/config/brandSetup';
 import {
-  LOCAL_STORAGE,
   isAndroid,
   isIOS,
   fileToBase64,
@@ -14,7 +13,13 @@ import {
   showMessage,
   checkMultipleExtension
 } from '../../data/config/utils';
-import { EVENTS, DEFAULT_END_CHAT_STATE, CHATBOT_TYPE, TYPES } from '../../data/config/constants';
+import {
+  EVENTS,
+  DEFAULT_END_CHAT_STATE,
+  CHATBOT_TYPE,
+  TYPES,
+  LOCAL_STORAGE
+} from '../../data/config/constants';
 
 import './index.scss';
 
@@ -91,13 +96,13 @@ class ChatBot extends Component {
     if (is_socket_connected) {
       const payload = { psid };
       actions.resetChat(payload, () => {
-        actions.updateChatsState({ 
-          messages: [], 
-          disable_msg_after_reply: {} 
+        actions.updateChatsState({
+          messages: [],
+          disable_msg_after_reply: {}
         })
-        localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
-        localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
-        localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
+        localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + psid)
+        localStorage.removeItem(LOCAL_STORAGE.MESSAGES + psid);
+        localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + psid);
       });
       this.closeClearChatPopConfirm()
     }
@@ -181,13 +186,13 @@ class ChatBot extends Component {
       psid: chat_details.psid,
     };
     if (!chat_details.is_socket_connected) {
-      actions.updateChatsState({ 
-        messages: [], 
-        disable_msg_after_reply: {} 
+      actions.updateChatsState({
+        messages: [],
+        disable_msg_after_reply: {}
       })
       localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
-      localStorage.setItem(LOCAL_STORAGE.MESSAGES(), JSON.stringify([]));
-      localStorage.setItem(LOCAL_STORAGE.LAST_EMIT, null);
+      localStorage.removeItem(LOCAL_STORAGE.MESSAGES());
+      localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT);
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
       this.closeWebView('endChatSubmit', {})

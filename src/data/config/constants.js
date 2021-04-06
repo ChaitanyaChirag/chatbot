@@ -35,6 +35,24 @@ export const INFO_CONTENT_TYPE = {
   TERMS_AND_CONDITIONS: "terms_and_conditions"
 };
 
+export const LOCAL_STORAGE = {
+  PSID_MAP: 'psids',
+  MESSAGES: 'msgs_',
+  UNSEEN_MESSAGES: "unSeen_",
+  NOTIFICATION_COUNT: "nCount_",
+  LAST_EMIT: "lEmit_",
+  IS_CHAT_OPEN: "isOpen_",
+  APP_PARAMS: "appParams_",
+  END_CHAT: "endChat_",
+  DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_"
+}
+
+export const PLATFORM = {
+  ANDROID: "android",
+  IOS: "ios",
+  WEBSITE: "website"
+}
+
 export const EVENTS = {
   CONNECT: "connect",
   DISCONNECT: "disconnect",

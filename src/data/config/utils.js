@@ -1,14 +1,13 @@
-import message from 'antd/lib/message';
+import message from 'antd/lib/message'
 
-import { brandName, botName, role, version } from './urls'
+import { LOCAL_STORAGE, PLATFORM } from './constants'
 
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
 
 export const guid = () => {
-  return s4() + s4() +
-    s4() + s4();
+  return s4() + s4() + s4() + s4();
 };
 
 export const uniqueId = () => {
@@ -20,12 +19,6 @@ export const log = (...arg) => {
   if (process.env.NODE_ENV === 'development')
     console.log(...arg)
 }
-
-export const PLATFORM = {
-  ANDROID: "android",
-  IOS: "ios",
-  WEBSITE: "website",
-};
 
 export const isEmptyObject = obj => {
   for (var prop in obj) {
@@ -43,33 +36,6 @@ export const getPlatform = () => {
   return platform;
 };
 
-export const getPsid = () => {
-  let psid = null;
-  if (localStorage.getItem('psid')) {
-    psid = localStorage.getItem('psid');
-  } else {
-    psid = uniqueId();
-    localStorage.setItem('psid', psid);
-  }
-  return psid;
-};
-
-export const getAuthSocketData = publicIP => {
-  const auth_socket_data = {
-    query: {
-      role,
-      brandName,
-      botName,
-      ver: version,
-      psid: getPsid(),
-      channelName: getPlatform(),
-      sessionInitiatedUrl: window.location.href,
-      publicIP
-    },
-    // timeout: 10000
-  };
-  return auth_socket_data;
-}
 
 export const showMessage = (type, msg) => {
   const node = document.getElementById('chatbotContentContainer');
@@ -123,8 +89,6 @@ export const getCookie = name => {
   return v ? v[2] : null
 };
 
-
-
 export const isAndroid = () => {
   let platform = getPlatform();
   return (platform === PLATFORM.ANDROID);
@@ -133,19 +97,6 @@ export const isAndroid = () => {
 export const isIOS = () => {
   let platform = getPlatform();
   return (platform === PLATFORM.IOS);
-};
-
-export const LOCAL_STORAGE = {
-  MESSAGES: getPsid,
-  UNSEEN_MESSAGES: "unseen_messages",
-  NOTIFICATION_COUNT: "notification_count",
-  LAST_EMIT: "lastemit",
-  PSID: "psid",
-  IS_CHAT_OPEN: "is_chat_open",
-  ANDROID: "android",
-  APP_PARAMS: "appparams",
-  END_CHAT: "end_chat",
-  DISABLE_MESSAGE_AFTER_USER_REPLY: "msgdsblaftrusr"
 };
 
 export const getDataFromLocalStorage = (key, undefined_return_value) => {
@@ -157,8 +108,7 @@ export const setDataInLocalStorage = (key, data) => {
   try {
     const json_data = JSON.stringify(data);
     localStorage.setItem(key, json_data);
-  }
-  catch (e) {
+  } catch (e) {
     if (e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' ||
       e.name === 'NS_ERROR_DOM_QUOTA_REACHED')) {
       localStorage.removeItem(key);
@@ -166,6 +116,21 @@ export const setDataInLocalStorage = (key, data) => {
     }
   }
 };
+
+export const clearAllDataFromLocalStorage = psid => {
+  if (psid) {
+    localStorage.removeItem(LOCAL_STORAGE.MESSAGES + psid)
+    localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + psid)
+    localStorage.removeItem(LOCAL_STORAGE.END_CHAT + psid)
+    localStorage.removeItem(LOCAL_STORAGE.IS_CHAT_OPEN + psid)
+    localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + psid)
+    localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + psid)
+    localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS + psid)
+    const psidMap = getDataFromLocalStorage('psidMap', {})
+    delete psidMap[psid]
+    setDataInLocalStorage('psidMap', psidMap)
+  }
+}
 
 export const formatDate = (value, options) => {
   let date = new Date(value);

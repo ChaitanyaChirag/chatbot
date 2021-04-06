@@ -1,5 +1,5 @@
-import { isAndroid } from './utils';
-import { TYPES, CHATBOT_TYPE, LANGUAGES } from './constants';
+import { isAndroid, uniqueId, getDataFromLocalStorage, setDataInLocalStorage } from './utils';
+import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE } from './constants';
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
 import * as assets from '../assets'
@@ -35,12 +35,6 @@ export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT,
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
-  new_window_positon_and_size:{
-    height: window.innerHeight/2,
-    width: window.innerWidth/2,
-    left: window.innerWidth/8,
-    top: window.innerHeight/8,
-  },
   security: {
     enable: false,
     code: "123456",
@@ -90,6 +84,12 @@ export const chatbot_setting = {
     android_enable: true,
     ios_enable: true,
     max_file_size_allowed: 500000,
+  },
+  new_window_positon_and_size: {
+    height: window.innerHeight / 2,
+    width: window.innerWidth / 2,
+    left: window.innerWidth / 8,
+    top: window.innerHeight / 8,
   },
   chat_interface: {
     show_bg_image: true, // to enable chatinterface background
@@ -198,6 +198,45 @@ export const chatbot_default_messages = {
       //=================== END ===================
     }
     return defaultMsgs
+  }
+}
+
+export const chatbot_psids = {
+  secondary_key_enable: true,
+  secondary_key: "testid",
+  brandLogicToGetSecondaryValue() {
+    let secondary_value = "default"
+    if (this.secondary_key_enable) {
+      //=========== BRAND SPECIFIC LOGIC TO FINDOUT SECONDARY KEY VALUE==========
+      const query_params = new URLSearchParams(window.location.search)
+      if (query_params.has(this.secondary_key)) {
+        secondary_value = query_params.get(this.secondary_key)
+      }
+      //=================== END ===================
+    }
+    return secondary_value
+  },
+  getPsid() {
+    const psidMap = getDataFromLocalStorage(LOCAL_STORAGE.PSID_MAP, {})
+    const key = this.brandLogicToGetSecondaryValue()
+    if (psidMap[key])
+      return psidMap[key]
+    psidMap[key] = uniqueId()
+    setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
+    return psidMap[key]
+  },
+  setPsid(psid) {
+    const psidMap = getDataFromLocalStorage(LOCAL_STORAGE.PSID_MAP, {})
+    const key = this.brandLogicToGetSecondaryValue()
+    psidMap[key] = psid
+    setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
+  }
+}
+
+export const chatbot_localstorage = {
+  expiry_time: 24 * 2,
+  checkExpiry() {
+    
   }
 }
 

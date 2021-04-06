@@ -6,7 +6,7 @@ import CloseIcon from 'react-icons/lib/md/close';
 import './index.scss';
 
 import { chatbot_setting } from '../../data/config/brandSetup';
-import { LOCAL_STORAGE } from '../../data/config/utils';
+import { LOCAL_STORAGE } from '../../data/config/constants';
 
 import NotificationBotHeader from './components/notificationbotheader';
 import ChatBotConversation from '../../components/chatbotconversation';
@@ -30,14 +30,14 @@ class NotificationBot extends React.PureComponent {
   };
 
   handleNotificationBotClose = () => {
-    const { actions } = this.props;
-    localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
+    const { actions, chat_details } = this.props;
+    localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
     actions.updateChatsState({ unseen_messages: [] });
   };
 
   handleViewMore = () => {
-    const { actions } = this.props;
-    localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
+    const { actions, chat_details } = this.props;
+    localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
     actions.updateChatsState({ unseen_messages: [] });
     actions.handleChatbotInterface(true);
   };

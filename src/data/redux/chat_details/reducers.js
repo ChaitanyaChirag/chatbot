@@ -2,8 +2,8 @@ import findLastIndex from 'lodash/findLastIndex';
 
 import actionTypes from '../actiontypes';
 import states from './states';
-import { LOCAL_STORAGE, setDataInLocalStorage, isEmptyObject } from '../../config/utils';
-import { MESSAGE_READ_STATUS, MESSAGE_SENDER } from '../../config/constants';
+import { setDataInLocalStorage, isEmptyObject } from '../../config/utils';
+import { MESSAGE_READ_STATUS, MESSAGE_SENDER, LOCAL_STORAGE } from '../../config/constants';
 
 const chat_details = (state = states.chat_details, action) => {
   switch (action.type) {
@@ -19,7 +19,7 @@ const chat_details = (state = states.chat_details, action) => {
         ...state.end_chat,
         ...action.payload
       };
-      setDataInLocalStorage(LOCAL_STORAGE.END_CHAT, end_chat);
+      setDataInLocalStorage(LOCAL_STORAGE.END_CHAT + state.psid, end_chat);
       return {
         ...state,
         end_chat
@@ -27,9 +27,9 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.HANDLE_CHATBOT_INTERFACE: {
-      setDataInLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN, action.payload);
-      localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES);
-      localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT);
+      setDataInLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN + state.psid, action.payload);
+      localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid);
+      localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + state.psid);
       return {
         ...state,
         is_chat_open: action.payload,
@@ -39,21 +39,21 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.PUSH_SENDER_MESSAGE: {
-      setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), [...state.messages, action.payload.message]);
+      setDataInLocalStorage(LOCAL_STORAGE.MESSAGES + state.psid, [...state.messages, action.payload.message]);
       let unseen_messages = [...state.unseen_messages];
       let notification_count = state.notification_count;
       let disable_msg_after_reply = { ...state.disable_msg_after_reply };
       if (!state.is_chat_open) {
         unseen_messages = [...state.unseen_messages, action.payload.message];
         notification_count = 0;
-        setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, unseen_messages);
-        setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, notification_count);
+        setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid, unseen_messages);
+        setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT + state.psid, notification_count);
       }
       if (!isEmptyObject(state.disable_msg_after_reply)) {
         Object.keys(disable_msg_after_reply).forEach(key => {
           disable_msg_after_reply[key] = true
         })
-        setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY, disable_msg_after_reply)
+        setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + state.psid, disable_msg_after_reply)
       }
 
       return {
@@ -70,19 +70,19 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.PUSH_RESPONSE_MESSAGE: {
-      setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), [...state.messages, action.payload.message]);
+      setDataInLocalStorage(LOCAL_STORAGE.MESSAGES + state.psid, [...state.messages, action.payload.message]);
       let notification_count = state.notification_count;
       let unseen_messages = [...state.unseen_messages];
       let disable_msg_after_reply = { ...state.disable_msg_after_reply };
       if (action.payload.message.disableAfterUserReply) {
         disable_msg_after_reply[action.payload.message.chatlogId] = false
-        setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY, disable_msg_after_reply);
+        setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + state.psid, disable_msg_after_reply);
       }
       if (!state.is_chat_open) {
         notification_count++;
         unseen_messages = [...state.unseen_messages, action.payload.message];
-        setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES, unseen_messages);
-        setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT, notification_count);
+        setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid, unseen_messages);
+        setDataInLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT + state.psid, notification_count);
       }
 
       return {
@@ -122,7 +122,7 @@ const chat_details = (state = states.chat_details, action) => {
           },
           ...messages.slice(index + 1)
         ];
-        setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), messages);
+        setDataInLocalStorage(LOCAL_STORAGE.MESSAGES + state.psid, messages);
       }
       return {
         ...state,
@@ -143,7 +143,7 @@ const chat_details = (state = states.chat_details, action) => {
           },
           ...messages.slice(index + 1)
         ];
-        setDataInLocalStorage(LOCAL_STORAGE.MESSAGES(), messages);
+        setDataInLocalStorage(LOCAL_STORAGE.MESSAGES + state.psid, messages);
       }
       return {
         ...state,
