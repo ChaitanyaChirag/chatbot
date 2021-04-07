@@ -1,4 +1,10 @@
-import { isAndroid, uniqueId, getDataFromLocalStorage, setDataInLocalStorage } from './utils';
+import {
+  isAndroid,
+  uniqueId,
+  getDataFromLocalStorage,
+  setDataInLocalStorage,
+  clearAllDataFromLocalStorage
+} from './utils';
 import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE } from './constants';
 import * as defaultMessages from './defaultMessages';
 import * as chatbotText from './chatbotText'
@@ -203,7 +209,8 @@ export const chatbot_default_messages = {
 
 export const chatbot_psids = {
   secondary_key_enable: true,
-  secondary_key: "testid",
+  secondary_key: "sKey",
+  psid_ttl: 24 * 3600 * 1000, // psid time to live = 1 days
   brandLogicToGetSecondaryValue() {
     let secondary_value = "default"
     if (this.secondary_key_enable) {
@@ -218,25 +225,29 @@ export const chatbot_psids = {
   },
   getPsid() {
     const psidMap = getDataFromLocalStorage(LOCAL_STORAGE.PSID_MAP, {})
+    let isSomethingExpired = false
+    Object.keys(psidMap).forEach(sKey => {
+      if (psidMap[sKey].psid && psidMap[sKey].expiry && new Date().getTime() > psidMap[sKey].expiry) {
+        clearAllDataFromLocalStorage(psidMap[sKey].psid)
+        delete psidMap[sKey]
+        if (!isSomethingExpired)
+          isSomethingExpired = true
+      }
+    })
+    if (isSomethingExpired)
+      setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
     const key = this.brandLogicToGetSecondaryValue()
-    if (psidMap[key])
-      return psidMap[key]
-    psidMap[key] = uniqueId()
+    if (psidMap[key] && psidMap[key].psid)
+      return psidMap[key].psid
+    psidMap[key] = { psid: uniqueId(), expiry: new Date().getTime() + this.psid_ttl }
     setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
-    return psidMap[key]
+    return psidMap[key].psid
   },
   setPsid(psid) {
     const psidMap = getDataFromLocalStorage(LOCAL_STORAGE.PSID_MAP, {})
     const key = this.brandLogicToGetSecondaryValue()
-    psidMap[key] = psid
+    psidMap[key] = { psid, expiry: new Date().getTime() + this.psid_ttl }
     setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
-  }
-}
-
-export const chatbot_localstorage = {
-  expiry_time: 24 * 2,
-  checkExpiry() {
-    
   }
 }
 
