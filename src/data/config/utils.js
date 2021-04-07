@@ -111,7 +111,7 @@ export const setDataInLocalStorage = (key, data) => {
   } catch (e) {
     if (e instanceof DOMException && (e.code === 22 || e.code === 1014 || e.name === 'QuotaExceededError' ||
       e.name === 'NS_ERROR_DOM_QUOTA_REACHED')) {
-      localStorage.removeItem(key);
+      localStorage.clear();
       console.log('localStorage error:-', e.code, e.name);
     }
   }

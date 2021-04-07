@@ -210,7 +210,7 @@ export const chatbot_default_messages = {
 export const chatbot_psids = {
   secondary_key_enable: true,
   secondary_key: "sKey",
-  psid_ttl: 2 * 24 * 3600 * 1000, // psid time to live = 2 days
+  psid_ttl: 24 * 3600 * 1000, // psid time to live = 2 days
   brandLogicToGetSecondaryValue() {
     let secondary_value = "default"
     if (this.secondary_key_enable) {
@@ -229,7 +229,7 @@ export const chatbot_psids = {
     Object.keys(psidMap).forEach(sKey => {
       if (psidMap[sKey].psid && psidMap[sKey].expiry && new Date().getTime() > psidMap[sKey].expiry) {
         clearAllDataFromLocalStorage(psidMap[sKey].psid)
-        delete psidMap[sKey]
+        psidMap[sKey].expiry = new Date().getTime() + this.psid_ttl
         if (!isSomethingExpired)
           isSomethingExpired = true
       }
