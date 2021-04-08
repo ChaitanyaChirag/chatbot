@@ -208,9 +208,9 @@ export const chatbot_default_messages = {
 }
 
 export const chatbot_psids = {
-  secondary_key_enable: true,
+  secondary_key_enable: false,
   secondary_key: "sKey",
-  psid_ttl: 24 * 3600 * 1000, // psid time to live = 2 days
+  psid_ttl: 24 * 3600 * 1000, // psid time to live = 1 days
   brandLogicToGetSecondaryValue() {
     let secondary_value = "default"
     if (this.secondary_key_enable) {
