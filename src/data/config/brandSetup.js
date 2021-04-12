@@ -4,15 +4,15 @@ import {
   getDataFromLocalStorage,
   setDataInLocalStorage,
   clearAllDataFromLocalStorage
-} from './utils';
-import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE } from './constants';
-import * as defaultMessages from './defaultMessages';
-import * as chatbotText from './chatbotText'
-import * as assets from '../assets'
+} from "./utils";
+import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE } from "./constants";
+import * as defaultMessages from "./defaultMessages";
+import * as chatbotText from "./chatbotText"
+import * as assets from "../assets"
 
 export const translator = {
   enable: false,
-  query_param_key: 'lang',
+  query_param_key: "lang",
   text: {
     [LANGUAGES.ENGLISH]: chatbotText.english,
     [LANGUAGES.ARABIC]: chatbotText.arabic
@@ -57,12 +57,12 @@ export const chatbot_setting = {
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
   auto_open_chatbot: {
     enable: false,
-    query_param_key: 'chatbotopen'
+    query_param_key: "chatbotopen"
   },
   send_brand_data_on_user_first_msg: false,
   auto_emit_message: {
     enable: false,
-    query_param_key: 'oribotmessage',
+    query_param_key: "oribotmessage",
     send_brand_data: false,
     update_last_emit: false,
   },
@@ -123,16 +123,16 @@ export const chatbot_setting = {
         right: 0
       },
       web: {
-        right: '20px',
-        bottom: '110px',
+        right: "20px",
+        bottom: "110px",
         height: `calc(100% - 130px)`,
-        maxHeight: '600px',
-        width: '375px',
+        maxHeight: "600px",
+        width: "375px",
         boxShadow: "0 5px 40px 0 rgba(0, 0, 0, 0.15)",
-        borderRadius: '3px'
+        borderRadius: "3px"
       },
-      in_animation: 'ori-fade-in',
-      out_animation: 'ori-fade-out'
+      in_animation: "ori-fade-in",
+      out_animation: "ori-fade-out"
     },
     chatbot_container_bg_style: {
       backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
@@ -150,31 +150,31 @@ export const chatbot_setting = {
       width: 70
     },
     lottie_style_lg: {
-      right: '20px',
-      bottom: '20px'
+      right: "20px",
+      bottom: "20px"
     },
     lottie_style_sm: {
-      right: '20px',
-      bottom: '20px'
+      right: "20px",
+      bottom: "20px"
     },
     image_style_lg: {
-      right: '20px',
-      bottom: '20px',
-      animationDuration: '2000ms',
-      height: '70px'
+      right: "20px",
+      bottom: "20px",
+      animationDuration: "2000ms",
+      height: "70px"
     },
     image_style_sm: {
-      right: '20px',
-      bottom: '20px',
-      animationDuration: '2000ms',
-      height: '60px'
+      right: "20px",
+      bottom: "20px",
+      animationDuration: "2000ms",
+      height: "60px"
     },
     close_style: {
-      right: '20px',
-      bottom: '20px',
-      height: '70px',
-      width: '70px',
-      borderRadius: '50%'
+      right: "20px",
+      bottom: "20px",
+      height: "70px",
+      width: "70px",
+      borderRadius: "50%"
     }
   }
 };
