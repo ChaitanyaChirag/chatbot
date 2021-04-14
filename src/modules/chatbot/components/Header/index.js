@@ -14,7 +14,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
     {
       lang => (
         <div
-          className="ori-overflow-hidden ori-bg-header ori-box-shadow-dark"
+          className={`ori-overflow-hidden ori-bg-header ori-box-shadow-dark ${chatbotStyle.headerClass}`}
           style={{
             padding: '15px 45px 15px 20px',
             height: '70px',
