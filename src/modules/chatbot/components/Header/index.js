@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Avatar from 'antd/lib/avatar'
 
 import { translator, chatbot_setting } from '../../../../data/config/brandSetup'
+import chatbotStyle from "../../../../data/config/chatbotStyle"
 
 import { LangContext } from '../../../context'
 
@@ -17,6 +18,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
           style={{
             padding: '15px 45px 15px 20px',
             height: '70px',
+            ...chatbotStyle.headerContainer
           }}
         >
           <div className="ori-flex-row">
