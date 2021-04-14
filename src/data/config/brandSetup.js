@@ -105,6 +105,7 @@ export const chatbot_setting = {
     bubble_shadow: true,
     bubble_border: false,
     avatar_shape: "circle", // circle || square
+    avatar_size: "large",
     quick_reply_bg_transparent: true,
     scroll_upto_first_response_only: true,
     carousel_msg_display_type: TYPES.DEFAULT, // default, fixed, actual

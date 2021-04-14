@@ -24,7 +24,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
           <div className="ori-flex-row">
             <Avatar
               src={translator.assets[lang].logo}
-              size="large"
+              size={chatbot_setting.chat_interface.avatar_size}
               shape={chatbot_setting.chat_interface.avatar_shape}
             />
             <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: 1.3 }}>
