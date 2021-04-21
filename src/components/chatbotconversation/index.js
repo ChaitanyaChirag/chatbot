@@ -32,6 +32,7 @@ import {
 import { chatbot_setting, chatbot_default_messages, translator } from '../../data/config/brandSetup';
 import { formatTime, formatDate } from '../../data/config/utils';
 import { LangContext } from '../../modules/context'
+import chatbotStyle from "../../data/config/chatbotStyle"
 
 import DotsLoader from '../dotsloader';
 import ErrorBoundary from '../errorboundary';
@@ -199,12 +200,18 @@ class ChatBotConversation extends React.PureComponent {
                               <div className="ori-font-xs ori-border-radius-20 ori-lr-pad-10 ori-box-shadow timestampTag">{this.displayTimeStamp(message.timestamp)}</div>
                             </div>
                           }
-                          <div className={classNames("ori-relative ori-flex-row msgContainer",
-                            {
-                              "receiverMsgContainer": admin || chatbot,
-                              "senderMsgContainer": customer
+                          <div
+                            className={classNames("ori-relative ori-flex-row msgContainer",
+                              {
+                                "receiverMsgContainer": admin || chatbot,
+                                "senderMsgContainer": customer
+                              }
+                            )}
+                            style={
+                              (admin || chatbot) ?
+                                chatbotStyle.receiverBubbleContainer :
+                                (customer ? chatbotStyle.senderBubbleContainer : {})
                             }
-                          )}
                           >
                             {
                               first_msg && admin &&
@@ -232,7 +239,7 @@ class ChatBotConversation extends React.PureComponent {
                             <div
                               className={classNames("ori-pad-7 ori-b-mrgn-5 ori-border-radius-10 msgBox",
                                 {
-                                  "ori-t-mrgn-15": first_msg,
+                                  "ori-t-mrgn-5": first_msg,
                                   "firstMsg": first_msg && !stack_view,
                                   "stackViewBubble": stack_view,
                                   "ori-box-shadow-light": chatbot_setting.chat_interface.bubble_shadow && !notification_bot,

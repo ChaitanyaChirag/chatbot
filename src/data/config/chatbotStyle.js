@@ -1,6 +1,8 @@
 const chatbotStyle = {
   headerContainer: {},
-  headerClass: ""
+  headerClass: "",
+  receiverBubbleContainer: {},
+  senderBubbleContainer: {}
 }
 
 export default chatbotStyle

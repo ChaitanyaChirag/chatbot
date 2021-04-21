@@ -20,8 +20,8 @@
     }
 
     .timestampTag {
-      background-color: $timestamp-tag-bg-color;
-      color: $timestamp-tag-font-color;
+        background-color: $timestamp-tag-bg-color;
+        color: $timestamp-tag-font-color;
     }
 
     .stackViewBubble {
@@ -108,11 +108,10 @@
     }
 
     .senderMsgContainer {
-        width: 100%;
         justify-content: flex-end;
 
         .firstMsg {
-            border-bottom-right-radius: 0 !important;
+            border-top-right-radius: 0 !important;
         }
 
         .defaultMsgBox {
