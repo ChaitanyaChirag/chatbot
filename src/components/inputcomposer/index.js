@@ -10,7 +10,6 @@ import Upload from 'antd/lib/upload';
 import SendIcon from 'react-icons/lib/md/send';
 import MicIcon from 'react-icons/lib/md/mic';
 import MicOffIcon from 'react-icons/lib/md/mic-off';
-import MenuIcon from 'react-icons/lib/md/menu';
 import CircleDotIcon from 'react-icons/lib/md/adjust';
 import AddFileIcon from 'react-icons/lib/md/add-circle';
 
