@@ -83,7 +83,7 @@
     }
 
     .receiverMsgContainer {
-        .firstMsg {
+        .msgBubble {
             border-top-left-radius: 0 !important;
         }
 
@@ -110,7 +110,7 @@
     .senderMsgContainer {
         justify-content: flex-end;
 
-        .firstMsg {
+        .msgBubble {
             border-top-right-radius: 0 !important;
         }
 

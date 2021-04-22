@@ -10,6 +10,7 @@ const chatbotStyle = {
   headerClass: "",
   receiverBubbleContainer: {},
   senderBubbleContainer: {},
+  msgBubbleClass: "ori-pad-7 ori-b-mrgn-5 ori-border-radius-10",
   EndChatIcon: () => (
     <div className="ori-lr-pad-8 ori-border-radius-3 endChatIcon">
       {translator.text[translator.getLanguage()].endChat}
