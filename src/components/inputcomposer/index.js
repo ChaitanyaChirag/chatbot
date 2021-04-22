@@ -173,7 +173,7 @@ class InputComposer extends React.PureComponent {
                       onClick={this.hideTypeWriter}
                     />
                   </Suspense> :
-                  <Form onSubmit={this.handleMessageSend}>
+                  <Form className="ori-lr-pad-10" onSubmit={this.handleMessageSend}>
                     <TextArea
                       placeholder={
                         is_input_lock ? input_lock_text : (listening ? translator.text[lang].listening : translator.text[lang].typeYourQuery)

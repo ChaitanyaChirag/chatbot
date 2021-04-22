@@ -10,6 +10,8 @@
         font-size: $font-size-md;
         line-height: 1.2;
         margin-bottom: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
 
         &::placeholder {
             text-overflow: ellipsis;
