@@ -9,6 +9,7 @@
         color: $chatbot-font-color !important;
         font-size: $font-size-md;
         line-height: 1.2;
+        margin-bottom: 0 !important;
 
         &::placeholder {
             text-overflow: ellipsis;
