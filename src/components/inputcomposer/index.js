@@ -19,6 +19,7 @@ import './index.scss';
 import { isAndroid, isIOS } from '../../data/config/utils';
 import { EVENTS } from '../../data/config/constants';
 import { chatbot_setting, translator } from '../../data/config/brandSetup';
+import chatbotStyle from "../../data/config/chatbotStyle"
 
 import { LangContext } from '../../modules/context'
 
@@ -151,7 +152,7 @@ class InputComposer extends React.PureComponent {
               {
                 !notification_bot && !listening && chatbot_setting.menu.visible &&
                 <div className="ori-animated ori-fade-in ori-absolute ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc alignMenuIcon" onClick={onClickMenu}>
-                  <MenuIcon size={20} />
+                  <chatbotStyle.MenuIcon />
                 </div>
               }
               {
