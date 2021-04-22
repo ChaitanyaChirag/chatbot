@@ -1,10 +1,10 @@
 /* eslint-disable no-eval */
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import CloseIcon from 'react-icons/lib/md/close';
 import Button from 'antd/lib/button';
 
 import { chatbot_setting, chatbot_default_messages, brand_features } from '../../data/config/brandSetup';
+import chatbotStyle from "../../data/config/chatbotStyle"
 import {
   isAndroid,
   isIOS,
@@ -339,18 +339,11 @@ class ChatBot extends Component {
           {
             chatbot_setting.minimize_bot && !this.is_app && !chat_details.end_chat.visible &&
             <div className="ori-pad-5" onClick={this.minimizeChatbotInterface}>
-              <div className="minimizeIcon" style={{ height: '16px', width: '13px' }} />
+              <chatbotStyle.MinimizeIcon />
             </div>
           }
-          <div className="ori-lr-pad-5 ori-cursor-ptr chatIcons" onClick={this.onClickCloseIcon}>
-            {
-              chat_details.end_chat.visible ?
-                <div className="ori-font-default-hover-white">
-                  <CloseIcon size={18} />
-                </div>
-                :
-                <Button className="ori-font-xs ori-btn-default" size="small">End chat</Button>
-            }
+          <div className="ori-lr-pad-5 ori-cursor-ptr" onClick={this.onClickCloseIcon}>
+            <chatbotStyle.EndChatIcon />
           </div>
         </div>
         <Suspense fallback={null}>

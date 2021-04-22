@@ -13,15 +13,6 @@
         }
     }
 
-    .minimizeIcon {
-        border-bottom: 2px solid $chatbot-header-font-light;
-        cursor: pointer;
-
-        &:hover {
-            border-bottom-color: $chatbot-header-font;
-        }
-    }
-
     .alignMenu {
         bottom: 15px;
         left: 10px;
