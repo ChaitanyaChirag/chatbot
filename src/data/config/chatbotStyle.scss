@@ -1,16 +1,16 @@
 @import '../styles/colors.scss';
 
-.endChatIcon {
-    color: $chatbot-header-font;
-    border: 1px solid $chatbot-header-font-light;
+.headerIcon {
+    color: $chatbot-header-font-light;
 
     &:hover {
-        border-color: $chatbot-header-font;
+        color: $chatbot-header-font;
     }
 }
 
-.minimizeIcon {
-    border-bottom: 2px solid $chatbot-header-font-light;
+.endChatIcon {
+    color: $chatbot-header-font;
+    border: 1px solid $chatbot-header-font-light;
 
     &:hover {
         border-color: $chatbot-header-font;

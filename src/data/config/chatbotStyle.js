@@ -1,4 +1,5 @@
 import React from "react"
+import MinimizeIcon from "react-icons/lib/md/remove"
 
 import "./chatbotStyle.scss"
 import { translator } from "./brandSetup"
@@ -17,13 +18,7 @@ const chatbotStyle = {
   },
   MinimizeIcon() {
     return (
-      <div
-        className="ori-cursor-ptr minimizeIcon"
-        style={{
-          height: "16px",
-          width: "13px"
-        }}
-      />
+      <MinimizeIcon size={20} className="headerIcon" />
     )
   }
 }

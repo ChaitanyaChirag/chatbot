@@ -338,7 +338,7 @@ class ChatBot extends Component {
         <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
           {
             chatbot_setting.minimize_bot && !this.is_app && !chat_details.end_chat.visible &&
-            <div className="ori-pad-5" onClick={this.minimizeChatbotInterface}>
+            <div className="ori-pad-5 ori-cursor-ptr" onClick={this.minimizeChatbotInterface}>
               <chatbotStyle.MinimizeIcon />
             </div>
           }
