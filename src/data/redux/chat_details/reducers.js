@@ -28,13 +28,14 @@ const chat_details = (state = states.chat_details, action) => {
 
     case actionTypes.HANDLE_CHATBOT_INTERFACE: {
       setDataInLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN + state.psid, action.payload);
+      let unseen_messages = [...state.unseen_messages];
       localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid);
       localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + state.psid);
       return {
         ...state,
         is_chat_open: action.payload,
         notification_count: action.payload ? 0 : state.notification_count,
-        unseen_messages: []
+        unseen_messages: action.payload ? [] : unseen_messages
       };
     }
 

@@ -191,7 +191,7 @@ class ChatBot extends Component {
         disable_msg_after_reply: {}
       })
       localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
-      localStorage.removeItem(LOCAL_STORAGE.MESSAGES());
+      localStorage.removeItem(LOCAL_STORAGE.MESSAGES);
       localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT);
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
