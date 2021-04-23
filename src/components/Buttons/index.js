@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import Button from "antd/lib/button"
 
-const defaultBtnDisplayCount = 5
+import { chatbot_setting } from "../../data/config/brandSetup"
 
 const Buttons = ({
   message,
@@ -12,7 +12,7 @@ const Buttons = ({
 }) => {
   const [page, setPage] = useState({
     showAll: false,
-    displayCount: message.payload && message.payload.btnDisplayCount ? message.payload.btnDisplayCount : defaultBtnDisplayCount
+    displayCount: message.payload && message.payload.btnDisplayCount ? message.payload.btnDisplayCount : chatbot_setting.default_btn_display_count
   })
 
   const showAllButtons = () => {
@@ -25,7 +25,7 @@ const Buttons = ({
   const showLessButtons = () => {
     setPage({
       showAll: false,
-      displayCount: message.payload && message.payload.btnDisplayCount ? message.payload.btnDisplayCount : defaultBtnDisplayCount
+      displayCount: message.payload && message.payload.btnDisplayCount ? message.payload.btnDisplayCount : chatbot_setting.default_btn_display_count
     })
   }
 

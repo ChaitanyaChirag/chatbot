@@ -50,6 +50,7 @@ export const chatbot_setting = {
   feedback_form_rating_type: TYPES.DEFAULT, // default or star
   show_feedback_rating_linebar: true,
   hide_buttons_in_msg_bubble: false, // to hide the buttons inside the message bubbles
+  default_btn_display_count: 4,
   auto_close_chatbot_on_refresh: {
     web_enable: false,
     mobile_enable: false
