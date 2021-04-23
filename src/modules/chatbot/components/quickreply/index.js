@@ -111,7 +111,7 @@ export default class QuickReply extends React.PureComponent {
                   <Button
                     key={index}
                     size="small"
-                    className="ori-lr-pad-5 ori-lr-mrgn-5 ori-btn-ghost-primary"
+                    className="ori-lr-pad-5 ori-lr-mrgn-5 ori-btn-quick-reply"
                     onClick={() => sendTextToServer(reply)}
                   >
                     {reply}

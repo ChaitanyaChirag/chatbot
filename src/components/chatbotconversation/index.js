@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ThumbUpIcon from 'react-icons/lib/fa/thumbs-o-up';
@@ -36,6 +36,7 @@ import chatbotStyle from "../../data/config/chatbotStyle"
 
 import DotsLoader from '../dotsloader';
 import ErrorBoundary from '../errorboundary';
+const Buttons = lazy(() => import("../Buttons"))
 
 const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
@@ -386,6 +387,16 @@ class ChatBotConversation extends React.PureComponent {
                             </div>
                           </div>
                         </div>
+                        {
+                          chatbot_setting.hide_buttons_in_msg_bubble && !stack_view && message.payload && message.payload.buttons &&
+                          <Suspense fallback={null}>
+                            <Buttons
+                              message={message}
+                              disabled={btn_disabled}
+                              onClick={handleMsgBtnClick}
+                            />
+                          </Suspense>
+                        }
                       </ErrorBoundary>
                     );
                   }

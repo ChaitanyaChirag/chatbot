@@ -702,6 +702,11 @@
 
     //---------------- left-right-margin-X -------------------
 
+    .ori-lr-mrgn-3 {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
     .ori-lr-mrgn-5 {
         @include lr-margin(5px);
     }

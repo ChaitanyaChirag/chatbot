@@ -375,7 +375,7 @@ class ChatBot extends Component {
                   <div className="ori-flex ori-flex-jfe ori-t-pad-10">
                   <Button
                     size="small"
-                    className="ori-btn-default"
+                    className="ori-btn-ghost-primary"
                     onClick={this.closeClearChatPopConfirm}
                   >
                     No

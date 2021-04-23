@@ -1,5 +1,6 @@
-@import "./colors.scss";
-@import "./variables.scss";
+@import './colors.scss';
+@import './variables.scss';
+@import './mixins.scss';
 
 .ant-message {
     position: absolute !important;
@@ -19,14 +20,18 @@
 
 //------------------------ BUTTON CLASSES -------------------------
 
-.ori-btn-default {
-    &:hover, &:focus {
-        color: $btn-ghost !important;
-        border: 1px solid $btn-ghost !important;
+.ori-btn-bubble-outer {
+    color: $white !important;
+    background-color: $primary !important;
+    border-color: $primary !important;
+
+    &:hover, &:focus, &.active {
+        background-color: tint($primary, 30%) !important;
+        border-color: tint($primary, 30%) !important;
     }
 }
 
-.ori-btn-ghost-primary {
+.ori-btn-ghost-primary, .ori-btn-quick-reply {
     color: $btn-ghost !important;
     border: 1px solid $btn-ghost !important;
     height: auto !important;
@@ -52,20 +57,6 @@
     }
 }
 
-.ori-btn-tag-primary {
-    color: $primary !important;
-    background-color: $primary-bg-light !important;
-    border: 1px solid transparent !important;
-    height: auto !important;
-    line-height: unset !important;
-
-    &:hover, &:focus {
-        border-color: $primary !important;
-        background-color: $primary !important;
-        color: $white !important;
-    }
-}
-
 //------------------------------- MESSAGE-TYPES -----------------------------
 
 .ori-mt-CarouselContainer {
@@ -87,8 +78,9 @@
         }
 
         &::before {
-            content: "" !important;
+            content: '' !important;
             display: unset !important; // idea specific css changes
+       
         }
     }
 
@@ -100,7 +92,7 @@
         }
 
         &::before {
-            content: "" !important;
+            content: '' !important;
             display: unset !important; // idea specific css changes
        
         }
