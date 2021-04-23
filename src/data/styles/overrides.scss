@@ -31,6 +31,21 @@
     }
 }
 
+.ori-btn-fill-primary, .ori-btn-bubble-inner {
+  color: $btn-fill-font !important;
+  background-color: $btn-fill !important;
+  border-color: $btn-fill !important;
+
+  &:hover, &:focus, &.active {
+      background-color: $btn-fill-hover !important;
+      border-color: $btn-fill-hover !important;
+  }
+
+  &:hover {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
 .ori-btn-ghost-primary, .ori-btn-quick-reply {
     color: $btn-ghost !important;
     border: 1px solid $btn-ghost !important;
@@ -39,21 +54,6 @@
 
     &:hover, &:focus, &.active {
         box-shadow: 0 0 6px 0 $btn-ghost;
-    }
-}
-
-.ori-btn-fill-primary {
-    color: $btn-fill-font !important;
-    background-color: $btn-fill !important;
-    border-color: $btn-fill !important;
-
-    &:hover, &:focus, &.active {
-        background-color: $btn-fill-hover !important;
-        border-color: $btn-fill-hover !important;
-    }
-
-    &:hover {
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
     }
 }
 
