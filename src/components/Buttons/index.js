@@ -55,7 +55,7 @@ const Buttons = ({
             className="ori-b-mrgn-5 ori-lr-mrgn-3 ori-btn-bubble-outer"
             onClick={showAllButtons}
           >
-            show more
+            Show more
           </Button>
         }
         {
@@ -65,7 +65,7 @@ const Buttons = ({
             className="ori-b-mrgn-5 ori-lr-mrgn-3 ori-btn-bubble-outer"
             onClick={showLessButtons}
           >
-            show less
+            Show less
           </Button>
         }
       </div>
