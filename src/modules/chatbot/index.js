@@ -190,9 +190,9 @@ class ChatBot extends Component {
         messages: [],
         disable_msg_after_reply: {}
       })
-      localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY)
-      localStorage.removeItem(LOCAL_STORAGE.MESSAGES);
-      localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT);
+      localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + chat_details.psid)
+      localStorage.removeItem(LOCAL_STORAGE.MESSAGES + chat_details.psid);
+      localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + chat_details.psid);
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
       this.closeWebView('endChatSubmit', {})
