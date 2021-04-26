@@ -1,21 +1,21 @@
-import React, { lazy, Suspense, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Button from 'antd/lib/button';
-import Avatar from 'antd/lib/avatar';
-import Input from 'antd/lib/input';
-import Select from 'antd/lib/select';
+import React, { lazy, Suspense, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Button from "antd/lib/button";
+import Avatar from "antd/lib/avatar";
+import Input from "antd/lib/input";
+import Select from "antd/lib/select";
 
-import { chatbot_setting, translator } from '../../../../data/config/brandSetup';
+import { chatbot_setting, translator } from "../../../../data/config/brandSetup";
 
-import { LangContext } from '../../../context';
+import { LangContext } from "../../../context";
 
-import DelayComponent from '../../../../components/delaycomponent';
+import DelayComponent from "../../../../components/delaycomponent";
 
-import { showMessage } from '../../../../data/config/utils'
+import { showMessage } from "../../../../data/config/utils"
 
-const PoweredBy = lazy(() => import('../../../../components/poweredby'));
-const RatingItem = lazy(() => import('../../../../components/RatingItem'))
+const PoweredBy = lazy(() => import("../../../../components/poweredby"));
+const RatingItem = lazy(() => import("../../../../components/RatingItem"))
 
 const { Option } = Select;
 
@@ -34,7 +34,7 @@ const EndChat = ({
   useEffect(() => {
     if (end_chat.show_form_card) {
       timer.current = setTimeout(() => {
-        showMessage('warning', 'Feedback Form Timeout')
+        showMessage("warning", "Feedback Form Timeout")
         skipForm()
       }, chatbot_setting.auto_close_feedback_form)
     }
@@ -91,7 +91,7 @@ const EndChat = ({
                         form_item.title &&
                         <div
                           className="ori-b-mrgn-7"
-                          style={{ lineHeight: '1.3' }}
+                          style={{ lineHeight: "1.3" }}
                         >
                           {form_item.title}
                         </div>
@@ -111,7 +111,7 @@ const EndChat = ({
                         form_item.title &&
                         <div
                           className="ori-b-mrgn-7"
-                          style={{ lineHeight: '1.3' }}
+                          style={{ lineHeight: "1.3" }}
                         >
                           {form_item.title}
                         </div>
@@ -140,7 +140,7 @@ const EndChat = ({
                     <div key={index} id={`select-${index}`} className="ori-b-pad-15">
                       {
                         form_item.title &&
-                        <div className="ori-b-mrgn-7" style={{ lineHeight: '1.3' }}>{form_item.title}</div>
+                        <div className="ori-b-mrgn-7" style={{ lineHeight: "1.3" }}>{form_item.title}</div>
                       }
                       <Select
                         className="ori-full-width ori-font-xs"
@@ -209,19 +209,19 @@ const EndChat = ({
               }
             )}
             style={{
-              backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${translator.assets[lang].background})` : 'none'
+              backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${translator.assets[lang].background})` : "none"
             }}
           >
             <div
               className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white"
-              style={{ height: '220px' }}
+              style={{ height: "220px" }}
             >
               <div>
                 <div className="ori-tb-pad-10 ori-flex-row ori-flex-jc">
                   <Avatar
                     style={{
-                      height: '55px',
-                      width: '55px'
+                      height: "55px",
+                      width: "55px"
                     }}
                     src={translator.assets[lang].logo}
                   />
@@ -230,9 +230,9 @@ const EndChat = ({
                   chatbot_setting.chat_interface.image_type_brand_name ?
                     <img
                       style={{
-                        height: '40px',
-                        margin: '0 auto',
-                        display: 'block'
+                        height: "40px",
+                        margin: "0 auto",
+                        display: "block"
                       }}
                       src={translator.assets[lang].brandName}
                       alt={translator.text[lang].brandName}
@@ -283,9 +283,21 @@ const InfoCard = props => {
             <div className="ori-flex-row ori-flex-jc">
               {
                 onClickCancel &&
-                <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel} >{translator.text[lang].cancel}</Button>
+                <Button
+                  className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary"
+                  size="small"
+                  onClick={onClickCancel}
+                >
+                  {translator.text[lang].cancel}
+                </Button>
               }
-              <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-fill-primary" size="small" onClick={onClickOk} >{ok_text}</Button>
+              <Button
+                className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-fill-primary"
+                size="small"
+                onClick={onClickOk}
+              >
+                {ok_text}
+              </Button>
             </div>
           </div>
         )
