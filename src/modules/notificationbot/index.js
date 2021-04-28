@@ -1,16 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import CloseIcon from 'react-icons/lib/md/close';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import CloseIcon from "react-icons/lib/md/close";
 
-import './index.scss';
+import "./index.scss";
 
-import { chatbot_setting } from '../../data/config/brandSetup';
-import { LOCAL_STORAGE } from '../../data/config/constants';
+import { chatbot_setting } from "../../data/config/brandSetup";
+import { LOCAL_STORAGE } from "../../data/config/constants";
+import chatbotStyle from "../../data/config/chatbotStyle"
 
-import NotificationBotHeader from './components/notificationbotheader';
-import ChatBotConversation from '../../components/chatbotconversation';
-import InputComposer from '../../components/inputcomposer';
+import NotificationBotHeader from "./components/notificationbotheader";
+import ChatBotConversation from "../../components/chatbotconversation";
+import InputComposer from "../../components/inputcomposer";
 
 class NotificationBot extends React.PureComponent {
   state = {
@@ -50,7 +51,8 @@ class NotificationBot extends React.PureComponent {
       <div
         className="ori-fixed oriNotificationBotContainer"
         style={{
-          bottom: mobile ? `${chatbot_setting.notification_bot.bottom_height_sm}px` : `${chatbot_setting.notification_bot.bottom_height_lg}px`
+          bottom: mobile ? `${chatbot_setting.notification_bot.bottom_height_sm}px` : `${chatbot_setting.notification_bot.bottom_height_lg}px`,
+          ...(stack_view ? chatbotStyle.stackViewNotificationBot : {})
         }}
       >
         <div
