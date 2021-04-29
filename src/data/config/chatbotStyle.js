@@ -8,6 +8,7 @@ import { translator } from "./brandSetup"
 const chatbotStyle = {
   headerContainer: {},
   headerBorder: {},
+  footerBorder: {},
   conversationContainer:{},
   receiverBubbleContainer: {},
   senderBubbleContainer: {},

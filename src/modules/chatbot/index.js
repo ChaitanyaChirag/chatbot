@@ -1,9 +1,9 @@
 /* eslint-disable no-eval */
-import React, { Component, Suspense } from 'react';
-import PropTypes from 'prop-types';
-import Button from 'antd/lib/button';
+import React, { Component, Suspense } from "react";
+import PropTypes from "prop-types";
+import Button from "antd/lib/button";
 
-import { chatbot_setting, chatbot_default_messages, brand_features } from '../../data/config/brandSetup';
+import { chatbot_setting, chatbot_default_messages, brand_features } from "../../data/config/brandSetup";
 import chatbotStyle from "../../data/config/chatbotStyle"
 import {
   isAndroid,
@@ -12,34 +12,33 @@ import {
   checkImageTypeFile,
   showMessage,
   checkMultipleExtension
-} from '../../data/config/utils';
+} from "../../data/config/utils";
 import {
   EVENTS,
   DEFAULT_END_CHAT_STATE,
   CHATBOT_TYPE,
   TYPES,
   LOCAL_STORAGE
-} from '../../data/config/constants';
+} from "../../data/config/constants";
 
-import './index.scss';
+import "./index.scss";
 
-import Header from './components/Header';
-import ChatBotConversation from '../../components/chatbotconversation';
-import InputComposer from '../../components/inputcomposer';
+import Header from "./components/Header";
+import ChatBotConversation from "../../components/chatbotconversation";
+import InputComposer from "../../components/inputcomposer";
 
-const HeaderTag = React.lazy(() => import('./components/HeaderTag'))
-const Menu = React.lazy(() => import('./components/menu'));
-const QuickReply = React.lazy(() => import('./components/quickreply'));
-const Feedback = React.lazy(() => import('./components/feedback'));
-const EndChat = React.lazy(() => import('./components/endchat'));
-const PreviewFile = React.lazy(() => import('./components/previewfile'));
-const DownTime = React.lazy(() => import('./components/downtime'));
-const CustomModal = React.lazy(() => import('../../components/custommodal'));
-const ShowNotification = React.lazy(() => import('./components/shownotification'));
-const InfoContent = React.lazy(() => import('./components/InfoContent'));
-const PoweredBy = React.lazy(() => import('../../components/poweredby'));
-const DotsLoader = React.lazy(() => import('../../components/dotsloader'))
-
+const HeaderTag = React.lazy(() => import("./components/HeaderTag"))
+const Menu = React.lazy(() => import("./components/menu"));
+const QuickReply = React.lazy(() => import("./components/quickreply"));
+const Feedback = React.lazy(() => import("./components/feedback"));
+const EndChat = React.lazy(() => import("./components/endchat"));
+const PreviewFile = React.lazy(() => import("./components/previewfile"));
+const DownTime = React.lazy(() => import("./components/downtime"));
+const CustomModal = React.lazy(() => import("../../components/custommodal"));
+const ShowNotification = React.lazy(() => import("./components/shownotification"));
+const InfoContent = React.lazy(() => import("./components/InfoContent"));
+const PoweredBy = React.lazy(() => import("../../components/poweredby"));
+const DotsLoader = React.lazy(() => import("../../components/dotsloader"))
 
 class ChatBot extends Component {
   state = {
@@ -195,7 +194,7 @@ class ChatBot extends Component {
       localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + chat_details.psid);
       actions.handleChatbotInterface(false);
       this.onClickCloseIcon();
-      this.closeWebView('endChatSubmit', {})
+      this.closeWebView("endChatSubmit", {})
       brand_features.doBrandLogicOnEndChat(TYPES.END_CHAT)
     } else {
       actions.updateChatsState({ loading: true })
@@ -211,14 +210,14 @@ class ChatBot extends Component {
                 visible: true,
                 show_form_card: true,
                 form: res.data.formData,
-                formTitle: res.data.formTitle ? res.data.formTitle : '',
-                formSubTitle: res.data.formSubTitle ? res.data.formSubTitle : '',
+                formTitle: res.data.formTitle ? res.data.formTitle : "",
+                formSubTitle: res.data.formSubTitle ? res.data.formSubTitle : "",
               }
             });
           else {
             actions.handleChatbotInterface(false);
             this.onClickCloseIcon();
-            this.closeWebView('endChatSubmit', {})
+            this.closeWebView("endChatSubmit", {})
             brand_features.doBrandLogicOnEndChat(TYPES.END_CHAT)
           }
         }
@@ -240,24 +239,24 @@ class ChatBot extends Component {
         actions.handleChatbotInterface(false);
         actions.updateChatsState({ loading: false })
         this.onClickCloseIcon();
-        this.closeWebView('endChatSubmit', {})
+        this.closeWebView("endChatSubmit", {})
         brand_features.doBrandLogicOnEndChat(TYPES.FORM_SUBMIT)
       });
     } else {
-      showMessage('error', 'All fields are required')
+      showMessage("error", "All fields are required")
     }
   };
 
   skipEndChatForm = () => {
     const { actions } = this.props
     this.onClickCloseIcon();
-    this.closeWebView('endChatSubmit', {})
+    this.closeWebView("endChatSubmit", {})
     actions.handleChatbotInterface(false);
     brand_features.doBrandLogicOnEndChat(TYPES.SKIP)
   }
 
   beforeFileUpload = file => {
-    console.log('file', file);
+    console.log("file", file);
     if (file && file.name && checkMultipleExtension(file.name) && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
       fileToBase64(file).then(fileUrl => {
         this.setState({
@@ -267,9 +266,9 @@ class ChatBot extends Component {
         });
       })
     } else {
-      console.log('selected file is not compatiable');
+      console.log("selected file is not compatiable");
       const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkMultipleExtension(file.name) ? "Multi extension file can't be uploaded" : !checkImageTypeFile(file.name) ? "selected file is not an image" : "something went wrong.");
-      showMessage('warning', warn_msg);
+      showMessage("warning", warn_msg);
     }
     return false;
   };
@@ -335,7 +334,13 @@ class ChatBot extends Component {
             </Suspense>
           </div>
         }
-        <div className="ori-absolute ori-z-index-99994 ori-flex-row " style={{ top: '22px', right: '10px' }}>
+        <div
+          className="ori-absolute ori-z-index-99994 ori-flex-row "
+          style={{
+            top: "22px",
+            right: "10px"
+          }}
+        >
           {
             chatbot_setting.minimize_bot && !this.is_app && !chat_details.end_chat.visible &&
             <div className="ori-pad-5 ori-cursor-ptr" onClick={this.minimizeChatbotInterface}>
@@ -379,14 +384,14 @@ class ChatBot extends Component {
                     onClick={this.closeClearChatPopConfirm}
                   >
                     No
-                    </Button>
+                  </Button>
                   <Button
                     size="small"
                     className="ori-btn-fill-primary ori-l-mrgn-10"
                     onClick={this.handleResetChat}
                   >
                     Yes
-                    </Button>
+                  </Button>
                 </div>
               </div>
             }
@@ -453,10 +458,20 @@ class ChatBot extends Component {
         <div
           className="ori-relative ori-flex-column ori-flex-jc chatFooterContainer"
           style={{
-            paddingRight: '65px',
-            paddingLeft: chatbot_setting.menu.visible ? '30px' : '10px'
+            paddingRight: "65px",
+            paddingLeft: chatbot_setting.menu.visible ? "30px" : "10px"
           }}
         >
+          <span
+            className="ori-absolute ori-bg-border-light"
+            style={{
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "1px",
+              ...chatbotStyle.footerBorder
+            }}
+          />
           {
             chatbot_setting.powered_by.visibility &&
             <Suspense fallback={null}>
@@ -478,7 +493,7 @@ class ChatBot extends Component {
             psid={chat_details.psid}
             sendTextToServer={sendTextToServer}
             is_input_lock={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLock}
-            input_lock_text={chat_details.messages && chat_details.messages.length > 0 ? chat_details.messages[chat_details.messages.length - 1].inputLockMessage : ''}
+            input_lock_text={chat_details.messages && chat_details.messages.length > 0 ? chat_details.messages[chat_details.messages.length - 1].inputLockMessage : ""}
             onClickMenu={this.openMenu}
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
