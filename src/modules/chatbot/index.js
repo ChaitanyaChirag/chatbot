@@ -324,7 +324,7 @@ class ChatBot extends Component {
       <div
         id="chatbotContentContainer"
         className="ori-relative ori-flex-column oriChatBotContainer"
-        style={chatbot_setting.chat_interface.show_bg_image ? chatbot_setting.chat_interface.chatbot_container_bg_style : {}}
+        style={chatbotStyle.chatbotContainer}
       >
         {
           chat_details.loading &&

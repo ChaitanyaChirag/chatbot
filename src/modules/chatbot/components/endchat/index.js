@@ -7,6 +7,7 @@ import Input from "antd/lib/input";
 import Select from "antd/lib/select";
 
 import { chatbot_setting, translator } from "../../../../data/config/brandSetup";
+import chatbotStyle from "../../../../data/config/chatbotStyle"
 
 import { LangContext } from "../../../context";
 
@@ -208,9 +209,7 @@ const EndChat = ({
                 "ori-z-index-99995": end_chat.show_resolved_card,
               }
             )}
-            style={{
-              backgroundImage: chatbot_setting.chat_interface.show_bg_image ? `url(${translator.assets[lang].background})` : "none"
-            }}
+            style={chatbotStyle.endChatContainer}
           >
             <div
               className="ori-lr-pad-15 ori-b-pad-15 ori-t-pad-20 ori-bg-gradient ori-flex-row ori-flex-jc ori-font-white"

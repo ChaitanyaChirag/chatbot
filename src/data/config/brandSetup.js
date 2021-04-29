@@ -100,7 +100,6 @@ export const chatbot_setting = {
     top: window.innerHeight / 8,
   },
   chat_interface: {
-    show_bg_image: true, // to enable chatinterface background
     show_avatar: true,
     show_feedback_avatar: true,
     show_feedback_emoji: false,
@@ -118,28 +117,6 @@ export const chatbot_setting = {
       deleting_speed: 30,
       typing_speed: 150
     },
-    container_style: {
-      mobile: {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
-      },
-      web: {
-        right: "20px",
-        bottom: "110px",
-        height: `calc(100% - 130px)`,
-        maxHeight: "600px",
-        width: "375px",
-        boxShadow: "0 5px 40px 0 rgba(0, 0, 0, 0.15)",
-        borderRadius: "3px"
-      },
-      in_animation: "ori-fade-in",
-      out_animation: "ori-fade-out"
-    },
-    chatbot_container_bg_style: {
-      backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
-    }
   },
   notification_bot: {
     visibility: true, // to enable notification popup (set value false in android and ios )

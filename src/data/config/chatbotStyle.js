@@ -6,10 +6,20 @@ import "./chatbotStyle.scss"
 import { translator } from "./brandSetup"
 
 const chatbotStyle = {
+  containerMobileClass: "containerMobile",
+  containerWebClass: "containerWeb",
+  containerInAnimationClass: "ori-fade-in",
+  containerOutAnimationClass: "ori-fade-out",
+  chatbotContainer: {
+    backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
+  },
+  endChatContainer: {
+    backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
+  },
   headerContainer: {},
   headerBorder: {},
   footerBorder: {},
-  conversationContainer:{},
+  conversationContainer: {},
   receiverBubbleContainer: {},
   senderBubbleContainer: {},
   msgBubbleClass: "ori-pad-7 ori-b-mrgn-5 ori-border-radius-10",

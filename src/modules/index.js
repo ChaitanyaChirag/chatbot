@@ -10,6 +10,7 @@ import SendingIcon from 'react-icons/lib/md/rotate-right';
 import './index.scss';
 
 import { LangContext } from './context'
+import chatbotStyle from '../data/config/chatbotStyle'
 
 import * as chatActions from '../data/redux/chat_details/actions';
 import * as pageActions from '../data/redux/page_details/actions';
@@ -617,12 +618,11 @@ class AppContainer extends Component {
               <div
                 className={classNames("ori-fixed ori-animated ori-animation-half ori-z-index-99992 ori-overflow-hidden chatbotContainer",
                   {
-                    [chatbot_setting.chat_interface.container_style.in_animation]: chat_details.is_chat_open,
-                    [chatbot_setting.chat_interface.container_style.out_animation]: !chat_details.is_chat_open
+                    [chatbotStyle.containerInAnimationClass]: chat_details.is_chat_open,
+                    [chatbotStyle.containerOutAnimationClass]: !chat_details.is_chat_open,
+                    [chatbotStyle.containerMobileClass]: page_details.device_data.screen_width < 481,
+                    [chatbotStyle.containerWebClass]: page_details.device_data.screen_width >= 481
                   })}
-                style={
-                  page_details.device_data.screen_width < 481 ? chatbot_setting.chat_interface.container_style.mobile : chatbot_setting.chat_interface.container_style.web
-                }
               >
                 <ChatBot
                   ref={this.chatbotRef}
