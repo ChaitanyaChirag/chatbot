@@ -1,26 +1,37 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import classNames from 'classnames'
-import PropTypes from 'prop-types'
-import Avatar from 'antd/lib/avatar'
+import React from "react"
+import { connect } from "react-redux"
+import classNames from "classnames"
+import PropTypes from "prop-types"
+import Avatar from "antd/lib/avatar"
 
-import { translator, chatbot_setting } from '../../../../data/config/brandSetup'
+import { translator, chatbot_setting } from "../../../../data/config/brandSetup"
 import chatbotStyle from "../../../../data/config/chatbotStyle"
 
-import { LangContext } from '../../../context'
+import { LangContext } from "../../../context"
 
 const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
   <LangContext.Consumer>
     {
       lang => (
         <div
-          className={`ori-overflow-hidden ori-bg-header ori-box-shadow-dark ${chatbotStyle.headerClass}`}
+          className="ori-relative ori-overflow-hidden ori-bg-header ori-box-shadow-dark"
           style={{
-            padding: '15px 45px 15px 20px',
-            height: '70px',
+            padding: "15px 45px 15px 20px",
+            height: "70px",
             ...chatbotStyle.headerContainer
           }}
         >
+          <span
+            className="ori-absolute ori-bg-border-light"
+            style={{
+              display: "none",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "1px",
+              ...chatbotStyle.headerBorder
+            }}
+          />
           <div className="ori-flex-row">
             <Avatar
               src={translator.assets[lang].logo}
@@ -33,7 +44,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
                   <div>
                     <img
                       src={translator.assets[lang].brandName}
-                      style={{ height: '30px' }}
+                      style={{ height: "30px" }}
                       alt={translator.text[lang].brandName}
                     />
                   </div> :
@@ -51,9 +62,9 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
                     }
                   )}
                   style={{
-                    verticalAlign: 'middle',
-                    height: '6px',
-                    width: '6px'
+                    verticalAlign: "middle",
+                    height: "6px",
+                    width: "6px"
                   }}
                 />
                 {!is_internet_connected ? translator.text[lang].offline : (!is_socket_connected ? translator.text[lang].connecting : translator.text[lang].online)}

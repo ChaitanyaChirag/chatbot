@@ -101,6 +101,10 @@
         background: linear-gradient($gradient-angle, $gradient-primary $gradient-primary-percent, $gradient-secondary $gradient-secondary-percent);
     }
 
+    .ori-bg-border-light {
+      background-color: $border-light;
+    }
+
     .ori-bg-white {
         background-color: $white !important;
     }
@@ -396,10 +400,6 @@
 
     .ori-border-none {
         border: none !important;
-    }
-
-    .ori-border-light {
-        border: 1px solid $border-light;
     }
 
     .ori-border-primary {
