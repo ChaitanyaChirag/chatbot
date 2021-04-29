@@ -8,6 +8,7 @@ import { translator } from "./brandSetup"
 const chatbotStyle = {
   headerContainer: {},
   headerBorder: {},
+  conversationContainer:{},
   receiverBubbleContainer: {},
   senderBubbleContainer: {},
   msgBubbleClass: "ori-pad-7 ori-b-mrgn-5 ori-border-radius-10",

@@ -141,6 +141,7 @@ class ChatBotConversation extends React.PureComponent {
                   "ori-lr-pad-50": chatbot_setting.chat_interface.show_avatar,
                 }
               )}
+              style={chatbotStyle.conversationContainer}
               ref={this.chatbodyRef}
               onClick={this.onClickChatbody}
             >
