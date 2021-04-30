@@ -46,6 +46,7 @@ const Buttons = ({
                   {button.text}
                 </Button>
               )
+            return null
           })
         }
         {
