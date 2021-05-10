@@ -260,7 +260,7 @@ const EndChat = ({
             {
               chatbot_setting.powered_by.visibility &&
               <Suspense fallback={null}>
-                <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center ori-bg-white ori-box-shadow" />
+                <PoweredBy container_class="ori-absolute ori-align-bottom ori-align-left ori-align-right ori-text-center" />
               </Suspense>
             }
           </div>
