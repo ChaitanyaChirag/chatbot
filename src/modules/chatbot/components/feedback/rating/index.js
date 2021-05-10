@@ -35,15 +35,15 @@ class Rating extends React.PureComponent {
               }
               {
                 selected_rating === 0 &&
-                <p className="ori-animated ori-fade-in-up ori-t-mrgn-10 ori-no-b-mrgn ori-text-center ori-font-light"> {translator.text[lang].feedbackGreeting} </p>
+                <p className="ori-animated ori-fade-in-up ori-t-mrgn-10 ori-no-b-mrgn ori-text-center"> {translator.text[lang].feedbackGreeting} </p>
               }
               {
                 selected_rating > 0 && selected_rating < 4 &&
-                <p className="ori-animated ori-fade-in-up ori-t-mrgn-10 ori-no-b-mrgn ori-text-center ori-font-light"> {translator.text[lang].feedbackLowRatedStatus} </p>
+                <p className="ori-animated ori-fade-in-up ori-t-mrgn-10 ori-no-b-mrgn ori-text-center"> {translator.text[lang].feedbackLowRatedStatus} </p>
               }
               {
                 selected_rating > 3 &&
-                <p className="ori-animated ori-fade-in-up ori-t-mrgn-10 ori-no-b-mrgn ori-text-center ori-font-light"> {translator.text[lang].feedbackHighRatedStatus}</p>
+                <p className="ori-animated ori-fade-in-up ori-t-mrgn-10 ori-no-b-mrgn ori-text-center"> {translator.text[lang].feedbackHighRatedStatus}</p>
               }
             </div>
           )

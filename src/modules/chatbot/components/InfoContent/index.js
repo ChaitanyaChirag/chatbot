@@ -13,10 +13,10 @@ const InfoContent = ({ type, onClose }) => (
       lang => {
         if (translator.text[lang].info_content[type])
           return (
-            <div className="ori-relative ori-bg-white ori-pad-15 ori-border-radius-3 ori-full-width ori-max-width-350 ori-mrgn-auto">
+            <div className="ori-relative ori-bg-popup ori-font-popup ori-pad-15 ori-border-radius-3 ori-full-width ori-max-width-350 ori-mrgn-auto">
               <CloseIcon
                 size={20}
-                className="ori-absolute ori-font-light-hover-default"
+                className="ori-absolute ori-popup-light-hover-default"
                 style={{ top: "7px", right: "7px" }}
                 onClick={onClose}
               />
@@ -45,7 +45,7 @@ const InfoContent = ({ type, onClose }) => (
                         info.type === 'html' ?
                           <div dangerouslySetInnerHTML={{ __html: info.content }} />
                           :
-                          <p className="ori-font-xs ori-font-light ori-b-mrgn-10">{info.content} </p>
+                          <p className="ori-font-xs ori-font-popup ori-b-mrgn-10">{info.content} </p>
                       }
                     </React.Fragment>
                   )
@@ -63,7 +63,7 @@ const InfoContent = ({ type, onClose }) => (
             </div>
           )
         return (
-          <div className="ori-bg-white ori-pad-15 ori-max-width-350 ori-mrgn-auto">
+          <div className="ori-bg-popup ori-font-popup ori-pad-15 ori-max-width-350 ori-mrgn-auto">
             {`${type} is not define in info content. please check it.`}
           </div>
         )

@@ -1,4 +1,4 @@
-@import "../../../../data/styles/colors.scss";
+@import '../../../../data/styles/colors.scss';
 
 .menuOverlay {
     left: 0;
@@ -6,7 +6,7 @@
     top: 0;
     bottom: 0;
     z-index: 99995;
-    background-color: $popup_bg;
+    background-color: $overlay;
 }
 
 .oriMenuContainer {
@@ -15,6 +15,7 @@
     bottom: 60px;
     border-radius: 4px;
     overflow: hidden;
+    background-color: $popup-bg;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 
     .alignMenuClose {
@@ -23,16 +24,16 @@
     }
 
     .menuItem {
-        color: $font-color-light;
+        color: $popup-font-light;
         border-bottom: 1px solid $border-light;
 
         &:hover {
-            color: $font-color;
-            background-color: $default;
+            color: $popup-font;
+            background-color: $popup-bg-hover;
         }
 
         &:last-child {
-          border-bottom: none;
+            border-bottom: none;
         }
     }
 }

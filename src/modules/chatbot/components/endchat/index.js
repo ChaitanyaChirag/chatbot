@@ -277,7 +277,7 @@ const InfoCard = props => {
     <LangContext.Consumer>
       {
         lang => (
-          <div className="ori-bg-white ori-pad-15 ori-tb-mrgn-10 ori-box-shadow ori-border-radius-5">
+          <div className="ori-bg-popup ori-font-popup ori-pad-15 ori-tb-mrgn-10 ori-box-shadow ori-border-radius-5">
             <p className="ori-b-mrgn-10">{title}</p>
             <div className="ori-flex-row ori-flex-jc">
               {

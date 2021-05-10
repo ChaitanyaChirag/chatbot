@@ -1,4 +1,4 @@
-@import "./mixins.scss";
+@import './mixins.scss';
 
 //---------------------- PRIMARY -----------------------
 
@@ -25,7 +25,7 @@ $default-light: #f9f9fc;
 $font-color: #3c4043;
 $font-color-light: #abaeb2;
 $font-chat: #344050;
-$popup_bg: rgba(0, 0, 0, 0.3);
+$overlay: rgba(0, 0, 0, 0.3);
 $border: #e6e6e6;
 $border-light: #ebebeb;
 $card-bg: rgba(239, 239, 244, 0.3);
@@ -78,3 +78,8 @@ $notification_bot_sender_bubble_bg: $primary;
 $notification_bot_sender_bubble_font: $white;
 $notification_stack_bubble_bg: #666;
 $notification_stack_bubble_font: $white;
+$popup-bg: $white;
+$popup-bg-hover: $default;
+$popup-font: $font-chat;
+$popup-font-light: $font-color-light;
+

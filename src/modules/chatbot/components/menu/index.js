@@ -34,7 +34,7 @@ class MenuComponent extends React.PureComponent {
               <React.Fragment>
                 <div className={classNames("ori-absolute ori-animated ori-animation-half menuOverlay", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted })} onClick={closeMenu}> &nbsp;
               </div>
-                <div className={classNames("ori-animated ori-animation-half ori-absolute ori-bg-white ori-pad-10 oriMenuContainer ", { "ori-zoom-in-bottom-left": isMounted, "ori-zoom-out-bottom-left": !isMounted })}>
+                <div className={classNames("ori-animated ori-animation-half ori-absolute ori-pad-10 oriMenuContainer ", { "ori-zoom-in-bottom-left": isMounted, "ori-zoom-out-bottom-left": !isMounted })}>
                   {
                     chatbot_setting.menu.children.clear_chat &&
                     <div className="ori-pad-5 ori-cursor-ptr menuItem" onClick={handleResetChat}>

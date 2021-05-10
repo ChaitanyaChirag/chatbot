@@ -79,7 +79,7 @@ class FeedbackComponent extends React.PureComponent {
                 animationDuration: `${delayUnmountTime}ms`
               }}
             >
-              <div className="ori-relative ori-bg-white ori-border-radius-3 ori-pad-15 feedbackContainer">
+              <div className="ori-relative ori-border-radius-3 ori-pad-15 feedbackContainer">
                 {
                   chatbot_setting.chat_interface.show_feedback_avatar &&
                   <div className="ori-absolute avatarContainer">
@@ -91,7 +91,7 @@ class FeedbackComponent extends React.PureComponent {
                   </div>
                 }
                 <div className="ori-absolute ori-pad-5 flex alignFeedbackClose" onClick={closeFeedback}>
-                  <CloseIcon size={16} className="ori-font-white" />
+                  <CloseIcon size={16} className="ori-font-popup" />
                 </div>
                 <ShowMessage
                   isMounted={!feedback_failed && !feedback_success && !is_socket_connected && isMounted}

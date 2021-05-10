@@ -375,7 +375,7 @@ class ChatBot extends Component {
             }
             {
               show_clear_chat_popconfirm &&
-              <div className="ori-pad-10 ori-bg-white ori-border-radius-3 ori-mrgn-auto">
+              <div className="ori-pad-10 ori-bg-popup ori-font-popup ori-border-radius-3 ori-mrgn-auto">
                 Are you sure you want to clear the chat?
                   <div className="ori-flex ori-flex-jfe ori-t-pad-10">
                   <Button
