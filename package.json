@@ -8,7 +8,7 @@
     "babel-plugin-import": "^1.12.2",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
-    "message-types": "^2.4.0",
+    "message-types": "^2.4.1",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-app-polyfill": "^1.0.5",
