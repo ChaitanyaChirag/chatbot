@@ -110,6 +110,7 @@ export const chatbot_setting = {
     quick_reply_bg_transparent: true,
     scroll_upto_first_response_only: true,
     carousel_msg_display_type: TYPES.DEFAULT, // default, fixed, actual
+    text_with_media_img_popup_disable: false,
     header_tag: true, //to hide and show tag type header for small screen
     image_type_brand_name: false,
     type_writer: {
