@@ -82,7 +82,7 @@ export default class QuickReply extends React.PureComponent {
           !disableRight &&
           <Button
             icon="left"
-            className="ori-absolute ori-lr-pad-5 ori-btn-fill-primary ori-align-top-4  alignLeft"
+            className="ori-absolute ori-lr-pad-5 ori-btn-quick-reply-icon alignLeft"
             onClick={this.translateRight}
           />
         }
@@ -90,7 +90,7 @@ export default class QuickReply extends React.PureComponent {
           !disableLeft &&
           <Button
             icon="right"
-            className="ori-absolute ori-lr-pad-5 ori-btn-fill-primary ori-align-top-4 alignRight"
+            className="ori-absolute ori-lr-pad-5 ori-btn-quick-reply-icon alignRight"
             onClick={this.translateLeft}
           />
         }
