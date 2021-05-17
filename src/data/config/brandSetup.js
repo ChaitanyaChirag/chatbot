@@ -190,9 +190,23 @@ export const chatbot_default_messages = {
 }
 
 export const chatbot_psids = {
+  primary_key_enable: false,
+  primary_key: "psid",
   secondary_key_enable: false,
   secondary_key: "sKey",
   psid_ttl: 24 * 3600 * 1000, // psid time to live = 1 days
+  brandLogicToGetPrimaryValue() {
+    let primary_value = null
+    if (this.primary_key_enable) {
+      //=========== BRAND SPECIFIC LOGIC TO FINDOUT PSID VALUE==========
+      const query_params = new URLSearchParams(window.location.search)
+      if (query_params.has(this.primary_key)) {
+        primary_value = query_params.get(this.primary_key)
+      }
+      //=================== END ===================
+    }
+    return primary_value
+  },
   brandLogicToGetSecondaryValue() {
     let secondary_value = "default"
     if (this.secondary_key_enable) {
@@ -219,9 +233,13 @@ export const chatbot_psids = {
     if (isSomethingExpired)
       setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
     const key = this.brandLogicToGetSecondaryValue()
-    if (psidMap[key] && psidMap[key].psid)
+    const primary_value = this.brandLogicToGetPrimaryValue()
+    if ((this.primary_key_enable && primary_value && psidMap[key] && psidMap[key].psid && psidMap[key].psid === primary_value) || (!(this.primary_key_enable && primary_value) && psidMap[key] && psidMap[key].psid))
       return psidMap[key].psid
-    psidMap[key] = { psid: uniqueId(), expiry: new Date().getTime() + this.psid_ttl }
+    psidMap[key] = {
+      psid: primary_value ? primary_value : uniqueId(),
+      expiry: new Date().getTime() + this.psid_ttl
+    }
     setDataInLocalStorage(LOCAL_STORAGE.PSID_MAP, psidMap)
     return psidMap[key].psid
   },
