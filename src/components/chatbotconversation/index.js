@@ -334,6 +334,7 @@ class ChatBotConversation extends React.PureComponent {
                                   btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]}
                                   display_type={chatbot_setting.chat_interface.carousel_msg_display_type}
+                                  img_popup_disable={chatbot_setting.chat_interface.carousel_img_popup_disable}
                                 />
                               }
                               {
