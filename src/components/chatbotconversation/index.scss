@@ -90,6 +90,10 @@
         .defaultMsgBox {
             background-color: $chatbot-server-bubble-bg;
             color: $chatbot-server-bubble-font;
+
+            .carouselItem {
+              color: $chatbot-server-bubble-font;
+            }
         }
 
         .notificationMsgBox {
