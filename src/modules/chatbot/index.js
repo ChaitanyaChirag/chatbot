@@ -54,19 +54,32 @@ class ChatBot extends Component {
 
   is_app = isAndroid() || isIOS();
   is_msg_updating = false
+  push_default_msg_timer = null
 
-  componentWillMount() {
-    this.setDefaultMessages()
+  componentDidMount() {
+    this.pushDefaultMessages()
   }
 
-  componentDidUpdate() {
-    const { messages } = this.props.chat_details
+  componentDidUpdate(prevProps) {
+    const { messages, is_socket_connected } = this.props.chat_details
     if (this.is_msg_updating && messages.length !== 0)
       this.is_msg_updating = false
-    this.setDefaultMessages()
+
+    if (chatbot_setting.auto_emit_message.enable && !prevProps.chat_details.is_socket_connected && is_socket_connected) {
+      this.is_msg_updating = true
+      if (this.push_default_msg_timer)
+        clearTimeout(this.push_default_msg_timer)
+      this.push_default_msg_timer = setTimeout(this.pushDefaultMessages(), chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
+    } else
+      this.pushDefaultMessages()
   }
 
-  setDefaultMessages = () => {
+  componentWillUnmount() {
+    if (this.push_default_msg_timer)
+      clearTimeout(this.push_default_msg_timer)
+  }
+
+  pushDefaultMessages = () => {
     const { actions } = this.props
     const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
     if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT ? is_chat_open : true)) {

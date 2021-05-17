@@ -63,10 +63,11 @@ export const chatbot_setting = {
   },
   send_brand_data_on_user_first_msg: false,
   auto_emit_message: {
-    enable: false,
+    enable: true,
     query_param_key: "oribotmessage",
     send_brand_data: false,
     update_last_emit: false,
+    initial_delay_for_default_msg: 5000
   },
   speech_recognition: true,
   minimize_bot: true,
