@@ -69,7 +69,7 @@ class ChatBot extends Component {
       this.is_msg_updating = true
       if (this.push_default_msg_timer)
         clearTimeout(this.push_default_msg_timer)
-      this.push_default_msg_timer = setTimeout(this.pushDefaultMessages(), chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
+      this.push_default_msg_timer = setTimeout(this.pushDefaultMessages, chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
     } else
       this.pushDefaultMessages()
   }
