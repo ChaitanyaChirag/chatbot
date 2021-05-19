@@ -296,6 +296,7 @@ class ChatBotConversation extends React.PureComponent {
                                 <Recharge
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
+                                  default_btn_display_count={chatbot_setting.default_btn_display_count}
                                   btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled}
                                 />
@@ -305,6 +306,7 @@ class ChatBotConversation extends React.PureComponent {
                                 <RechargeDetails
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
+                                  default_btn_display_count={chatbot_setting.default_btn_display_count}
                                   btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled}
                                 />
@@ -315,6 +317,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   handleOfferSelection={this.props.handleOfferSelection}
+                                  default_btn_display_count={chatbot_setting.default_btn_display_count}
                                   disable_offer={index !== (messages.length - 1) || stack_view}
                                   btn_disabled={btn_disabled}
                                 />
@@ -324,6 +327,7 @@ class ChatBotConversation extends React.PureComponent {
                                 <RechargeHistory
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
+                                  default_btn_display_count={chatbot_setting.default_btn_display_count}
                                   btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled}
                                 />
