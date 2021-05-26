@@ -54,6 +54,7 @@ class ChatBot extends Component {
 
   is_app = isAndroid() || isIOS();
   is_msg_updating = false
+  delay_push_messages = false
   push_default_msg_timer = null
 
   componentDidMount() {
@@ -64,13 +65,15 @@ class ChatBot extends Component {
     const { messages, is_socket_connected } = this.props.chat_details
     if (this.is_msg_updating && messages.length !== 0)
       this.is_msg_updating = false
+    if(this.delay_push_messages && messages.length !== 0)
+      this.delay_push_messages = false
 
     if (chatbot_setting.auto_emit_message.enable && !prevProps.chat_details.is_socket_connected && is_socket_connected) {
-      this.is_msg_updating = true
+      this.delay_push_messages = true
       if (this.push_default_msg_timer)
         clearTimeout(this.push_default_msg_timer)
       this.push_default_msg_timer = setTimeout(this.pushDefaultMessages, chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
-    } else
+    } else if (!this.delay_push_messages)
       this.pushDefaultMessages()
   }
 
