@@ -129,6 +129,14 @@ export const clearAllDataFromLocalStorage = psid => {
   }
 }
 
+export const getQueryParamsValue = (key, default_value) => {
+  let value = default_value
+  const query_params = new URLSearchParams(window.location.search)
+  if (query_params.has(key))
+    value = query_params.get(key)
+  return value
+}
+
 export const formatDate = (value, options) => {
   let date = new Date(value);
   return date.toLocaleDateString('en-In', options);

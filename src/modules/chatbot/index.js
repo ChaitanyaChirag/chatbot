@@ -11,7 +11,8 @@ import {
   fileToBase64,
   checkImageTypeFile,
   showMessage,
-  checkMultipleExtension
+  checkMultipleExtension,
+  getQueryParamsValue
 } from "../../data/config/utils";
 import {
   EVENTS,
@@ -65,15 +66,19 @@ class ChatBot extends Component {
     const { messages, is_socket_connected } = this.props.chat_details
     if (this.is_msg_updating && messages.length !== 0)
       this.is_msg_updating = false
-    if(this.delay_push_messages && messages.length !== 0)
+    if (this.delay_push_messages && messages.length !== 0)
       this.delay_push_messages = false
 
     if (chatbot_setting.auto_emit_message.enable && !prevProps.chat_details.is_socket_connected && is_socket_connected) {
-      this.delay_push_messages = true
-      if (this.push_default_msg_timer)
-        clearTimeout(this.push_default_msg_timer)
-      this.push_default_msg_timer = setTimeout(this.pushDefaultMessages, chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
-    } else if (!this.delay_push_messages)
+      const will_auto_emit = getQueryParamsValue(chatbot_setting.auto_emit_message.query_param_key, null)
+      if (will_auto_emit) {
+        this.delay_push_messages = true
+        if (this.push_default_msg_timer)
+          clearTimeout(this.push_default_msg_timer)
+        this.push_default_msg_timer = setTimeout(this.pushDefaultMessages, chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
+      }
+    } 
+    if (!this.delay_push_messages)
       this.pushDefaultMessages()
   }
 
