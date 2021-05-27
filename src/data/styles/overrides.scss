@@ -36,13 +36,9 @@
   background-color: $btn-fill !important;
   border-color: $btn-fill !important;
 
-  &:hover, &:focus, &.active {
+  &:hover, &:focus, &.active, &:disabled {
       background-color: $btn-fill-hover !important;
       border-color: $btn-fill-hover !important;
-  }
-
-  &:hover {
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   }
 }
 
