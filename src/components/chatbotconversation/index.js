@@ -418,7 +418,7 @@ class ChatBotConversation extends React.PureComponent {
                 })
               }
               {
-                is_typing &&
+                is_typing && !stack_view &&
                 <div className="msgContainer receiverMsgContainer ori-flex-row ori-t-pad-5">
                   <div className={classNames("ori-flex-row ori-border-radius-10 ori-pad-7", { "defaultMsgBox": !notification_bot, "notificationMsgBox": notification_bot && !stack_view, "notificationStackMsgBox": notification_bot && stack_view })}>
                     {
