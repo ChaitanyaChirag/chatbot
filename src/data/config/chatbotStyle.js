@@ -24,7 +24,7 @@ const chatbotStyle = {
   senderBubbleContainer: {},
   msgBubbleClass: "ori-pad-7 ori-b-mrgn-5 ori-border-radius-10",
   stackViewNotificationBot: {
-    width: "300px",
+    width: "320px",
     bottom: "100px"
   },
   EndChatIcon: () => (

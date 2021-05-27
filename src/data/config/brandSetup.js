@@ -123,7 +123,7 @@ export const chatbot_setting = {
   },
   notification_bot: {
     visibility: true, // to enable notification popup (set value false in android and ios )
-    stack_view: false, // to show to stack view of notification bot
+    stack_view: true, // to show to stack view of notification bot
     bottom_height_lg: 110,
     bottom_height_sm: 100
   },

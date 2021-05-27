@@ -276,7 +276,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]}
                                   img_popup_disable={chatbot_setting.chat_interface.text_with_media_img_popup_disable}
                                 />
@@ -289,7 +289,7 @@ class ChatBotConversation extends React.PureComponent {
                                   onSubmitCheckbox={onSubmitCheckbox}
                                   checkbox_disabled={index !== (messages.length - 1)}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble || index !== (messages.length - 1)}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble || index !== (messages.length - 1)}
                                   btn_disabled={btn_disabled}
                                 />
                               }
@@ -299,7 +299,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled}
                                 />
                               }
@@ -309,7 +309,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled}
                                 />
                               }
@@ -330,7 +330,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled}
                                 />
                               }
@@ -340,7 +340,7 @@ class ChatBotConversation extends React.PureComponent {
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                   btn_disabled={btn_disabled || disable_msg_after_reply[message.chatlogId]}
                                   display_type={chatbot_setting.chat_interface.carousel_msg_display_type}
                                   img_popup_disable={chatbot_setting.chat_interface.carousel_img_popup_disable}
@@ -353,7 +353,7 @@ class ChatBotConversation extends React.PureComponent {
                                   handleMsgBtnClick={handleMsgBtnClick}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
                                   btn_disabled={index !== (messages.length - 1) || btn_disabled}
-                                  btn_hidden={stack_view || chatbot_setting.hide_buttons_in_msg_bubble}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                 />
                               }
                               {
