@@ -203,10 +203,12 @@ class ChatBotConversation extends React.PureComponent {
                             </div>
                           }
                           <div
-                            className={classNames("ori-relative ori-flex-row msgContainer",
+                            className={classNames("ori-relative msgContainer",
                               {
                                 "receiverMsgContainer": admin || chatbot,
-                                "senderMsgContainer": customer
+                                "senderMsgContainer": customer,
+                                "ori-display-none": customer && stack_view,
+                                "ori-flex-row": !stack_view
                               }
                             )}
                             style={
@@ -216,11 +218,11 @@ class ChatBotConversation extends React.PureComponent {
                             }
                           >
                             {
-                              first_msg && admin &&
+                              first_msg && admin && !stack_view &&
                               <p className="ori-absolute ori-font-xxs ori-capitalize ori-align-top" >{sender_title}</p>
                             }
                             {
-                              chatbot_setting.chat_interface.show_avatar && first_msg && chatbot &&
+                              chatbot_setting.chat_interface.show_avatar && first_msg && chatbot && !stack_view &&
                               <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
                                 <Avatar
                                   src={sender_img_url !== "" ? sender_img_url : translator.assets[lang].logo}
@@ -229,7 +231,7 @@ class ChatBotConversation extends React.PureComponent {
                               </div>
                             }
                             {
-                              chatbot_setting.chat_interface.show_avatar && first_msg && admin &&
+                              chatbot_setting.chat_interface.show_avatar && first_msg && admin && !stack_view &&
                               <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
                                 <Avatar
                                   src={sender_img_url}
