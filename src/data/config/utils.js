@@ -20,6 +20,15 @@ export const log = (...arg) => {
     console.log(...arg)
 }
 
+export const isJson = str => {
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    return false
+  }
+  return true
+}
+
 export const isEmptyObject = obj => {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop))
@@ -100,9 +109,13 @@ export const isIOS = () => {
 };
 
 export const getDataFromLocalStorage = (key, undefined_return_value) => {
-  const data = localStorage.getItem(key);
-  return (data && data !== undefined ? JSON.parse(data) : undefined_return_value);
-};
+  let data = localStorage.getItem(key)
+  if(data === undefined || data === null)
+    return undefined_return_value
+  if (isJson(data))
+    data = JSON.parse(data)
+  return data
+}
 
 export const setDataInLocalStorage = (key, data) => {
   try {
