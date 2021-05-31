@@ -41,6 +41,7 @@ const Buttons = ({
                   size="small"
                   className="ori-b-mrgn-5 ori-lr-mrgn-3 ori-btn-bubble-outer"
                   disabled={disabled}
+                  style={{ whiteSpace: "normal", height: "auto" }}
                   onClick={() => onClick({ button, message })}
                 >
                   {button.text}
