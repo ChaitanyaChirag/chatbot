@@ -314,16 +314,18 @@ const middleware = () => {
       case actionTypes.BOT_POPUP_REQUEST: {
         if (socket) {
           socket.emit(EVENTS.BOT_AUTO_POPUP_REQUEST, action.payload, (err, res) => {
-            if (!err && res && res.data && res.data.displayMessage) {
-              log('bot auto popup request response', res);
-              const message = res.data.displayMessage;
+            log('bot auto popup request callback', err, res);
+            const chat_details = store.getState().chat_details;
+            const default_msgs_length = chatbot_default_messages.getDefaultMessages().length;
+            if ((!chat_details.is_chat_open || (chat_details.is_chat_open && (chat_details.messages.length > default_msgs_length))) && !err && res && res.data && res.data.displayMessage) {
               store.dispatch({
                 type: actionTypes.PUSH_SENDER_MESSAGE,
-                payload: { message },
+                payload: {
+                  message: res.data.displayMessage
+                }
               });
-            } else {
-              log('bot auto popup request error', err);
-            }
+            } else if (err)
+              log('bot auto popup request error', err)
           });
         }
         break;
