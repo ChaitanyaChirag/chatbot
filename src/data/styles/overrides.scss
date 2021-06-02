@@ -75,8 +75,6 @@
 
         &::before {
             content: '' !important;
-            display: unset !important; // idea specific css changes
-       
         }
     }
 
@@ -89,8 +87,6 @@
 
         &::before {
             content: '' !important;
-            display: unset !important; // idea specific css changes
-       
         }
     }
 
@@ -99,22 +95,11 @@
         overflow-x: hidden;
 
         li, .slick-active {
-            width: unset !important; // idea specific css changes
 
             button {
                 background-color: $font-color !important;
-
-                &::before {
-                    font-size: unset !important; // idea specific css changes
-               
-                }
             }
         }
-    }
-
-    //------------- idea specific css changes ----------------
-    .slick-slide {
-        margin: 0 !important;
     }
 }
 
