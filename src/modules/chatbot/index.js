@@ -9,6 +9,7 @@ import {
   isAndroid,
   isIOS,
   fileToBase64,
+  isImageExist,
   checkImageTypeFile,
   showMessage,
   checkMultipleExtension,
@@ -77,7 +78,7 @@ class ChatBot extends Component {
           clearTimeout(this.push_default_msg_timer)
         this.push_default_msg_timer = setTimeout(this.pushDefaultMessages, chatbot_setting.auto_emit_message.initial_delay_for_default_msg)
       }
-    } 
+    }
     if (!this.delay_push_messages)
       this.pushDefaultMessages()
   }
@@ -280,11 +281,16 @@ class ChatBot extends Component {
     console.log("file", file);
     if (file && file.name && checkMultipleExtension(file.name) && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
       fileToBase64(file).then(fileUrl => {
-        this.setState({
-          file,
-          fileUrl,
-          show_file_preview: true
-        });
+        isImageExist(fileUrl).then(isValidUrl => {
+          if (isValidUrl)
+            this.setState({
+              file,
+              fileUrl,
+              show_file_preview: true
+            });
+          else
+            showMessage("warning", "selected file is not an image")
+        })
       })
     } else {
       console.log("selected file is not compatiable");

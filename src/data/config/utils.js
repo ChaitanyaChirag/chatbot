@@ -83,6 +83,18 @@ export const checkImageTypeFile = filename => {
   return (/\.(gif|jpg?g|jpeg|svg|tiff|png)$/i).test(filename)
 };
 
+export const isImageExist = url => {
+  return new Promise(resolve => {
+    if (url) {
+      const img = new Image()
+      img.onload = () => resolve(true)
+      img.onerror = () => resolve(false)
+      img.src = url
+    } else
+      resolve(false)
+  })
+}
+
 export const fileToBase64 = file => {
   return new Promise(resolve => {
     var reader = new FileReader();
@@ -110,7 +122,7 @@ export const isIOS = () => {
 
 export const getDataFromLocalStorage = (key, undefined_return_value) => {
   let data = localStorage.getItem(key)
-  if(data === undefined || data === null)
+  if (data === undefined || data === null)
     return undefined_return_value
   if (isJson(data))
     data = JSON.parse(data)
