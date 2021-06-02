@@ -289,7 +289,7 @@ class ChatBot extends Component {
               show_file_preview: true
             });
           else
-            showMessage("warning", "selected file is not an image")
+            showMessage("warning", "selected file is not a valid image")
         })
       })
     } else {
