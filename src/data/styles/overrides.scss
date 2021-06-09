@@ -32,14 +32,14 @@
 }
 
 .ori-btn-fill-primary, .ori-btn-bubble-inner, .ori-btn-quick-reply-icon {
-  color: $btn-fill-font !important;
-  background-color: $btn-fill !important;
-  border-color: $btn-fill !important;
+    color: $btn-fill-font !important;
+    background-color: $btn-fill !important;
+    border-color: $btn-fill !important;
 
-  &:hover, &:focus, &.active, &:disabled {
-      background-color: $btn-fill-hover !important;
-      border-color: $btn-fill-hover !important;
-  }
+    &:hover, &:focus, &.active, &:disabled {
+        background-color: $btn-fill-hover !important;
+        border-color: $btn-fill-hover !important;
+    }
 }
 
 .ori-btn-ghost-primary, .ori-btn-quick-reply {
@@ -50,6 +50,17 @@
 
     &:hover, &:focus, &.active {
         box-shadow: 0 0 6px 0 $btn-ghost;
+    }
+}
+
+.ori-btn-paragraph {
+    font-size: 13px !important;
+    text-align: left !important;
+    
+    &:hover, &:focus, &.active {
+        color: $font-chat !important;
+        border-color: $border !important;
+        background-color: $default !important;
     }
 }
 
@@ -95,7 +106,6 @@
         overflow-x: hidden;
 
         li, .slick-active {
-
             button {
                 background-color: $font-color !important;
             }
