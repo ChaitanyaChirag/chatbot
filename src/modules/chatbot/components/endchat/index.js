@@ -98,7 +98,7 @@ const EndChat = ({
                         </div>
                       }
                       <Input
-                        className="ori-font-xs"
+                        style={{ fontSize: window.innerWidth < 768 ? "16" : "12" }}
                         {...form_item.input_props}
                         onChange={handleFormInputChange}
                       />
@@ -118,7 +118,7 @@ const EndChat = ({
                         </div>
                       }
                       <Input.TextArea
-                        className="ori-font-xs"
+                        style={{ fontSize: window.innerWidth < 768 ? "16" : "12" }}
                         {...form_item.input_props}
                         onChange={handleFormInputChange}
                       />
