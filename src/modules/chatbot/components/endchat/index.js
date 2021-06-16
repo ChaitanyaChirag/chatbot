@@ -98,7 +98,7 @@ const EndChat = ({
                         </div>
                       }
                       <Input
-                        style={{ fontSize: window.innerWidth < 768 ? "16px" : "12px" }}
+                        style={{ fontSize: window.innerWidth <= 768 ? "16px" : "12px" }}
                         {...form_item.input_props}
                         onChange={handleFormInputChange}
                       />
@@ -118,7 +118,7 @@ const EndChat = ({
                         </div>
                       }
                       <Input.TextArea
-                        style={{ fontSize: window.innerWidth < 768 ? "16px" : "12px" }}
+                        style={{ fontSize: window.innerWidth <= 768 ? "16px" : "12px" }}
                         {...form_item.input_props}
                         onChange={handleFormInputChange}
                       />
@@ -145,7 +145,7 @@ const EndChat = ({
                       }
                       <Select
                         className="ori-full-width"
-                        style={{ fontSize: window.innerWidth < 768 ? "16px" : "12px" }}
+                        style={{ fontSize: window.innerWidth <= 768 ? "16px" : "12px" }}
                         getPopupContainer={() => document.getElementById(`select-${index}`)}
                         {...form_item.input_props}
                         onChange={handleFormSelectChange}
