@@ -98,7 +98,7 @@ const EndChat = ({
                         </div>
                       }
                       <Input
-                        className="ori-font-xs"
+                        style={{ fontSize: window.innerWidth < 768 ? "16px" : "12px" }}
                         {...form_item.input_props}
                         onChange={handleFormInputChange}
                       />
@@ -118,7 +118,7 @@ const EndChat = ({
                         </div>
                       }
                       <Input.TextArea
-                        className="ori-font-xs"
+                        style={{ fontSize: window.innerWidth < 768 ? "16px" : "12px" }}
                         {...form_item.input_props}
                         onChange={handleFormInputChange}
                       />
@@ -144,7 +144,8 @@ const EndChat = ({
                         <div className="ori-b-mrgn-7" style={{ lineHeight: "1.3" }}>{form_item.title}</div>
                       }
                       <Select
-                        className="ori-full-width ori-font-xs"
+                        className="ori-full-width"
+                        style={{ fontSize: window.innerWidth < 768 ? "16px" : "12px" }}
                         getPopupContainer={() => document.getElementById(`select-${index}`)}
                         {...form_item.input_props}
                         onChange={handleFormSelectChange}
