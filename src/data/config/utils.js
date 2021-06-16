@@ -79,10 +79,6 @@ export const checkMultipleExtension = filename => {
   return (numberOfExtensions.length > 2 ? false : true)
 }
 
-export const checkImageTypeFile = filename => {
-  return (/\.(gif|jpg?g|jpeg|svg|tiff|png)$/i).test(filename)
-};
-
 export const isImageExist = url => {
   return new Promise(resolve => {
     if (url) {

@@ -264,5 +264,12 @@ export const brand_features = {
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
 
     }
+  },
+  allowedImageTypeUpload(filename) {
+    let bool = false
+    //=========== BRAND SPECIFIC LOGIC ==========
+    bool = (/\.(gif|jpg?g|jpeg|svg|tiff|png)$/i).test(filename)
+    //=================== END ===================
+    return bool
   }
 }

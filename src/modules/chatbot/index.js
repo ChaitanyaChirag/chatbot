@@ -10,7 +10,6 @@ import {
   isIOS,
   fileToBase64,
   isImageExist,
-  checkImageTypeFile,
   showMessage,
   checkMultipleExtension,
   getQueryParamsValue
@@ -278,8 +277,8 @@ class ChatBot extends Component {
   }
 
   beforeFileUpload = file => {
-    console.log("file", file);
-    if (file && file.name && checkMultipleExtension(file.name) && checkImageTypeFile(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed) {
+    const is_allowed_image_type = brand_features.allowedImageTypeUpload(file.name)
+    if (file && file.name && checkMultipleExtension(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed && is_allowed_image_type) {
       fileToBase64(file).then(fileUrl => {
         isImageExist(fileUrl).then(isValidUrl => {
           if (isValidUrl)
@@ -293,8 +292,17 @@ class ChatBot extends Component {
         })
       })
     } else {
-      console.log("selected file is not compatiable");
-      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ? "image size is large" : (!checkMultipleExtension(file.name) ? "Multi extension file can't be uploaded" : !checkImageTypeFile(file.name) ? "selected file is not an image" : "something went wrong.");
+      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ?
+        "image size is large" :
+        (
+          !checkMultipleExtension(file.name) ?
+            "Multi extension file can't be uploaded" :
+            (
+              !is_allowed_image_type ?
+                "selected file is not an image" :
+                "something went wrong."
+            )
+        );
       showMessage("warning", warn_msg);
     }
     return false;
