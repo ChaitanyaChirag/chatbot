@@ -56,11 +56,22 @@
 .ori-btn-paragraph {
     font-size: 13px !important;
     text-align: left !important;
-    
+
     &:hover, &:focus, &.active {
         color: $font-chat !important;
         border-color: $border !important;
         background-color: $default !important;
+    }
+}
+
+.ori-btn-secondary {
+    color: $white !important;
+    background-color: $green !important;
+    border-color: $green !important;
+
+    &:hover, &:focus, &.active, &:disabled {
+        background-color: $green-bg-light !important;
+        border-color: $green-bg-light !important;
     }
 }
 
