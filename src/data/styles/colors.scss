@@ -38,13 +38,13 @@ $info: #4da1ff !default;
 $success: #90b900 !default;
 $warning: #f5a623 !default;
 $danger: #ff6d4a !default;
-$green: #35cd4a;
+$green: #156920;
 $yellow: #ffcb00;
 
 $primary-light: tint($primary, 30%);
 $black-light: tint($black, 30%);
+$green-light: tint($green, 30%);
 
-$green-bg-light: tint($green, 85%);
 $black-bg-light: tint($black, 85%);
 
 $primary-dark: shade($primary, 15%);

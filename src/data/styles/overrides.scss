@@ -70,8 +70,8 @@
     border-color: $green !important;
 
     &:hover, &:focus, &.active, &:disabled {
-        background-color: $green-bg-light !important;
-        border-color: $green-bg-light !important;
+        background-color: $green-light !important;
+        border-color: $green-light !important;
     }
 }
 
