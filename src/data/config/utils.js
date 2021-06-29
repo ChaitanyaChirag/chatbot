@@ -147,6 +147,7 @@ export const clearAllDataFromLocalStorage = psid => {
     localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + psid)
     localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + psid)
     localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS + psid)
+    localStorage.removeItem(LOCAL_STORAGE.UPLOAD_FILE + psid)
   }
 }
 

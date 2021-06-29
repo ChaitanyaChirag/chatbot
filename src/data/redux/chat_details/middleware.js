@@ -29,7 +29,7 @@ import {
   setDataInLocalStorage,
   getQueryParamsValue
 } from '../../config/utils';
-import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
+import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage, updateBotState } from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
