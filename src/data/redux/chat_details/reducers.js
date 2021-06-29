@@ -28,7 +28,7 @@ const chat_details = (state = states.chat_details, action) => {
     }
 
     case actionTypes.UPDATE_BOT_STATE: {
-      setDataInLocalStorage(LOCAL_STORAGE.upload_file + state.psid, action.payload.upload_file);
+      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + state.psid, action.payload.upload_file);
       return {
         ...state,
         upload_file: {
