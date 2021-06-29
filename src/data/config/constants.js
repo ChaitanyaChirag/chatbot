@@ -44,7 +44,8 @@ export const LOCAL_STORAGE = {
   IS_CHAT_OPEN: "isOpen_",
   APP_PARAMS: "appParams_",
   END_CHAT: "endChat_",
-  DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_"
+  DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_",
+  UPLOAD_FILE: "upload_file"
 }
 
 export const PLATFORM = {
@@ -74,7 +75,8 @@ export const EVENTS = {
   END_CONVERSATION: "end_conversation",
   END_CONVERSATION_FORM_SUBMIT: "end_conversation_form_submit",
   DOWN_TIME: 'downTime',
-  SHOW_NOTIFICATION: 'showNotification'
+  SHOW_NOTIFICATION: 'showNotification',
+  GENERAL_UPDATE: 'generalUpdate'
 };
 
 export const MESSAGE_TYPES = {

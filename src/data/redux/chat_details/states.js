@@ -45,7 +45,8 @@ const states = {
       visible: false,
       message: ""
     },
-    loading: false
+    loading: false,
+    upload_file: getDataFromLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + psid, chatbot_setting.upload_file),
   },
 };
 

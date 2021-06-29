@@ -4,6 +4,7 @@ import actionTypes from '../actiontypes';
 import states from './states';
 import { setDataInLocalStorage, isEmptyObject } from '../../config/utils';
 import { MESSAGE_READ_STATUS, MESSAGE_SENDER, LOCAL_STORAGE } from '../../config/constants';
+import { chatbot_setting } from '../../config/brandSetup';
 
 const chat_details = (state = states.chat_details, action) => {
   switch (action.type) {
@@ -23,6 +24,17 @@ const chat_details = (state = states.chat_details, action) => {
       return {
         ...state,
         end_chat
+      };
+    }
+
+    case actionTypes.UPDATE_BOT_STATE: {
+      setDataInLocalStorage(LOCAL_STORAGE.upload_file + state.psid, action.payload.upload_file);
+      return {
+        ...state,
+        upload_file: {
+          enable: action.payload.upload_file.enable ? action.payload.upload_file.enable : chatbot_setting.upload_file.enable,
+          max_file_size: action.payload.upload_file.max_file_size ? action.payload.upload_file.max_file_size : chatbot_setting.upload_file.max_file_size,
+        }
       };
     }
 

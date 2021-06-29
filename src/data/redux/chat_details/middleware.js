@@ -236,6 +236,14 @@ const registerSocketListener = (store, socket) => {
       }))
     }, 8000)
   });
+
+  socket.on(EVENTS.GENERAL_UPDATE, data =>{
+    if(data.type === "file_upload"){
+      store.dispatch(updateBotState({
+        upload_file: data.upload_file
+      }))
+    }
+  })
 };
 
 const middleware = () => {
