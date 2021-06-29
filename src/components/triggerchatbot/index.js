@@ -5,11 +5,13 @@ import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
 
-import { chatbot_setting, translator } from '../../data/config/brandSetup';
+import { chatbot_setting, brand_features, translator } from '../../data/config/brandSetup';
 import { TYPES } from '../../data/config/constants'
 import { LangContext } from '../../modules/context'
 
 const LottieContainer = React.lazy(() => import('./lottiecontainer'));
+
+const SHOW_TRIGGER = brand_features.showTriggerByBrandLogic()
 
 class TriggerChatBot extends React.PureComponent {
   handleChatInterfaceView = () => {
@@ -40,7 +42,7 @@ class TriggerChatBot extends React.PureComponent {
                 </div>
               }
               {
-                !is_chat_open && chatbot_setting.trigger_type === TYPES.LOTTIE &&
+                !is_chat_open && chatbot_setting.trigger_type === TYPES.LOTTIE && SHOW_TRIGGER &&
                 <Suspense fallback={null}>
                   <div
                     className="ori-fixed ori-zindex-99991 ori-cursor-ptr"
@@ -52,7 +54,7 @@ class TriggerChatBot extends React.PureComponent {
                 </Suspense>
               }
               {
-                !is_chat_open && chatbot_setting.trigger_type === TYPES.DEFAULT &&
+                !is_chat_open && chatbot_setting.trigger_type === TYPES.DEFAULT && SHOW_TRIGGER &&
                 <div
                   className="ori-fixed ori-zindex-99991 ori-cursor-ptr ori-animated ori-pulse ori-infinite"
                   style={mobile ? chatbot_setting.trigger.image_style_sm : chatbot_setting.trigger.image_style_lg}

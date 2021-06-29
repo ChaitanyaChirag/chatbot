@@ -253,6 +253,7 @@ export const chatbot_psids = {
 }
 
 export const brand_features = {
+  enable_trigger_brand_logic: false,
   getBrandData() {
     const data = {}
     //=========== BRAND SPECIFIC LOGIC ==========
@@ -271,5 +272,17 @@ export const brand_features = {
     bool = (/\.(gif|jpg?g|jpeg|svg|tiff|png)$/i).test(filename)
     //=================== END ===================
     return bool
+  },
+  showTriggerByBrandLogic() {
+    let show_trigger = true
+    //=========== BRAND SPECIFIC LOGIC TO FINDOUT TRIGGER  VALUE==========
+    if (this.enable_trigger_brand_logic) {
+      let query_param_key = "trigger"
+      const query_params = new URLSearchParams(window.location.search)
+      if (query_params.has(query_param_key))
+        show_trigger = query_params.get(query_param_key) === "true"
+    }
+    //=================== END ===================
+    return show_trigger
   }
 }
