@@ -243,8 +243,8 @@ const registerSocketListener = (store, socket) => {
       setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + chat_details.psid, data.upload_file)
       store.dispatch(updateChatsState({
         upload_file: {
-          enable: data.upload_file.enable ? data.upload_file.enable : chatbot_setting.upload_file.enable,
-          max_file_size: data.upload_file.max_file_size ? data.upload_file.max_file_size : chatbot_setting.upload_file.max_file_size,
+          enable: data.upload_file.enable ? data.upload_file.enable : chat_details.upload_file.enable,
+          max_file_size: data.upload_file.max_file_size ? data.upload_file.max_file_size : chat_details.upload_file.max_file_size,
         }
       }))
     }
