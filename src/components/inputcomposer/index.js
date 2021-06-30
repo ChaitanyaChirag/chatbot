@@ -131,7 +131,7 @@ class InputComposer extends React.PureComponent {
   }
 
   render() {
-    const { is_input_lock, input_lock_text, onClickMenu, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove } = this.props;
+    const { is_input_lock, input_lock_text, onClickMenu, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove, upload_enabled } = this.props;
     const { input_message, showTypeWriter } = this.state;
     return (
       <LangContext.Consumer>
@@ -218,7 +218,7 @@ class InputComposer extends React.PureComponent {
                         </Button>
                       }
                       {
-                        !notification_bot &&  chatbot_setting.upload_file &&
+                        !notification_bot &&  upload_enabled &&
                         <div className="ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc">
                           <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
                             <AddFileIcon size={20} className="ori-font-light-hover-default" />

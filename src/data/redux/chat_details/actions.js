@@ -107,10 +107,3 @@ export const updateFileUploadMessage = (payload) => {
     payload
   };
 };
-
-export const updateBotState = payload => {
-  return{
-    type: actionTypes.UPDATE_BOT_STATE,
-    payload
-  }
-}

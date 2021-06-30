@@ -45,7 +45,7 @@ export const LOCAL_STORAGE = {
   APP_PARAMS: "appParams_",
   END_CHAT: "endChat_",
   DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_",
-  UPLOAD_FILE: "upload_file"
+  UPLOAD_FILE: "uploadFile_"
 }
 
 export const PLATFORM = {

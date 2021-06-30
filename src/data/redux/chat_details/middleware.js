@@ -29,7 +29,7 @@ import {
   setDataInLocalStorage,
   getQueryParamsValue
 } from '../../config/utils';
-import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage, updateBotState } from './actions';
+import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
@@ -239,8 +239,12 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.GENERAL_UPDATE, data =>{
     if(data.type === "file_upload"){
-      store.dispatch(updateBotState({
-        upload_file: data.upload_file
+      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + state.psid, data.upload_file)
+      store.dispatch(updateChatsState({
+        upload_file: {
+          enable: data.upload_file.enable ? data.upload_file.enable : chatbot_setting.upload_file.enable,
+          max_file_size: data.upload_file.max_file_size ? data.upload_file.max_file_size : chatbot_setting.upload_file.max_file_size,
+        }
       }))
     }
   })

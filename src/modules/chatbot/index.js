@@ -533,6 +533,7 @@ class ChatBot extends Component {
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
             onRemove={this.onFileRemove}
+            upload_enabled={chat_details.upload_file.enable}
           />
         </div>
       </div>
