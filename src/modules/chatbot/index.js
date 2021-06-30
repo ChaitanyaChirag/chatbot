@@ -279,7 +279,7 @@ class ChatBot extends Component {
   beforeFileUpload = file => {
     const is_allowed_image_type = brand_features.allowedImageTypeUpload(file.name)
     const { chat_details } = this.props;
-    if (file && file.name && checkMultipleExtension(file.name) && file.size <= chatbot_setting.upload_file.max_file_size && is_allowed_image_type) {
+    if (file && file.name && checkMultipleExtension(file.name) && file.size <= chat_details.upload_file.max_file_size && is_allowed_image_type) {
       fileToBase64(file).then(fileUrl => {
         isImageExist(fileUrl).then(isValidUrl => {
           if (isValidUrl)
