@@ -239,7 +239,7 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.GENERAL_UPDATE, data =>{
     if(data.type === "file_upload"){
-      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + state.psid, data.upload_file)
+      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + data.psid, data.upload_file)
       store.dispatch(updateChatsState({
         upload_file: {
           enable: data.upload_file.enable ? data.upload_file.enable : chatbot_setting.upload_file.enable,
