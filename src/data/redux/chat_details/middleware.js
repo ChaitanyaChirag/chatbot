@@ -239,7 +239,7 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.GENERAL_UPDATE, data =>{
     const chat_details = store.getState().chat_details;
-    if(data.type === "file_upload"){
+    if(data.type === "upload_file"){
       setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + chat_details.psid, data.upload_file)
       store.dispatch(updateChatsState({
         upload_file: {
