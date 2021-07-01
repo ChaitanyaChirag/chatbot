@@ -17,7 +17,8 @@ export const TYPES = {
   FORM_SUBMIT: "formSubmit",
   END_CHAT: "endChat",
   LOTTIE: "lottie",
-  IMAGE: "image"
+  IMAGE: "image",
+  UPLOAD_FILE: "uploadFile"
 }
 
 export const DEFAULT_END_CHAT_STATE = {
@@ -76,7 +77,7 @@ export const EVENTS = {
   END_CONVERSATION_FORM_SUBMIT: "end_conversation_form_submit",
   DOWN_TIME: 'downTime',
   SHOW_NOTIFICATION: 'showNotification',
-  GENERAL_UPDATE: 'generalUpdate'
+  COMMON_UPDATE: 'commonUpdate'
 };
 
 export const MESSAGE_TYPES = {

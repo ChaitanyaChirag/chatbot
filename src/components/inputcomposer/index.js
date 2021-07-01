@@ -218,7 +218,7 @@ class InputComposer extends React.PureComponent {
                         </Button>
                       }
                       {
-                        !notification_bot &&  upload_enabled &&
+                        !notification_bot && upload_enabled &&
                         <div className="ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc">
                           <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
                             <AddFileIcon size={20} className="ori-font-light-hover-default" />

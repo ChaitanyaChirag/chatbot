@@ -6,7 +6,8 @@ import {
   DEFAULT_END_CHAT_STATE,
   ALLOWED_MESSAGE_TYPES,
   MESSAGE_TYPES,
-  LOCAL_STORAGE
+  LOCAL_STORAGE,
+  TYPES
 } from '../../config/constants';
 import {
   socketUrl,
@@ -237,19 +238,18 @@ const registerSocketListener = (store, socket) => {
     }, 8000)
   });
 
-  socket.on(EVENTS.GENERAL_UPDATE, data =>{
-    const chat_details = store.getState().chat_details;
-    if(data.type === "upload_file"){
-      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + chat_details.psid, data.upload_file)
-      store.dispatch(updateChatsState({
-        upload_file: {
-          enable: data.upload_file.enable ? data.upload_file.enable : chat_details.upload_file.enable,
-          max_file_size: data.upload_file.max_file_size ? data.upload_file.max_file_size : chat_details.upload_file.max_file_size,
-        }
-      }))
+  socket.on(EVENTS.COMMON_UPDATE, data => {
+    const chat_details = store.getState().chat_details
+    if (data.type === TYPES.UPLOAD_FILE) {
+      const upload_file = {
+        enable: data.uploadFile.enable,
+        max_file_size: data.uploadFile.maxSize ? data.uploadFile.maxSize : chat_details.upload_file.max_file_size
+      }
+      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + chat_details.psid, upload_file)
+      store.dispatch(updateChatsState({ upload_file }))
     }
   })
-};
+}
 
 const middleware = () => {
   let socket = null;
