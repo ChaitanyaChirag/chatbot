@@ -38,6 +38,7 @@ const states = {
     send_variable_to_apiai: getPreviousMessageData('send_variable_to_apiai', false),
     sendVariableToLS: getPreviousMessageData('sendVariableToLS', false),
     variable_name: getPreviousMessageData('variable_name', ''),
+    upload_file: getDataFromLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + psid, chatbot_setting.upload_file),
     downtime: {},
     is_typing: false,
     typing_text: "",
@@ -45,7 +46,7 @@ const states = {
       visible: false,
       message: ""
     },
-    loading: false
+    loading: false,
   },
 };
 

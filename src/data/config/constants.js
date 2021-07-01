@@ -17,7 +17,8 @@ export const TYPES = {
   FORM_SUBMIT: "formSubmit",
   END_CHAT: "endChat",
   LOTTIE: "lottie",
-  IMAGE: "image"
+  IMAGE: "image",
+  UPLOAD_FILE: "uploadFile"
 }
 
 export const DEFAULT_END_CHAT_STATE = {
@@ -44,7 +45,8 @@ export const LOCAL_STORAGE = {
   IS_CHAT_OPEN: "isOpen_",
   APP_PARAMS: "appParams_",
   END_CHAT: "endChat_",
-  DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_"
+  DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_",
+  UPLOAD_FILE: "uploadFile_"
 }
 
 export const PLATFORM = {
@@ -74,7 +76,8 @@ export const EVENTS = {
   END_CONVERSATION: "end_conversation",
   END_CONVERSATION_FORM_SUBMIT: "end_conversation_form_submit",
   DOWN_TIME: 'downTime',
-  SHOW_NOTIFICATION: 'showNotification'
+  SHOW_NOTIFICATION: 'showNotification',
+  COMMON_UPDATE: 'commonUpdate'
 };
 
 export const MESSAGE_TYPES = {

@@ -88,11 +88,9 @@ export const chatbot_setting = {
       clear_chat: true,
     }
   },
-  add_file: {
-    web_enable: true,
-    android_enable: true,
-    ios_enable: true,
-    max_file_size_allowed: 500000,
+  upload_file: {
+    enable: true,
+    max_file_size: 500000,
   },
   new_window_positon_and_size: {
     height: window.innerHeight / 2,

@@ -278,7 +278,8 @@ class ChatBot extends Component {
 
   beforeFileUpload = file => {
     const is_allowed_image_type = brand_features.allowedImageTypeUpload(file.name)
-    if (file && file.name && checkMultipleExtension(file.name) && file.size <= chatbot_setting.add_file.max_file_size_allowed && is_allowed_image_type) {
+    const { chat_details } = this.props
+    if (file && file.name && checkMultipleExtension(file.name) && is_allowed_image_type && file.size <= chat_details.upload_file.max_file_size) {
       fileToBase64(file).then(fileUrl => {
         isImageExist(fileUrl).then(isValidUrl => {
           if (isValidUrl)
@@ -292,7 +293,7 @@ class ChatBot extends Component {
         })
       })
     } else {
-      const warn_msg = file.size > chatbot_setting.add_file.max_file_size_allowed ?
+      const warn_msg = file.size > chat_details.upload_file.max_file_size ?
         "image size is large" :
         (
           !checkMultipleExtension(file.name) ?
@@ -412,7 +413,7 @@ class ChatBot extends Component {
               show_clear_chat_popconfirm &&
               <div className="ori-pad-10 ori-bg-popup ori-font-popup ori-border-radius-3 ori-mrgn-auto">
                 Are you sure you want to clear the chat?
-                  <div className="ori-flex ori-flex-jfe ori-t-pad-10">
+                <div className="ori-flex ori-flex-jfe ori-t-pad-10">
                   <Button
                     size="small"
                     className="ori-btn-ghost-primary"
@@ -533,6 +534,7 @@ class ChatBot extends Component {
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
             onRemove={this.onFileRemove}
+            upload_enabled={chat_details.upload_file.enable}
           />
         </div>
       </div>
