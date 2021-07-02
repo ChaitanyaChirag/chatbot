@@ -240,7 +240,7 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.COMMON_UPDATE, data => {
     const chat_details = store.getState().chat_details
-    if (data.type === TYPES.UPLOAD_FILE) {
+    if (data.type === TYPES.UPLOAD_FILE && data.uploadFile) {
       const upload_file = {
         enable: data.uploadFile.enable,
         max_file_size: data.uploadFile.maxSize ? data.uploadFile.maxSize : chat_details.upload_file.max_file_size
