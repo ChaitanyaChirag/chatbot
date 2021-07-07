@@ -56,7 +56,7 @@ class TriggerChatBot extends React.PureComponent {
               {
                 !is_chat_open && chatbot_setting.trigger_type === TYPES.DEFAULT && SHOW_TRIGGER &&
                 <div
-                  className="ori-fixed ori-zindex-99991 ori-cursor-ptr ori-animated ori-pulse ori-infinite"
+                  className="ori-fixed ori-zindex-99991 ori-cursor-ptr ori-animated ori-pulse"
                   style={mobile ? chatbot_setting.trigger.image_style_sm : chatbot_setting.trigger.image_style_lg}
                   onClick={this.handleChatInterfaceView}
                 >
