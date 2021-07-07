@@ -6,7 +6,7 @@ import CloseIcon from "react-icons/lib/md/close";
 import "./index.scss";
 
 import { chatbot_setting } from "../../data/config/brandSetup";
-import { LOCAL_STORAGE } from "../../data/config/constants";
+import { LOCAL_STORAGE, EVENTS } from "../../data/config/constants";
 import { getPreviousMessageData } from "../../data/config/utils"
 import chatbotStyle from "../../data/config/chatbotStyle"
 
@@ -42,6 +42,10 @@ class NotificationBot extends React.PureComponent {
     localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
     actions.updateChatsState({ unseen_messages: [] });
     actions.handleChatbotInterface(true);
+    const payload = {
+      clientPsid: chat_details.psid,
+    }
+    actions.emitCustomEvent(EVENTS.NOTIFICATION_BUBBLE_CLICKED, payload);
   };
 
   render() {
