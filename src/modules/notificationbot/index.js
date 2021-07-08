@@ -45,7 +45,7 @@ class NotificationBot extends React.PureComponent {
     const payload = {
       clientPsid: chat_details.psid,
     }
-    actions.emitCustomEvent(EVENTS.NOTIFICATION_BUBBLE_CLICKED, payload);
+    actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE, payload);
   };
 
   render() {

@@ -86,7 +86,7 @@ export const EVENTS = {
   DOWN_TIME: 'downTime',
   SHOW_NOTIFICATION: 'showNotification',
   COMMON_UPDATE: 'commonUpdate',
-  NOTIFICATION_BUBBLE_CLICKED: 'notificationBubbleClicked'
+  UNREAD_MESSAGE: 'unreadMessage'
 };
 
 export const MESSAGE_TYPES = {
