@@ -86,7 +86,7 @@ export const EVENTS = {
   DOWN_TIME: 'downTime',
   SHOW_NOTIFICATION: 'showNotification',
   COMMON_UPDATE: 'commonUpdate',
-  UNREAD_MESSAGE: 'unreadMessage'
+  UNREAD_MESSAGE_SEEN: 'unreadMessageSeen'
 };
 
 export const MESSAGE_TYPES = {
