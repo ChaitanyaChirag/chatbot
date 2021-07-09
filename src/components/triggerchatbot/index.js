@@ -11,7 +11,7 @@ import { LangContext } from '../../modules/context'
 
 const LottieContainer = React.lazy(() => import('./lottiecontainer'));
 
-const SHOW_TRIGGER = brand_features.showTriggerByBrandLogic()
+const SHOW_TRIGGER = brand_features.enable_trigger_brand_logic ? brand_features.showTriggerByBrandLogic() : true
 
 class TriggerChatBot extends React.PureComponent {
   handleChatInterfaceView = () => {

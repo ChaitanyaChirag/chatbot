@@ -274,12 +274,7 @@ export const brand_features = {
   showTriggerByBrandLogic() {
     let show_trigger = true
     //=========== BRAND SPECIFIC LOGIC TO FINDOUT TRIGGER  VALUE==========
-    if (this.enable_trigger_brand_logic) {
-      let query_param_key = "trigger"
-      const query_params = new URLSearchParams(window.location.search)
-      if (query_params.has(query_param_key))
-        show_trigger = query_params.get(query_param_key) === "true"
-    }
+    
     //=================== END ===================
     return show_trigger
   }
