@@ -394,9 +394,15 @@ const middleware = () => {
         if (reset_unseen_messages_timeout) {
           clearTimeout(reset_unseen_messages_timeout);
         }
-        if (chatbot_setting.message_bubble.enable) {
+        const chat_details = store.getState().chat_details;
+        if (!chat_details.is_chat_open && chatbot_setting.message_bubble.enable) {
           reset_unseen_messages_timeout = setTimeout(() => {
-            store.dispatch(resetUnseenMessages());
+            localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+            localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
+            store.dispatch(updateChatsState({
+              unseen_messages: [],
+              notification_count: 0
+            }));
           }, chatbot_setting.message_bubble.timer);
         }
         break;
