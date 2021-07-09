@@ -107,3 +107,9 @@ export const updateFileUploadMessage = (payload) => {
     payload
   };
 };
+
+export const resetUnseenMessages = () => {
+  return {
+    type: actionTypes.RESET_UNSEEN_MESSAGES,
+  }
+}

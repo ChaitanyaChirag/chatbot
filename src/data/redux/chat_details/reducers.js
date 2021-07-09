@@ -169,6 +169,16 @@ const chat_details = (state = states.chat_details, action) => {
       };
     }
 
+    case actionTypes.RESET_UNSEEN_MESSAGES: {
+      localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid);
+      localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + state.psid);
+      return {
+        ...state,
+        unseen_messages: [],
+        notification_count: 0
+      };
+    }
+
     default:
       return state;
   }

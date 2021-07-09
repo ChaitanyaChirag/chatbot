@@ -30,7 +30,7 @@ import {
   setDataInLocalStorage,
   getQueryParamsValue
 } from '../../config/utils';
-import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
+import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage, resetUnseenMessages } from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
@@ -250,6 +250,7 @@ const registerSocketListener = (store, socket) => {
 
 const middleware = () => {
   let socket = null;
+  let reset_unseen_messages_timeout = null;
   return store => next => action => {
     switch (action.type) {
       case actionTypes.MAKE_SOCKET_CONNECTION: {
@@ -384,6 +385,19 @@ const middleware = () => {
               action.callback(err);
             }
           });
+        }
+        break;
+      }
+
+      case actionTypes.PUSH_RESPONSE_MESSAGE: {
+        next(action);
+        if (reset_unseen_messages_timeout) {
+          clearTimeout(reset_unseen_messages_timeout);
+        }
+        if (chatbot_setting.message_bubble.enable) {
+          reset_unseen_messages_timeout = setTimeout(() => {
+            store.dispatch(resetUnseenMessages());
+          }, chatbot_setting.message_bubble.timer);
         }
         break;
       }
