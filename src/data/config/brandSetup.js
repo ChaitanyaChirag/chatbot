@@ -142,14 +142,14 @@ export const chatbot_setting = {
       right: "20px",
       bottom: "20px",
       animationDuration: "2000ms",
-      animationIterationCount: "3",
+      animationIterationCount: "infinite",
       height: "70px"
     },
     image_style_sm: {
       right: "20px",
       bottom: "20px",
       animationDuration: "2000ms",
-      animationIterationCount: "3",
+      animationIterationCount: "infinite",
       height: "60px"
     },
     close_style: {
