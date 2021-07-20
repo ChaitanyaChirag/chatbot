@@ -5,10 +5,11 @@ import {
   setDataInLocalStorage,
   clearAllDataFromLocalStorage
 } from "./utils";
-import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE } from "./constants";
+import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE, CHAT_STATE } from "./constants";
 import * as defaultMessages from "./defaultMessages";
 import * as chatbotText from "./chatbotText"
 import * as assets from "../assets"
+import { updateChatsState } from "../redux/chat_details/actions"
 
 export const translator = {
   enable: false,
@@ -88,10 +89,8 @@ export const chatbot_setting = {
       clear_chat: true,
     }
   },
-  upload_file: {
-    enable: true,
-    max_file_size: 500000,
-  },
+  upload_file: true,
+  max_upload_file_size: 500000,
   new_window_positon_and_size: {
     height: window.innerHeight / 2,
     width: window.innerWidth / 2,
@@ -276,8 +275,15 @@ export const brand_features = {
   showTriggerByBrandLogic() {
     let show_trigger = true
     //=========== BRAND SPECIFIC LOGIC TO FINDOUT TRIGGER  VALUE==========
-    
+
     //=================== END ===================
     return show_trigger
+  },
+  doBrandLogicOnChatStateChange(data, dispatch) {
+    if (dispatch) {
+      const upload_file = data.chatState === CHAT_STATE.AGENT_HANDLING ? true : chatbot_setting.upload_file
+      setDataInLocalStorage(LOCAL_STORAGE.CHAT_STATE + data.psid, upload_file)
+      dispatch(updateChatsState({ upload_file }))
+    }
   }
 }
