@@ -240,7 +240,7 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.COMMON_UPDATE, data => {
     const chat_details = store.getState().chat_details
-    if (data.type === TYPES.CHAT_STATE && data.chatState) {
+    if (data.type === TYPES.CHAT_STATE && data.chatState && data.chatState === chat_details.chat_state) {
       setDataInLocalStorage(LOCAL_STORAGE.CHAT_STATE + chat_details.psid, data.chatState)
       store.dispatch(updateChatsState({ chat_state: data.chatState }))
       brand_features.doBrandLogicOnChatStateChange({ ...data, psid: chat_details.psid }, store.dispatch)
