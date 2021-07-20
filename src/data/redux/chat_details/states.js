@@ -32,8 +32,6 @@ const states = {
     notification_count: getDataFromLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT + psid, 0),
     is_chat_open: getDataFromLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN + psid, false),
     end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT + psid, DEFAULT_END_CHAT_STATE),
-    is_input_lock: getPreviousMessageData('inputLock', false),
-    input_lock_text: getPreviousMessageData('inputLockMessage', 'please select any option to proceed'),
     skipLS: getPreviousMessageData('skipLS', false),
     send_variable_to_apiai: getPreviousMessageData('send_variable_to_apiai', false),
     sendVariableToLS: getPreviousMessageData('sendVariableToLS', false),

@@ -7,6 +7,7 @@ import "./index.scss";
 
 import { chatbot_setting } from "../../data/config/brandSetup";
 import { LOCAL_STORAGE } from "../../data/config/constants";
+import { getPreviousMessageData } from "../../data/config/utils"
 import chatbotStyle from "../../data/config/chatbotStyle"
 
 import NotificationBotHeader from "./components/notificationbotheader";
@@ -47,6 +48,7 @@ class NotificationBot extends React.PureComponent {
     const { page_details, chat_details, sendTextToServer, handleMsgBtnClick, handleOfferSelection, stack_view, actions } = this.props;
     const { show_header } = this.state;
     const mobile = page_details.device_data.screen_width && page_details.device_data.screen_width < 481;
+    const input_lock_text = getPreviousMessageData(chat_details.messages, "inputLockMessage", undefined)
     return (
       <div
         className="ori-fixed oriNotificationBotContainer"
@@ -98,8 +100,8 @@ class NotificationBot extends React.PureComponent {
                 psid={chat_details.psid}
                 sendTextToServer={sendTextToServer}
                 is_online={chat_details.is_socket_connected}
-                is_input_lock={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLock}
-                input_lock_text={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLockMessage}
+                is_input_lock={getPreviousMessageData(chat_details.messages, "inputLock", false)}
+                input_lock_text={input_lock_text ? input_lock_text : undefined}
                 emitCustomEvent={actions.emitCustomEvent}
                 notification_bot
               />
