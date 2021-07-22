@@ -1,6 +1,6 @@
 import message from 'antd/lib/message'
 
-import { LOCAL_STORAGE, PLATFORM } from './constants'
+import { LOCAL_STORAGE, PLATFORM, MESSAGE_SENDER } from './constants'
 
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -149,6 +149,14 @@ export const clearAllDataFromLocalStorage = psid => {
     localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS + psid)
     localStorage.removeItem(LOCAL_STORAGE.UPLOAD_FILE + psid)
   }
+}
+
+export const getPreviousMessageData = (messages, key, defaultData) => {
+  let data = defaultData
+  const senders = [MESSAGE_SENDER.ADMIN, MESSAGE_SENDER.CHATBOT, MESSAGE_SENDER.SYSTEM]
+  if (messages && messages.length > 0 && senders.includes(messages[messages.length - 1].sender) && messages[messages.length - 1][key] !== undefined)
+    data = messages[messages.length - 1][key]
+  return data
 }
 
 export const getQueryParamsValue = (key, default_value) => {

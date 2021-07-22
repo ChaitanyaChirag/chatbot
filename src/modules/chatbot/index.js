@@ -12,7 +12,8 @@ import {
   isImageExist,
   showMessage,
   checkMultipleExtension,
-  getQueryParamsValue
+  getQueryParamsValue,
+  getPreviousMessageData
 } from "../../data/config/utils";
 import {
   EVENTS,
@@ -355,6 +356,7 @@ class ChatBot extends Component {
       actions,
       screen_height
     } = this.props;
+    const input_lock_text = getPreviousMessageData(chat_details.messages, "inputLockMessage", undefined)
 
     return (
       <div
@@ -528,8 +530,8 @@ class ChatBot extends Component {
           <InputComposer
             psid={chat_details.psid}
             sendTextToServer={sendTextToServer}
-            is_input_lock={chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].inputLock}
-            input_lock_text={chat_details.messages && chat_details.messages.length > 0 ? chat_details.messages[chat_details.messages.length - 1].inputLockMessage : ""}
+            is_input_lock={getPreviousMessageData(chat_details.messages, "inputLock", false)}
+            input_lock_text={input_lock_text ? input_lock_text : undefined}
             onClickMenu={this.openMenu}
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
