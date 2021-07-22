@@ -281,9 +281,11 @@ export const brand_features = {
   },
   doBrandLogicOnChatStateChange(data, dispatch) {
     if (dispatch) {
-      const upload_file = data.chatState === CHAT_STATE.AGENT_HANDLING ? true : chatbot_setting.upload_file
-      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + data.psid, upload_file)
-      dispatch(updateChatsState({ upload_file }))
+      //=========== BRAND SPECIFIC LOGIC ON CHAT STATE CHANGE ==========
+      // const upload_file = data.chatState === CHAT_STATE.AGENT_HANDLING ? true : chatbot_setting.upload_file
+      // setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + data.psid, upload_file)
+      // dispatch(updateChatsState({ upload_file }))
+      //=================== END ===================
     }
   }
 }
