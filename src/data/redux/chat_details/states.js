@@ -1,4 +1,4 @@
-import { MESSAGE_SENDER, DEFAULT_END_CHAT_STATE, LOCAL_STORAGE } from '../../config/constants';
+import { MESSAGE_SENDER, DEFAULT_END_CHAT_STATE, LOCAL_STORAGE, CHAT_STATE } from '../../config/constants';
 import { chatbot_setting, chatbot_default_messages, chatbot_psids } from '../../config/brandSetup';
 import {
   isAndroid,
@@ -25,6 +25,7 @@ const states = {
     is_socket_connected: false,
     internet_connection_checking: false,
     is_internet_connected: false,
+    chat_state: getDataFromLocalStorage(LOCAL_STORAGE.CHAT_STATE + psid, CHAT_STATE.BOT_HANDLING),
     disable_msg_after_reply: getDataFromLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + psid, {}),
     messages: (isAndroid() || messages.length === default_msg.length) ? [] : messages,
     psid,

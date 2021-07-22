@@ -8,6 +8,13 @@ export const CHATBOT_TYPE = {
   ADSTER: 'adster'
 }
 
+export const CHAT_STATE = {
+  PENDING: "Pending",
+  AGENT_HANDLING: "AgentHandling",
+  BOT_HANDLING: "BotHandling",
+  IN_QUEUE: "Inqueue"
+}
+
 export const TYPES = {
   DEFAULT: "default",
   STAR: "star",
@@ -18,7 +25,7 @@ export const TYPES = {
   END_CHAT: "endChat",
   LOTTIE: "lottie",
   IMAGE: "image",
-  UPLOAD_FILE: "uploadFile"
+  CHAT_STATE: "chatState"
 }
 
 export const DEFAULT_END_CHAT_STATE = {
@@ -46,7 +53,8 @@ export const LOCAL_STORAGE = {
   APP_PARAMS: "appParams_",
   END_CHAT: "endChat_",
   DISABLE_MESSAGE_AFTER_USER_REPLY: "disMsgAftRply_",
-  UPLOAD_FILE: "uploadFile_"
+  UPLOAD_FILE: "uploadFile_",
+  CHAT_STATE: "chatState_"
 }
 
 export const PLATFORM = {

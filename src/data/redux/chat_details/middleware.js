@@ -240,13 +240,10 @@ const registerSocketListener = (store, socket) => {
 
   socket.on(EVENTS.COMMON_UPDATE, data => {
     const chat_details = store.getState().chat_details
-    if (data.type === TYPES.UPLOAD_FILE && data.uploadFile) {
-      const upload_file = {
-        enable: data.uploadFile.enable,
-        max_file_size: data.uploadFile.maxSize ? data.uploadFile.maxSize : chat_details.upload_file.max_file_size
-      }
-      setDataInLocalStorage(LOCAL_STORAGE.UPLOAD_FILE + chat_details.psid, upload_file)
-      store.dispatch(updateChatsState({ upload_file }))
+    if (data.type === TYPES.CHAT_STATE && data.chatState && data.chatState !== chat_details.chat_state) {
+      setDataInLocalStorage(LOCAL_STORAGE.CHAT_STATE + chat_details.psid, data.chatState)
+      store.dispatch(updateChatsState({ chat_state: data.chatState }))
+      brand_features.doBrandLogicOnChatStateChange({ ...data, psid: chat_details.psid }, store.dispatch)
     }
   })
 }

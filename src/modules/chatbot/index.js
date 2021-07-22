@@ -279,8 +279,7 @@ class ChatBot extends Component {
 
   beforeFileUpload = file => {
     const is_allowed_image_type = brand_features.allowedImageTypeUpload(file.name)
-    const { chat_details } = this.props
-    if (file && file.name && checkMultipleExtension(file.name) && is_allowed_image_type && file.size <= chat_details.upload_file.max_file_size) {
+    if (file && file.name && checkMultipleExtension(file.name) && is_allowed_image_type && file.size <= chatbot_setting.max_upload_file_size) {
       fileToBase64(file).then(fileUrl => {
         isImageExist(fileUrl).then(isValidUrl => {
           if (isValidUrl)
@@ -294,7 +293,7 @@ class ChatBot extends Component {
         })
       })
     } else {
-      const warn_msg = file.size > chat_details.upload_file.max_file_size ?
+      const warn_msg = file.size > chatbot_setting.max_upload_file_size ?
         "image size is large" :
         (
           !checkMultipleExtension(file.name) ?
@@ -536,7 +535,7 @@ class ChatBot extends Component {
             emitCustomEvent={actions.emitCustomEvent}
             beforeUpload={this.beforeFileUpload}
             onRemove={this.onFileRemove}
-            upload_enabled={chat_details.upload_file.enable}
+            upload_enabled={chat_details.upload_file}
           />
         </div>
       </div>
