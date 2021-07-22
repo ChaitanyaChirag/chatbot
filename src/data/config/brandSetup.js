@@ -5,11 +5,17 @@ import {
   setDataInLocalStorage,
   clearAllDataFromLocalStorage
 } from "./utils";
-import { TYPES, CHATBOT_TYPE, LANGUAGES, LOCAL_STORAGE, CHAT_STATE } from "./constants";
+import { 
+  TYPES, 
+  CHATBOT_TYPE, 
+  LANGUAGES, 
+  LOCAL_STORAGE, 
+  // CHAT_STATE 
+} from "./constants";
 import * as defaultMessages from "./defaultMessages";
 import * as chatbotText from "./chatbotText"
 import * as assets from "../assets"
-import { updateChatsState } from "../redux/chat_details/actions"
+// import { updateChatsState } from "../redux/chat_details/actions"
 
 export const translator = {
   enable: false,
