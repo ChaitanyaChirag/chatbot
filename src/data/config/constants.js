@@ -85,7 +85,8 @@ export const EVENTS = {
   END_CONVERSATION_FORM_SUBMIT: "end_conversation_form_submit",
   DOWN_TIME: 'downTime',
   SHOW_NOTIFICATION: 'showNotification',
-  COMMON_UPDATE: 'commonUpdate'
+  COMMON_UPDATE: 'commonUpdate',
+  UNREAD_MESSAGE_SEEN: 'unreadMessageSeen'
 };
 
 export const MESSAGE_TYPES = {
