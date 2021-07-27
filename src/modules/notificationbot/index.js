@@ -41,11 +41,10 @@ class NotificationBot extends React.PureComponent {
     const { actions, chat_details } = this.props;
     localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
     actions.updateChatsState({ unseen_messages: [] });
-    actions.handleChatbotInterface(true);
-    const payload = {
+    actions.handleChatbotInterface(true); 
+    actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, {
       clientPsid: chat_details.psid,
-    }
-    actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, payload);
+    })
   };
 
   render() {
