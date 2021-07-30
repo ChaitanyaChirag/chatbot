@@ -5,11 +5,11 @@ import {
   setDataInLocalStorage,
   clearAllDataFromLocalStorage
 } from "./utils";
-import { 
-  TYPES, 
-  CHATBOT_TYPE, 
-  LANGUAGES, 
-  LOCAL_STORAGE, 
+import {
+  TYPES,
+  CHATBOT_TYPE,
+  LANGUAGES,
+  LOCAL_STORAGE,
   // CHAT_STATE 
 } from "./constants";
 import * as defaultMessages from "./defaultMessages";
@@ -259,6 +259,7 @@ export const chatbot_psids = {
 
 export const brand_features = {
   enable_trigger_brand_logic: false,
+  enable_onload_brand_logic: false,
   getBrandData() {
     const data = {}
     //=========== BRAND SPECIFIC LOGIC ==========
@@ -293,5 +294,10 @@ export const brand_features = {
       // dispatch(updateChatsState({ upload_file }))
       //=================== END ===================
     }
-  }
+  },
+  doBrandLogicOnLoadChatbotApp() {
+    //=========== BRAND SPECIFIC LOGIC ON LOAD CHATBOT APP ==========
+
+    //=================== END ===================
+  },
 }

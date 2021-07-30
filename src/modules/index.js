@@ -161,6 +161,8 @@ class AppContainer extends Component {
         }
       }
     }
+    if (brand_features.enable_onload_brand_logic)
+      brand_features.doBrandLogicOnLoadChatbotApp()
   }
 
   componentDidUpdate(prevProps) {
