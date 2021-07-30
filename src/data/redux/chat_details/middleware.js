@@ -395,7 +395,7 @@ const middleware = () => {
           clearTimeout(reset_unseen_messages_timeout);
         }
         const chat_details = store.getState().chat_details;
-        if (!chat_details.is_chat_open && chatbot_setting.message_bubble.enable) {
+        if (!chat_details.is_chat_open && chatbot_setting.auto_hide_notification_bubbles.enable) {
           reset_unseen_messages_timeout = setTimeout(() => {
             localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
             localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
@@ -403,7 +403,7 @@ const middleware = () => {
               unseen_messages: [],
               notification_count: 0
             }));
-          }, chatbot_setting.message_bubble.timer);
+          }, chatbot_setting.auto_hide_notification_bubbles.delay);
         }
         break;
       }

@@ -165,9 +165,9 @@ export const chatbot_setting = {
       borderRadius: "50%"
     }
   },
-  message_bubble: {
-    enable: true,
-    timer: 1000 * 5 // 5 seconds
+  auto_hide_notification_bubbles: {
+    enable: false,
+    delay: 5000 // in ms
   }
 };
 
