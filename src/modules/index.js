@@ -69,7 +69,8 @@ class AppContainer extends Component {
       selected_offer: {
         offer_id: null,
         offer_name: null
-      }
+      },
+      reset_unseen_messages_timeout: null,
     }
   }
 
@@ -163,6 +164,21 @@ class AppContainer extends Component {
     }
     if (brand_features.enable_onload_brand_logic)
       brand_features.doBrandLogicOnLoadChatbotApp()
+
+    if (chatbot_setting.auto_hide_notification_bubbles.enable) {
+      const unseen_messages = getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+      if (unseen_messages && unseen_messages.length > 0) {
+        const resetUnseenMessagesTimeout = setTimeout(() => {
+          localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+          localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
+          actions.updateChatsState({
+            unseen_messages: [],
+            notification_count: 0
+          });
+        }, chatbot_setting.auto_hide_notification_bubbles.delay);
+        this.setState({ ...this.state, reset_unseen_messages_timeout: resetUnseenMessagesTimeout });
+      }
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -193,6 +209,7 @@ class AppContainer extends Component {
     document.removeEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.removeEventListener("focusin", this.onScreenVisibilityChange);
     actions.socketDisconnect();
+    clearTimeout(this.state.reset_unseen_messages_timeout);
   }
 
   onScreenVisibilityChange = () => {
