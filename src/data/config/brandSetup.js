@@ -305,3 +305,81 @@ export const brand_features = {
     //=================== END ===================
   },
 }
+
+export const adster_settings = {
+  banner: true, // to add banner image code
+  banner_initial_transtion_delay: 5000, // in ms
+  banner_query_params_key: "segment",
+  banner_images: {
+    "default": {
+      default: "https://dummyimage.com/420x200/000/fff.png&text=default-default",
+      ad1: "https://dummyimage.com/420x200/000/fff.png&text=ad1-default",
+      ad2: "https://dummyimage.com/420x200/000/fff.png&text=ad2-default",
+    },
+    "0-0.25": {
+      default: "https://dummyimage.com/150x600/000/fff.png&text=default-0-0.25",
+      ad1: "https://dummyimage.com/150x600/000/fff.png&text=ad1-0-0.25",
+      ad2: "https://dummyimage.com/150x625/000/fff.png&text=ad2-0-0.25",
+    },
+    "0.26-0.5": {
+      default: "https://dummyimage.com/320x650/000/fff.png&text=default-0.26-0.5",
+      ad1: "https://dummyimage.com/320x650/000/fff.png&text=ad1-0.26-0.5",
+      ad2: "https://dummyimage.com/300x600/000/fff.png&text=ad2-0.26-0.5",
+    },
+    "0.51-0.75": {
+      default: "https://dummyimage.com/320x480/000/fff.png&text=default-0.51-0.75",
+      ad1: "https://dummyimage.com/320x568/000/fff.png&text=ad1-0.51-0.75",
+      ad2: "https://dummyimage.com/320x568/000/fff.png&text=ad2-0.51-0.75",
+    },
+    "0.76-1": {
+      default: "https://dummyimage.com/380x500/000/fff.png&text=default-0.76-1",
+      ad1: "https://dummyimage.com/380x500/000/fff.png&text=ad1-0.76-1",
+      ad2: "https://dummyimage.com/380x500/000/fff.png&text=ad2-0.76-1",
+    },
+    "1.1-1.25": {
+      default: "https://dummyimage.com/336x280/383438/fff.png&text=default-1.1-1.25",
+      ad1: "https://dummyimage.com/336x280/383438/fff.png&text=ad1-1.1-1.25",
+      ad2: "https://dummyimage.com/336x280/383438/fff.png&text=ad2-1.1-1.25"
+    },
+    "1.26-1.5": {
+      default: "https://dummyimage.com/300x250/383438/fff.png&text=default-1.26-1.5",
+      ad1: "https://dummyimage.com/1024x768/383438/fff.png&text=ad1-1.26-1.5",
+      ad2: "https://dummyimage.com/1024x768/383438/fff.png&text=ad2-1.26-1.5"
+    },
+    "1.51-1.75": {
+      default: "https://dummyimage.com/480x300/383438/fff.png&text=default-1.51-1.75",
+      ad1: "https://dummyimage.com/480x300/383438/fff.png&text=ad1-1.51-1.75",
+      ad2: "https://dummyimage.com/480x300/383438/fff.png&text=ad2-1.51-1.75"
+    },
+    "1.76-2": {
+      default: "https://dummyimage.com/568x320/000/fff.png&text=default-1.75-2",
+      ad1: "https://dummyimage.com/568x320/000/fff.png&text=ad1-1.75-2",
+      ad2: "https://dummyimage.com/568x320/000/fff.png&text=ad1-1.75-2"
+    }
+  },
+  getBannerByRange(range, key) {
+    if (this.banner_images[range][key])
+      return this.banner_images[range][key]
+    return this.banner_images[range].default
+  },
+  getBannerByAspectRatio(aspectRatio, key) {
+    if (aspectRatio <= 0.25)
+      return this.getBannerByRange("0-0.25", key)
+    else if (aspectRatio <= 0.5)
+      return this.getBannerByRange("0.26-0.5", key)
+    else if (aspectRatio <= 0.75)
+      return this.getBannerByRange("0.51-0.75", key)
+    else if (aspectRatio <= 1)
+      return this.getBannerByRange("0.76-1", key)
+    else if (aspectRatio <= 1.25)
+      return this.getBannerByRange("1.1-1.25", key)
+    else if (aspectRatio <= 1.5)
+      return this.getBannerByRange("1.26-1.5", key)
+    else if (aspectRatio <= 1.75)
+      return this.getBannerByRange("1.51-1.75", key)
+    else if (aspectRatio <= 2)
+      return this.getBannerByRange("1.76-2", key)
+    else
+      return this.getBannerByRange("default", key)
+  }
+}

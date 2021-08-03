@@ -623,6 +623,32 @@ class AppContainer extends Component {
           </div>
         </LangContext.Provider>
       )
+    else if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
+      return (
+        <LangContext.Provider value={this.state.lang}>
+          <Suspense fallback={null}>
+            <div
+              className="ori-app-container ori-ant-design-container oriAppContainer"
+              style={{
+                height: "100%",
+                width: "100%"
+              }}
+            >
+              <ChatBot
+                ref={this.chatbotRef}
+                screen_height={page_details.device_data.screen_height}
+                chat_details={chat_details}
+                actions={actions}
+                sendTextToServer={this.sendTextToServer}
+                handleMsgBtnClick={this.handleMsgBtnClick}
+                handleFileUpload={this.handleFileUpload}
+                handleOfferSelection={this.handleOfferSelection}
+                onSubmitCheckbox={this.onSubmitCheckbox}
+              />
+            </div>
+          </Suspense>
+        </LangContext.Provider>
+      )
     return (
       <LangContext.Provider value={this.state.lang}>
         <div className="ori-app-container ori-ant-design-container oriAppContainer">
