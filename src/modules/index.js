@@ -163,7 +163,7 @@ class AppContainer extends Component {
       }
     }
     if (brand_features.enable_onload_brand_logic)
-      brand_features.doBrandLogicOnLoadChatbotApp(chat_details, actions)
+      brand_features.doBrandLogicOnLoadChatbotApp()
 
     if (chatbot_setting.auto_hide_notification_bubbles.enable)
       this.hideNotificationBubbles()

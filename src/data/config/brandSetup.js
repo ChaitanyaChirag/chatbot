@@ -299,7 +299,7 @@ export const brand_features = {
       //=================== END ===================
     }
   },
-  doBrandLogicOnLoadChatbotApp(chat_details, actions) {
+  doBrandLogicOnLoadChatbotApp() {
     //=========== BRAND SPECIFIC LOGIC ON LOAD CHATBOT APP ==========
 
     //=================== END ===================
