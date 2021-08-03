@@ -164,6 +164,10 @@ export const chatbot_setting = {
       width: "70px",
       borderRadius: "50%"
     }
+  },
+  auto_hide_notification_bubbles: {
+    enable: false,
+    delay: 5000 // in ms
   }
 };
 
