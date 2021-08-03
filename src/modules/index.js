@@ -62,6 +62,7 @@ class AppContainer extends Component {
     this.timeout = false;
     this.chatbotRef = React.createRef();
     this.userFirstEmit = false;
+    this.resetUnseenMessagesTimeout = null;
     this.state = {
       lang: LANGUAGES.ENGLISH,
       render_chatbot: props.chat_details.is_chat_open,
@@ -69,8 +70,7 @@ class AppContainer extends Component {
       selected_offer: {
         offer_id: null,
         offer_name: null
-      },
-      reset_unseen_messages_timeout: null,
+      }
     }
   }
 
@@ -165,31 +165,22 @@ class AppContainer extends Component {
     if (brand_features.enable_onload_brand_logic)
       brand_features.doBrandLogicOnLoadChatbotApp()
 
-    if (chatbot_setting.auto_hide_notification_bubbles.enable) {
-      const unseen_messages = getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
-      if (unseen_messages && unseen_messages.length > 0) {
-        const resetUnseenMessagesTimeout = setTimeout(() => {
-          localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
-          localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
-          actions.updateChatsState({
-            unseen_messages: [],
-            notification_count: 0
-          });
-        }, chatbot_setting.auto_hide_notification_bubbles.delay);
-        this.setState({ ...this.state, reset_unseen_messages_timeout: resetUnseenMessagesTimeout });
-      }
-    }
+    if (chatbot_setting.auto_hide_notification_bubbles.enable)
+      this.hideNotificationBubbles()
   }
 
   componentDidUpdate(prevProps) {
     const { actions } = this.props;
     const { bot_popup_payload } = this.state
-    const { is_socket_connected, is_internet_connected, is_chat_open } = this.props.chat_details;
+    const { is_socket_connected, is_internet_connected, is_chat_open, unseen_messages } = this.props.chat_details;
     if (prevProps.chat_details.is_chat_open && !is_chat_open) {
       setTimeout(() => this.setState({ render_chatbot: false }), 400);
     } else if (!prevProps.chat_details.is_chat_open && is_chat_open) {
       this.setState({ render_chatbot: true })
     }
+    if (chatbot_setting.auto_hide_notification_bubbles.enable && !is_chat_open && unseen_messages.length > prevProps.chat_details.unseen_messages.length)
+      this.hideNotificationBubbles()
+
     if (!prevProps.chat_details.is_socket_connected && is_socket_connected && bot_popup_payload) {
       actions.handleBotPopupRequest(bot_popup_payload)
       this.setState({ bot_popup_payload: null })
@@ -208,8 +199,26 @@ class AppContainer extends Component {
     window.removeEventListener('offline', this.checkInternetConnection);
     document.removeEventListener("visibilitychange", this.onScreenVisibilityChange);
     document.removeEventListener("focusin", this.onScreenVisibilityChange);
+    if (this.resetUnseenMessagesTimeout)
+      clearTimeout(this.resetUnseenMessagesTimeout);
     actions.socketDisconnect();
-    clearTimeout(this.state.reset_unseen_messages_timeout);
+  }
+
+  hideNotificationBubbles = () => {
+    const { actions, chat_details } = this.props
+    const unseen_messages = getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+    if (unseen_messages && unseen_messages.length > 0) {
+      if (this.resetUnseenMessagesTimeout)
+        clearTimeout(this.resetUnseenMessagesTimeout);
+      this.resetUnseenMessagesTimeout = setTimeout(() => {
+        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+        localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
+        actions.updateChatsState({
+          unseen_messages: [],
+          notification_count: 0
+        });
+      }, chatbot_setting.auto_hide_notification_bubbles.delay);
+    }
   }
 
   onScreenVisibilityChange = () => {

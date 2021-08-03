@@ -250,7 +250,6 @@ const registerSocketListener = (store, socket) => {
 
 const middleware = () => {
   let socket = null;
-  let reset_unseen_messages_timeout = null;
   return store => next => action => {
     switch (action.type) {
       case actionTypes.MAKE_SOCKET_CONNECTION: {
@@ -385,25 +384,6 @@ const middleware = () => {
               action.callback(err);
             }
           });
-        }
-        break;
-      }
-
-      case actionTypes.PUSH_RESPONSE_MESSAGE: {
-        next(action);
-        if (reset_unseen_messages_timeout) {
-          clearTimeout(reset_unseen_messages_timeout);
-        }
-        const chat_details = store.getState().chat_details;
-        if (!chat_details.is_chat_open && chatbot_setting.auto_hide_notification_bubbles.enable) {
-          reset_unseen_messages_timeout = setTimeout(() => {
-            localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
-            localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
-            store.dispatch(updateChatsState({
-              unseen_messages: [],
-              notification_count: 0
-            }));
-          }, chatbot_setting.auto_hide_notification_bubbles.delay);
         }
         break;
       }
