@@ -91,6 +91,18 @@ export const isImageExist = url => {
   })
 }
 
+export const getImageMetaData = (src, callback) => {
+  const image = new Image()
+  image.src = src
+  image.onload = function () {
+    if (callback)
+      callback({
+        width: this.width,
+        height: this.height
+      })
+  }
+}
+
 export const fileToBase64 = file => {
   return new Promise(resolve => {
     var reader = new FileReader();

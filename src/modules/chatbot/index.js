@@ -18,7 +18,8 @@ import {
   showMessage,
   checkMultipleExtension,
   getQueryParamsValue,
-  getPreviousMessageData
+  getPreviousMessageData,
+  getImageMetaData
 } from "../../data/config/utils";
 import {
   EVENTS,
@@ -65,8 +66,24 @@ class ChatBot extends Component {
   is_msg_updating = false
   delay_push_messages = false
   push_default_msg_timer = null
+  bannerTimer = null
 
   componentDidMount() {
+    const { actions } = this.props;
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner) {
+      const chatbotElement = document.getElementById("chatbotContentContainer")
+      console.log('bannerSize', chatbotElement.clientWidth, chatbotElement.clientHeight)
+      const aspectRatio = chatbotElement.clientWidth / chatbotElement.clientHeight
+      const query_params = new URLSearchParams(window.location.search)
+      const banner_key = query_params.get(adster_settings.banner_query_params_key)
+      const banner_url = adster_settings.getBannerByAspectRatio(aspectRatio, banner_key)
+      actions.updatePageState({ banner_url, banner_key })
+      getImageMetaData(banner_url, data => actions.updatePageState({
+        banner_width: data.width,
+        banner_height: data.height
+      }))
+      this.bannerTimer = setTimeout(this.hideBannerImage, adster_settings.banner_initial_transtion_delay)
+    }
     this.pushDefaultMessages()
   }
 
@@ -93,12 +110,19 @@ class ChatBot extends Component {
   componentWillUnmount() {
     if (this.push_default_msg_timer)
       clearTimeout(this.push_default_msg_timer)
+    if (this.bannerTimer)
+      clearTimeout(this.bannerTimer)
   }
 
   pushDefaultMessages = () => {
     const { actions } = this.props
     const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
-    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT ? is_chat_open : true)) {
+    let cond = true
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT)
+      cond = is_chat_open
+    else if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
+      cond = !this.show_banner
+    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && cond) {
       this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {
