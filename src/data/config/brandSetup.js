@@ -45,7 +45,7 @@ export const translator = {
 }
 
 export const chatbot_setting = {
-  chatbot_type: CHATBOT_TYPE.DEFAULT,
+  chatbot_type: CHATBOT_TYPE.ADSTER,
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
   security: {

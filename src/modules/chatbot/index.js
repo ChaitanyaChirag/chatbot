@@ -3,7 +3,12 @@ import React, { Component, Suspense } from "react";
 import PropTypes from "prop-types";
 import Button from "antd/lib/button";
 
-import { chatbot_setting, chatbot_default_messages, brand_features } from "../../data/config/brandSetup";
+import {
+  chatbot_setting,
+  chatbot_default_messages,
+  brand_features,
+  adster_settings
+} from "../../data/config/brandSetup";
 import chatbotStyle from "../../data/config/chatbotStyle"
 import {
   isAndroid,
@@ -20,7 +25,8 @@ import {
   DEFAULT_END_CHAT_STATE,
   CHATBOT_TYPE,
   TYPES,
-  LOCAL_STORAGE
+  LOCAL_STORAGE,
+  GOOGLE_ENABLER_EVENTS
 } from "../../data/config/constants";
 
 import "./index.scss";
@@ -52,6 +58,7 @@ class ChatBot extends Component {
     file: null,
     fileUrl: "",
     show_file_preview: false,
+    show_banner: true,
   };
 
   is_app = isAndroid() || isIOS();
@@ -335,6 +342,22 @@ class ChatBot extends Component {
     setTimeout(actions.makeSocketConnection, 1000);
   };
 
+  hideBannerImage = () => {
+    if (this.bannerTimer)
+      clearTimeout(this.bannerTimer)
+    this.setState({ show_banner: false })
+  }
+
+  onClickBannerImage = () => {
+    this.hideBannerImage()
+    if (window.parent)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.BANNER,
+        message: 'Banner Clicked'
+      }, '*')
+  }
+
   render() {
     const {
       show_menu,
@@ -343,7 +366,8 @@ class ChatBot extends Component {
       info_content_type,
       file,
       fileUrl,
-      show_clear_chat_popconfirm
+      show_clear_chat_popconfirm,
+      show_banner
     } = this.state;
     const {
       chat_details,
@@ -369,6 +393,15 @@ class ChatBot extends Component {
             <Suspense fallback={null}>
               <DotsLoader container_class="ori-bg-white ori-pad-15 ori-border-radius-3" />
             </Suspense>
+          </div>
+        }
+        {
+          chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner &&
+          <div
+            className={`ori-absolute ori-align-left ori-align-right ori-full-width ori-full-parent-height ori-transition-ease ori-z-index-99996 ori-overflow-hidden ori-bg-white ori-cursor-ptr ${show_banner ? "ori-align-bottom" : "ori-align-bottom-full"}`}
+            onClick={this.onClickBannerImage}
+          >
+
           </div>
         }
         <div
