@@ -43,7 +43,8 @@ import {
   translator,
   chatbot_default_messages,
   brand_features,
-  chatbot_psids
+  chatbot_psids,
+  adster_settings
 } from '../data/config/brandSetup';
 import { networkCheckUrl, senderId } from '../data/config/urls'
 // import { outerBackground } from '../data/assets'
@@ -582,6 +583,12 @@ class AppContainer extends Component {
     }
   };
 
+  intractedWithChatbot = () => {
+    const { chat_details, actions } = this.props;
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && !chat_details.is_socket_connected)
+      actions.makeSocketConnection()
+  }
+
   render() {
     const { page_details, chat_details, actions } = this.props;
     if (chatbot_setting.security.enable && !chat_details.secure)
@@ -639,6 +646,7 @@ class AppContainer extends Component {
                 height: "100%",
                 width: "100%"
               }}
+              onClick={this.intractedWithChatbot}
             >
               <ChatBot
                 ref={this.chatbotRef}
