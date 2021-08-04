@@ -10,7 +10,7 @@ import CloseIcon from 'react-icons/lib/md/close'
 import './index.scss';
 
 import { chatbot_setting, translator } from '../../../../data/config/brandSetup';
-import { INFO_CONTENT_TYPE } from '../../../../data/config/constants'
+import { INFO_CONTENT_TYPE, GOOGLE_ENABLER_EVENTS, CHATBOT_TYPE } from '../../../../data/config/constants'
 
 import { LangContext } from "../../../context"
 
@@ -19,10 +19,22 @@ import DelayComponent from '../../../../components/delaycomponent';
 class MenuComponent extends React.PureComponent {
   onClickPrivacyPolicy = () => {
     this.props.showInfoContent(INFO_CONTENT_TYPE.PRIVACY_POLICY)
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.PRIVACY_POLICY,
+        message: ""
+      }, '*')
   }
 
   onClickTermsAndConditions = () => {
     this.props.showInfoContent(INFO_CONTENT_TYPE.TERMS_AND_CONDITIONS)
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.TERMS_AND_CONDITIONS,
+        message: ""
+      }, '*')
   }
 
   render() {
