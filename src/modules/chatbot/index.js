@@ -158,6 +158,12 @@ class ChatBot extends Component {
       });
       this.closeClearChatPopConfirm()
     }
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.CHAT_RESET,
+        message: ""
+      }, '*')
   };
 
   showClearChatPopConfirm = () => {
@@ -214,11 +220,12 @@ class ChatBot extends Component {
       this.handleResetChat()
       const payload = { psid }
       actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload)
-      window.parent.postMessage({
-        type: 'counter',
-        func: GOOGLE_ENABLER_EVENTS.END_CHAT,
-        message: ""
-      }, '*')
+      if (window.parent)
+        window.parent.postMessage({
+          type: 'counter',
+          func: GOOGLE_ENABLER_EVENTS.END_CHAT,
+          message: ""
+        }, '*')
     } else {
       const payload = end_chat.visible ? DEFAULT_END_CHAT_STATE :
         {
@@ -392,7 +399,7 @@ class ChatBot extends Component {
 
   onClickBannerImage = () => {
     this.hideBannerImage()
-    if (window.parent)
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
       window.parent.postMessage({
         type: 'counter',
         func: GOOGLE_ENABLER_EVENTS.BANNER,

@@ -468,6 +468,13 @@ class AppContainer extends Component {
 
   handleMsgBtnClick = data => {
     if (data.button) {
+      if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent && data.button.type !== BUTTON_TYPES.LINK)
+        window.parent.postMessage({
+          type: 'counter',
+          func: data.button.adEvent ? data.button.adEvent : data.button.text,
+          message: ""
+        }, '*')
+
       switch (data.button.type) {
         case BUTTON_TYPES.LINK:
           if (data.button.url) {
@@ -487,6 +494,12 @@ class AppContainer extends Component {
                 window.open(data.button.url, '_blank');
               }
             }
+            if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+              window.parent.postMessage({
+                type: 'exit',
+                func: data.button.adEvent ? data.button.adEvent : data.button.text,
+                message: data.button.url
+              }, '*')
           }
           break;
 
