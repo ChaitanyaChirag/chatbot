@@ -119,9 +119,9 @@ export const chatbot_setting = {
     header_tag: true, //to hide and show tag type header for small screen
     image_type_brand_name: false,
     type_writer: {
-      enable: false,
-      deleting_speed: 30,
-      typing_speed: 150
+      enable: true,
+      deleting_speed: 150,
+      typing_speed: 30
     },
   },
   notification_bot: {

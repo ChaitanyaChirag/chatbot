@@ -117,12 +117,12 @@ class ChatBot extends Component {
   pushDefaultMessages = () => {
     const { actions } = this.props
     const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
-    let cond = true
+    let cond = is_socket_connected 
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT)
-      cond = is_chat_open
+      cond = is_socket_connected && is_chat_open
     else if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
-      cond = !this.show_banner
-    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && cond) {
+      cond = !this.state.show_banner
+    if (!this.is_msg_updating && messages.length === 0 && cond) {
       this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {
