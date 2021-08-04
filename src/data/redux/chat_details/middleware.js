@@ -7,7 +7,8 @@ import {
   ALLOWED_MESSAGE_TYPES,
   MESSAGE_TYPES,
   LOCAL_STORAGE,
-  TYPES
+  TYPES,
+  CHATBOT_TYPE
 } from '../../config/constants';
 import {
   socketUrl,
@@ -59,6 +60,12 @@ const registerSocketListener = (store, socket) => {
           sendVariableToLS: chat_details.sendVariableToLS,
           skipLS: chat_details.skipLS,
         };
+        if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+          const page_details = store.getState().page_details;
+          data.adSegment = page_details.banner_key
+          data.bannerWidth = page_details.banner_width
+          data.bannerHeight = page_details.banner_height
+        }
         if (chatbot_setting.auto_emit_message.send_brand_data)
           data.brandData = brand_features.getBrandData()
         if (chatbot_setting.auto_emit_message.update_last_emit)

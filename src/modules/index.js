@@ -336,7 +336,7 @@ class AppContainer extends Component {
   }
 
   emitResponseToServer = response => {
-    const { chat_details, actions } = this.props;
+    const { chat_details, actions, page_details } = this.props;
     const android = isAndroid();
     const ios = isIOS();
     const data = {
@@ -360,6 +360,11 @@ class AppContainer extends Component {
         data.lockedParams = lockedParams
         localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS + chat_details.psid);
       }
+    }
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      data.adSegment = page_details.banner_key
+      data.bannerWidth = page_details.banner_width
+      data.bannerHeight = page_details.banner_height
     }
     actions.emitNewMessageToServer(data);
     setDataInLocalStorage(LOCAL_STORAGE.LAST_EMIT + chat_details.psid, new Date().getTime())
