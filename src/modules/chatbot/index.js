@@ -117,7 +117,7 @@ class ChatBot extends Component {
   pushDefaultMessages = () => {
     const { actions } = this.props
     const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
-    let cond = is_socket_connected 
+    let cond = is_socket_connected
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT)
       cond = is_socket_connected && is_chat_open
     else if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
@@ -166,6 +166,12 @@ class ChatBot extends Component {
         this.setState({ show_clear_chat_popconfirm: true })
       }, 500)
     });
+  }
+
+  handleEndChatMenuItem = () => {
+    this.setState({ show_menu: false }, () => {
+      setTimeout(this.onClickCloseIcon, 500)
+    })
   }
 
   showFeedback = () => {
@@ -443,9 +449,12 @@ class ChatBot extends Component {
               <chatbotStyle.MinimizeIcon />
             </div>
           }
-          <div className="ori-lr-pad-5 ori-cursor-ptr" onClick={this.onClickCloseIcon}>
-            <chatbotStyle.EndChatIcon />
-          </div>
+          {
+            chatbot_setting.end_chat_header &&
+            <div className="ori-lr-pad-5 ori-cursor-ptr" onClick={this.onClickCloseIcon}>
+              <chatbotStyle.EndChatIcon />
+            </div>
+          }
         </div>
         <Suspense fallback={null}>
           <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
@@ -518,6 +527,7 @@ class ChatBot extends Component {
             delayUnmountTime={400}
             closeMenu={this.closeMenu}
             handleResetChat={this.showClearChatPopConfirm}
+            handleEndChat={this.handleEndChatMenuItem}
             showFeedback={this.showFeedback}
             showInfoContent={this.showInfoContent}
           />

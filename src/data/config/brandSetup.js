@@ -78,6 +78,7 @@ export const chatbot_setting = {
   },
   speech_recognition: true,
   minimize_bot: true,
+  end_chat_header: true,
   gradient: {
     sender_bubble: false,
     trigger: false,
@@ -93,6 +94,7 @@ export const chatbot_setting = {
       terms_and_conditions: true,
       feedback: true,
       clear_chat: true,
+      end_chat: true
     }
   },
   upload_file: true,

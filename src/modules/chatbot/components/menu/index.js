@@ -5,6 +5,7 @@ import SecurityIcon from 'react-icons/lib/md/security';
 import InfoIcon from 'react-icons/lib/md/assignment';
 import FeedbackIcon from 'react-icons/lib/md/feedback';
 import ClearIcon from 'react-icons/lib/md/clear-all';
+import CloseIcon from 'react-icons/lib/md/close'
 
 import './index.scss';
 
@@ -25,7 +26,7 @@ class MenuComponent extends React.PureComponent {
   }
 
   render() {
-    let { handleResetChat, isMounted, closeMenu, showFeedback } = this.props;
+    let { handleResetChat, isMounted, closeMenu, showFeedback, handleEndChat } = this.props;
     if (chatbot_setting.menu)
       return (
         <LangContext.Consumer>
@@ -33,8 +34,15 @@ class MenuComponent extends React.PureComponent {
             lang => (
               <React.Fragment>
                 <div className={classNames("ori-absolute ori-animated ori-animation-half menuOverlay", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted })} onClick={closeMenu}> &nbsp;
-              </div>
+                </div>
                 <div className={classNames("ori-animated ori-animation-half ori-absolute ori-pad-10 oriMenuContainer ", { "ori-zoom-in-bottom-left": isMounted, "ori-zoom-out-bottom-left": !isMounted })}>
+                  {
+                    chatbot_setting.menu.children.end_chat &&
+                    <div className="ori-pad-5 ori-cursor-ptr menuItem" onClick={handleEndChat}>
+                      <CloseIcon size={16} />
+                      <span className="ori-l-mrgn-10">{translator.text[lang].endChat}</span>
+                    </div>
+                  }
                   {
                     chatbot_setting.menu.children.clear_chat &&
                     <div className="ori-pad-5 ori-cursor-ptr menuItem" onClick={handleResetChat}>
