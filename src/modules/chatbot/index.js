@@ -207,15 +207,27 @@ class ChatBot extends Component {
   };
 
   onClickCloseIcon = () => {
-    const { end_chat } = this.props.chat_details;
+    const { end_chat, psid } = this.props.chat_details;
     const { actions } = this.props;
-    const payload = end_chat.visible ? DEFAULT_END_CHAT_STATE :
-      {
-        ...DEFAULT_END_CHAT_STATE,
-        visible: true,
-        show_confirmation_card: true
-      };
-    actions.updateChatsState({ end_chat: payload });
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      this.setState({ show_banner: true })
+      this.handleResetChat()
+      const payload = { psid }
+      actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.END_CHAT,
+        message: ""
+      }, '*')
+    } else {
+      const payload = end_chat.visible ? DEFAULT_END_CHAT_STATE :
+        {
+          ...DEFAULT_END_CHAT_STATE,
+          visible: true,
+          show_confirmation_card: true
+        };
+      actions.updateChatsState({ end_chat: payload });
+    }
   };
 
   handleFormItemChange = (key, value) => {
