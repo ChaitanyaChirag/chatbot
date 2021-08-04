@@ -43,8 +43,7 @@ import {
   translator,
   chatbot_default_messages,
   brand_features,
-  chatbot_psids,
-  adster_settings
+  chatbot_psids
 } from '../data/config/brandSetup';
 import { networkCheckUrl, senderId } from '../data/config/urls'
 // import { outerBackground } from '../data/assets'
