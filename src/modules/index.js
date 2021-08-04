@@ -650,6 +650,7 @@ class AppContainer extends Component {
                 handleFileUpload={this.handleFileUpload}
                 handleOfferSelection={this.handleOfferSelection}
                 onSubmitCheckbox={this.onSubmitCheckbox}
+                banner_url={page_details.banner_url}
               />
             </div>
           </Suspense>

@@ -401,7 +401,8 @@ class ChatBot extends Component {
       handleOfferSelection,
       onSubmitCheckbox,
       actions,
-      screen_height
+      screen_height,
+      banner_url
     } = this.props;
     const input_lock_text = getPreviousMessageData(chat_details.messages, "inputLockMessage", undefined)
 
@@ -420,13 +421,14 @@ class ChatBot extends Component {
           </div>
         }
         {
-          chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner &&
+          chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner && banner_url &&
           <div
-            className={`ori-absolute ori-align-left ori-align-right ori-full-width ori-full-parent-height ori-transition-ease ori-z-index-99996 ori-overflow-hidden ori-bg-white ori-cursor-ptr ${show_banner ? "ori-align-bottom" : "ori-align-bottom-full"}`}
+            className={`ori-absolute ori-align-left ori-align-right ori-full-width ori-full-parent-height ori-transition-ease ori-z-index-99996 ori-overflow-hidden ori-bg-white ori-cursor-ptr ori-bg-no-repeat ori-bg-size-cover ori-bg-position-center ${show_banner ? "ori-align-bottom" : "ori-align-bottom-full"}`}
+            style={{
+              backgroundImage: `url(${banner_url})`,
+            }}
             onClick={this.onClickBannerImage}
-          >
-
-          </div>
+          />
         }
         <div
           className="ori-absolute ori-z-index-99994 ori-flex-row "
@@ -608,6 +610,7 @@ ChatBot.propTypes = {
   handleFileUpload: PropTypes.func,
   handleOfferSelection: PropTypes.func,
   onSubmitCheckbox: PropTypes.func,
+  banner_url: PropTypes.string
 };
 
 export default ChatBot;
