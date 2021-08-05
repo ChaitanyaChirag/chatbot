@@ -167,7 +167,7 @@ export const chatbot_setting = {
   },
   auto_hide_notification_bubbles: {
     enable: false,
-    delay: 5000 // in ms
+    delay: 10000 // in ms
   }
 };
 

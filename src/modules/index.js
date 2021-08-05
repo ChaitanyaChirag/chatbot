@@ -206,17 +206,21 @@ class AppContainer extends Component {
 
   hideNotificationBubbles = () => {
     const { actions, chat_details } = this.props
-    const unseen_messages = getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
-    if (unseen_messages && unseen_messages.length > 0) {
+    if (chat_details.unseen_messages && chat_details.unseen_messages.length > 0) {
       if (this.resetUnseenMessagesTimeout)
         clearTimeout(this.resetUnseenMessagesTimeout);
       this.resetUnseenMessagesTimeout = setTimeout(() => {
-        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
-        localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
-        actions.updateChatsState({
+        const payload = {
           unseen_messages: [],
           notification_count: 0
-        });
+        }
+        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+        localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
+        if (chat_details.unseen_messages.length >= chat_details.messages.length){
+          payload.messages = []
+          localStorage.removeItem(LOCAL_STORAGE.MESSAGES + chat_details.psid);
+        }
+          actions.updateChatsState(payload);
       }, chatbot_setting.auto_hide_notification_bubbles.delay);
     }
   }
