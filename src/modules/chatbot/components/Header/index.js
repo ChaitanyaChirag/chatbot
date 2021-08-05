@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 import Avatar from "antd/lib/avatar"
 
 import { translator, chatbot_setting } from "../../../../data/config/brandSetup"
+import { CHATBOT_TYPE } from "../../../../data/config/constants"
 import chatbotStyle from "../../../../data/config/chatbotStyle"
 
 import { LangContext } from "../../../context"
@@ -51,7 +52,16 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
                   <p className="ori-capitalize ori-font-md ori-font-bold ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
                   </p>
               }
-              <span className="ori-font-header-light ori-font-xs">
+              <span
+                className={`${chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER ? "ori-absolute" : "ori-font-header-light ori-font-xs"}`}
+                style={chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER ?
+                  {
+                    top: "15px",
+                    left: "17px"
+                  } :
+                  {}
+                }
+              >
                 <span
                   className={classNames(
                     "ori-r-mrgn-5 ori-border-circle ori-display-inline-block ",
@@ -67,7 +77,11 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
                     width: "6px"
                   }}
                 />
-                {!is_internet_connected ? translator.text[lang].offline : (!is_socket_connected ? translator.text[lang].connecting : translator.text[lang].online)}
+                {
+                  chatbot_setting.chatbot_type !== CHATBOT_TYPE.ADSTER ? (!is_internet_connected ?
+                    translator.text[lang].offline :
+                    (!is_socket_connected ? translator.text[lang].connecting : translator.text[lang].online)) : null
+                }
               </span>
             </div>
           </div>
