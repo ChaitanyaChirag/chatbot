@@ -177,7 +177,7 @@ class AppContainer extends Component {
       setTimeout(() => this.setState({ render_chatbot: false }), 400);
     } else if (!prevProps.chat_details.is_chat_open && is_chat_open) {
       this.setState({ render_chatbot: true })
-      if(this.resetUnseenMessagesTimeout)
+      if (this.resetUnseenMessagesTimeout)
         clearTimeout(this.resetUnseenMessagesTimeout)
     }
     if (chatbot_setting.auto_hide_notification_bubbles.enable && !is_chat_open && unseen_messages.length > prevProps.chat_details.unseen_messages.length)
@@ -209,7 +209,7 @@ class AppContainer extends Component {
   hideNotificationBubbles = () => {
     const { actions, chat_details } = this.props
     if (this.resetUnseenMessagesTimeout)
-        clearTimeout(this.resetUnseenMessagesTimeout);
+      clearTimeout(this.resetUnseenMessagesTimeout);
     if (chat_details.unseen_messages && chat_details.unseen_messages.length > 0) {
       this.resetUnseenMessagesTimeout = setTimeout(() => {
         const payload = {
