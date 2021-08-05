@@ -177,6 +177,8 @@ class AppContainer extends Component {
       setTimeout(() => this.setState({ render_chatbot: false }), 400);
     } else if (!prevProps.chat_details.is_chat_open && is_chat_open) {
       this.setState({ render_chatbot: true })
+      if(this.resetUnseenMessagesTimeout)
+        clearTimeout(this.resetUnseenMessagesTimeout)
     }
     if (chatbot_setting.auto_hide_notification_bubbles.enable && !is_chat_open && unseen_messages.length > prevProps.chat_details.unseen_messages.length)
       this.hideNotificationBubbles()
@@ -206,21 +208,21 @@ class AppContainer extends Component {
 
   hideNotificationBubbles = () => {
     const { actions, chat_details } = this.props
-    if (chat_details.unseen_messages && chat_details.unseen_messages.length > 0) {
-      if (this.resetUnseenMessagesTimeout)
+    if (this.resetUnseenMessagesTimeout)
         clearTimeout(this.resetUnseenMessagesTimeout);
+    if (chat_details.unseen_messages && chat_details.unseen_messages.length > 0) {
       this.resetUnseenMessagesTimeout = setTimeout(() => {
         const payload = {
           unseen_messages: [],
           notification_count: 0
         }
-        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
-        localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
-        if (chat_details.unseen_messages.length >= chat_details.messages.length){
+        if (chat_details.unseen_messages.length >= chat_details.messages.length) {
           payload.messages = []
           localStorage.removeItem(LOCAL_STORAGE.MESSAGES + chat_details.psid);
         }
-          actions.updateChatsState(payload);
+        localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid);
+        localStorage.removeItem(LOCAL_STORAGE.NOTIFICATION_COUNT + chat_details.psid);
+        actions.updateChatsState(payload);
       }, chatbot_setting.auto_hide_notification_bubbles.delay);
     }
   }
