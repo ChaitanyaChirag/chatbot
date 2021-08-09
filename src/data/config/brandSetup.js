@@ -53,6 +53,7 @@ export const chatbot_setting = {
     code: "123456",
   }, // default, fullScreen, adster
   message_voting: true,
+  emit_unread_msg_seen: false,
   auto_close_feedback_form: 2 * 1000 * 60, //in milisecond only
   feedback_form_rating_type: TYPES.DEFAULT, // default or star
   show_feedback_rating_linebar: true,
