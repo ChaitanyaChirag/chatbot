@@ -46,7 +46,7 @@ const chat_details = (state = states.chat_details, action) => {
       let unseen_messages = [...state.unseen_messages];
       let notification_count = state.notification_count;
       let disable_msg_after_reply = { ...state.disable_msg_after_reply };
-      if (!state.is_chat_open && chatbot_setting.chatbot_type !== CHATBOT_TYPE.ADSTER) {
+      if (!state.is_chat_open && chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT) {
         unseen_messages = [...state.unseen_messages, action.payload.message];
         notification_count = 0;
         setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid, unseen_messages);
@@ -81,7 +81,7 @@ const chat_details = (state = states.chat_details, action) => {
         disable_msg_after_reply[action.payload.message.chatlogId] = false
         setDataInLocalStorage(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + state.psid, disable_msg_after_reply);
       }
-      if (!state.is_chat_open && chatbot_setting.chatbot_type !== CHATBOT_TYPE.ADSTER) {
+      if (!state.is_chat_open && chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT) {
         notification_count++;
         unseen_messages = [...state.unseen_messages, action.payload.message];
         setDataInLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + state.psid, unseen_messages);
