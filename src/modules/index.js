@@ -336,7 +336,7 @@ class AppContainer extends Component {
   }
 
   emitResponseToServer = response => {
-    const { chat_details, actions } = this.props;
+    const { chat_details, actions, page_details } = this.props;
     const android = isAndroid();
     const ios = isIOS();
     const data = {
@@ -360,6 +360,11 @@ class AppContainer extends Component {
         data.lockedParams = lockedParams
         localStorage.removeItem(LOCAL_STORAGE.APP_PARAMS + chat_details.psid);
       }
+    }
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      data.adSegment = page_details.banner_key
+      data.bannerWidth = page_details.banner_width
+      data.bannerHeight = page_details.banner_height
     }
     actions.emitNewMessageToServer(data);
     setDataInLocalStorage(LOCAL_STORAGE.LAST_EMIT + chat_details.psid, new Date().getTime())
@@ -467,6 +472,13 @@ class AppContainer extends Component {
 
   handleMsgBtnClick = data => {
     if (data.button) {
+      if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent && data.button.type !== BUTTON_TYPES.LINK)
+        window.parent.postMessage({
+          type: 'counter',
+          func: data.button.adEvent ? data.button.adEvent : data.button.text,
+          message: ""
+        }, '*')
+
       switch (data.button.type) {
         case BUTTON_TYPES.LINK:
           if (data.button.url) {
@@ -486,6 +498,12 @@ class AppContainer extends Component {
                 window.open(data.button.url, '_blank');
               }
             }
+            if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+              window.parent.postMessage({
+                type: 'exit',
+                func: data.button.adEvent ? data.button.adEvent : data.button.text,
+                message: data.button.url
+              }, '*')
           }
           break;
 
@@ -582,6 +600,12 @@ class AppContainer extends Component {
     }
   };
 
+  intractedWithChatbot = () => {
+    const { chat_details, actions } = this.props;
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && !chat_details.is_socket_connected)
+      actions.makeSocketConnection()
+  }
+
   render() {
     const { page_details, chat_details, actions } = this.props;
     if (chatbot_setting.security.enable && !chat_details.secure)
@@ -639,6 +663,7 @@ class AppContainer extends Component {
                 height: "100%",
                 width: "100%"
               }}
+              onClick={this.intractedWithChatbot}
             >
               <ChatBot
                 ref={this.chatbotRef}
@@ -650,6 +675,7 @@ class AppContainer extends Component {
                 handleFileUpload={this.handleFileUpload}
                 handleOfferSelection={this.handleOfferSelection}
                 onSubmitCheckbox={this.onSubmitCheckbox}
+                banner_url={page_details.banner_url}
               />
             </div>
           </Suspense>

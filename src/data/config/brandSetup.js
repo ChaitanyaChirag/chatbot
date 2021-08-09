@@ -78,6 +78,7 @@ export const chatbot_setting = {
   },
   speech_recognition: true,
   minimize_bot: true,
+  end_chat_header: true,
   gradient: {
     sender_bubble: false,
     trigger: false,
@@ -93,6 +94,7 @@ export const chatbot_setting = {
       terms_and_conditions: true,
       feedback: true,
       clear_chat: true,
+      end_chat: false
     }
   },
   upload_file: true,
@@ -120,8 +122,8 @@ export const chatbot_setting = {
     image_type_brand_name: false,
     type_writer: {
       enable: false,
-      deleting_speed: 30,
-      typing_speed: 150
+      deleting_speed: 150,
+      typing_speed: 30
     },
   },
   notification_bot: {

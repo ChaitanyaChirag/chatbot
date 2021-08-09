@@ -163,3 +163,11 @@ export const LANGUAGES = {
   ENGLISH: 'en',
   ARABIC: 'ar',
 };
+
+export const GOOGLE_ENABLER_EVENTS = {
+  BANNER: "Banner",
+  END_CHAT: "End Chat",
+  PRIVACY_POLICY: "Privacy Policy",
+  TERMS_AND_CONDITIONS: "TnC",
+  CHAT_RESET: "Chat Reset"
+}

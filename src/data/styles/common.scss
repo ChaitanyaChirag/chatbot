@@ -23,6 +23,10 @@
 
     /*---------------------  BASIC COMMON CLASSES -------------------- */
 
+    .ori-transition-ease{
+      transition: .5s ease;
+    }
+
     .ori-rotate-180 {
         transform: rotate(180deg);
     }

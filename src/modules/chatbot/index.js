@@ -3,7 +3,12 @@ import React, { Component, Suspense } from "react";
 import PropTypes from "prop-types";
 import Button from "antd/lib/button";
 
-import { chatbot_setting, chatbot_default_messages, brand_features } from "../../data/config/brandSetup";
+import {
+  chatbot_setting,
+  chatbot_default_messages,
+  brand_features,
+  adster_settings
+} from "../../data/config/brandSetup";
 import chatbotStyle from "../../data/config/chatbotStyle"
 import {
   isAndroid,
@@ -13,14 +18,16 @@ import {
   showMessage,
   checkMultipleExtension,
   getQueryParamsValue,
-  getPreviousMessageData
+  getPreviousMessageData,
+  getImageMetaData
 } from "../../data/config/utils";
 import {
   EVENTS,
   DEFAULT_END_CHAT_STATE,
   CHATBOT_TYPE,
   TYPES,
-  LOCAL_STORAGE
+  LOCAL_STORAGE,
+  GOOGLE_ENABLER_EVENTS
 } from "../../data/config/constants";
 
 import "./index.scss";
@@ -52,14 +59,31 @@ class ChatBot extends Component {
     file: null,
     fileUrl: "",
     show_file_preview: false,
+    show_banner: true,
   };
 
   is_app = isAndroid() || isIOS();
   is_msg_updating = false
   delay_push_messages = false
   push_default_msg_timer = null
+  bannerTimer = null
 
   componentDidMount() {
+    const { actions } = this.props;
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner) {
+      const chatbotElement = document.getElementById("chatbotContentContainer")
+      console.log('bannerSize', chatbotElement.clientWidth, chatbotElement.clientHeight)
+      const aspectRatio = chatbotElement.clientWidth / chatbotElement.clientHeight
+      const query_params = new URLSearchParams(window.location.search)
+      const banner_key = query_params.get(adster_settings.banner_query_params_key)
+      const banner_url = adster_settings.getBannerByAspectRatio(aspectRatio, banner_key)
+      actions.updatePageState({ banner_url, banner_key })
+      getImageMetaData(banner_url, data => actions.updatePageState({
+        banner_width: data.width,
+        banner_height: data.height
+      }))
+      this.bannerTimer = setTimeout(this.hideBannerImage, adster_settings.banner_initial_transtion_delay)
+    }
     this.pushDefaultMessages()
   }
 
@@ -86,12 +110,19 @@ class ChatBot extends Component {
   componentWillUnmount() {
     if (this.push_default_msg_timer)
       clearTimeout(this.push_default_msg_timer)
+    if (this.bannerTimer)
+      clearTimeout(this.bannerTimer)
   }
 
   pushDefaultMessages = () => {
     const { actions } = this.props
     const { is_socket_connected, messages, is_chat_open } = this.props.chat_details
-    if (!this.is_msg_updating && messages.length === 0 && is_socket_connected && (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT ? is_chat_open : true)) {
+    let cond = is_socket_connected
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT)
+      cond = is_socket_connected && is_chat_open
+    else if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
+      cond = !this.state.show_banner
+    if (!this.is_msg_updating && messages.length === 0 && cond) {
       this.is_msg_updating = true
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {
@@ -127,6 +158,12 @@ class ChatBot extends Component {
       });
       this.closeClearChatPopConfirm()
     }
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.CHAT_RESET,
+        message: ""
+      }, '*')
   };
 
   showClearChatPopConfirm = () => {
@@ -135,6 +172,12 @@ class ChatBot extends Component {
         this.setState({ show_clear_chat_popconfirm: true })
       }, 500)
     });
+  }
+
+  handleEndChatMenuItem = () => {
+    this.setState({ show_menu: false }, () => {
+      setTimeout(this.onClickCloseIcon, 500)
+    })
   }
 
   showFeedback = () => {
@@ -170,15 +213,28 @@ class ChatBot extends Component {
   };
 
   onClickCloseIcon = () => {
-    const { end_chat } = this.props.chat_details;
+    const { end_chat, psid } = this.props.chat_details;
     const { actions } = this.props;
-    const payload = end_chat.visible ? DEFAULT_END_CHAT_STATE :
-      {
-        ...DEFAULT_END_CHAT_STATE,
-        visible: true,
-        show_confirmation_card: true
-      };
-    actions.updateChatsState({ end_chat: payload });
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      this.setState({ show_banner: true })
+      this.handleResetChat()
+      const payload = { psid }
+      actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload)
+      if (window.parent)
+        window.parent.postMessage({
+          type: 'counter',
+          func: GOOGLE_ENABLER_EVENTS.END_CHAT,
+          message: ""
+        }, '*')
+    } else {
+      const payload = end_chat.visible ? DEFAULT_END_CHAT_STATE :
+        {
+          ...DEFAULT_END_CHAT_STATE,
+          visible: true,
+          show_confirmation_card: true
+        };
+      actions.updateChatsState({ end_chat: payload });
+    }
   };
 
   handleFormItemChange = (key, value) => {
@@ -335,6 +391,22 @@ class ChatBot extends Component {
     setTimeout(actions.makeSocketConnection, 1000);
   };
 
+  hideBannerImage = () => {
+    if (this.bannerTimer)
+      clearTimeout(this.bannerTimer)
+    this.setState({ show_banner: false })
+  }
+
+  onClickBannerImage = () => {
+    this.hideBannerImage()
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+      window.parent.postMessage({
+        type: 'counter',
+        func: GOOGLE_ENABLER_EVENTS.BANNER,
+        message: 'Banner Clicked'
+      }, '*')
+  }
+
   render() {
     const {
       show_menu,
@@ -343,7 +415,8 @@ class ChatBot extends Component {
       info_content_type,
       file,
       fileUrl,
-      show_clear_chat_popconfirm
+      show_clear_chat_popconfirm,
+      show_banner
     } = this.state;
     const {
       chat_details,
@@ -353,7 +426,8 @@ class ChatBot extends Component {
       handleOfferSelection,
       onSubmitCheckbox,
       actions,
-      screen_height
+      screen_height,
+      banner_url
     } = this.props;
     const input_lock_text = getPreviousMessageData(chat_details.messages, "inputLockMessage", undefined)
 
@@ -371,6 +445,16 @@ class ChatBot extends Component {
             </Suspense>
           </div>
         }
+        {
+          chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner && banner_url &&
+          <div
+            className={`ori-absolute ori-align-left ori-align-right ori-full-width ori-full-parent-height ori-transition-ease ori-z-index-99996 ori-overflow-hidden ori-bg-white ori-cursor-ptr ori-bg-no-repeat ori-bg-size-cover ori-bg-position-center ${show_banner ? "ori-align-bottom" : "ori-align-bottom-full"}`}
+            style={{
+              backgroundImage: `url(${banner_url})`,
+            }}
+            onClick={this.onClickBannerImage}
+          />
+        }
         <div
           className="ori-absolute ori-z-index-99994 ori-flex-row "
           style={{
@@ -384,9 +468,12 @@ class ChatBot extends Component {
               <chatbotStyle.MinimizeIcon />
             </div>
           }
-          <div className="ori-lr-pad-5 ori-cursor-ptr" onClick={this.onClickCloseIcon}>
-            <chatbotStyle.EndChatIcon />
-          </div>
+          {
+            chatbot_setting.end_chat_header &&
+            <div className="ori-lr-pad-5 ori-cursor-ptr" onClick={this.onClickCloseIcon}>
+              <chatbotStyle.EndChatIcon />
+            </div>
+          }
         </div>
         <Suspense fallback={null}>
           <ShowNotification isMounted={chat_details.notification.visible} message={chat_details.notification.message} />
@@ -459,6 +546,7 @@ class ChatBot extends Component {
             delayUnmountTime={400}
             closeMenu={this.closeMenu}
             handleResetChat={this.showClearChatPopConfirm}
+            handleEndChat={this.handleEndChatMenuItem}
             showFeedback={this.showFeedback}
             showInfoContent={this.showInfoContent}
           />
@@ -551,6 +639,7 @@ ChatBot.propTypes = {
   handleFileUpload: PropTypes.func,
   handleOfferSelection: PropTypes.func,
   onSubmitCheckbox: PropTypes.func,
+  banner_url: PropTypes.string
 };
 
 export default ChatBot;
