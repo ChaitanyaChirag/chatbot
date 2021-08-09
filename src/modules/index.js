@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { lazy, Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -48,10 +48,9 @@ import {
 import { networkCheckUrl, senderId } from '../data/config/urls'
 // import { outerBackground } from '../data/assets'
 
-import TriggerChatBot from '../components/triggerchatbot';
-
-const ChatBot = React.lazy(() => import('./chatbot'));
-const NotificationBot = React.lazy(() => import('./notificationbot'));
+const TriggerChatBot = lazy(() => import("../components/triggerchatbot"))
+const ChatBot = lazy(() => import('./chatbot'));
+const NotificationBot = lazy(() => import('./notificationbot'));
 
 const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
@@ -688,17 +687,19 @@ class AppContainer extends Component {
         <div className="ori-app-container ori-ant-design-container oriAppContainer">
           {
             (page_details.device_data.screen_width > 480 || (page_details.device_data.screen_width < 481 && !chat_details.is_chat_open)) &&
-            <Badge
-              count={chat_details.notification_count}
-              overflowCount={9}
-              className="ori-animated ori-fade-in notificationBadge"
-            >
-              <TriggerChatBot
-                mobile={page_details.device_data.screen_width < 481}
-                is_chat_open={chat_details.is_chat_open}
-                handleSocketConnection={this.handleSocketConnection}
-              />
-            </Badge>
+            <Suspense fallback={null}>
+              <Badge
+                count={chat_details.notification_count}
+                overflowCount={9}
+                className="ori-animated ori-fade-in notificationBadge"
+              >
+                <TriggerChatBot
+                  mobile={page_details.device_data.screen_width < 481}
+                  is_chat_open={chat_details.is_chat_open}
+                  handleSocketConnection={this.handleSocketConnection}
+                />
+              </Badge>
+            </Suspense>
           }
           <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
             {

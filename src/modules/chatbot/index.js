@@ -1,7 +1,8 @@
 /* eslint-disable no-eval */
 import React, { Component, Suspense } from "react";
 import PropTypes from "prop-types";
-import Button from "antd/lib/button";
+import Button from "antd/lib/button"
+import SendingIcon from 'react-icons/lib/md/rotate-right'
 
 import {
   chatbot_setting,
@@ -33,20 +34,20 @@ import {
 import "./index.scss";
 
 import Header from "./components/Header";
-import ChatBotConversation from "../../components/chatbotconversation";
 import InputComposer from "../../components/inputcomposer";
 
+const ChatBotConversation = React.lazy(() => import("../../components/chatbotconversation"))
 const HeaderTag = React.lazy(() => import("./components/HeaderTag"))
-const Menu = React.lazy(() => import("./components/menu"));
-const QuickReply = React.lazy(() => import("./components/quickreply"));
-const Feedback = React.lazy(() => import("./components/feedback"));
-const EndChat = React.lazy(() => import("./components/endchat"));
-const PreviewFile = React.lazy(() => import("./components/previewfile"));
-const DownTime = React.lazy(() => import("./components/downtime"));
-const CustomModal = React.lazy(() => import("../../components/custommodal"));
-const ShowNotification = React.lazy(() => import("./components/shownotification"));
-const InfoContent = React.lazy(() => import("./components/InfoContent"));
-const PoweredBy = React.lazy(() => import("../../components/poweredby"));
+const Menu = React.lazy(() => import("./components/menu"))
+const QuickReply = React.lazy(() => import("./components/quickreply"))
+const Feedback = React.lazy(() => import("./components/feedback"))
+const EndChat = React.lazy(() => import("./components/endchat"))
+const PreviewFile = React.lazy(() => import("./components/previewfile"))
+const DownTime = React.lazy(() => import("./components/downtime"))
+const CustomModal = React.lazy(() => import("../../components/custommodal"))
+const ShowNotification = React.lazy(() => import("./components/shownotification"))
+const InfoContent = React.lazy(() => import("./components/InfoContent"))
+const PoweredBy = React.lazy(() => import("../../components/poweredby"))
 const DotsLoader = React.lazy(() => import("../../components/dotsloader"))
 
 class ChatBot extends Component {
@@ -60,7 +61,7 @@ class ChatBot extends Component {
     fileUrl: "",
     show_file_preview: false,
     show_banner: true,
-  };
+  }
 
   is_app = isAndroid() || isIOS();
   is_msg_updating = false
@@ -567,19 +568,27 @@ class ChatBot extends Component {
           screen_height >= 420 &&
           <Header />
         }
-        <ChatBotConversation
-          psid={chat_details.psid}
-          btn_disabled={!chat_details.is_socket_connected}
-          disable_msg_after_reply={chat_details.disable_msg_after_reply}
-          messages={chat_details.messages}
-          onMessageVoting={actions.onMessageVoting}
-          handleMsgBtnClick={handleMsgBtnClick}
-          handleFileUpload={handleFileUpload}
-          handleOfferSelection={handleOfferSelection}
-          onSubmitCheckbox={onSubmitCheckbox}
-          is_typing={chat_details.is_typing}
-          typing_text={chat_details.typing_text}
-        />
+        <Suspense
+          fallback={
+            <div className="ori-full-flex ori-flex-column ori-flex-center">
+              <SendingIcon className="ori-animated ori-rotate ori-infinite" size={32} />
+            </div>
+          }
+        >
+          <ChatBotConversation
+            psid={chat_details.psid}
+            btn_disabled={!chat_details.is_socket_connected}
+            disable_msg_after_reply={chat_details.disable_msg_after_reply}
+            messages={chat_details.messages}
+            onMessageVoting={actions.onMessageVoting}
+            handleMsgBtnClick={handleMsgBtnClick}
+            handleFileUpload={handleFileUpload}
+            handleOfferSelection={handleOfferSelection}
+            onSubmitCheckbox={onSubmitCheckbox}
+            is_typing={chat_details.is_typing}
+            typing_text={chat_details.typing_text}
+          />
+        </Suspense>
         <div
           className="ori-relative ori-flex-column ori-flex-jc chatFooterContainer"
           style={{
