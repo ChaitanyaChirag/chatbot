@@ -45,7 +45,7 @@ export const translator = {
 }
 
 export const chatbot_setting = {
-  chatbot_type: CHATBOT_TYPE.ADSTER,
+  chatbot_type: CHATBOT_TYPE.DEFAULT,
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
   security: {
@@ -94,7 +94,7 @@ export const chatbot_setting = {
       terms_and_conditions: true,
       feedback: true,
       clear_chat: true,
-      end_chat: true
+      end_chat: false
     }
   },
   upload_file: true,
@@ -121,7 +121,7 @@ export const chatbot_setting = {
     header_tag: true, //to hide and show tag type header for small screen
     image_type_brand_name: false,
     type_writer: {
-      enable: true,
+      enable: false,
       deleting_speed: 150,
       typing_speed: 30
     },
