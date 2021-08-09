@@ -290,6 +290,8 @@ class AppContainer extends Component {
         senderPsid: chat_details.psid,
       };
       actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
+      if (chatbot_setting.emit_unread_msg_seen)
+        actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
     }
     if (bool && !chat_details.is_socket_connected && !android && !ios) {
       actions.makeSocketConnection();
