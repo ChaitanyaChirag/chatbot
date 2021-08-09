@@ -39,7 +39,20 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
               size={chatbot_setting.chat_interface.avatar_size}
               shape={chatbot_setting.chat_interface.avatar_shape}
             />
-            <div className="ori-l-pad-10 ori-flex-column ori-flex-jc" style={{ lineHeight: 1.3 }}>
+            {
+              chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER &&
+              <span
+                className={`ori-absolute ori-border-circle ${!is_internet_connected ? "ori-bg-danger" : (!is_socket_connected ? "ori-bg-warning" : "ori-bg-green")}`}
+                style={{
+                  height: "6px",
+                  width: "6px"
+                }}
+              />
+            }
+            <div
+              className="ori-l-pad-10 ori-flex-column ori-flex-jc"
+              style={{ lineHeight: 1.3 }}
+            >
               {
                 chatbot_setting.chat_interface.image_type_brand_name ?
                   <div>
@@ -49,40 +62,34 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
                       alt={translator.text[lang].brandName}
                     />
                   </div> :
-                  <p className="ori-capitalize ori-font-md ori-font-bold ori-no-b-mrgn ori-font-header">{translator.text[lang].brandName}
+                  <p className="ori-capitalize ori-font-md ori-font-bold ori-no-b-mrgn ori-font-header ori-r-mrgn-5">{translator.text[lang].brandName}
                   </p>
               }
-              <span
-                className={`${chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER ? "ori-absolute" : "ori-font-header-light ori-font-xs"}`}
-                style={chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER ?
+              {
+                chatbot_setting.chatbot_type !== CHATBOT_TYPE.ADSTER &&
+                <span className="ori-font-header-light ori-font-xs">
+                  <span
+                    className={classNames(
+                      "ori-r-mrgn-5 ori-border-circle ori-display-inline-block",
+                      {
+                        "ori-bg-danger": !is_internet_connected,
+                        "ori-bg-warning": is_internet_connected && !is_socket_connected,
+                        "ori-bg-green": is_internet_connected && is_socket_connected
+                      }
+                    )}
+                    style={{
+                      verticalAlign: "middle",
+                      height: "6px",
+                      width: "6px"
+                    }}
+                  />
                   {
-                    top: "15px",
-                    left: "17px"
-                  } :
-                  {}
-                }
-              >
-                <span
-                  className={classNames(
-                    "ori-r-mrgn-5 ori-border-circle ori-display-inline-block ",
-                    {
-                      "ori-bg-danger": !is_internet_connected,
-                      "ori-bg-warning": is_internet_connected && !is_socket_connected,
-                      "ori-bg-green": is_internet_connected && is_socket_connected
-                    }
-                  )}
-                  style={{
-                    verticalAlign: "middle",
-                    height: "6px",
-                    width: "6px"
-                  }}
-                />
-                {
-                  chatbot_setting.chatbot_type !== CHATBOT_TYPE.ADSTER ? (!is_internet_connected ?
-                    translator.text[lang].offline :
-                    (!is_socket_connected ? translator.text[lang].connecting : translator.text[lang].online)) : null
-                }
-              </span>
+                    (!is_internet_connected ?
+                      translator.text[lang].offline :
+                      (!is_socket_connected ? translator.text[lang].connecting : translator.text[lang].online))
+                  }
+                </span>
+              }
             </div>
           </div>
         </div>
