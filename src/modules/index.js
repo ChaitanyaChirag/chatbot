@@ -1,19 +1,18 @@
-import React, { lazy, Component, Suspense } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Badge from 'antd/lib/badge';
-import classNames from 'classnames';
-import merge from 'lodash/merge';
-import SendingIcon from 'react-icons/lib/md/rotate-right';
+import React, { lazy, Component, Suspense } from "react"
+import PropTypes from "prop-types"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import Badge from "antd/lib/badge"
+import merge from "lodash/merge"
+import SendingIcon from "react-icons/lib/md/rotate-right"
 
-import './index.scss';
+import "./index.scss"
 
-import { LangContext } from './context'
-import chatbotStyle from '../data/config/chatbotStyle'
+import { LangContext } from "./context"
+import chatbotStyle from "../data/config/chatbotStyle"
 
-import * as chatActions from '../data/redux/chat_details/actions';
-import * as pageActions from '../data/redux/page_details/actions';
+import * as chatActions from "../data/redux/chat_details/actions"
+import * as pageActions from "../data/redux/page_details/actions"
 
 import {
   LOCAL_STORAGE,
@@ -26,7 +25,7 @@ import {
   EVENTS,
   CHATBOT_TYPE,
   PLATFORM
-} from '../data/config/constants';
+} from "../data/config/constants"
 import {
   checkDevice,
   isAndroid,
@@ -37,20 +36,19 @@ import {
   clearAllDataFromLocalStorage,
   getDataFromLocalStorage,
   setDataInLocalStorage
-} from '../data/config/utils';
+} from "../data/config/utils"
 import {
   chatbot_setting,
   translator,
   chatbot_default_messages,
   brand_features,
   chatbot_psids
-} from '../data/config/brandSetup';
-import { networkCheckUrl, senderId } from '../data/config/urls'
-// import { outerBackground } from '../data/assets'
+} from "../data/config/brandSetup";
+import { networkCheckUrl, senderId } from "../data/config/urls"
 
 const TriggerChatBot = lazy(() => import("../components/triggerchatbot"))
-const ChatBot = lazy(() => import('./chatbot'));
-const NotificationBot = lazy(() => import('./notificationbot'));
+const ChatBot = lazy(() => import("./chatbot"));
+const NotificationBot = lazy(() => import("./notificationbot"));
 
 const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
@@ -622,12 +620,7 @@ class AppContainer extends Component {
           >
             <Suspense fallback={null}>
               <div
-                className={classNames("ori-animate ori-fade-in ori-overflow-hidden",
-                  {
-                    "ori-full-width ori-full-parent-height": page_details.device_data.screen_width < 768,
-                    "ori-box-shadow-dark ori-border-light ori-border-radius-10 ori-mrgn-auto": page_details.device_data.screen_width >= 768
-                  }
-                )}
+                className={`ori-animate ori-fade-in ori-overflow-hidden ${page_details.device_data.screen_width < 768 ? "ori-full-width ori-full-parent-height" : "ori-box-shadow-dark ori-border-light ori-border-radius-10 ori-mrgn-auto"}`}
                 style={
                   page_details.device_data.screen_width >= 768 ?
                     {
@@ -705,13 +698,7 @@ class AppContainer extends Component {
             {
               this.state.render_chatbot &&
               <div
-                className={classNames("ori-fixed ori-animated ori-animation-half ori-z-index-99992 ori-overflow-hidden chatbotContainer",
-                  {
-                    [chatbotStyle.containerInAnimationClass]: chat_details.is_chat_open,
-                    [chatbotStyle.containerOutAnimationClass]: !chat_details.is_chat_open,
-                    [chatbotStyle.containerMobileClass]: page_details.device_data.screen_width < 481,
-                    [chatbotStyle.containerWebClass]: page_details.device_data.screen_width >= 481
-                  })}
+                className={`ori-fixed ori-animated ori-animation-half ori-z-index-99992 ori-overflow-hidden chatbotContainer ${page_details.device_data.screen_width < 481 ? chatbotStyle.containerMobileClass : chatbotStyle.containerWebClass}  ${chat_details.is_chat_open ? chatbotStyle.containerInAnimationClass : chatbotStyle.containerOutAnimationClass}`}
               >
                 <ChatBot
                   ref={this.chatbotRef}
