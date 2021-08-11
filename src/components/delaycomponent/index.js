@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react"
+import PropTypes from "prop-types"
 
 const DelayComponent = Component => {
   return class extends React.Component {
@@ -8,9 +8,9 @@ const DelayComponent = Component => {
     }
 
     componentDidUpdate(prevProps) {
-      const { isMounted, delayMountTime, delayUnmountTime } = this.props;
+      const { isMounted, delayMountTime, delayUnmountTime } = this.props
       if (prevProps.isMounted && !isMounted) {
-        setTimeout(() => this.setState({ shouldRender: false }), delayUnmountTime);
+        setTimeout(() => this.setState({ shouldRender: false }), delayUnmountTime)
       } else if (!prevProps.isMounted && isMounted) {
         setTimeout(() => this.setState({ shouldRender: true }), delayMountTime)
       }
@@ -33,4 +33,4 @@ DelayComponent.defaultProps = {
   delayUnmountTime: 0,
 }
 
-export default DelayComponent;
+export default DelayComponent

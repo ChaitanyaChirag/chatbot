@@ -34,9 +34,10 @@ import { formatTime, formatDate } from '../../data/config/utils';
 import { LangContext } from '../../modules/context'
 import chatbotStyle from "../../data/config/chatbotStyle"
 
-import DotsLoader from '../dotsloader';
-import ErrorBoundary from '../errorboundary';
+import ErrorBoundary from '../errorboundary'
+
 const Buttons = lazy(() => import("../Buttons"))
+const DotsLoader = lazy(() => import("../dotsloader"))
 
 const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
@@ -426,7 +427,9 @@ class ChatBotConversation extends React.PureComponent {
                       <div className="ori-font-xs ori-font-primary ori-capitalize-first ori-r-pad-5">{typing_text}</div>
                     }
                     <div className="ori-flex-column ori-flex-jc">
-                      <DotsLoader />
+                      <Suspense fallback={null}>
+                        <DotsLoader />
+                      </Suspense>
                     </div>
                   </div>
                 </div>

@@ -1,38 +1,36 @@
-import React, { lazy, Suspense } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import SpeechRecognition from 'react-speech-recognition';
-import Button from 'antd/lib/button';
-import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
-import Upload from 'antd/lib/upload';
+import React, { lazy, Suspense } from "react"
+import PropTypes from "prop-types"
+import SpeechRecognition from "react-speech-recognition"
+import Button from "antd/lib/button"
+import Form from "antd/lib/form"
+import Input from "antd/lib/input"
 
-import SendIcon from 'react-icons/lib/md/send';
-import MicIcon from 'react-icons/lib/md/mic';
-import MicOffIcon from 'react-icons/lib/md/mic-off';
-import CircleDotIcon from 'react-icons/lib/md/adjust';
-import AddFileIcon from 'react-icons/lib/md/add-circle';
+import SendIcon from "react-icons/lib/md/send"
+import MicIcon from "react-icons/lib/md/mic"
+import MicOffIcon from "react-icons/lib/md/mic-off"
+import CircleDotIcon from "react-icons/lib/md/adjust"
 
-import './index.scss';
+import "./index.scss"
 
-import { isAndroid, isIOS } from '../../data/config/utils';
-import { EVENTS } from '../../data/config/constants';
-import { chatbot_setting, translator } from '../../data/config/brandSetup';
+import { isAndroid, isIOS } from "../../data/config/utils"
+import { EVENTS } from "../../data/config/constants"
+import { chatbot_setting, translator } from "../../data/config/brandSetup"
 import chatbotStyle from "../../data/config/chatbotStyle"
 
-import { LangContext } from '../../modules/context'
+import { LangContext } from "../../modules/context"
 
-const TypeWriter = lazy(() => import('../TypeWriter'))
+const TypeWriter = lazy(() => import("../TypeWriter"))
+const UploadFile = lazy(() => import("./UploadFile"))
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 class InputComposer extends React.PureComponent {
   constructor(props) {
-    super(props);
-    this.typingTimer = null;
-    this.android_input_max_rows_updated = false;
-    this.is_android = isAndroid();
-    this.is_ios = isIOS();
+    super(props)
+    this.typingTimer = null
+    this.android_input_max_rows_updated = false
+    this.is_android = isAndroid()
+    this.is_ios = isIOS()
     this.state = {
       input_message: "",
       typing: false,
@@ -131,22 +129,14 @@ class InputComposer extends React.PureComponent {
   }
 
   render() {
-    const { is_input_lock, input_lock_text, onClickMenu, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove, upload_enabled } = this.props;
-    const { input_message, showTypeWriter } = this.state;
+    const { is_input_lock, input_lock_text, onClickMenu, browserSupportsSpeechRecognition, listening, notification_bot, beforeUpload, onRemove, upload_enabled } = this.props
+    const { input_message, showTypeWriter } = this.state
     return (
       <LangContext.Consumer>
         {
           lang => (
             <div
-              className={
-                classNames("ori-relative ori-full-width oriInputComposerContainer",
-                  {
-                    "ori-placeholder-primary": is_input_lock || listening,
-                    "notificationBotInputComposer": notification_bot,
-                    "chatbotInputComposer": !notification_bot
-                  }
-                )
-              }
+              className={`ori-relative ori-full-width oriInputComposerContainer ${notification_bot ? "notificationBotInputComposer" : "chatbotInputComposer"} ${is_input_lock || listening ? "ori-placeholder-primary" : ""}`}
             >
               {
                 !notification_bot && !listening && chatbot_setting.menu.visible &&
@@ -191,11 +181,7 @@ class InputComposer extends React.PureComponent {
                     <div className="ori-animated ori-fade-in ori-absolute ori-flex-row ori-flex-jfe alignRightIcons">
                       {
                         (input_message.trim().length > 0 || !browserSupportsSpeechRecognition) &&
-                        <Button className={classNames("ori-pad-5 sendButton",
-                          {
-                            "sendBtnActive": input_message.trim().length > 0
-                          }
-                        )}
+                        <Button className={`ori-pad-5 sendButton ${input_message.trim().length > 0 ? "sendBtnActive" : ""}`}
                           htmlType="submit"
                           disabled={input_message.trim().length === 0 || is_input_lock}
                         >
@@ -204,11 +190,7 @@ class InputComposer extends React.PureComponent {
                       }
                       {
                         chatbot_setting.speech_recognition && input_message.trim().length === 0 && browserSupportsSpeechRecognition &&
-                        <Button className={classNames("ori-pad-5 sendButton",
-                          {
-                            "sendBtnActive": listening
-                          }
-                        )}
+                        <Button className={`ori-pad-5 sendButton ${listening ? "sendBtnActive" : ""}`}
                           disabled={is_input_lock}
                           onClick={this.onClickMic}
                         >
@@ -219,11 +201,12 @@ class InputComposer extends React.PureComponent {
                       }
                       {
                         !notification_bot && upload_enabled &&
-                        <div className="ori-pad-5 ori-cursor-ptr ori-flex-column ori-flex-jc">
-                          <Upload accept="image/*" showUploadList={false} beforeUpload={beforeUpload} onRemove={onRemove}>
-                            <AddFileIcon size={20} className="ori-font-light-hover-default" />
-                          </Upload>
-                        </div>
+                        <Suspense fallback={null}>
+                          <UploadFile
+                            beforeUpload={beforeUpload}
+                            onRemove={onRemove}
+                          />
+                        </Suspense>
                       }
                     </div>
                   </Form>

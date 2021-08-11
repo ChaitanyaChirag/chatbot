@@ -613,12 +613,6 @@ class ChatBot extends Component {
             }}
           />
           {
-            chatbot_setting.powered_by.visibility &&
-            <Suspense fallback={null}>
-              <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
-            </Suspense>
-          }
-          {
             chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
             <Suspense fallback={null}>
               <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
@@ -643,8 +637,14 @@ class ChatBot extends Component {
             />
           </Suspense>
         </div>
+        {
+          chatbot_setting.powered_by.visibility &&
+          <Suspense fallback={null}>
+            <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
+          </Suspense>
+        }
       </div>
-    );
+    )
   }
 }
 

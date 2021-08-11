@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react"
+import PropTypes from "prop-types"
 
-import { chatbot_setting, translator } from '../../data/config/brandSetup'
+import { chatbot_setting, translator } from "../../data/config/brandSetup"
 
-import { LangContext } from '../../modules/context'
+import { LangContext } from "../../modules/context"
 
-const PoweredBy = React.memo(({ container_class }) => {
+const PoweredBy = ({ container_class }) => {
   const goToUrl = () => {
     if (chatbot_setting.powered_by.target_url) {
-      let win = window.open(chatbot_setting.powered_by.target_url, '_blank');
+      let win = window.open(chatbot_setting.powered_by.target_url, "_blank")
       win.focus()
     }
   }
@@ -30,7 +30,7 @@ const PoweredBy = React.memo(({ container_class }) => {
       }
     </LangContext.Consumer>
   )
-})
+}
 
 PoweredBy.propTypes = {
   container_class: PropTypes.string

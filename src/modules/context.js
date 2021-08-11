@@ -1,7 +1,6 @@
 
-import React from 'react';
+import React from "react"
 
-import { LANGUAGES } from '../data/config/constants';
+import { LANGUAGES } from "../data/config/constants"
 
-export const LangContext = React.createContext(LANGUAGES.ENGLISH);
-
+export const LangContext = React.createContext(LANGUAGES.ENGLISH)
