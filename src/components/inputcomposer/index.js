@@ -168,7 +168,7 @@ class InputComposer extends React.PureComponent {
                         is_input_lock ? input_lock_text : (listening ? translator.text[lang].listening : translator.text[lang].typeYourQuery)
                       }
                       className="inputField"
-                      autosize={{
+                      autoSize={{
                         minRows: 1,
                         maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3
                       }}
