@@ -694,9 +694,9 @@ class AppContainer extends Component {
               </Badge>
             </Suspense>
           }
-          <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
-            {
-              this.state.render_chatbot &&
+          {
+            this.state.render_chatbot &&
+            <Suspense fallback={<SendingIcon className="ori-l-mrgn-5 ori-animated ori-rotate ori-infinite" />}>
               <div
                 className={`ori-fixed ori-animated ori-animation-half ori-z-index-99992 ori-overflow-hidden chatbotContainer ${page_details.device_data.screen_width < 481 ? chatbotStyle.containerMobileClass : chatbotStyle.containerWebClass}  ${chat_details.is_chat_open ? chatbotStyle.containerInAnimationClass : chatbotStyle.containerOutAnimationClass}`}
               >
@@ -712,9 +712,11 @@ class AppContainer extends Component {
                   onSubmitCheckbox={this.onSubmitCheckbox}
                 />
               </div>
-            }
-            {
-              chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
+            </Suspense>
+          }
+          {
+            chatbot_setting.notification_bot.visibility && !chat_details.is_chat_open && chat_details.unseen_messages.length > 0 &&
+            <Suspense fallback={null}>
               <NotificationBot
                 page_details={page_details}
                 chat_details={chat_details}
@@ -726,8 +728,8 @@ class AppContainer extends Component {
                 stack_view={chatbot_setting.notification_bot.stack_view}
                 onSubmitCheckbox={this.onSubmitCheckbox}
               />
-            }
-          </Suspense>
+            </Suspense>
+          }
         </div>
       </LangContext.Provider>
     );
