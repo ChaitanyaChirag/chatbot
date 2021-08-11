@@ -1,7 +1,7 @@
 /* eslint-disable no-eval */
-import React, { Component, Suspense } from "react";
+import React, { lazy, Component, Suspense } from "react";
 import PropTypes from "prop-types";
-import Button from "antd/lib/button";
+import Button from "antd/lib/button"
 
 import {
   chatbot_setting,
@@ -32,22 +32,22 @@ import {
 
 import "./index.scss";
 
-import Header from "./components/Header";
-import ChatBotConversation from "../../components/chatbotconversation";
-import InputComposer from "../../components/inputcomposer";
+import DotsLoader from "../../components/dotsloader"
 
-const HeaderTag = React.lazy(() => import("./components/HeaderTag"))
-const Menu = React.lazy(() => import("./components/menu"));
-const QuickReply = React.lazy(() => import("./components/quickreply"));
-const Feedback = React.lazy(() => import("./components/feedback"));
-const EndChat = React.lazy(() => import("./components/endchat"));
-const PreviewFile = React.lazy(() => import("./components/previewfile"));
-const DownTime = React.lazy(() => import("./components/downtime"));
-const CustomModal = React.lazy(() => import("../../components/custommodal"));
-const ShowNotification = React.lazy(() => import("./components/shownotification"));
-const InfoContent = React.lazy(() => import("./components/InfoContent"));
-const PoweredBy = React.lazy(() => import("../../components/poweredby"));
-const DotsLoader = React.lazy(() => import("../../components/dotsloader"))
+const Header = lazy(() => import("./components/Header"))
+const HeaderTag = lazy(() => import("./components/HeaderTag"))
+const ChatBotConversation = lazy(() => import("../../components/chatbotconversation"))
+const InputComposer = lazy(() => import("../../components/inputcomposer"))
+const Menu = lazy(() => import("./components/menu"))
+const QuickReply = lazy(() => import("./components/quickreply"))
+const Feedback = lazy(() => import("./components/feedback"))
+const EndChat = lazy(() => import("./components/endchat"))
+const PreviewFile = lazy(() => import("./components/previewfile"))
+const DownTime = lazy(() => import("./components/downtime"))
+const CustomModal = lazy(() => import("../../components/custommodal"))
+const ShowNotification = lazy(() => import("./components/shownotification"))
+const InfoContent = lazy(() => import("./components/InfoContent"))
+const PoweredBy = lazy(() => import("../../components/poweredby"))
 
 class ChatBot extends Component {
   state = {
@@ -60,7 +60,7 @@ class ChatBot extends Component {
     fileUrl: "",
     show_file_preview: false,
     show_banner: true,
-  };
+  }
 
   is_app = isAndroid() || isIOS();
   is_msg_updating = false
@@ -440,9 +440,7 @@ class ChatBot extends Component {
         {
           chat_details.loading &&
           <div className="ori-absolute ori-z-index-99995 ori-align-full ori-flex-column ori-flex-center ori-bg-black-light">
-            <Suspense fallback={null}>
-              <DotsLoader container_class="ori-bg-white ori-pad-15 ori-border-radius-3" />
-            </Suspense>
+            <DotsLoader container_class="ori-bg-white ori-pad-15 ori-border-radius-3" />
           </div>
         }
         {
@@ -565,21 +563,38 @@ class ChatBot extends Component {
         </Suspense>
         {
           screen_height >= 420 &&
-          <Header />
+          <Suspense
+            fallback={
+              <div className="ori-pad-20 ori-bg-white ori-flex-row">
+                <div className="ori-card-loading ori-lr-mrgn-10" style={{ height: "32px", width: "32px" }} />
+                <p className="ori-card-loading" style={{ height: "15px", width: "100px" }} />
+              </div>
+            }
+          >
+            <Header />
+          </Suspense>
         }
-        <ChatBotConversation
-          psid={chat_details.psid}
-          btn_disabled={!chat_details.is_socket_connected}
-          disable_msg_after_reply={chat_details.disable_msg_after_reply}
-          messages={chat_details.messages}
-          onMessageVoting={actions.onMessageVoting}
-          handleMsgBtnClick={handleMsgBtnClick}
-          handleFileUpload={handleFileUpload}
-          handleOfferSelection={handleOfferSelection}
-          onSubmitCheckbox={onSubmitCheckbox}
-          is_typing={chat_details.is_typing}
-          typing_text={chat_details.typing_text}
-        />
+        <Suspense
+          fallback={
+            <div className="ori-full-flex ori-flex-column ori-flex-center">
+              <DotsLoader container_class="ori-box-shadow ori-bg-white ori-pad-15 ori-border-radius-3" />
+            </div>
+          }
+        >
+          <ChatBotConversation
+            psid={chat_details.psid}
+            btn_disabled={!chat_details.is_socket_connected}
+            disable_msg_after_reply={chat_details.disable_msg_after_reply}
+            messages={chat_details.messages}
+            onMessageVoting={actions.onMessageVoting}
+            handleMsgBtnClick={handleMsgBtnClick}
+            handleFileUpload={handleFileUpload}
+            handleOfferSelection={handleOfferSelection}
+            onSubmitCheckbox={onSubmitCheckbox}
+            is_typing={chat_details.is_typing}
+            typing_text={chat_details.typing_text}
+          />
+        </Suspense>
         <div
           className="ori-relative ori-flex-column ori-flex-jc chatFooterContainer"
           style={{
@@ -598,12 +613,6 @@ class ChatBot extends Component {
             }}
           />
           {
-            chatbot_setting.powered_by.visibility &&
-            <Suspense fallback={null}>
-              <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
-            </Suspense>
-          }
-          {
             chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
             <Suspense fallback={null}>
               <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
@@ -614,20 +623,28 @@ class ChatBot extends Component {
               </div>
             </Suspense>
           }
-          <InputComposer
-            psid={chat_details.psid}
-            sendTextToServer={sendTextToServer}
-            is_input_lock={getPreviousMessageData(chat_details.messages, "inputLock", false)}
-            input_lock_text={input_lock_text ? input_lock_text : undefined}
-            onClickMenu={this.openMenu}
-            emitCustomEvent={actions.emitCustomEvent}
-            beforeUpload={this.beforeFileUpload}
-            onRemove={this.onFileRemove}
-            upload_enabled={chat_details.upload_file}
-          />
+          <Suspense fallback={<p className="ori-card-loading" style={{ height: "15px", width: "50%" }} />}>
+            <InputComposer
+              psid={chat_details.psid}
+              sendTextToServer={sendTextToServer}
+              is_input_lock={getPreviousMessageData(chat_details.messages, "inputLock", false)}
+              input_lock_text={input_lock_text ? input_lock_text : undefined}
+              onClickMenu={this.openMenu}
+              emitCustomEvent={actions.emitCustomEvent}
+              beforeUpload={this.beforeFileUpload}
+              onRemove={this.onFileRemove}
+              upload_enabled={chat_details.upload_file}
+            />
+          </Suspense>
         </div>
+        {
+          chatbot_setting.powered_by.visibility &&
+          <Suspense fallback={null}>
+            <PoweredBy container_class="ori-absolute ori-align-left ori-align-right ori-align-bottom ori-text-center" />
+          </Suspense>
+        }
       </div>
-    );
+    )
   }
 }
 

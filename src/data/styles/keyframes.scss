@@ -1,5 +1,19 @@
 @import "mixins.scss";
 
+@include keyframes(ori-card-loading) {
+  0% {
+      background-position: 0 50%;
+  }
+
+  50% {
+      background-position: 100% 50%;
+  }
+
+  100% {
+      background-position: 0 50%;
+  }
+}
+
 @include keyframes(ori-pulse) {
     from {
         -webkit-transform: scale3d(1, 1, 1);

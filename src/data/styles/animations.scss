@@ -1,5 +1,13 @@
 @import "./keyframes.scss";
 
+.ori-card-loading {
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(#999999, 0.1), rgba(#999999, 0.3), rgba(#999999, 0.1));
+  background-size: 600% 600%;
+
+  @include animation(ori-card-loading 1.5s ease infinite);
+}
+
 .ori-animated {
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
