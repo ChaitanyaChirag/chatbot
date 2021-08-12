@@ -3,11 +3,10 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "antd": "3.13.1",
-    "babel-plugin-import": "^1.12.2",
+    "antd": "4.16.11",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
-    "message-types": "^3.1.0",
+    "message-types": "^4.0.0",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-app-polyfill": "^1.0.5",
@@ -18,8 +17,7 @@
     "react-scripts": "3.2.0",
     "react-speech-recognition": "2.0.4",
     "redux": "^4.0.4",
-    "socket.io-client": "^2.3.0",
-    "source-map-explorer": "^2.1.1"
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,6 +43,8 @@
       "ie 11"
     ]
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "source-map-explorer": "^2.1.1"
+  },
   "homepage": "http://vil-dev.oriserve.com"
 }
