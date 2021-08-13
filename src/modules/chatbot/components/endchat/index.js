@@ -15,7 +15,7 @@ import DelayComponent from "../../../../components/delaycomponent";
 
 import { showMessage } from "../../../../data/config/utils"
 
-const PoweredBy = lazy(() => import("../../../../components/poweredby"));
+const PoweredBy = lazy(() => import("../../../../components/Powered"));
 const RatingItem = lazy(() => import("../../../../components/RatingItem"))
 
 const { Option } = Select;

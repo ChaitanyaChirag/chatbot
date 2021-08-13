@@ -17,7 +17,7 @@ const PoweredBy = ({ container_class }) => {
     <LangContext.Consumer>
       {
         lang => (
-          <p className={`ori-animated ori-fade-in-up ${container_class}`}>
+          <p className={`ori-animated ori-fade-in-up ${container_class}`} style={{ lineHeight: "1.2" }}>
             <span className="ori-font-xxs ori-font-light">{translator.text[lang].poweredBy}</span>
             <img
               src={translator.assets[lang].poweredby}

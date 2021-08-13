@@ -47,7 +47,7 @@ const DownTime = lazy(() => import("./components/downtime"))
 const CustomModal = lazy(() => import("../../components/custommodal"))
 const ShowNotification = lazy(() => import("./components/shownotification"))
 const InfoContent = lazy(() => import("./components/InfoContent"))
-const PoweredBy = lazy(() => import("../../components/poweredby"))
+const PoweredBy = lazy(() => import("../../components/Powered"))
 
 class ChatBot extends Component {
   state = {
