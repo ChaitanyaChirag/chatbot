@@ -616,7 +616,7 @@ class ChatBot extends Component {
           {
             chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
             <Suspense fallback={null}>
-              <div className="ori-absolute ori-align-left ori-align-right ori-align-bottom-full">
+              <div className={chatbotStyle.quickReplyWrapper}>
                 <QuickReply
                   quick_replies={chat_details.messages[chat_details.messages.length - 1].quickReplies}
                   sendTextToServer={sendTextToServer}

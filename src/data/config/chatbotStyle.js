@@ -29,6 +29,7 @@ const chatbotStyle = {
     bottom: "100px",
     maxWidth: "100%"
   },
+  quickReplyWrapper: "ori-absolute ori-align-left ori-align-right ori-align-bottom-full",
   EndChatIcon: () => (
     <div className="ori-lr-pad-8 ori-border-radius-3 endChatIcon">
       {translator.text[translator.getLanguage()].endChat}
