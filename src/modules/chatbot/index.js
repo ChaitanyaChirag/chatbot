@@ -599,7 +599,8 @@ class ChatBot extends Component {
           className="ori-relative ori-flex-column ori-flex-jc chatFooterContainer"
           style={{
             paddingRight: "65px",
-            paddingLeft: chatbot_setting.menu.visible ? "30px" : "10px"
+            paddingLeft: chatbot_setting.menu.visible ? "30px" : "10px",
+            ...chatbotStyle.footerContainer
           }}
         >
           <span

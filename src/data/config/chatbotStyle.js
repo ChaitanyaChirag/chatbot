@@ -18,6 +18,7 @@ const chatbotStyle = {
   },
   headerContainer: {},
   headerBorder: {},
+  footerContainer: {},
   footerBorder: {},
   conversationContainer: {},
   receiverBubbleContainer: {},
