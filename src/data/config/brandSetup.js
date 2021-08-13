@@ -45,14 +45,19 @@ export const translator = {
 }
 
 export const chatbot_setting = {
-  chatbot_type: CHATBOT_TYPE.DEFAULT,
+  chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
   security: {
     enable: false,
     code: "123456",
-  }, // default, fullScreen, adster
-  message_voting: true,
+  }, 
+  message_footer: {
+    enable: true,
+    voting: true,
+    delivery_status: true,
+    timestamp: true
+  },
   emit_unread_msg_seen: false,
   auto_close_feedback_form: 2 * 1000 * 60, //in milisecond only
   feedback_form_rating_type: TYPES.DEFAULT, // default or star
