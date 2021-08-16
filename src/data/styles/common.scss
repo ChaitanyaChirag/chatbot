@@ -23,8 +23,8 @@
 
     /*---------------------  BASIC COMMON CLASSES -------------------- */
 
-    .ori-transition-ease{
-      transition: .5s ease;
+    .ori-transition-ease {
+        transition: .5s ease;
     }
 
     .ori-rotate-180 {
@@ -582,15 +582,17 @@
     }
 
     .ori-lr-pad-20 {
-        @include lr-padding(20px);
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .ori-lr-pad-30 {
         @include lr-padding(30px);
     }
 
-    .ori-lr-pad-50 {
-        @include lr-padding(50px);
+    .ori-lr-pad-20 {
+        padding-left: 50px;
+        padding-right: 50px;
     }
 
     //---------------- top-bottom-padding-X --------------------
