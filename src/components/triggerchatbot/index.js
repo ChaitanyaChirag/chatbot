@@ -29,12 +29,7 @@ class TriggerChatBot extends React.PureComponent {
               {
                 is_chat_open && chatbot_setting.show_trigger_close &&
                 <div
-                  className={classNames("ori-fixed ori-zindex-99991 ori-cursor-ptr ori-flex-row ori-flex-center closeIconContainer",
-                    {
-                      "ori-bg-gradient": chatbot_setting.gradient.trigger,
-                      "ori-bg-primary": !chatbot_setting.gradient.trigger
-                    }
-                  )}
+                  className="ori-fixed ori-zindex-99991 ori-cursor-ptr ori-flex-row ori-flex-center ori-bg-primary closeIconContainer"
                   style={chatbot_setting.trigger.close_style}
                   onClick={this.handleChatInterfaceView}
                 >

@@ -36,8 +36,8 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
           <div className="ori-flex-row">
             <Avatar
               src={translator.assets[lang].logo}
-              size={chatbot_setting.chat_interface.avatar_size}
-              shape={chatbot_setting.chat_interface.avatar_shape}
+              size={chatbot_setting.header_avatar_size}
+              shape={chatbot_setting.header_avatar_shape}
             />
             {
               chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER &&
@@ -54,7 +54,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
               style={{ lineHeight: 1.3 }}
             >
               {
-                chatbot_setting.chat_interface.image_type_brand_name ?
+                chatbot_setting.image_type_brand_name ?
                   <div>
                     <img
                       src={translator.assets[lang].brandName}

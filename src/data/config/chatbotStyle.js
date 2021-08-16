@@ -6,10 +6,23 @@ import "./chatbotStyle.scss"
 import { translator } from "./brandSetup"
 
 const chatbotStyle = {
+  // ------------------------ classes ----------------------------
   containerMobileClass: "containerMobile",
   containerWebClass: "containerWeb",
   containerInAnimationClass: "ori-fade-in",
   containerOutAnimationClass: "ori-fade-out",
+  msgBubbleClass: "ori-pad-7 ori-b-mrgn-5 ori-border-radius-10",
+  firstBubbleClass: "",
+  senderBubbleClass: "senderBubble",
+  receiverBubbleClass: "receiverBubble",
+  senderAvatarClass: "senderAvatar",
+  receiverAvatarClass: "receiverAvatar",
+  notificationSenderBubbleClass: "notificationSenderBubble",
+  notificationReceiverBubbleClass: "notificationReceiverBubble",
+  stackViewNotificationBubbleClass: "stackViewNotificationBubble",
+  quickReplyWrapperClass: "ori-absolute ori-align-left ori-align-right ori-align-bottom-full",
+
+  //------------------------- styles --------------------------------
   chatbotContainer: {
     backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`
   },
@@ -23,13 +36,13 @@ const chatbotStyle = {
   conversationContainer: {},
   receiverBubbleContainer: {},
   senderBubbleContainer: {},
-  msgBubbleClass: "ori-pad-7 ori-b-mrgn-5 ori-border-radius-10",
   stackViewNotificationBot: {
     width: "320px",
     bottom: "100px",
     maxWidth: "100%"
   },
-  quickReplyWrapper: "ori-absolute ori-align-left ori-align-right ori-align-bottom-full",
+
+  //------------------------- components --------------------------------
   EndChatIcon: () => (
     <div className="ori-lr-pad-8 ori-border-radius-3 endChatIcon">
       {translator.text[translator.getLanguage()].endChat}
