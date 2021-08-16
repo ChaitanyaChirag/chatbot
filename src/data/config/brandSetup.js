@@ -55,7 +55,7 @@ export const chatbot_setting = {
   message_footer: {
     enable: true,
     voting: true,
-    delivery_status: true,
+    read_status: true,
     timestamp: true
   },
   emit_unread_msg_seen: false,

@@ -1,12 +1,7 @@
-import React, { Suspense, lazy } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import ThumbUpIcon from 'react-icons/lib/fa/thumbs-o-up';
-import SentIcon from 'react-icons/lib/io/android-done';
-import DeliverIcon from 'react-icons/lib/io/android-done-all';
-import SeenIcon from 'react-icons/lib/md/remove-red-eye';
-import SendingIcon from 'react-icons/lib/md/access-time';
-import Avatar from 'antd/lib/avatar';
+import React, { Suspense, lazy } from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import Avatar from 'antd/lib/avatar'
 import {
   TextMessage,
   TextWithMedia,
@@ -19,18 +14,17 @@ import {
   RechargeDetails,
   Offers,
   RechargeHistory
-} from 'message-types';
+} from 'message-types'
 
-import './index.scss';
+import './index.scss'
 
 import {
   MESSAGE_SENDER,
   MESSAGE_TYPES,
   MESSAGE_SUBTYPES,
-  MESSAGE_READ_STATUS
-} from '../../data/config/constants';
-import { chatbot_setting, chatbot_default_messages, translator } from '../../data/config/brandSetup';
-import { formatTime, formatDate } from '../../data/config/utils';
+} from '../../data/config/constants'
+import { chatbot_setting, chatbot_default_messages, translator } from '../../data/config/brandSetup'
+import { formatTime, formatDate } from '../../data/config/utils'
 import { LangContext } from '../../modules/context'
 import chatbotStyle from "../../data/config/chatbotStyle"
 
@@ -38,6 +32,7 @@ import ErrorBoundary from '../errorboundary'
 
 const Buttons = lazy(() => import("../Buttons"))
 const DotsLoader = lazy(() => import("../dotsloader"))
+const MessageFooter = lazy(() => import("./MessageFooter"))
 
 const defaultMessageLength = chatbot_default_messages.getDefaultMessages().length
 
@@ -114,17 +109,6 @@ class ChatBotConversation extends React.PureComponent {
     if (stack_view)
       onClickStackBubble()
   }
-
-  renderReadStatusIcon = readStatus => {
-    if (readStatus === MESSAGE_READ_STATUS.SENDING)
-      return <SendingIcon size={13} className="ori-l-mrgn-5" />
-    else if (readStatus === MESSAGE_READ_STATUS.SENT)
-      return <SentIcon size={13} className="ori-l-mrgn-5" />
-    else if (readStatus === MESSAGE_READ_STATUS.DELIVERED)
-      return <DeliverIcon size={13} className="ori-l-mrgn-5" />
-    else if (readStatus === MESSAGE_READ_STATUS.SEEN)
-      return <SeenIcon size={13} className="ori-l-mrgn-5" />
-  };
 
   render() {
     const { messages, disable_msg_after_reply, is_typing, typing_text, handleMsgBtnClick, onSubmitCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
@@ -369,48 +353,33 @@ class ChatBotConversation extends React.PureComponent {
                                 />
                               }
                               {
-                                (message.timestamp || message.chatlogId) &&
-                                <div className="ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb bubbleFooter">
-                                  <div className="ori-flex-row">
-                                    {
-                                      !notification_bot && chatbot_setting.message_voting && message.chatlogId && (chatbot || admin) &&
-                                      <React.Fragment>
-                                        <div className={classNames("ori-flex ori-cursor-ptr ori-r-pad-5", { "ori-font-primary": message.voteType && message.voteType === "upvote" })} onClick={this.onClickMessageVoting.bind(this, message, "upvote")} >
-                                          <ThumbUpIcon size={12} />
-                                        </div>
-                                        <div className={classNames("ori-flex ori-cursor-ptr ori-l-pad-5 ori-rotate-180", { "ori-font-primary": message.voteType && message.voteType === "downvote" })} onClick={this.onClickMessageVoting.bind(this, message, "downvote")}>
-                                          <ThumbUpIcon size={12} />
-                                        </div>
-                                      </React.Fragment>
-                                    }
-                                  </div>
-                                  {
-                                    (message.timestamp || message.readStatus) &&
-                                    <div className="ori-flex-row">
-                                      {
-                                        message.timestamp &&
-                                        <span className="ori-font-xxs ori-flex-column ori-flex-jfe ori-uppercase">{formatTime(message.timestamp, { hour: "2-digit", minute: "2-digit" })}</span>
-                                      }
-                                      {
-                                        customer && message.readStatus && !notification_bot &&
-                                        this.renderReadStatusIcon(message.readStatus)
-                                      }
-                                    </div>
-                                  }
-                                </div>
+                                (message.timestamp || message.chatlogId) && chatbot_setting.message_footer.enable &&
+                                <ErrorBoundary>
+                                  <Suspense fallback={null}>
+                                    <MessageFooter
+                                      message={message}
+                                      show_timestamp={!!message.timestamp}
+                                      show_status={customer && message.readStatus && !notification_bot}
+                                      show_voting={!notification_bot && message.chatlogId && (chatbot || admin)}
+                                      onClickMessageVoting={this.onClickMessageVoting}
+                                    />
+                                  </Suspense>
+                                </ErrorBoundary>
                               }
                             </div>
                           </div>
                         </div>
                         {
                           chatbot_setting.hide_buttons_in_msg_bubble && !stack_view && message.payload && message.payload.buttons &&
-                          <Suspense fallback={null}>
-                            <Buttons
-                              message={message}
-                              disabled={btn_disabled}
-                              onClick={handleMsgBtnClick}
-                            />
-                          </Suspense>
+                          <ErrorBoundary>
+                            <Suspense fallback={null}>
+                              <Buttons
+                                message={message}
+                                disabled={btn_disabled}
+                                onClick={handleMsgBtnClick}
+                              />
+                            </Suspense>
+                          </ErrorBoundary>
                         }
                       </ErrorBoundary>
                     );
@@ -427,9 +396,11 @@ class ChatBotConversation extends React.PureComponent {
                       <div className="ori-font-xs ori-font-primary ori-capitalize-first ori-r-pad-5">{typing_text}</div>
                     }
                     <div className="ori-flex-column ori-flex-jc">
-                      <Suspense fallback={null}>
-                        <DotsLoader />
-                      </Suspense>
+                      <ErrorBoundary>
+                        <Suspense fallback={null}>
+                          <DotsLoader />
+                        </Suspense>
+                      </ErrorBoundary>
                     </div>
                   </div>
                 </div>
