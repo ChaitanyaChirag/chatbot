@@ -467,7 +467,7 @@ class ChatBot extends Component {
             </div>
           }
           {
-            chatbot_setting.end_chat_header &&
+            chatbot_setting.header_end_chat &&
             <div className="ori-lr-pad-5 ori-cursor-ptr" onClick={this.onClickCloseIcon}>
               <chatbotStyle.EndChatIcon />
             </div>
@@ -557,7 +557,7 @@ class ChatBot extends Component {
             sendFeedback={actions.sendFeedback}
           />
           {
-            chatbot_setting.chat_interface.header_tag && screen_height < 420 &&
+            screen_height < 420 &&
             <HeaderTag />
           }
         </Suspense>
@@ -616,7 +616,7 @@ class ChatBot extends Component {
           {
             chat_details.messages && chat_details.messages.length > 0 && chat_details.messages[chat_details.messages.length - 1].quickReplies && chat_details.messages[chat_details.messages.length - 1].quickReplies.length > 0 &&
             <Suspense fallback={null}>
-              <div className={chatbotStyle.quickReplyWrapper}>
+              <div className={chatbotStyle.quickReplyWrapperClass}>
                 <QuickReply
                   quick_replies={chat_details.messages[chat_details.messages.length - 1].quickReplies}
                   sendTextToServer={sendTextToServer}

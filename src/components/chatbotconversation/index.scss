@@ -24,10 +24,6 @@
         color: $timestamp-tag-font-color;
     }
 
-    .stackViewBubble {
-        border-bottom-right-radius: 0 !important;
-    }
-
     .msgContainer {
         max-width: 100%;
 
@@ -83,27 +79,18 @@
     }
 
     .receiverMsgContainer {
-        .msgBubble {
-            border-top-left-radius: 0 !important;
-        }
-
         .defaultMsgBox {
             background-color: $chatbot-server-bubble-bg;
             color: $chatbot-server-bubble-font;
 
             .carouselItem {
-              color: $chatbot-server-bubble-font;
+                color: $chatbot-server-bubble-font;
             }
         }
 
         .notificationMsgBox {
             background-color: $notification_bot_server_bubble_bg;
             color: $notification_bot_server_bubble_font;
-        }
-
-        .msgAvatar {
-            top: 5px;
-            left: -40px;
         }
 
         .bubbleFooter {
@@ -114,18 +101,9 @@
     .senderMsgContainer {
         justify-content: flex-end;
 
-        .msgBubble {
-            border-top-right-radius: 0 !important;
-        }
-
         .defaultMsgBox {
             background-color: $chatbot-sender-bubble-bg;
             color: $chatbot-sender-bubble-font;
-        }
-
-        .gradientBubble {
-            background-image: linear-gradient($gradient-angle, $gradient-primary $gradient-primary-percent, $gradient-secondary $gradient-secondary-percent);
-            color: $chatbot-sender-gradient-bubble-font;
         }
 
         .notificationMsgBox {

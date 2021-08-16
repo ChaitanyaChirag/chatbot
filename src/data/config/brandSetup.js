@@ -48,6 +48,7 @@ export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
+  image_type_brand_name: false,
   security: {
     enable: false,
     code: "123456",
@@ -84,11 +85,9 @@ export const chatbot_setting = {
   },
   speech_recognition: true,
   minimize_bot: true,
-  end_chat_header: true,
-  gradient: {
-    sender_bubble: false,
-    trigger: false,
-  },
+  header_end_chat: true,
+  header_avatar_shape: "circle", // circle || square
+  header_avatar_size: "large",
   powered_by: {
     visibility: true, // to enable powered by tag
     target_url: "http://oriserve.com/"
@@ -112,20 +111,17 @@ export const chatbot_setting = {
     top: window.innerHeight / 8,
   },
   chat_interface: {
-    show_avatar: true,
+    show_sender_avatar: false,
+    show_receiver_avatar: true,
+    avatar_shape: "circle", // circle || square
+    avatar_size: "default",
     show_feedback_avatar: true,
     show_feedback_emoji: false,
-    bubble_shadow: true,
-    bubble_border: false,
-    avatar_shape: "circle", // circle || square
-    avatar_size: "large",
     quick_reply_bg_transparent: true,
     scroll_upto_first_response_only: true,
     carousel_msg_display_type: TYPES.DEFAULT, // default, fixed, actual
     text_with_media_img_popup_disable: false,
     carousel_img_popup_disable: false,
-    header_tag: true, //to hide and show tag type header for small screen
-    image_type_brand_name: false,
     type_writer: {
       enable: false,
       deleting_speed: 150,

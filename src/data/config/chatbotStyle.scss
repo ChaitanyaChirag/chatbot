@@ -21,6 +21,32 @@
 
 // ------------------------------------------------------------
 
+.senderBubble, .stackViewNotificationBubble {
+    border-bottom-right-radius: 0 !important;
+}
+
+.receiverBubble {
+    border-top-left-radius: 0 !important;
+}
+
+.notificationSenderBubble {
+  border-bottom-right-radius: 0 !important;
+}
+
+.notificationReceiverBubble {
+  border-top-left-radius: 0 !important;
+}
+
+.receiverAvatar {
+  top: 5px;
+  left: - 40px
+}
+
+.senderAvatar {
+  top: 5px;
+  right: - 40px
+}
+
 .headerIcon {
     color: $chatbot-header-font-light;
 

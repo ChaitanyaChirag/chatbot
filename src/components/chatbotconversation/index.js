@@ -1,7 +1,6 @@
-import React, { Suspense, lazy } from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import Avatar from 'antd/lib/avatar'
+import React, { Suspense, lazy } from "react"
+import PropTypes from "prop-types"
+import Avatar from "antd/lib/avatar"
 import {
   TextMessage,
   TextWithMedia,
@@ -14,21 +13,21 @@ import {
   RechargeDetails,
   Offers,
   RechargeHistory
-} from 'message-types'
+} from "message-types"
 
-import './index.scss'
+import "./index.scss"
 
 import {
   MESSAGE_SENDER,
   MESSAGE_TYPES,
   MESSAGE_SUBTYPES,
-} from '../../data/config/constants'
-import { chatbot_setting, chatbot_default_messages, translator } from '../../data/config/brandSetup'
-import { formatTime, formatDate } from '../../data/config/utils'
-import { LangContext } from '../../modules/context'
+} from "../../data/config/constants"
+import { chatbot_setting, chatbot_default_messages, translator } from "../../data/config/brandSetup"
+import { formatTime, formatDate } from "../../data/config/utils"
+import { LangContext } from "../../modules/context"
 import chatbotStyle from "../../data/config/chatbotStyle"
 
-import ErrorBoundary from '../errorboundary'
+import ErrorBoundary from "../errorboundary"
 
 const Buttons = lazy(() => import("../Buttons"))
 const DotsLoader = lazy(() => import("../dotsloader"))
@@ -52,7 +51,7 @@ class ChatBotConversation extends React.PureComponent {
     const { messages } = this.props;
     if (prevProps.messages.length > 0 && messages.length > 0 && prevProps.messages.length !== messages.length) {
       if (chatbot_setting.chat_interface.scroll_upto_first_response_only && messages.length > defaultMessageLength) {
-        const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? 'start' : 'end'
+        const block = messages[messages.length - 1].quickReplies && messages[messages.length - 1].quickReplies.length > 0 ? "start" : "end"
         if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER || prevProps.messages[prevProps.messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER) {
           if (messages[messages.length - 1].sender === MESSAGE_SENDER.CUSTOMER)
             this.firstResChildIndex = null
@@ -118,8 +117,8 @@ class ChatBotConversation extends React.PureComponent {
         {
           lang => (
             <div
-              id='oriChatbotConversationContainer'
-              className={`ori-t-pad-10 ori-b-pad-40 oriChatBotConversationContainer ${chatbot_setting.chat_interface.show_avatar ? "ori-lr-pad-50" : "ori-lr-pad-20"} ${stack_view ? "ori-cursor-ptr ori-no-b-pad" : ""}`}
+              id="oriChatbotConversationContainer"
+              className={`ori-t-pad-10 ori-b-pad-40 ori-lr-pad-50 oriChatBotConversationContainer ${stack_view ? "ori-cursor-ptr ori-no-b-pad" : ""}`}
               style={chatbotStyle.conversationContainer}
               ref={this.chatbodyRef}
               onClick={this.onClickChatbody}
@@ -182,15 +181,9 @@ class ChatBotConversation extends React.PureComponent {
                             </div>
                           }
                           <div
-                            className={`ori-relative msgContainer 
-                            ${(admin || chatbot) ? "receiverMsgContainer" : ""} 
-                            ${customer ? "senderMsgContainer" : ""} 
-                            ${customer && stack_view ? "ori-display-none" : ""} 
-                            ${stack_view ? "" : "ori-flex-row"}`}
+                            className={`ori-relative msgContainer ${customer ? "senderMsgContainer" : "receiverMsgContainer"} ${customer && stack_view ? "ori-display-none" : ""} ${stack_view ? "" : "ori-flex-row"}`}
                             style={
-                              (admin || chatbot) ?
-                                chatbotStyle.receiverBubbleContainer :
-                                (customer ? chatbotStyle.senderBubbleContainer : {})
+                              customer ? chatbotStyle.senderBubbleContainer : chatbotStyle.receiverBubbleContainer
                             }
                           >
                             {
@@ -198,42 +191,53 @@ class ChatBotConversation extends React.PureComponent {
                               <p className="ori-absolute ori-font-xxs ori-capitalize ori-align-top" >{sender_title}</p>
                             }
                             {
-                              chatbot_setting.chat_interface.show_avatar && first_msg && chatbot && !stack_view &&
-                              <div className="ori-absolute ori-animated ori-fade-in msgAvatar">
-                                <Avatar
-                                  src={sender_img_url !== "" ? sender_img_url : translator.assets[lang].logo}
-                                  shape={chatbot_setting.chat_interface.avatar_shape}
-                                />
-                              </div>
+                              chatbot_setting.chat_interface.show_sender_avatar && first_msg && customer && !stack_view &&
+                              <Avatar
+                                className={`ori-absolute ori-animated ori-fade-in ${chatbotStyle.senderAvatarClass}`}
+                                src={translator.assets[lang].user}
+                                shape="square"
+                                size={chatbot_setting.chat_interface.avatar_size}
+                              />
+                            }
+                            {
+                              chatbot_setting.chat_interface.show_receiver_avatar && first_msg && chatbot && !stack_view &&
+                              <Avatar
+                                className={`ori-absolute ori-animated ori-fade-in ${chatbotStyle.receiverAvatarClass}`}
+                                src={sender_img_url !== "" ? sender_img_url : translator.assets[lang].logo}
+                                shape={chatbot_setting.chat_interface.avatar_shape}
+                                size={chatbot_setting.chat_interface.avatar_size}
+                              />
                             }
                             {
                               chatbot_setting.chat_interface.show_avatar && first_msg && admin && !stack_view &&
-                              <div className="ori-absolute ori-animated ori-fade-in msgAvatar">
-                                <Avatar
-                                  src={sender_img_url}
-                                  className="ori-font-default ori-capitalize ori-bg-white"
-                                  shape={chatbot_setting.chat_interface.avatar_shape}
-                                >{sender_title.charAt(0)}</Avatar>
-                              </div>
+                              <Avatar
+                                src={sender_img_url}
+                                className={`ori-font-default ori-capitalize ori-bg-white ori-absolute ori-animated ori-fade-in ${chatbotStyle.receiverAvatarClass}`}
+                                shape={chatbot_setting.chat_interface.avatar_shape}
+                                size={chatbot_setting.chat_interface.avatar_size}
+                              >
+                                {sender_title.charAt(0)}
+                              </Avatar>
                             }
                             <div
-                              className={classNames("msgBox " + chatbotStyle.msgBubbleClass,
-                                {
-                                  "ori-t-mrgn-5": first_msg,
-                                  "msgBubble": !stack_view,
-                                  "stackViewBubble": stack_view,
-                                  "ori-box-shadow-light": chatbot_setting.chat_interface.bubble_shadow && !notification_bot,
-                                  "ori-border-light": chatbot_setting.chat_interface.bubble_border && !notification_bot,
-                                  "defaultMsgBox": !notification_bot,
-                                  "gradientBubble": !notification_bot && chatbot_setting.gradient.sender_bubble,
-                                  "notificationMsgBox": notification_bot && !stack_view,
-                                  "notificationStackMsgBox": notification_bot && stack_view,
-                                  "oriOffers": show_offers,
-                                  "ori-full-width oriRechargeHistory": show_rechargeHistory,
-                                  "ori-full-width oriCarousel": show_carousel,
-                                  "ori-l-pad-15": show_listMessage
-                                }
-                              )}
+                              className={`msgBox ${notification_bot ? (stack_view ? "notificationStackMsgBox" : "notificationMsgBox") : "defaultMsgBox"} ${show_offers ? "oriOffers" : ""} ${show_rechargeHistory ? "ori-full-width oriRechargeHistory" : ""} ${show_carousel ? "ori-full-width oriCarousel" : ""} ${show_listMessage ? "ori-l-pad-15" : ""} ${first_msg ? chatbotStyle.firstBubbleClass : ""} ${customer ? (notification_bot ? chatbotStyle.notificationSenderBubbleClass : chatbotStyle.senderBubbleClass) : (notification_bot ? (stack_view ? chatbotStyle.stackViewNotificationBubbleClass : chatbotStyle.notificationReceiverBubbleClass) : chatbotStyle.receiverBubbleClass)} ${chatbotStyle.msgBubbleClass}`}
+                            // className={classNames("msgBox " + chatbotStyle.msgBubbleClass,
+                            //   {
+                            //     "ori-t-mrgn-5": first_msg,
+                            //     "msgBubble": !stack_view,
+                            //     "stackViewBubble": stack_view,
+                            //     "ori-box-shadow-light": chatbot_setting.chat_interface.bubble_shadow && !notification_bot,
+                            //     "ori-border-light": chatbot_setting.chat_interface.bubble_border && !notification_bot,
+                            //     "defaultMsgBox": !notification_bot,
+                            //     "gradientBubble": !notification_bot && chatbot_setting.gradient.sender_bubble,
+                            //     "notificationMsgBox": notification_bot && !stack_view,
+                            //     "notificationStackMsgBox": notification_bot && stack_view,
+                            //     "oriOffers": show_offers,
+                            //     "ori-full-width oriRechargeHistory": show_rechargeHistory,
+                            //     "ori-full-width oriCarousel": show_carousel,
+                            //     "ori-l-pad-15": show_listMessage
+                            //   }
+                            // )}
                             >
                               {
                                 show_textMessage &&

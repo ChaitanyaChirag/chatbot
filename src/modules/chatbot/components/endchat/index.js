@@ -227,7 +227,7 @@ const EndChat = ({
                   />
                 </div>
                 {
-                  chatbot_setting.chat_interface.image_type_brand_name ?
+                  chatbot_setting.image_type_brand_name ?
                     <img
                       style={{
                         height: "40px",
