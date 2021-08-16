@@ -23,28 +23,56 @@
 
 .senderBubble, .stackViewNotificationBubble {
     border-bottom-right-radius: 0 !important;
+
+    // ---------to add tip bubble corner uncomment this
+    // &::before {
+    //     content: '';
+    //     width: 0px;
+    //     height: 0px;
+    //     position: absolute;
+    //     border-left: 4px solid $chatbot-sender-bubble-bg;
+    //     border-right: 4px solid transparent;
+    //     border-top: 4px solid transparent;
+    //     border-bottom: 4px solid $chatbot-sender-bubble-bg;
+    //     right: -8px;
+    //     bottom: 5px;
+    // }
 }
 
 .receiverBubble {
     border-top-left-radius: 0 !important;
+
+    // ---------to add tip bubble corner uncomment this
+    // &::before {
+    //     content: '';
+    //     width: 0px;
+    //     height: 0px;
+    //     position: absolute;
+    //     border-left: 4px solid transparent;
+    //     border-right: 4px solid $chatbot-server-bubble-bg;
+    //     border-top: 4px solid transparent;
+    //     border-bottom: 4px solid $chatbot-server-bubble-bg;
+    //     left: -8px;
+    //     bottom: 5px;
+    // }
 }
 
 .notificationSenderBubble {
-  border-bottom-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .notificationReceiverBubble {
-  border-top-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
 }
 
 .receiverAvatar {
-  top: 5px;
-  left: - 40px
+    top: 5px;
+    left: -40px;
 }
 
 .senderAvatar {
-  top: 5px;
-  right: - 40px
+    top: 5px;
+    right: -40px;
 }
 
 .headerIcon {
