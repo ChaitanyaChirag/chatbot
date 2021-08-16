@@ -221,23 +221,6 @@ class ChatBotConversation extends React.PureComponent {
                             }
                             <div
                               className={`msgBox ${notification_bot ? (stack_view ? "notificationStackMsgBox" : "notificationMsgBox") : "defaultMsgBox"} ${show_offers ? "oriOffers" : ""} ${show_rechargeHistory ? "ori-full-width oriRechargeHistory" : ""} ${show_carousel ? "ori-full-width oriCarousel" : ""} ${show_listMessage ? "ori-l-pad-15" : ""} ${first_msg ? chatbotStyle.firstBubbleClass : ""} ${customer ? (notification_bot ? chatbotStyle.notificationSenderBubbleClass : chatbotStyle.senderBubbleClass) : (notification_bot ? (stack_view ? chatbotStyle.stackViewNotificationBubbleClass : chatbotStyle.notificationReceiverBubbleClass) : chatbotStyle.receiverBubbleClass)} ${chatbotStyle.msgBubbleClass}`}
-                            // className={classNames("msgBox " + chatbotStyle.msgBubbleClass,
-                            //   {
-                            //     "ori-t-mrgn-5": first_msg,
-                            //     "msgBubble": !stack_view,
-                            //     "stackViewBubble": stack_view,
-                            //     "ori-box-shadow-light": chatbot_setting.chat_interface.bubble_shadow && !notification_bot,
-                            //     "ori-border-light": chatbot_setting.chat_interface.bubble_border && !notification_bot,
-                            //     "defaultMsgBox": !notification_bot,
-                            //     "gradientBubble": !notification_bot && chatbot_setting.gradient.sender_bubble,
-                            //     "notificationMsgBox": notification_bot && !stack_view,
-                            //     "notificationStackMsgBox": notification_bot && stack_view,
-                            //     "oriOffers": show_offers,
-                            //     "ori-full-width oriRechargeHistory": show_rechargeHistory,
-                            //     "ori-full-width oriCarousel": show_carousel,
-                            //     "ori-l-pad-15": show_listMessage
-                            //   }
-                            // )}
                             >
                               {
                                 show_textMessage &&

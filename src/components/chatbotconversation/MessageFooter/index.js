@@ -30,7 +30,7 @@ const MessageFooter = ({
 
   if (message)
     return (
-      <div className="ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb messageFooter">
+      <div className="ori-animated ori-fade-in ori-flex-row ori-line-height-1 ori-t-mrgn-3 ori-flex-jsb messageFooter">
         <div className="ori-flex-row">
           {
             chatbot_setting.message_footer.voting && show_voting &&

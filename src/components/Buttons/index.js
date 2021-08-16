@@ -31,7 +31,7 @@ const Buttons = ({
 
   if (message && message.payload && message.payload.buttons)
     return (
-      <div className="ori-flex-row ori-flex-wrap">
+      <div className="ori-animated ori-fade-in ori-flex-row ori-flex-wrap">
         {
           message.payload.buttons.map((button, index) => {
             if (index < page.displayCount || !pagination)
