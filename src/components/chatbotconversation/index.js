@@ -119,13 +119,7 @@ class ChatBotConversation extends React.PureComponent {
           lang => (
             <div
               id='oriChatbotConversationContainer'
-              className={classNames("ori-t-pad-10 ori-b-pad-40 oriChatBotConversationContainer",
-                {
-                  "ori-cursor-ptr ori-no-b-pad": stack_view,
-                  "ori-lr-pad-20": !chatbot_setting.chat_interface.show_avatar,
-                  "ori-lr-pad-50": chatbot_setting.chat_interface.show_avatar,
-                }
-              )}
+              className={`ori-t-pad-10 ori-b-pad-40 oriChatBotConversationContainer ${chatbot_setting.chat_interface.show_avatar ? "ori-lr-pad-50" : "ori-lr-pad-20"} ${stack_view ? "ori-cursor-ptr ori-no-b-pad" : ""}`}
               style={chatbotStyle.conversationContainer}
               ref={this.chatbodyRef}
               onClick={this.onClickChatbody}
@@ -188,14 +182,11 @@ class ChatBotConversation extends React.PureComponent {
                             </div>
                           }
                           <div
-                            className={classNames("ori-relative msgContainer",
-                              {
-                                "receiverMsgContainer": admin || chatbot,
-                                "senderMsgContainer": customer,
-                                "ori-display-none": customer && stack_view,
-                                "ori-flex-row": !stack_view
-                              }
-                            )}
+                            className={`ori-relative msgContainer 
+                            ${(admin || chatbot) ? "receiverMsgContainer" : ""} 
+                            ${customer ? "senderMsgContainer" : ""} 
+                            ${customer && stack_view ? "ori-display-none" : ""} 
+                            ${stack_view ? "" : "ori-flex-row"}`}
                             style={
                               (admin || chatbot) ?
                                 chatbotStyle.receiverBubbleContainer :
@@ -208,7 +199,7 @@ class ChatBotConversation extends React.PureComponent {
                             }
                             {
                               chatbot_setting.chat_interface.show_avatar && first_msg && chatbot && !stack_view &&
-                              <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
+                              <div className="ori-absolute ori-animated ori-fade-in msgAvatar">
                                 <Avatar
                                   src={sender_img_url !== "" ? sender_img_url : translator.assets[lang].logo}
                                   shape={chatbot_setting.chat_interface.avatar_shape}
@@ -217,7 +208,7 @@ class ChatBotConversation extends React.PureComponent {
                             }
                             {
                               chatbot_setting.chat_interface.show_avatar && first_msg && admin && !stack_view &&
-                              <div className={classNames("ori-absolute ori-animated ori-fade-in msgAvatar")}>
+                              <div className="ori-absolute ori-animated ori-fade-in msgAvatar">
                                 <Avatar
                                   src={sender_img_url}
                                   className="ori-font-default ori-capitalize ori-bg-white"
@@ -390,7 +381,7 @@ class ChatBotConversation extends React.PureComponent {
               {
                 is_typing && !stack_view &&
                 <div className="msgContainer receiverMsgContainer ori-flex-row ori-t-pad-5">
-                  <div className={classNames("ori-flex-row ori-border-radius-10 ori-pad-7", { "defaultMsgBox": !notification_bot, "notificationMsgBox": notification_bot && !stack_view, "notificationStackMsgBox": notification_bot && stack_view })}>
+                  <div className={`ori-flex-row ori-border-radius-10 ori-pad-7 ${!notification_bot ? "defaultMsgBox" : (stack_view ? "notificationStackMsgBox" : "notificationMsgBox")}`}>
                     {
                       typing_text !== "" &&
                       <div className="ori-font-xs ori-font-primary ori-capitalize-first ori-r-pad-5">{typing_text}</div>
