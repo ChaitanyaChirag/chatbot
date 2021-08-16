@@ -20,7 +20,7 @@ const chatbotStyle = {
   notificationSenderBubbleClass: "notificationSenderBubble",
   notificationReceiverBubbleClass: "notificationReceiverBubble",
   stackViewNotificationBubbleClass: "stackViewNotificationBubble",
-  quickReplyWrapperClass: "ori-absolute ori-align-left ori-align-right ori-align-bottom-full",
+  quickReplyWrapperClass: "ori-absolute ori-align-bottom-full quickReplyWrapper",
 
   //------------------------- styles --------------------------------
   chatbotContainer: {
