@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';

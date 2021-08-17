@@ -27,6 +27,7 @@ import {
   PLATFORM
 } from "../data/config/constants"
 import {
+  log,
   checkDevice,
   isAndroid,
   isIOS,
@@ -224,7 +225,8 @@ class AppContainer extends Component {
 
   onScreenVisibilityChange = () => {
     const { chat_details, actions } = this.props;
-    if (document.visibilityState === 'visible' && chat_details.is_chat_open) {
+    log("onScreenVisibilityChange called")
+    if (document.visibilityState === "visible" && chat_details.is_chat_open) {
       const payload = {
         clientPsid: chat_details.psid,
         senderPsid: chat_details.psid,
@@ -260,6 +262,7 @@ class AppContainer extends Component {
   }
 
   botPopup = (case_data, params) => {
+    log("botPopup called", case_data, params)
     const { chat_details, actions } = this.props;
     let payload = {
       case: case_data,
@@ -267,7 +270,7 @@ class AppContainer extends Component {
       psid: chat_details.psid
     };
     // if (chat_details.is_socket_connected)
-      actions.handleBotPopupRequest(payload)
+    actions.handleBotPopupRequest(payload)
     // else {
     //   this.setState({ bot_popup_payload: payload })
     //   actions.makeSocketConnection()
@@ -276,20 +279,19 @@ class AppContainer extends Component {
 
   handleSocketConnection = bool => {
     const { chat_details, actions } = this.props;
-    const android = isAndroid();
-    const ios = isIOS();
     actions.handleChatbotInterface(bool);
     if (bool) {
+      const android = isAndroid();
+      const ios = isIOS();
       if (chatbot_setting.emit_unread_msg_seen)
         actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
-        const payload = {
-          clientPsid: chat_details.psid,
-          senderPsid: chat_details.psid,
-        };
-        actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
-    }
-    if (bool && !chat_details.is_socket_connected && !android && !ios) {
-      actions.makeSocketConnection();
+      else if (!chat_details.is_socket_connected && !android && !ios)
+        actions.makeSocketConnection()
+      // const payload = {
+      //   clientPsid: chat_details.psid,
+      //   senderPsid: chat_details.psid,
+      // };
+      // actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
     }
   };
 
