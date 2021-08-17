@@ -276,21 +276,21 @@ class AppContainer extends Component {
 
   handleSocketConnection = bool => {
     const { chat_details, actions } = this.props;
-    const android = isAndroid();
-    const ios = isIOS();
+    // const android = isAndroid();
+    // const ios = isIOS();
     actions.handleChatbotInterface(bool);
-    if (bool && chat_details.is_socket_connected) {
-      const payload = {
-        clientPsid: chat_details.psid,
-        senderPsid: chat_details.psid,
-      };
-      actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
+    if (bool) {
       if (chatbot_setting.emit_unread_msg_seen)
         actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
+        const payload = {
+          clientPsid: chat_details.psid,
+          senderPsid: chat_details.psid,
+        };
+        actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
     }
-    if (bool && !chat_details.is_socket_connected && !android && !ios) {
-      actions.makeSocketConnection();
-    }
+    // if (bool && !chat_details.is_socket_connected && !android && !ios) {
+    //   actions.makeSocketConnection();
+    // }
   };
 
   handleOfferSelection = (offer_id, offer_name) => {

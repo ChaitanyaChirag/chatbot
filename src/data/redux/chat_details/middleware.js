@@ -31,7 +31,12 @@ import {
   setDataInLocalStorage,
   getQueryParamsValue
 } from '../../config/utils';
-import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
+import {
+  updateChatsState,
+  emitCustomEvent,
+  socketDisconnect,
+  updateMessage
+} from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
@@ -255,11 +260,50 @@ const registerSocketListener = (store, socket) => {
   })
 }
 
+// const setupSocketConnection = (store, s) => {
+//   return new Promise((resolve, reject) => {
+//     if (!store.getState().chat_details.socket_request_processing) {
+//       store.dispatch(updateChatsState({ socket_request_processing: true }))
+//       if (s)
+//         s.close()
+//       const auth_socket_data = {
+//         query: {
+//           role,
+//           brandName,
+//           botName,
+//           ver: version,
+//           psid: store.getState().chat_details.psid,
+//           channelName: getPlatform(),
+//           sessionInitiatedUrl: window.location.href
+//         }
+//       }
+//       fetch("https://api.ipify.org?format=json")
+//         .then(response => response.json())
+//         .then(data => {
+//           auth_socket_data.query.publicIP = data.ip
+//           const socket = io(socketUrl, auth_socket_data);
+//           registerSocketListener(store, socket);
+//           resolve(socket)
+//         })
+//         .catch(() => {
+//           const socket = io(socketUrl, auth_socket_data);
+//           registerSocketListener(store, socket);
+//           resolve(socket)
+//         })
+//     }
+//   })
+// }
+
 const middleware = () => {
   let socket = null;
   return store => next => action => {
     switch (action.type) {
       case actionTypes.MAKE_SOCKET_CONNECTION: {
+        // setupSocketConnection(store, socket).then(s => {
+        //   socket = s
+        //   if (action.callback)
+        //     action.callback(s)
+        // })
         if (!store.getState().chat_details.socket_request_processing) {
           store.dispatch(updateChatsState({ socket_request_processing: true }))
           if (socket)
@@ -281,11 +325,17 @@ const middleware = () => {
               auth_socket_data.query.publicIP = data.ip
               socket = io(socketUrl, auth_socket_data);
               registerSocketListener(store, socket);
+              if (action.callback)
+                action.callback(socket)
             })
             .catch(() => {
               socket = io(socketUrl, auth_socket_data);
               registerSocketListener(store, socket);
+              if (action.callback)
+                action.callback(socket)
             })
+        } else if (action.callback && socket) {
+          action.callback(socket)
         }
         break;
       }
@@ -296,12 +346,23 @@ const middleware = () => {
         break;
 
       case actionTypes.EMIT_CUSTOM_EVENT: {
-        if (socket && action.event) {
+        if (socket) {
           log(`emit custom event- ${action.event}:`, action.payload);
           if (action.callback)
             socket.emit(action.event, action.payload, action.callback);
           else
             socket.emit(action.event, action.payload);
+        } else {
+          store.dispatch({
+            type: actionTypes.MAKE_SOCKET_CONNECTION,
+            callback: socket => {
+              console.log("callback socket", socket, action)
+              if (action.callback)
+                socket.emit(action.event, action.payload, action.callback)
+              else
+                socket.emit(action.event, action.payload)
+            }
+          })
         }
         break;
       }
