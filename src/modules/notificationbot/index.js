@@ -86,7 +86,7 @@ class NotificationBot extends React.PureComponent {
           <Suspense fallback={null}>
             <ChatBotConversation
               psid={chat_details.psid}
-              btn_disabled={!chat_details.is_socket_connected}
+              btn_disabled={!chat_details.is_internet_connected}
               disable_msg_after_reply={chat_details.disable_msg_after_reply}
               messages={chat_details.unseen_messages}
               onMessageVoting={actions.onMessageVoting}
@@ -107,7 +107,6 @@ class NotificationBot extends React.PureComponent {
                   <InputComposer
                     psid={chat_details.psid}
                     sendTextToServer={sendTextToServer}
-                    is_online={chat_details.is_socket_connected}
                     is_input_lock={getPreviousMessageData(chat_details.messages, "inputLock", false)}
                     input_lock_text={input_lock_text ? input_lock_text : undefined}
                     emitCustomEvent={actions.emitCustomEvent}

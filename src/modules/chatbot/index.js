@@ -583,7 +583,7 @@ class ChatBot extends Component {
         >
           <ChatBotConversation
             psid={chat_details.psid}
-            btn_disabled={!chat_details.is_socket_connected}
+            btn_disabled={!chat_details.is_internet_connected}
             disable_msg_after_reply={chat_details.disable_msg_after_reply}
             messages={chat_details.messages}
             onMessageVoting={actions.onMessageVoting}
