@@ -565,7 +565,7 @@ class ChatBot extends Component {
           screen_height >= 420 &&
           <Suspense
             fallback={
-              <div className="ori-pad-20 ori-bg-white ori-flex-row">
+              <div className="ori-pad-20 ori-bg-header ori-flex-row">
                 <div className="ori-card-loading ori-lr-mrgn-10" style={{ height: "32px", width: "32px" }} />
                 <p className="ori-card-loading" style={{ height: "15px", width: "100px" }} />
               </div>
