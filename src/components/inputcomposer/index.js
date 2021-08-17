@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from "react"
 import PropTypes from "prop-types"
 import SpeechRecognition from "react-speech-recognition"
 import Button from "antd/lib/button"
-import Form from "antd/lib/form"
 import Input from "antd/lib/input"
 
 import SendIcon from "react-icons/lib/md/send"
@@ -162,12 +161,12 @@ class InputComposer extends React.PureComponent {
                       onClick={this.hideTypeWriter}
                     />
                   </Suspense> :
-                  <Form className="ori-lr-pad-10" onSubmit={this.handleMessageSend}>
+                  <React.Fragment>
                     <TextArea
                       placeholder={
                         is_input_lock ? input_lock_text : (listening ? translator.text[lang].listening : translator.text[lang].typeYourQuery)
                       }
-                      className="inputField"
+                      className="ori-lr-mrgn-10 inputField"
                       autoSize={{
                         minRows: 1,
                         maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3
@@ -181,8 +180,9 @@ class InputComposer extends React.PureComponent {
                     <div className="ori-animated ori-fade-in ori-absolute ori-flex-row ori-flex-jfe alignRightIcons">
                       {
                         (input_message.trim().length > 0 || !browserSupportsSpeechRecognition) &&
-                        <Button className={`ori-pad-5 sendButton ${input_message.trim().length > 0 ? "sendBtnActive" : ""}`}
-                          htmlType="submit"
+                        <Button 
+                          className={`ori-pad-5 sendButton ${input_message.trim().length > 0 ? "sendBtnActive" : ""}`}
+                          onClick={this.handleMessageSend}
                           disabled={input_message.trim().length === 0 || is_input_lock}
                         >
                           <SendIcon size={20} />
@@ -209,7 +209,7 @@ class InputComposer extends React.PureComponent {
                         </Suspense>
                       }
                     </div>
-                  </Form>
+                  </React.Fragment>
               }
             </div>
           )
