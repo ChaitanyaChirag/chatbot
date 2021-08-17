@@ -75,7 +75,6 @@ class AppContainer extends Component {
     const { chat_details, actions } = this.props;
     const android = isAndroid();
     const ios = isIOS();
-    const mobile = window.innerWidth < 768
     let self = this;
     const lang = translator.getLanguage()
     this.setState({ lang })
@@ -128,34 +127,33 @@ class AppContainer extends Component {
       }
       actions.handleChatbotInterface(true);
     } else if (!chat_details.is_socket_connected) {
-      const query_params = new URLSearchParams(window.location.search);
       if (chatbot_setting.chatbot_type === CHATBOT_TYPE.FULL_SCREEN) {
-        actions.makeSocketConnection();
-      } else if (chatbot_setting.auto_open_chatbot.enable && query_params.has(chatbot_setting.auto_open_chatbot.query_param_key)) {
-        const query_param_value = query_params.get(chatbot_setting.auto_open_chatbot.query_param_key)
-        if (query_param_value === "true")
-          this.handleSocketConnection(true)
-        else if (query_param_value === "false")
-          actions.handleChatbotInterface(false)
-      } else {
-        actions.handleChatbotInterface(false);
-      }
-
-      let last_emit = getDataFromLocalStorage(LOCAL_STORAGE.LAST_EMIT + chat_details.psid, null)
-      if (last_emit) {
-        let current_time = new Date().getTime();
-        let time_gap = (current_time - last_emit) / 1000;
-        if (!(mobile ? chatbot_setting.auto_close_chatbot_on_refresh.mobile_enable : chatbot_setting.auto_close_chatbot_on_refresh.web_enable) && time_gap < chatbot_setting.automate_connection_time)
-          actions.makeSocketConnection();
-        else
-          actions.handleChatbotInterface(false);
-        if (time_gap > chatbot_setting.automate_reset_chat_time) {
-          actions.updateChatsState({
-            messages: [],
-            disable_msg_after_reply: {}
-          })
-          localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + chat_details.psid)
-          localStorage.removeItem(LOCAL_STORAGE.MESSAGES + chat_details.psid);
+        actions.makeSocketConnection()
+      } else if (chatbot_setting.chatbot_type === CHATBOT_TYPE.DEFAULT) {
+        const query_params = new URLSearchParams(window.location.search)
+        if (chatbot_setting.auto_open_chatbot.enable && query_params.has(chatbot_setting.auto_open_chatbot.query_param_key)) {
+          const query_param_value = query_params.get(chatbot_setting.auto_open_chatbot.query_param_key)
+          if (query_param_value === "true")
+            this.handleSocketConnection(true)
+          else if (query_param_value === "false")
+            actions.handleChatbotInterface(false)
+        }
+        let last_emit = getDataFromLocalStorage(LOCAL_STORAGE.LAST_EMIT + chat_details.psid, null)
+        if (last_emit) {
+          let current_time = new Date().getTime();
+          let time_gap = (current_time - last_emit) / 1000;
+          if (chat_details.is_chat_open && time_gap < chatbot_setting.automate_connection_time)
+            actions.makeSocketConnection()
+          else if (chat_details.is_chat_open)
+            actions.handleChatbotInterface(false)
+          if (time_gap > chatbot_setting.automate_reset_chat_time) {
+            actions.updateChatsState({
+              messages: [],
+              disable_msg_after_reply: {}
+            })
+            localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + chat_details.psid)
+            localStorage.removeItem(LOCAL_STORAGE.MESSAGES + chat_details.psid);
+          }
         }
       }
     }

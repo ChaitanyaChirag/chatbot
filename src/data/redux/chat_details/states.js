@@ -2,7 +2,8 @@ import { MESSAGE_SENDER, DEFAULT_END_CHAT_STATE, LOCAL_STORAGE, CHAT_STATE } fro
 import { chatbot_setting, chatbot_default_messages, chatbot_psids } from '../../config/brandSetup';
 import {
   isAndroid,
-  getDataFromLocalStorage
+  getDataFromLocalStorage,
+  setDataInLocalStorage
 } from '../../config/utils'
 
 const psid = chatbot_psids.getPsid()
@@ -18,6 +19,15 @@ const getPreviousMessageData = (key, defaultData) => {
   return data
 }
 
+const getIsChatOpen = () => {
+  let last_emit = getDataFromLocalStorage(LOCAL_STORAGE.LAST_EMIT + psid, null)
+  if (chatbot_setting.auto_close_chatbot_on_refresh || !last_emit) {
+    setDataInLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN + psid, false);
+    return false
+  }
+  return getDataFromLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN + psid, false)
+}
+
 const states = {
   chat_details: {
     secure: !chatbot_setting.security.enable,
@@ -31,7 +41,7 @@ const states = {
     psid,
     unseen_messages: getDataFromLocalStorage(LOCAL_STORAGE.UNSEEN_MESSAGES + psid, []),
     notification_count: getDataFromLocalStorage(LOCAL_STORAGE.NOTIFICATION_COUNT + psid, 0),
-    is_chat_open: getDataFromLocalStorage(LOCAL_STORAGE.IS_CHAT_OPEN + psid, false),
+    is_chat_open: getIsChatOpen(),
     end_chat: getDataFromLocalStorage(LOCAL_STORAGE.END_CHAT + psid, DEFAULT_END_CHAT_STATE),
     skipLS: getPreviousMessageData('skipLS', false),
     send_variable_to_apiai: getPreviousMessageData('send_variable_to_apiai', false),

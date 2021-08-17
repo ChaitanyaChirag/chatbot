@@ -65,10 +65,7 @@ export const chatbot_setting = {
   show_feedback_rating_linebar: true,
   hide_buttons_in_msg_bubble: false, // to hide the buttons inside the message bubbles
   default_btn_display_count: 7,
-  auto_close_chatbot_on_refresh: {
-    web_enable: false,
-    mobile_enable: false
-  },//in milliseconds only
+  auto_close_chatbot_on_refresh: false,//in milliseconds only
   automate_connection_time: 3600, //in seceond only
   automate_reset_chat_time: 3600 * 24 * 4, //in second only
   auto_open_chatbot: {
