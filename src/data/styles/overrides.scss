@@ -25,7 +25,7 @@
     background-color: $primary !important;
     border-color: $primary !important;
 
-    &:hover, &:focus, &.active {
+    &:hover, &:focus, &:active {
         background-color: tint($primary, 30%) !important;
         border-color: tint($primary, 30%) !important;
     }
@@ -36,7 +36,7 @@
     background-color: $btn-fill !important;
     border-color: $btn-fill !important;
 
-    &:hover, &:focus, &.active, &:disabled {
+    &:hover, &:focus, &:active, &:disabled {
         background-color: $btn-fill-hover !important;
         border-color: $btn-fill-hover !important;
     }
@@ -48,7 +48,7 @@
     height: auto !important;
     line-height: unset !important;
 
-    &:hover, &:focus, &.active {
+    &:hover, &:focus, &:active {
         box-shadow: 0 0 6px 0 $btn-ghost;
     }
 }
@@ -57,7 +57,7 @@
     font-size: 13px !important;
     text-align: left !important;
 
-    &:hover, &:focus, &.active {
+    &:hover, &:focus, &:active {
         color: $font-chat !important;
         border-color: $border !important;
         background-color: $default !important;
@@ -69,7 +69,7 @@
     background-color: $green !important;
     border-color: $green !important;
 
-    &:hover, &:focus, &.active, &:disabled {
+    &:hover, &:focus, &:active, &:disabled {
         background-color: $green-light !important;
         border-color: $green-light !important;
     }
