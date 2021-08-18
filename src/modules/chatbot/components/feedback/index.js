@@ -61,7 +61,7 @@ class FeedbackComponent extends React.PureComponent {
   };
 
   render() {
-    const { isMounted, closeFeedback, is_socket_connected, delayUnmountTime } = this.props;
+    const { isMounted, closeFeedback, is_internet_connected, delayUnmountTime } = this.props;
     const { rating, feedback_success, feedback_failed } = this.state;
 
     return (
@@ -94,7 +94,7 @@ class FeedbackComponent extends React.PureComponent {
                   <CloseIcon size={16} className="ori-font-popup" />
                 </div>
                 <ShowMessage
-                  isMounted={!feedback_failed && !feedback_success && !is_socket_connected && isMounted}
+                  isMounted={!feedback_failed && !feedback_success && !is_internet_connected && isMounted}
                   delayMountTime={500}
                   delayUnmountTime={500}
                   size={45}
@@ -107,7 +107,7 @@ class FeedbackComponent extends React.PureComponent {
                 <FeedbackBody
                   handleSelectedRating={this.handleSelectedRating}
                   handleFeedbackComment={this.handleFeedbackComment}
-                  isMounted={!feedback_failed && !feedback_success && is_socket_connected && isMounted}
+                  isMounted={!feedback_failed && !feedback_success && is_internet_connected && isMounted}
                   delayMountTime={500}
                   delayUnmountTime={500}
                   show_feedback_comment={rating && rating > 0}
@@ -146,7 +146,7 @@ class FeedbackComponent extends React.PureComponent {
 const Feedback = DelayComponent(FeedbackComponent);
 
 Feedback.propTypes = {
-  is_socket_connected: PropTypes.bool,
+  is_internet_connected: PropTypes.bool,
   psid: PropTypes.string,
   isMounted: PropTypes.bool,
   delayUnmountTime: PropTypes.number,

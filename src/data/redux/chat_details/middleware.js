@@ -404,13 +404,12 @@ const middleware = () => {
       }
 
       case actionTypes.SEND_FEEDBACK: {
-        if (socket) {
+        checkSocketAndEmit(socket, store, EVENTS.RESET_CHAT, socket => {
           socket.emit(EVENTS.RECORD_FEEDBACK, action.payload, (err, data) => {
-            if (action.callback) {
-              action.callback(err);
-            }
-          });
-        }
+            if (action.callback)
+              action.callback(err)
+          })
+        })
         break;
       }
 
