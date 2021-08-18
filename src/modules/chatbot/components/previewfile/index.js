@@ -27,7 +27,7 @@ class PreviewFile extends React.PureComponent {
   };
 
   render() {
-    const { isMounted, file, fileUrl, is_socket_connected, onClickCancel, onClickSend } = this.props;
+    const { isMounted, file, fileUrl, is_internet_connected, onClickCancel, onClickSend } = this.props;
     return (
       <LangContext.Consumer>
         {
@@ -44,7 +44,7 @@ class PreviewFile extends React.PureComponent {
               </div>
               <div className="ori-flex-row ori-flex-jc ori-t-pad-15">
                 <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel}>{translator.text[lang].cancel}</Button>
-                <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-20", { "ori-btn-fill-primary": is_socket_connected })} size="small" disabled={!is_socket_connected} onClick={onClickSend}>{is_socket_connected ? translator.text[lang].send : translator.text[lang].connecting}</Button>
+                <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-20", { "ori-btn-fill-primary": is_internet_connected })} size="small" disabled={!is_internet_connected} onClick={onClickSend}>{is_internet_connected ? translator.text[lang].send : translator.text[lang].connecting}</Button>
               </div>
             </div>
           )
@@ -60,11 +60,11 @@ PreviewFile.propTypes = {
   fileUrl: PropTypes.string,
   onClickCancel: PropTypes.func,
   onClickSend: PropTypes.func,
-  is_socket_connected: PropTypes.bool
+  is_internet_connected: PropTypes.bool
 };
 
 PreviewFile.defaultProps = {
-  is_socket_connected: false,
+  is_internet_connected: false,
 }
 
 export default DelayComponent(PreviewFile);

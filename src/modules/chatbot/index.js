@@ -143,21 +143,19 @@ class ChatBot extends Component {
   };
 
   handleResetChat = () => {
-    const { psid, is_socket_connected } = this.props.chat_details;
+    const { psid } = this.props.chat_details;
     const { actions } = this.props;
-    if (is_socket_connected) {
-      const payload = { psid };
-      actions.resetChat(payload, () => {
-        actions.updateChatsState({
-          messages: [],
-          disable_msg_after_reply: {}
-        })
-        localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + psid)
-        localStorage.removeItem(LOCAL_STORAGE.MESSAGES + psid);
-        localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + psid);
-      });
-      this.closeClearChatPopConfirm()
-    }
+    const payload = { psid };
+    actions.resetChat(payload, () => {
+      actions.updateChatsState({
+        messages: [],
+        disable_msg_after_reply: {}
+      })
+      localStorage.removeItem(LOCAL_STORAGE.DISABLE_MESSAGE_AFTER_USER_REPLY + psid)
+      localStorage.removeItem(LOCAL_STORAGE.MESSAGES + psid);
+      localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + psid);
+    });
+    this.closeClearChatPopConfirm()
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
       window.parent.postMessage({
         type: 'counter',
@@ -532,7 +530,7 @@ class ChatBot extends Component {
           <PreviewFile
             isMounted={show_file_preview}
             delayUnmountTime={400}
-            is_socket_connected={chat_details.is_socket_connected}
+            is_internet_connected={chat_details.is_internet_connected}
             file={file}
             fileUrl={fileUrl}
             onClickCancel={this.onFilePreviewCancel}
@@ -551,7 +549,7 @@ class ChatBot extends Component {
           <Feedback
             isMounted={show_feedback}
             delayUnmountTime={650}
-            is_socket_connected={chat_details.is_socket_connected}
+            is_internet_connected={chat_details.is_internet_connected}
             closeFeedback={this.closeFeedback}
             psid={chat_details.psid}
             sendFeedback={actions.sendFeedback}
@@ -583,7 +581,7 @@ class ChatBot extends Component {
         >
           <ChatBotConversation
             psid={chat_details.psid}
-            btn_disabled={!chat_details.is_socket_connected}
+            btn_disabled={!chat_details.is_internet_connected}
             disable_msg_after_reply={chat_details.disable_msg_after_reply}
             messages={chat_details.messages}
             onMessageVoting={actions.onMessageVoting}

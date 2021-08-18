@@ -33,8 +33,8 @@ class InputComposer extends React.PureComponent {
     this.state = {
       input_message: "",
       typing: false,
-      file: null,
-      fileUrl: "",
+      // file: null,
+      // fileUrl: "",
       showTypeWriter: chatbot_setting.chat_interface.type_writer.enable
     };
   }
@@ -116,12 +116,12 @@ class InputComposer extends React.PureComponent {
     }
   };
 
-  onRemove = file => {
-    this.setState({
-      file: null,
-      fileUrl: "",
-    });
-  };
+  // onRemove = file => {
+  //   this.setState({
+  //     file: null,
+  //     fileUrl: "",
+  //   });
+  // };
 
   hideTypeWriter = () => {
     this.setState({ showTypeWriter: false })

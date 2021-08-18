@@ -31,7 +31,12 @@ import {
   setDataInLocalStorage,
   getQueryParamsValue
 } from '../../config/utils';
-import { updateChatsState, emitCustomEvent, socketDisconnect, updateMessage } from './actions';
+import {
+  updateChatsState,
+  emitCustomEvent,
+  socketDisconnect,
+  updateMessage
+} from './actions';
 import actionTypes from '../actiontypes';
 
 const registerSocketListener = (store, socket) => {
@@ -255,6 +260,17 @@ const registerSocketListener = (store, socket) => {
   })
 }
 
+const checkSocketAndEmit = (socket, store, event, callback) => {
+  log(`emit custom event- ${event}`)
+  if (socket)
+    callback(socket)
+  else if (![EVENTS.MESSAGE_SEEN, EVENTS.TYPING_STATUS].includes(event))
+    store.dispatch({
+      type: actionTypes.MAKE_SOCKET_CONNECTION,
+      callback
+    })
+}
+
 const middleware = () => {
   let socket = null;
   return store => next => action => {
@@ -281,10 +297,14 @@ const middleware = () => {
               auth_socket_data.query.publicIP = data.ip
               socket = io(socketUrl, auth_socket_data);
               registerSocketListener(store, socket);
+              if (action.callback)
+                action.callback(socket)
             })
             .catch(() => {
               socket = io(socketUrl, auth_socket_data);
               registerSocketListener(store, socket);
+              if (action.callback)
+                action.callback(socket)
             })
         }
         break;
@@ -296,18 +316,17 @@ const middleware = () => {
         break;
 
       case actionTypes.EMIT_CUSTOM_EVENT: {
-        if (socket && action.event) {
-          log(`emit custom event- ${action.event}:`, action.payload);
+        checkSocketAndEmit(socket, store, action.event, socket => {
           if (action.callback)
             socket.emit(action.event, action.payload, action.callback);
           else
             socket.emit(action.event, action.payload);
-        }
+        })
         break;
       }
 
       case actionTypes.EMIT_NEW_MESSAGE: {
-        if (socket) {
+        checkSocketAndEmit(socket, store, EVENTS.NEW_MESSAGE, socket => {
           action.payload.session_id = socket.io.engine.id;
           action.payload.current_session_id = socket.io.engine.id;
           socket.emit(EVENTS.NEW_MESSAGE, action.payload, (err, res) => {
@@ -324,12 +343,12 @@ const middleware = () => {
               store.dispatch(updateMessage(res.data, 'cmid'));
             }
           });
-        }
+        })
         break;
       }
 
       case actionTypes.BOT_POPUP_REQUEST: {
-        if (socket) {
+        checkSocketAndEmit(socket, store, EVENTS.NEW_MESSAGE, socket => {
           socket.emit(EVENTS.BOT_AUTO_POPUP_REQUEST, action.payload, (err, res) => {
             log('bot auto popup request callback', err, res);
             const chat_details = store.getState().chat_details;
@@ -344,12 +363,12 @@ const middleware = () => {
             } else if (err)
               log('bot auto popup request error', err)
           });
-        }
+        })
         break;
       }
 
       case actionTypes.MESSAGE_VOTING: {
-        if (socket) {
+        checkSocketAndEmit(socket, store, EVENTS.CHATLOG_FEEDBACK, socket => {
           socket.emit(EVENTS.CHATLOG_FEEDBACK, action.payload, res => {
             log('chatlog feedback res', res);
             if (!res.error && res.data && res.data.chatlogId && res.data.voteType) {
@@ -366,12 +385,12 @@ const middleware = () => {
               log('chatlog feedback event request error');
             }
           });
-        }
+        })
         break;
       }
 
       case actionTypes.RESET_CHAT: {
-        if (socket) {
+        checkSocketAndEmit(socket, store, EVENTS.RESET_CHAT, socket => {
           socket.emit(EVENTS.RESET_CHAT, action.payload, res => {
             log('chatlog feedback res', res);
             if (res.ok) {
@@ -380,18 +399,17 @@ const middleware = () => {
               log('reset chat event error');
             }
           });
-        }
+        })
         break;
       }
 
       case actionTypes.SEND_FEEDBACK: {
-        if (socket) {
+        checkSocketAndEmit(socket, store, EVENTS.RESET_CHAT, socket => {
           socket.emit(EVENTS.RECORD_FEEDBACK, action.payload, (err, data) => {
-            if (action.callback) {
-              action.callback(err);
-            }
-          });
-        }
+            if (action.callback)
+              action.callback(err)
+          })
+        })
         break;
       }
 

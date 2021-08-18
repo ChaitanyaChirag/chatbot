@@ -27,6 +27,7 @@ import {
   PLATFORM
 } from "../data/config/constants"
 import {
+  log,
   checkDevice,
   isAndroid,
   isIOS,
@@ -166,7 +167,7 @@ class AppContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const { actions } = this.props;
-    const { bot_popup_payload } = this.state
+    // const { bot_popup_payload } = this.state
     const { is_socket_connected, is_internet_connected, is_chat_open, unseen_messages } = this.props.chat_details;
     if (prevProps.chat_details.is_chat_open && !is_chat_open) {
       setTimeout(() => this.setState({ render_chatbot: false }), 400);
@@ -178,10 +179,10 @@ class AppContainer extends Component {
     if (chatbot_setting.auto_hide_notification_bubbles.enable && !is_chat_open && unseen_messages.length > prevProps.chat_details.unseen_messages.length)
       this.hideNotificationBubbles()
 
-    if (!prevProps.chat_details.is_socket_connected && is_socket_connected && bot_popup_payload) {
-      actions.handleBotPopupRequest(bot_popup_payload)
-      this.setState({ bot_popup_payload: null })
-    }
+    // if (!prevProps.chat_details.is_socket_connected && is_socket_connected && bot_popup_payload) {
+    //   actions.handleBotPopupRequest(bot_popup_payload)
+    //   this.setState({ bot_popup_payload: null })
+    // }
     if (!prevProps.chat_details.is_internet_connected && is_internet_connected && !is_socket_connected)
       actions.callSocketMethod('open')
     else if (prevProps.chat_details.is_internet_connected && !is_internet_connected && is_socket_connected)
@@ -224,7 +225,8 @@ class AppContainer extends Component {
 
   onScreenVisibilityChange = () => {
     const { chat_details, actions } = this.props;
-    if (document.visibilityState === 'visible' && chat_details.is_chat_open) {
+    log("onScreenVisibilityChange called")
+    if (document.visibilityState === "visible" && chat_details.is_chat_open) {
       const payload = {
         clientPsid: chat_details.psid,
         senderPsid: chat_details.psid,
@@ -260,36 +262,36 @@ class AppContainer extends Component {
   }
 
   botPopup = (case_data, params) => {
+    log("botPopup called", case_data, params)
     const { chat_details, actions } = this.props;
     let payload = {
       case: case_data,
       params: params,
       psid: chat_details.psid
     };
-    if (chat_details.is_socket_connected)
-      actions.handleBotPopupRequest(payload)
-    else {
-      this.setState({ bot_popup_payload: payload })
-      actions.makeSocketConnection()
-    }
+    // if (chat_details.is_socket_connected)
+    actions.handleBotPopupRequest(payload)
+    // else {
+    //   this.setState({ bot_popup_payload: payload })
+    //   actions.makeSocketConnection()
+    // }
   };
 
   handleSocketConnection = bool => {
     const { chat_details, actions } = this.props;
-    const android = isAndroid();
-    const ios = isIOS();
     actions.handleChatbotInterface(bool);
-    if (bool && chat_details.is_socket_connected) {
-      const payload = {
-        clientPsid: chat_details.psid,
-        senderPsid: chat_details.psid,
-      };
-      actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
+    if (bool) {
+      const android = isAndroid();
+      const ios = isIOS();
       if (chatbot_setting.emit_unread_msg_seen)
         actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
-    }
-    if (bool && !chat_details.is_socket_connected && !android && !ios) {
-      actions.makeSocketConnection();
+      else if (!chat_details.is_socket_connected && !android && !ios)
+        actions.makeSocketConnection()
+      // const payload = {
+      //   clientPsid: chat_details.psid,
+      //   senderPsid: chat_details.psid,
+      // };
+      // actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
     }
   };
 
@@ -597,12 +599,6 @@ class AppContainer extends Component {
     }
   };
 
-  intractedWithChatbot = () => {
-    const { chat_details, actions } = this.props;
-    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && !chat_details.is_socket_connected)
-      actions.makeSocketConnection()
-  }
-
   render() {
     const { page_details, chat_details, actions } = this.props;
     if (chatbot_setting.security.enable && !chat_details.secure)
@@ -655,7 +651,6 @@ class AppContainer extends Component {
                 height: "100%",
                 width: "100%"
               }}
-              onClick={this.intractedWithChatbot}
             >
               <ChatBot
                 ref={this.chatbotRef}
