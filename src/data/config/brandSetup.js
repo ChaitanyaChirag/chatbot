@@ -201,6 +201,7 @@ export const chatbot_default_messages = {
 }
 
 export const chatbot_psids = {
+  default_secondary_value: "default",
   primary_key_enable: false,
   primary_key: "psid",
   secondary_key_enable: false,
@@ -219,7 +220,7 @@ export const chatbot_psids = {
     return primary_value
   },
   brandLogicToGetSecondaryValue() {
-    let secondary_value = "default"
+    let secondary_value = this.default_secondary_value
     if (this.secondary_key_enable) {
       //=========== BRAND SPECIFIC LOGIC TO FINDOUT SECONDARY KEY VALUE==========
       const query_params = new URLSearchParams(window.location.search)
