@@ -45,7 +45,7 @@ export const translator = {
 }
 
 export const chatbot_setting = {
-  chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
+  chatbot_type: CHATBOT_TYPE.ADSTER, // default, fullScreen, adster
   trigger_type: TYPES.DEFAULT,
   show_trigger_close: true,
   image_type_brand_name: false,

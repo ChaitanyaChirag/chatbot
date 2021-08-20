@@ -5,3 +5,4 @@ export const botName = "vodafone";
 export const role = "user";
 export const version = 1.1;
 export const senderId = "dish_chat_client";
+export const ga4MeasurementId = "G-D01BCJ2CJ1";

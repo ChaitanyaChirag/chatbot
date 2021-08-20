@@ -2,6 +2,7 @@
 import React, { lazy, Component, Suspense } from "react";
 import PropTypes from "prop-types";
 import Button from "antd/lib/button"
+import ReactGA from "react-ga4"
 
 import {
   chatbot_setting,
@@ -70,6 +71,14 @@ class ChatBot extends Component {
 
   componentDidMount() {
     const { actions } = this.props;
+    const timestamp = new Date().getTime()
+    ReactGA.send({
+      hitType:'event',
+      eventCategory: 'InitialBotLoad',
+      eventAction: 'InitialBotLoadEnd',
+      eventLabel: 'InitialBotLoadEnd',
+      eventValue: timestamp
+      });
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner) {
       const chatbotElement = document.getElementById("chatbotContentContainer")
       console.log('bannerSize', chatbotElement.clientWidth, chatbotElement.clientHeight)
