@@ -21,7 +21,15 @@ x.setAttribute("id", "ori-chatbot-root")
 document.body.appendChild(x)
 
 ReactDOM.render(<Provider store={store}><AppContainer /></Provider>, document.getElementById("ori-chatbot-root"))
+export const timestamp = new Date().getTime()
 if(chatbot_setting.chatbot_type === 'adster'){
     ReactGA.initialize(ga4MeasurementId)
+    ReactGA.send({
+        hitType:'event',
+        eventCategory: 'InitialBotLoad',
+        eventAction: 'Initial_Bot_Load_Start',
+        eventLabel: 'Initial_Bot_Load_Start',
+        eventValue: timestamp
+      })
 }
 serviceWorker.unregister()

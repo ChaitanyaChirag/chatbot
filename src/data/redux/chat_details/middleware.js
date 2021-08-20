@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import ReactGA from 'react-ga4'
 
 import {
   EVENTS,
@@ -306,6 +307,13 @@ const middleware = () => {
               if (action.callback)
                 action.callback(socket)
             })
+          ReactGA.send({
+            hitType:'event',
+            eventCategory: 'FirstInteraction',
+            eventAction: 'First_Interaction_Event',
+            eventLabel: 'First_Interaction_Event',
+            eventValue: new Date().getTime()
+          })
         }
         break;
       }

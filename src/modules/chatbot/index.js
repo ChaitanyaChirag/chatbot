@@ -2,7 +2,7 @@
 import React, { lazy, Component, Suspense } from "react";
 import PropTypes from "prop-types";
 import Button from "antd/lib/button"
-import ReactGA from "react-ga4"
+import ReactGA from 'react-ga4'
 
 import {
   chatbot_setting,
@@ -34,6 +34,7 @@ import {
 import "./index.scss";
 
 import DotsLoader from "../../components/dotsloader"
+import { timestamp } from "../../index";
 
 const Header = lazy(() => import("./components/Header"))
 const HeaderTag = lazy(() => import("./components/HeaderTag"))
@@ -71,15 +72,29 @@ class ChatBot extends Component {
 
   componentDidMount() {
     const { actions } = this.props;
-    const timestamp = new Date().getTime()
-    ReactGA.send({
-      hitType:'event',
-      eventCategory: 'InitialBotLoad',
-      eventAction: 'InitialBotLoadEnd',
-      eventLabel: 'InitialBotLoadEnd',
-      eventValue: timestamp
-      });
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner) {
+      ReactGA.send({
+        hitType:'event',
+        eventCategory: 'InitialBotLoad',
+        eventAction: 'Initial_Bot_Load_End',
+        eventLabel: 'Initial_Bot_Load_End',
+        eventValue: new Date().getTime()
+      })
+      ReactGA.send({
+        hitType:'event',
+        eventCategory: 'InitialBotLoad',
+        eventAction: 'Initial_Bot_Load_Duration',
+        eventLabel: 'Initial_Bot_Load_Duration',
+        eventValue: ( new Date().getTime() - timestamp ) / 1000 
+      })
+      ReactGA.send("pageview")
+      ReactGA.send({
+        hitType:'event',
+        eventCategory: 'BannerTransition',
+        eventAction: 'Banner_Transition_Start',
+        eventLabel: 'Banner_Transition_Start',
+        eventValue: new Date().getTime()
+      })
       const chatbotElement = document.getElementById("chatbotContentContainer")
       console.log('bannerSize', chatbotElement.clientWidth, chatbotElement.clientHeight)
       const aspectRatio = chatbotElement.clientWidth / chatbotElement.clientHeight
@@ -91,7 +106,25 @@ class ChatBot extends Component {
         banner_width: data.width,
         banner_height: data.height
       }))
-      this.bannerTimer = setTimeout(this.hideBannerImage, adster_settings.banner_initial_transtion_delay)
+      this.bannerTimer = setTimeout(() => {
+        this.hideBannerImage()
+        ReactGA.send({
+          hitType:'event',
+          eventCategory: 'BannerTransition',
+          eventAction: 'Banner_Transition_End',
+          eventLabel: 'Banner_Transition_End',
+          eventValue: new Date().getTime()
+        })
+        ReactGA.send({
+          hitType:'event',
+          eventCategory: 'BannerTransition',
+          eventAction: 'Banner_Transition_Duration',
+          eventLabel: 'Banner_Transition_Duration',
+          eventValue: adster_settings.banner_initial_transtion_delay/1000
+        })
+      },
+      adster_settings.banner_initial_transtion_delay
+      )
     }
     this.pushDefaultMessages()
   }
@@ -138,7 +171,25 @@ class ChatBot extends Component {
         const delay = chatbot_default_messages.delay * (index + 1)
         setTimeout(actions.pushResponseMessage, delay, message)
       })
+      if(chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER){
+        ReactGA.send({
+          hitType:'event',
+          eventCategory: 'firstMessageRendered',
+          eventAction: 'first_Message_Rendered',
+          eventLabel: 'first_Message_Rendered',
+          eventValue: new Date().getTime()
+        })
+        ReactGA.send({
+          hitType:'event',
+          eventCategory: 'TotalTimeBeforeGreetings',
+          eventAction: 'Total_Time_Before_Greetings',
+          eventLabel: 'Total_Time_Before_Greetings',
+          eventValue: ( new Date().getTime() - timestamp ) / 1000 
+        })
+        console.log("Difference executed.",( new Date().getTime() - timestamp ) / 1000 )
+      }
     }
+    
   }
 
   openMenu = () => {
@@ -155,6 +206,14 @@ class ChatBot extends Component {
     const { psid } = this.props.chat_details;
     const { actions } = this.props;
     const payload = { psid };
+    if(chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
+      ReactGA.send({
+        hitType:'event',
+        eventCategory: 'ResetChatClicked',
+        eventAction: 'Reset_Chat_Clicked',
+        eventLabel: 'Reset_Chat_Clicked',
+        eventValue: new Date().getTime()
+      })
     actions.resetChat(payload, () => {
       actions.updateChatsState({
         messages: [],
@@ -222,6 +281,14 @@ class ChatBot extends Component {
   onClickCloseIcon = () => {
     const { end_chat, psid } = this.props.chat_details;
     const { actions } = this.props;
+    if(chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER)
+      ReactGA.send({
+        hitType:'event',
+        eventCategory: 'EndChatClicked',
+        eventAction: 'End_Chat_Clicked',
+        eventLabel: 'End_Chat_Clicked',
+        eventValue: new Date().getTime()
+      })
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
       this.setState({ show_banner: true })
       this.handleResetChat()
@@ -406,12 +473,20 @@ class ChatBot extends Component {
 
   onClickBannerImage = () => {
     this.hideBannerImage()
-    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent){
+      ReactGA.send({
+        hitType:'event',
+        eventCategory: 'BannerClick',
+        eventAction: 'BannerClicked',
+        eventLabel: 'Banner_Clicked',
+        eventValue: new Date().getTime()
+      });
       window.parent.postMessage({
         type: 'counter',
         func: GOOGLE_ENABLER_EVENTS.BANNER,
         message: 'Banner Clicked'
       }, '*')
+    }
   }
 
   render() {
