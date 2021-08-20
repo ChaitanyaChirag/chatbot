@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
@@ -69,12 +68,7 @@ class FeedbackComponent extends React.PureComponent {
         {
           lang => (
             <div
-              className={classNames("ori-absolute ori-flex-column ori-flex-center ori-pad-10 oriFeedbackOverlayContainer",
-                {
-                  "ori-fade-in": isMounted,
-                  "ori-fade-out": !isMounted
-                }
-              )}
+              className={`ori-absolute ori-flex-column ori-flex-center ori-pad-10 oriFeedbackOverlayContainer ${isMounted ? "ori-fade-in" : "ori-fade-out"}`}
               style={{
                 animationDuration: `${delayUnmountTime}ms`
               }}

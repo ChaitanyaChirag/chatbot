@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import SuccessIcon from 'react-icons/lib/io/android-checkmark-circle';
 import ChainBreak from 'react-icons/lib/fa/chain-broken';
 import FailedIcon from 'react-icons/lib/md/cancel';
@@ -12,8 +11,8 @@ class ShowMessageComponent extends React.PureComponent {
     const { message, title, color, fontSize, fontLight, size, isMounted, delayUnmountTime, success, failed, chainBreak } = this.props;
 
     return (
-      <div className={classNames("ori-animated ori-full-parent-height ori-pad-20 ori-flex-column ori-flex-center", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted })} style={{ animationDuration: `${delayUnmountTime}ms` }}>
-        <div className={classNames("ori-animated ori-b-mrgn-10", { "ori-font-primary": color === "primary", "ori-font-green": color === "green", "ori-font-warning": color === "warning", "ori-font-danger": color === "danger", "ori-zoom-in": isMounted, "ori-zoom-out": !isMounted })} style={{ animationDuration: `${delayUnmountTime}ms` }}>
+      <div className={`ori-animated ori-full-parent-height ori-pad-20 ori-flex-column ori-flex-center ${isMounted ? "ori-fade-in": "ori-fade-out"}`} style={{ animationDuration: `${delayUnmountTime}ms` }}>
+        <div className={`ori-animated ori-b-mrgn-10 ${color === "primary" ? "ori-font-primary" : ""} ${color === "green" ? "ori-font-green": ""} ${ color === "warning" ? "ori-font-warning": ""} ${color === "danger" ? "ori-font-danger": ""} ${isMounted? "ori-zoom-in" : "ori-zoom-out"}`} style={{ animationDuration: `${delayUnmountTime}ms` }}>
           {
             chainBreak &&
             <ChainBreak size={size} />
@@ -29,9 +28,9 @@ class ShowMessageComponent extends React.PureComponent {
         </div>
         {
           title && title.trim().length > 0 &&
-          <p className={classNames("ori-no-b-mrgn ori-capitalize", { "ori-font-xs": fontSize === "xxs", "ori-font-sm": fontSize === "xs", "ori-font-md": fontSize === "sm", "ori-font-lg": fontSize === "md" })}>{title}</p>
+          <p className={`ori-no-b-mrgn ori-capitalize ${fontSize === "xxs" ? "ori-font-xs" : ""} ${fontSize === "xs" ? "ori-font-sm" : ""} ${fontSize === "sm" ? "ori-font-md" : ""} ${ fontSize === "md" ? "ori-font-lg" : "" }`}>{title}</p>
         }
-        <p className={classNames("ori-no-b-mrgn ori-text-center", { "ori-font-xxs": fontSize === "xxs", "ori-font-xs": fontSize === "xs", "ori-font-sm": fontSize === "sm", "ori-font-md": fontSize === "md", "ori-font-light": fontLight })}>{message}</p>
+        <p className={`ori-no-b-mrgn ori-text-center ${fontSize === "xxs" ? "ori-font-xxs" : ""} ${fontSize === "xs" ? "ori-font-xs" : ""} ${fontSize === "sm" ? "ori-font-sm" : ""} ${fontSize === "md" ? "ori-font-md" : ""} ${fontLight ? "ori-font-light": ""}`}>{message}</p>
       </div>
     );
   }

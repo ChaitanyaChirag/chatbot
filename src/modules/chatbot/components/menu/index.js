@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import SecurityIcon from 'react-icons/lib/md/security';
 import InfoIcon from 'react-icons/lib/md/assignment';
 import FeedbackIcon from 'react-icons/lib/md/feedback';
@@ -45,9 +44,9 @@ class MenuComponent extends React.PureComponent {
           {
             lang => (
               <React.Fragment>
-                <div className={classNames("ori-absolute ori-animated ori-animation-half menuOverlay", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted })} onClick={closeMenu}> &nbsp;
+                <div className={`ori-absolute ori-animated ori-animation-half menuOverlay ${isMounted ? "ori-fade-in" : "ori-fade-out" }`} onClick={closeMenu}> &nbsp;
                 </div>
-                <div className={classNames("ori-animated ori-animation-half ori-absolute ori-pad-10 oriMenuContainer ", { "ori-zoom-in-bottom-left": isMounted, "ori-zoom-out-bottom-left": !isMounted })}>
+                <div className={`ori-animated ori-animation-half ori-absolute ori-pad-10 oriMenuContainer ${isMounted ? "ori-zoom-in-bottom-left" : "ori-zoom-out-bottom-left"}`}>
                   {
                     chatbot_setting.menu.children.end_chat &&
                     <div className="ori-pad-5 ori-cursor-ptr menuItem" onClick={handleEndChat}>

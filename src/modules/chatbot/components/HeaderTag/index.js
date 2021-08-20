@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -21,14 +20,7 @@ const HeaderTag = React.memo(({
           >
             <span>
               <span
-                className={classNames(
-                  "ori-r-mrgn-5 ori-border-light ori-border-circle ori-display-inline-block ori-height-10 ori-width-10",
-                  {
-                    "ori-bg-danger": !is_internet_connected,
-                    "ori-bg-warning": is_internet_connected && !is_socket_connected,
-                    "ori-bg-green": is_internet_connected && is_socket_connected
-                  }
-                )}
+                className={`ori-r-mrgn-5 ori-border-light ori-border-circle ori-display-inline-block ori-height-10 ori-width-10 ${!is_internet_connected ? "ori-bg-danger" : ""} ${(is_internet_connected && !is_socket_connected) ? "ori-bg-warning" : ""} ${(is_internet_connected && is_socket_connected) ? "ori-bg-green": ""}`}
                 style={{ verticalAlign: 'middle' }}
               />
               {translator.text[lang].brandName}

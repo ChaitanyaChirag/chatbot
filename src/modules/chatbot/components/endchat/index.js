@@ -1,6 +1,5 @@
 import React, { lazy, Suspense, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import Button from "antd/lib/button";
 import Avatar from "antd/lib/avatar";
 import Input from "antd/lib/input";
@@ -182,11 +181,7 @@ const EndChat = ({
               {translator.text[lang].skip}
             </Button>
             <Button
-              className={classNames("ori-lr-mrgn-10 ori-lr-pad-15",
-                {
-                  "ori-btn-fill-primary": is_socket_connected
-                }
-              )}
+              className={`ori-lr-mrgn-10 ori-lr-pad-15 ${is_socket_connected ? "ori-btn-fill-primary": ""}`}
               size="small"
               disabled={!is_socket_connected}
               onClick={submitForm}
@@ -203,13 +198,7 @@ const EndChat = ({
       {
         lang => (
           <div
-            className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994",
-              {
-                "ori-fade-in": isMounted,
-                "ori-fade-out": !isMounted,
-                "ori-z-index-99995": end_chat.show_resolved_card,
-              }
-            )}
+            className={`ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994" ${isMounted ? "ori-fade-in" : ori-fade-out} ${end_chat.show_resolved_card ? "ori-z-index-99995" : ""}`}
             style={chatbotStyle.endChatContainer}
           >
             <div

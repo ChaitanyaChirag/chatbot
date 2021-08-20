@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Button from 'antd/lib/button';
 
 import { translator } from '../../../../data/config/brandSetup';
@@ -32,7 +31,7 @@ class PreviewFile extends React.PureComponent {
       <LangContext.Consumer>
         {
           lang => (
-            <div className={classNames("ori-absolute ori-animated ori-animation-half ori-bg-black-light ori-align-full ori-z-index-99995 ori-pad-20 ori-flex-column ori-flex-center", { "ori-fade-in": isMounted, "ori-fade-out": !isMounted })}>
+            <div className={`ori-absolute ori-animated ori-animation-half ori-bg-black-light ori-align-full ori-z-index-99995 ori-pad-20 ori-flex-column ori-flex-center ${isMounted ? "ori-fade-in": "ori-fade-out"}`}>
               <div className="ori-border-radius-light ori-border-radius-5 ori-bg-white ori-b-mrgn-10 ori-overflow-hidden ori-bg-position-center ori-full-width">
                 {this.renderImage(lang)}
                 {
@@ -44,7 +43,7 @@ class PreviewFile extends React.PureComponent {
               </div>
               <div className="ori-flex-row ori-flex-jc ori-t-pad-15">
                 <Button className="ori-lr-mrgn-10 ori-lr-pad-15 ori-btn-ghost-primary" size="small" onClick={onClickCancel}>{translator.text[lang].cancel}</Button>
-                <Button className={classNames("ori-lr-mrgn-10 ori-lr-pad-20", { "ori-btn-fill-primary": is_internet_connected })} size="small" disabled={!is_internet_connected} onClick={onClickSend}>{is_internet_connected ? translator.text[lang].send : translator.text[lang].connecting}</Button>
+                <Button className={`ori-lr-mrgn-10 ori-lr-pad-20 ${ is_internet_connected ? "ori-btn-fill-primary" :""}`} size="small" disabled={!is_internet_connected} onClick={onClickSend}>{is_internet_connected ? translator.text[lang].send : translator.text[lang].connecting}</Button>
               </div>
             </div>
           )

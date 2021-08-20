@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import StarIcon from 'react-icons/lib/fa/star';
 
 import { translator } from '../../../../../data/config/brandSetup';
@@ -29,7 +28,7 @@ class Rating extends React.PureComponent {
               {
                 [1, 2, 3, 4, 5].map(rating => {
                   return (
-                    <StarIcon key={rating} size={24} className={classNames("ori-animated ori-zoom-in ori-cursor-ptr ori-font-light ratingStar", { "ori-font-yellow": hover_star >= rating || selected_rating >= rating })} onMouseOver={() => this.setState({ hover_star: rating })} onMouseOut={() => this.setState({ hover_star: 0 })} onClick={() => { this.handleRatingClick(rating); }} />
+                    <StarIcon key={rating} size={24} className={`ori-animated ori-zoom-in ori-cursor-ptr ori-font-light ratingStar ${hover_star >= rating || selected_rating >= rating ? "ori-font-yellow" : ""}`} onMouseOver={() => this.setState({ hover_star: rating })} onMouseOut={() => this.setState({ hover_star: 0 })} onClick={() => { this.handleRatingClick(rating); }} />
                   );
                 })
               }
