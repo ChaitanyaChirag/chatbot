@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import ReactGA from 'react-ga4'
 
 import {
   EVENTS,
@@ -264,11 +265,20 @@ const checkSocketAndEmit = (socket, store, event, callback) => {
   log(`emit custom event- ${event}`)
   if (socket)
     callback(socket)
-  else if (![EVENTS.MESSAGE_SEEN, EVENTS.TYPING_STATUS].includes(event))
+  else if (![EVENTS.MESSAGE_SEEN, EVENTS.TYPING_STATUS].includes(event)) {
     store.dispatch({
       type: actionTypes.MAKE_SOCKET_CONNECTION,
       callback
     })
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && !socket)
+      ReactGA.send({
+        hitType: "event",
+        eventCategory: "UserInteraction",
+        eventAction: event,
+        eventLabel: "First_Interaction_Event",
+        eventValue: new Date().getTime()
+      })
+  }
 }
 
 const middleware = () => {

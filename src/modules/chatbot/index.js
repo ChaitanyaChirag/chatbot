@@ -2,6 +2,7 @@
 import React, { lazy, Component, Suspense } from "react";
 import PropTypes from "prop-types";
 import Button from "antd/lib/button"
+import ReactGA from 'react-ga4'
 
 import {
   chatbot_setting,
@@ -33,6 +34,7 @@ import {
 import "./index.scss";
 
 import DotsLoader from "../../components/dotsloader"
+import { BOT_LOAD_START_TIME } from "../../index";
 
 const Header = lazy(() => import("./components/Header"))
 const HeaderTag = lazy(() => import("./components/HeaderTag"))
@@ -49,6 +51,7 @@ const ShowNotification = lazy(() => import("./components/shownotification"))
 const InfoContent = lazy(() => import("./components/InfoContent"))
 const PoweredBy = lazy(() => import("../../components/PoweredBy"))
 
+let BANNER_TRANSITION_START_TIME = null
 class ChatBot extends Component {
   state = {
     show_menu: false,
@@ -70,19 +73,46 @@ class ChatBot extends Component {
 
   componentDidMount() {
     const { actions } = this.props;
-    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.banner) {
-      const chatbotElement = document.getElementById("chatbotContentContainer")
-      console.log('bannerSize', chatbotElement.clientWidth, chatbotElement.clientHeight)
-      const aspectRatio = chatbotElement.clientWidth / chatbotElement.clientHeight
-      const query_params = new URLSearchParams(window.location.search)
-      const banner_key = query_params.get(adster_settings.banner_query_params_key)
-      const banner_url = adster_settings.getBannerByAspectRatio(aspectRatio, banner_key)
-      actions.updatePageState({ banner_url, banner_key })
-      getImageMetaData(banner_url, data => actions.updatePageState({
-        banner_width: data.width,
-        banner_height: data.height
-      }))
-      this.bannerTimer = setTimeout(this.hideBannerImage, adster_settings.banner_initial_transtion_delay)
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      const bot_load_end_time = new Date().getTime()
+      ReactGA.send({
+        hitType: "event",
+        eventCategory: "InitialBotLoad",
+        eventAction: "Initial_Bot_Load_End",
+        eventLabel: "Initial_Bot_Load_End",
+        eventValue: bot_load_end_time
+      })
+      ReactGA.send({
+        hitType: "event",
+        eventCategory: "InitialBotLoad",
+        eventAction: "Initial_Bot_Load_Duration",
+        eventLabel: "Initial_Bot_Load_Duration",
+        eventValue: (bot_load_end_time - BOT_LOAD_START_TIME) / 1000
+      })
+      ReactGA.send("pageview")
+
+      if (adster_settings.banner) {
+        const chatbotElement = document.getElementById("chatbotContentContainer")
+        console.log("bannerSize", chatbotElement.clientWidth, chatbotElement.clientHeight)
+        const aspectRatio = chatbotElement.clientWidth / chatbotElement.clientHeight
+        const query_params = new URLSearchParams(window.location.search)
+        const banner_key = query_params.get(adster_settings.banner_query_params_key)
+        const banner_url = adster_settings.getBannerByAspectRatio(aspectRatio, banner_key)
+        actions.updatePageState({ banner_url, banner_key })
+        BANNER_TRANSITION_START_TIME = new Date().getTime()
+        ReactGA.send({
+          hitType: "event",
+          eventCategory: "BannerTransition",
+          eventAction: "Banner_Transition_Start",
+          eventLabel: "Banner_Transition_Start",
+          eventValue: BANNER_TRANSITION_START_TIME
+        })
+        getImageMetaData(banner_url, data => actions.updatePageState({
+          banner_width: data.width,
+          banner_height: data.height
+        }))
+        this.bannerTimer = setTimeout(this.hideBannerImage, adster_settings.banner_initial_transtion_delay)
+      }
     }
     this.pushDefaultMessages()
   }
@@ -127,9 +157,29 @@ class ChatBot extends Component {
       const default_messages = chatbot_default_messages.getDefaultMessages();
       default_messages.forEach((message, index) => {
         const delay = chatbot_default_messages.delay * (index + 1)
-        setTimeout(actions.pushResponseMessage, delay, message)
+        setTimeout(() => {
+          actions.pushResponseMessage(message)
+          if (index === 0 && chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+            const first_message_render_start_time = new Date().getTime()
+            ReactGA.send({
+              hitType: "event",
+              eventCategory: "firstMessageRendered",
+              eventAction: "first_Message_Rendered",
+              eventLabel: "first_Message_Rendered",
+              eventValue: first_message_render_start_time
+            })
+            ReactGA.send({
+              hitType: "event",
+              eventCategory: "TotalTimeBeforeGreetings",
+              eventAction: "Total_Time_Before_Greetings",
+              eventLabel: "Total_Time_Before_Greetings",
+              eventValue: (first_message_render_start_time - BOT_LOAD_START_TIME) / 1000
+            })
+          }
+        }, delay)
       })
     }
+
   }
 
   openMenu = () => {
@@ -146,6 +196,22 @@ class ChatBot extends Component {
     const { psid } = this.props.chat_details;
     const { actions } = this.props;
     const payload = { psid };
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      ReactGA.send({
+        hitType: "event",
+        eventCategory: "UserIntraction",
+        eventAction: EVENTS.RESET_CHAT,
+        eventLabel: "Reset_Chat_Clicked",
+        eventValue: new Date().getTime()
+      })
+      if (window.parent)
+        window.parent.postMessage({
+          type: 'counter',
+          func: GOOGLE_ENABLER_EVENTS.CHAT_RESET,
+          message: ""
+        }, '*')
+    }
+
     actions.resetChat(payload, () => {
       actions.updateChatsState({
         messages: [],
@@ -156,12 +222,6 @@ class ChatBot extends Component {
       localStorage.removeItem(LOCAL_STORAGE.LAST_EMIT + psid);
     });
     this.closeClearChatPopConfirm()
-    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
-      window.parent.postMessage({
-        type: 'counter',
-        func: GOOGLE_ENABLER_EVENTS.CHAT_RESET,
-        message: ""
-      }, '*')
   };
 
   showClearChatPopConfirm = () => {
@@ -218,6 +278,13 @@ class ChatBot extends Component {
       this.handleResetChat()
       const payload = { psid }
       actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload)
+      ReactGA.send({
+        hitType: "event",
+        eventCategory: "UserIntraction",
+        eventAction: EVENTS.END_CONVERSATION,
+        eventLabel: "End_Chat_Clicked",
+        eventValue: new Date().getTime()
+      })
       if (window.parent)
         window.parent.postMessage({
           type: 'counter',
@@ -392,17 +459,45 @@ class ChatBot extends Component {
   hideBannerImage = () => {
     if (this.bannerTimer)
       clearTimeout(this.bannerTimer)
-    this.setState({ show_banner: false })
+    this.setState({ show_banner: false }, () => {
+      if (BANNER_TRANSITION_START_TIME) {
+        const banner_transition_end_time = new Date().getTime()
+        ReactGA.send({
+          hitType: "event",
+          eventCategory: "BannerTransition",
+          eventAction: "Banner_Transition_End",
+          eventLabel: "Banner_Transition_End",
+          eventValue: banner_transition_end_time
+        })
+        ReactGA.send({
+          hitType: "event",
+          eventCategory: "BannerTransition",
+          eventAction: "Banner_Transition_Duration",
+          eventLabel: "Banner_Transition_Duration",
+          eventValue: (banner_transition_end_time - BANNER_TRANSITION_START_TIME) / 1000
+        })
+        BANNER_TRANSITION_START_TIME = null
+      }
+    })
   }
 
   onClickBannerImage = () => {
     this.hideBannerImage()
-    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
-      window.parent.postMessage({
-        type: 'counter',
-        func: GOOGLE_ENABLER_EVENTS.BANNER,
-        message: 'Banner Clicked'
-      }, '*')
+    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+      ReactGA.send({
+        hitType: "event",
+        eventCategory: "UserIntraction",
+        eventAction: "BannerClicked",
+        eventLabel: "Banner_Clicked",
+        eventValue: new Date().getTime()
+      });
+      if (window.parent)
+        window.parent.postMessage({
+          type: 'counter',
+          func: GOOGLE_ENABLER_EVENTS.BANNER,
+          message: 'Banner Clicked'
+        }, '*')
+    }
   }
 
   render() {
