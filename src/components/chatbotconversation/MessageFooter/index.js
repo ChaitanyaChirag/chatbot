@@ -36,13 +36,13 @@ const MessageFooter = ({
             chatbot_setting.message_footer.voting && show_voting &&
             <React.Fragment>
               <div
-                className={`ori-flex ori-cursor-ptr ori-r-pad-5 ${message.voteType && message.voteType === "upvote" ? "ori-font-primary" : ""}`}
+                className={`ori-flex ori-cursor-ptr ori-r-pad-5 ${message.voteType && message.voteType === "upvote" ? "ori-font-voting" : ""}`}
                 onClick={() => onClickMessageVoting(message, "upvote")}
               >
                 <ThumbUpIcon size={12} />
               </div>
               <div
-                className={`ori-flex ori-cursor-ptr ori-l-pad-5 ori-rotate-180 ${message.voteType && message.voteType === "downvote" ? "ori-font-primary" : ""}`}
+                className={`ori-flex ori-cursor-ptr ori-l-pad-5 ori-rotate-180 ${message.voteType && message.voteType === "downvote" ? "ori-font-voting" : ""}`}
                 onClick={() => onClickMessageVoting(message, "downvote")}
               >
                 <ThumbUpIcon size={12} />
