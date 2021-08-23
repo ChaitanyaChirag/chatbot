@@ -321,8 +321,7 @@ class AppContainer extends Component {
       const cmid = uniqueId();
       const response = {
         type: MESSAGE_TYPES.LIST,
-        list: data.list,
-        relayData: data.relayData,
+        ...data,
         cmid
       };
       const obj = {
