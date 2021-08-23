@@ -270,6 +270,14 @@ const checkSocketAndEmit = (socket, store, event, callback) => {
       type: actionTypes.MAKE_SOCKET_CONNECTION,
       callback
     })
+  if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && !socket)
+    ReactGA.send({
+      hitType: "event",
+      eventCategory: "UserInteraction",
+      eventAction: event,
+      eventLabel: "First_Interaction_Event",
+      eventValue: new Date().getTime()
+    })
 }
 
 const middleware = () => {
@@ -307,13 +315,6 @@ const middleware = () => {
               if (action.callback)
                 action.callback(socket)
             })
-          ReactGA.send({
-            hitType:'event',
-            eventCategory: 'FirstInteraction',
-            eventAction: 'First_Interaction_Event',
-            eventLabel: 'First_Interaction_Event',
-            eventValue: new Date().getTime()
-          })
         }
         break;
       }
