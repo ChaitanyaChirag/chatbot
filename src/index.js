@@ -8,7 +8,7 @@ import ReactGA from "react-ga4"
 import createStore from "./data/redux/store"
 import * as serviceWorker from "./serviceWorker"
 import { ga4MeasurementId } from "./data/config/urls"
-import { chatbot_setting } from "./data/config/brandSetup"
+import { adster_settings, chatbot_setting } from "./data/config/brandSetup"
 import { CHATBOT_TYPE } from "./data/config/constants"
 
 import "./data/styles/index.scss"
@@ -25,7 +25,7 @@ ReactDOM.render(<Provider store={store}><AppContainer /></Provider>, document.ge
 
 export const BOT_LOAD_START_TIME = new Date().getTime()
 
-if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && chatbot_setting.ga4_sync) {
+if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.ga4_sync) {
   ReactGA.initialize(ga4MeasurementId)
   ReactGA.send({
     hitType: 'event',

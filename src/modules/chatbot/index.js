@@ -74,7 +74,7 @@ class ChatBot extends Component {
   componentDidMount() {
     const { actions } = this.props;
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
-      if(chatbot_setting.ga4_sync) {
+      if(adster_settings.ga4_sync) {
         const bot_load_end_time = new Date().getTime()
         ReactGA.send({
           hitType: "event",
@@ -101,7 +101,7 @@ class ChatBot extends Component {
         const banner_key = query_params.get(adster_settings.banner_query_params_key)
         const banner_url = adster_settings.getBannerByAspectRatio(aspectRatio, banner_key)
         actions.updatePageState({ banner_url, banner_key })
-        if(chatbot_setting.ga4_sync){
+        if(adster_settings.ga4_sync){
           BANNER_TRANSITION_START_TIME = new Date().getTime()
           ReactGA.send({
             hitType: "event",
@@ -163,7 +163,7 @@ class ChatBot extends Component {
         const delay = chatbot_default_messages.delay * (index + 1)
         setTimeout(() => {
           actions.pushResponseMessage(message)
-          if (index === 0 && chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && chatbot_setting.ga4_sync) {
+          if (index === 0 && chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && adster_settings.ga4_sync) {
             const first_message_render_start_time = new Date().getTime()
             ReactGA.send({
               hitType: "event",
@@ -201,7 +201,7 @@ class ChatBot extends Component {
     const { actions } = this.props;
     const payload = { psid };
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
-      if(chatbot_setting.ga4_sync){
+      if(adster_settings.ga4_sync){
         ReactGA.send({
           hitType: "event",
           eventCategory: "UserIntraction",
@@ -284,7 +284,7 @@ class ChatBot extends Component {
       this.handleResetChat()
       const payload = { psid }
       actions.emitCustomEvent(EVENTS.END_CONVERSATION, payload)
-      if(chatbot_setting.ga4_sync){
+      if(adster_settings.ga4_sync){
         ReactGA.send({
           hitType: "event",
           eventCategory: "UserIntraction",
@@ -468,7 +468,7 @@ class ChatBot extends Component {
     if (this.bannerTimer)
       clearTimeout(this.bannerTimer)
     this.setState({ show_banner: false }, () => {
-      if (BANNER_TRANSITION_START_TIME && chatbot_setting.ga4_sync) {
+      if (BANNER_TRANSITION_START_TIME && adster_settings.ga4_sync) {
         const banner_transition_end_time = new Date().getTime()
         ReactGA.send({
           hitType: "event",
@@ -492,7 +492,7 @@ class ChatBot extends Component {
   onClickBannerImage = () => {
     this.hideBannerImage()
     if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
-      if(chatbot_setting.ga4_sync){
+      if(adster_settings.ga4_sync){
         ReactGA.send({
           hitType: "event",
           eventCategory: "UserIntraction",

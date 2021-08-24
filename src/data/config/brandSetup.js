@@ -169,8 +169,7 @@ export const chatbot_setting = {
   auto_hide_notification_bubbles: {
     enable: false,
     delay: 10000 // in ms
-  },
-  ga4_sync: true
+  }
 };
 
 export const chatbot_default_messages = {
@@ -313,6 +312,7 @@ export const adster_settings = {
   banner: true, // to add banner image code
   banner_initial_transtion_delay: 5000, // in ms
   banner_query_params_key: "segment",
+  ga4_sync: true,
   banner_images: {
     "default": {
       default: "https://dummyimage.com/420x200/000/fff.png&text=default-default",
