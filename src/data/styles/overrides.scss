@@ -2,10 +2,66 @@
 @import './variables.scss';
 @import './mixins.scss';
 
+.ori-ant-design-container ::selection {
+    background: $primary !important;
+}
+
 .ant-message {
     position: absolute !important;
     z-index: 999999 !important;
 }
+
+//=================================== FORM MESSAGE TYPES CSS ====================
+/*
+-- if you are not using FormMessage component then you should below css
+-- we are using radio group and datePicker in FormMessage Component
+*/
+
+// ant-picker-dropdown is required if you are using date-picker 
+
+// .ant-picker-dropdown {
+//   z-index: 99994 !important;
+//   font-family: $font-family !important;
+// }
+
+// below css are required if you are using radio group 
+
+// .ant-radio:hover .ant-radio-inner {
+// border-color: $primary !important;
+// }
+
+// .ant-radio-checked .ant-radio-inner {
+//   border-color: $primary !important;
+
+//   &::after {
+//       background-color: $primary !important;
+//   }
+
+//   &:hover {
+//       border-color: $primary !important;
+//   }
+// }
+
+// .ant-radio-button-wrapper {
+//   &:hover {
+//       color: $primary !important;
+//   }
+// }
+
+// .ant-radio-button-wrapper-checked {
+//   background-color: $primary !important;
+//   border-color: $primary !important;
+
+//   &::before {
+//       background-color: $primary !important;
+//   }
+
+//   &:hover {
+//       color: $white !important;
+//   }
+// }
+
+//=================================== FORM MESSAGE TYPES END ====================
 
 //------------------------ TAG CLASSES ----------------------------
 
