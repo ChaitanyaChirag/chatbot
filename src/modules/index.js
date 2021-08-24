@@ -315,7 +315,7 @@ class AppContainer extends Component {
     });
   };
 
-  onSubmitCheckbox = data => {
+  handleDataSubmit = data => {
     console.log(data)
     if (data.list && data.list.length > 0) {
       const cmid = uniqueId();
@@ -633,7 +633,7 @@ class AppContainer extends Component {
                   handleMsgBtnClick={this.handleMsgBtnClick}
                   handleFileUpload={this.handleFileUpload}
                   handleOfferSelection={this.handleOfferSelection}
-                  onSubmitCheckbox={this.onSubmitCheckbox}
+                  handleDataSubmit={this.handleDataSubmit}
                 />
               </div>
             </Suspense>
@@ -660,7 +660,7 @@ class AppContainer extends Component {
                 handleMsgBtnClick={this.handleMsgBtnClick}
                 handleFileUpload={this.handleFileUpload}
                 handleOfferSelection={this.handleOfferSelection}
-                onSubmitCheckbox={this.onSubmitCheckbox}
+                handleDataSubmit={this.handleDataSubmit}
                 banner_url={page_details.banner_url}
               />
             </div>
@@ -701,7 +701,7 @@ class AppContainer extends Component {
                   handleMsgBtnClick={this.handleMsgBtnClick}
                   handleFileUpload={this.handleFileUpload}
                   handleOfferSelection={this.handleOfferSelection}
-                  onSubmitCheckbox={this.onSubmitCheckbox}
+                  handleDataSubmit={this.handleDataSubmit}
                 />
               </div>
             </Suspense>
@@ -718,7 +718,7 @@ class AppContainer extends Component {
                 handleFileUpload={this.handleFileUpload}
                 handleOfferSelection={this.handleOfferSelection}
                 stack_view={chatbot_setting.notification_bot.stack_view}
-                onSubmitCheckbox={this.onSubmitCheckbox}
+                handleDataSubmit={this.handleDataSubmit}
               />
             </Suspense>
           }

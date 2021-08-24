@@ -111,7 +111,7 @@ class ChatBotConversation extends React.PureComponent {
   }
 
   render() {
-    const { messages, disable_msg_after_reply, is_typing, typing_text, handleMsgBtnClick, onSubmitCheckbox, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
+    const { messages, disable_msg_after_reply, is_typing, typing_text, handleMsgBtnClick, handleDataSubmit, notification_bot, stack_view, btn_disabled, handleFileUpload } = this.props;
 
     return (
       <LangContext.Consumer>
@@ -252,7 +252,7 @@ class ChatBotConversation extends React.PureComponent {
                                 show_form_message &&
                                 <FormMessage
                                   message={message}
-                                  onSubmit={onSubmitCheckbox}
+                                  onSubmit={handleDataSubmit}
                                   disabled={index !== (messages.length - 1)}
                                   btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
                                   handleMsgBtnClick={handleMsgBtnClick}
@@ -274,7 +274,7 @@ class ChatBotConversation extends React.PureComponent {
                                 <CheckboxWithMedia
                                   message={message}
                                   handleMsgBtnClick={handleMsgBtnClick}
-                                  onSubmitCheckbox={onSubmitCheckbox}
+                                  onSubmitCheckbox={handleDataSubmit}
                                   checkbox_disabled={index !== (messages.length - 1)}
                                   default_btn_display_count={chatbot_setting.default_btn_display_count}
                                   btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble || index !== (messages.length - 1)}
@@ -424,7 +424,7 @@ ChatBotConversation.propTypes = {
   onClickStackBubble: PropTypes.func,
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
-  onSubmitCheckbox: PropTypes.func,
+  handleDataSubmit: PropTypes.func,
   handleOfferSelection: PropTypes.func,
   onMessageVoting: PropTypes.func,
   is_typing: PropTypes.bool,

@@ -517,7 +517,7 @@ class ChatBot extends Component {
       handleMsgBtnClick,
       handleFileUpload,
       handleOfferSelection,
-      onSubmitCheckbox,
+      handleDataSubmit,
       actions,
       screen_height,
       banner_url
@@ -683,7 +683,7 @@ class ChatBot extends Component {
             handleMsgBtnClick={handleMsgBtnClick}
             handleFileUpload={handleFileUpload}
             handleOfferSelection={handleOfferSelection}
-            onSubmitCheckbox={onSubmitCheckbox}
+            handleDataSubmit={handleDataSubmit}
             is_typing={chat_details.is_typing}
             typing_text={chat_details.typing_text}
           />
@@ -749,7 +749,7 @@ ChatBot.propTypes = {
   handleMsgBtnClick: PropTypes.func,
   handleFileUpload: PropTypes.func,
   handleOfferSelection: PropTypes.func,
-  onSubmitCheckbox: PropTypes.func,
+  handleDataSubmit: PropTypes.func,
   banner_url: PropTypes.string
 };
 
