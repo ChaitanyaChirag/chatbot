@@ -12,7 +12,8 @@ import {
   Recharge,
   RechargeDetails,
   Offers,
-  RechargeHistory
+  RechargeHistory,
+  // FormMessage,
 } from "message-types"
 
 import "./index.scss"
@@ -146,6 +147,7 @@ class ChatBotConversation extends React.PureComponent {
                   const show_rechargeDetails = message.type === MESSAGE_TYPES.CUSTOM_MSG && message.payload.subtype === MESSAGE_SUBTYPES.DISH_RECHARGE_DETAILS;
                   const show_offers = message.type === MESSAGE_TYPES.CUSTOM_MSG && message.payload.subtype === MESSAGE_SUBTYPES.DISH_OFFERS;
                   const show_rechargeHistory = message.type === MESSAGE_TYPES.CUSTOM_MSG && message.payload.subtype === MESSAGE_SUBTYPES.DISH_RECHARGE_HISTORY;
+                  // const show_form_message = message.type === MESSAGE_TYPES.FORM
 
                   let sender_title = "U";
                   let sender_img_url = "";
@@ -170,7 +172,20 @@ class ChatBotConversation extends React.PureComponent {
                     );
                   }
 
-                  if (show_textMessage || show_listMessage || show_textWithMedia || show_checkboxWithMedia || show_recharge || show_rechargeDetails || show_offers || show_rechargeHistory || show_carousel || show_promptmsg || show_uploadfile) {
+                  if (
+                    show_textMessage
+                    || show_listMessage
+                    || show_textWithMedia
+                    || show_checkboxWithMedia
+                    || show_recharge
+                    || show_rechargeDetails
+                    || show_offers
+                    || show_rechargeHistory
+                    || show_carousel
+                    || show_promptmsg
+                    || show_uploadfile
+                    // || show_form_message
+                  ) {
                     return (
                       <ErrorBoundary key={index}>
                         <div id={`index-${index}`} className="ori-animated ori-fade-in">
@@ -233,6 +248,16 @@ class ChatBotConversation extends React.PureComponent {
                                 show_listMessage &&
                                 <ListMessage message={message} />
                               }
+                              {/* {
+                                show_form_message &&
+                                <FormMessage
+                                  message={message}
+                                  onSubmit={onSubmitCheckbox}
+                                  disabled={index !== (messages.length - 1)}
+                                  btn_hidden={chatbot_setting.hide_buttons_in_msg_bubble}
+                                  handleMsgBtnClick={handleMsgBtnClick}
+                                />
+                              } */}
                               {
                                 show_textWithMedia &&
                                 <TextWithMedia
