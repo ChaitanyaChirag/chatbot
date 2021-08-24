@@ -1,4 +1,5 @@
 @import "./antdesign_index.scss";
+// @import "~antd/lib/date-picker/style/index"; // specific for FormMessage message-types
 
 .ori-ant-design-container {
     @import "~antd/lib/button/style/index";
@@ -13,6 +14,8 @@
 
     @import "~antd/lib/menu/style/index";
     @import "~antd/lib/message/style/index";
+
+    // @import "~antd/lib/radio/style/index"; // specific for FormMessage message-types
 
     /*
     * import ant-design component css here, when ever you use any ant design component in chatbot or chatbot-message-types library.
@@ -38,7 +41,7 @@
       TODO: remove the below css whenever you will update the antd version
     */
 
-    .anticon-info-circle:before, .anticon-check-circle:before, .anticon-exclamation-circle:before, .anticon-close-circle:before, .anticon-right:before, .anticon-left:before {
+    .anticon-info-circle:before, .anticon-check-circle:before, .anticon-exclamation-circle:before, .anticon-close-circle:before, .anticon-right:before, .anticon-left:before, .anticon-calendar:before {
       content: "" !important;
     }
 
