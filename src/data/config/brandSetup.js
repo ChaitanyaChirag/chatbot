@@ -169,7 +169,8 @@ export const chatbot_setting = {
   auto_hide_notification_bubbles: {
     enable: false,
     delay: 10000 // in ms
-  }
+  },
+  ga4_sync: true
 };
 
 export const chatbot_default_messages = {

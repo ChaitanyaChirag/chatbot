@@ -25,7 +25,7 @@ ReactDOM.render(<Provider store={store}><AppContainer /></Provider>, document.ge
 
 export const BOT_LOAD_START_TIME = new Date().getTime()
 
-if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER) {
+if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && chatbot_setting.ga4_sync) {
   ReactGA.initialize(ga4MeasurementId)
   ReactGA.send({
     hitType: 'event',
