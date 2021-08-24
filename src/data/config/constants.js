@@ -103,7 +103,8 @@ export const MESSAGE_TYPES = {
   UPLOAD_FILE: "uploadFile",
   FILE: "file",
   SYSTEM_TEXT: "systemText",
-  LOCATION: "location"
+  LOCATION: "location",
+  FORM: "form"
 };
 
 export const ALLOWED_MESSAGE_TYPES = [
@@ -120,7 +121,8 @@ export const ALLOWED_MESSAGE_TYPES = [
   MESSAGE_TYPES.UPLOAD_FILE,
   MESSAGE_TYPES.FILE,
   MESSAGE_TYPES.SYSTEM_TEXT,
-  MESSAGE_TYPES.LOCATION
+  MESSAGE_TYPES.LOCATION,
+  MESSAGE_TYPES.FORM
 ]
 
 export const MESSAGE_SUBTYPES = {
