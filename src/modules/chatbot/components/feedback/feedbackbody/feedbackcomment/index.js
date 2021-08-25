@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 
@@ -32,7 +31,7 @@ class FeedbackComment extends React.PureComponent {
       <LangContext.Consumer>
         {
           lang => (
-            <div className={classNames("ori-animated", { "ori-fade-in-up": isMounted, "ori-fade-out-down": !isMounted })} style={{ animationDuration: `${delayUnmountTime}ms` }}>
+            <div className={`ori-animated ${isMounted ? "ori-fade-in-up" : "ori-fade-out-down" }`} style={{ animationDuration: `${delayUnmountTime}ms` }}>
               <TextArea placeholder="Write your comment…" className="feedbackCommentInput" autosize={{ minRows: 3, maxRows: 8 }} value={comment} onChange={this.handleCommentChange} />
               <Button className="ori-animated ori-zoom-in ori-btn-fill-primary ori-full-width ori-t-mrgn-15" onClick={this.onClickSubmitComment}>{translator.text[lang].submit}</Button>
             </div>

@@ -1,25 +1,25 @@
-import React, { Suspense } from 'react';
-import PropTypes from 'prop-types';
-import CloseIcon from 'react-icons/lib/md/close';
+import React, { Suspense } from "react"
+import PropTypes from "prop-types"
+import CloseIcon from "react-icons/lib/md/close"
 
-import './index.scss';
+import "./index.scss"
 
-import { chatbot_setting, brand_features, translator } from '../../data/config/brandSetup';
-import { TYPES } from '../../data/config/constants'
-import { LangContext } from '../../modules/context'
+import { chatbot_setting, brand_features, translator } from "../../data/config/brandSetup"
+import { TYPES } from "../../data/config/constants"
+import { LangContext } from "../../modules/context"
 
-const LottieContainer = React.lazy(() => import('./lottiecontainer'));
+const LottieContainer = React.lazy(() => import("./lottiecontainer"))
 
 const SHOW_TRIGGER = brand_features.enable_trigger_brand_logic ? brand_features.showTriggerByBrandLogic() : true
 
 class TriggerChatBot extends React.PureComponent {
   handleChatInterfaceView = () => {
-    const { is_chat_open, handleSocketConnection } = this.props;
+    const { is_chat_open, handleSocketConnection } = this.props
     handleSocketConnection(!is_chat_open)
-  };
+  }
 
   render() {
-    const { is_chat_open, mobile } = this.props;
+    const { is_chat_open, mobile } = this.props
     return (
       <LangContext.Consumer>
         {
@@ -65,7 +65,7 @@ class TriggerChatBot extends React.PureComponent {
           )
         }
       </LangContext.Consumer>
-    );
+    )
   }
 }
 
@@ -73,10 +73,10 @@ TriggerChatBot.propTypes = {
   is_chat_open: PropTypes.bool.isRequired,
   handleSocketConnection: PropTypes.func,
   mobile: PropTypes.bool
-};
+}
 
 TriggerChatBot.defaultProps = {
   mobile: false
 }
 
-export default TriggerChatBot;
+export default TriggerChatBot
