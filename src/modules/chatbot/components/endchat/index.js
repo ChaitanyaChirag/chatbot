@@ -198,7 +198,7 @@ const EndChat = ({
       {
         lang => (
           <div
-            className={`ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994" ${isMounted ? "ori-fade-in" : "ori-fade-out"} ${end_chat.show_resolved_card ? "ori-z-index-99995" : ""}`}
+            className={`ori-absolute ori-animated ori-animation-half ori-bg-default ori-align-full ori-z-index-99994 ${isMounted ? "ori-fade-in" : "ori-fade-out"} ${end_chat.show_resolved_card ? "ori-z-index-99995" : ""}`}
             style={chatbotStyle.endChatContainer}
           >
             <div
