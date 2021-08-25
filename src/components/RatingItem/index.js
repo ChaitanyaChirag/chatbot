@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import StarIcon from 'react-icons/lib/fa/star';
+import React, { useState, useRef, useEffect } from "react"
+import PropTypes from "prop-types"
+import StarIcon from "react-icons/lib/fa/star";
 
-import { chatbot_setting, translator } from '../../data/config/brandSetup'
-import { TYPES } from '../../data/config/constants'
-import { LangContext } from '../../modules/context'
+import { chatbot_setting, translator } from "../../data/config/brandSetup"
+import { TYPES } from "../../data/config/constants"
+import { LangContext } from "../../modules/context"
 
 const RatingItem = ({
   title,
@@ -51,10 +50,10 @@ const RatingItem = ({
     <LangContext.Consumer>
       {
         lang => (
-          <div className='ori-tb-pad-10'>
+          <div className="ori-tb-pad-10">
             {
               title &&
-              <p className='ori-b-mrgn-10 ori-capitalize-first'>{title}</p>
+              <p className="ori-b-mrgn-10 ori-capitalize-first">{title}</p>
             }
             {
               chatbot_setting.chat_interface.show_feedback_emoji && showEmoji &&
@@ -67,16 +66,11 @@ const RatingItem = ({
                       translator.assets[lang].highRating)
                 }
                 alt=""
-                style={{ height: '50px', width: '50px' }}
+                style={{ height: "50px", width: "50px" }}
                 className="ori-animated ori-infinite ori-pulse ori-b-mrgn-5"
               />
             }
-            <div className={
-              classNames('ori-bg-white ori-border-radius-3 ori-flex ori-overflow-hidden',
-                {
-                  "ori-border-light": chatbot_setting.feedback_form_rating_type === TYPES.DEFAULT
-                }
-              )}
+            <div className={`ori-bg-white ori-border-radius-3 ori-flex ori-overflow-hidden ${chatbot_setting.feedback_form_rating_type === TYPES.DEFAULT ? "ori-border-light" : ""}`}
             >
               {[...Array(size)].map((_, index) => {
                 const ratingValue = !includeZero ? index + 1 : index
@@ -85,13 +79,7 @@ const RatingItem = ({
                     <div
                       key={index}
                       style={{ width: `${eachWidth}%` }}
-                      className={classNames('ori-cursor-ptr ori-text-center ori-font-light ori-overflow-hidden ori-flex-column ori-flex-center',
-                        {
-                          'ori-font-danger': selectedValue >= ratingValue && selectedValue <= lowCount,
-                          'ori-font-warning': selectedValue >= ratingValue && selectedValue > lowCount && selectedValue <= (lowCount + midCount),
-                          'ori-font-green': selectedValue >= ratingValue && selectedValue > (lowCount + midCount),
-                        }
-                      )}
+                      className={`ori-cursor-ptr ori-text-center ori-font-light ori-overflow-hidden ori-flex-column ori-flex-center ${(selectedValue >= ratingValue && selectedValue <= lowCount) ? "ori-font-danger" : ""} ${(selectedValue >= ratingValue && selectedValue > lowCount && selectedValue <= (lowCount + midCount)) ? "ori-font-warning" : ""} ${(selectedValue >= ratingValue && selectedValue > (lowCount + midCount)) ? "ori-font-green" : ""}`}
                       onClick={() => handleRatingClick(ratingValue)}
                     >
                       <StarIcon size={26} />
@@ -107,16 +95,9 @@ const RatingItem = ({
                       key={index}
                       style={{
                         width: `${eachWidth}%`,
-                        lineHeight: '28px'
+                        lineHeight: "28px"
                       }}
-                      className={classNames('ori-cursor-ptr ori-text-center ori-overflow-hidden',
-                        {
-                          'ori-font-white': selectedValue === ratingValue,
-                          'ori-bg-danger': selectedValue === ratingValue && ratingValue <= lowCount,
-                          'ori-bg-yellow': selectedValue === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount),
-                          'ori-bg-green': selectedValue === ratingValue && ratingValue > (lowCount + midCount),
-                        }
-                      )}
+                      className={`ori-cursor-ptr ori-text-center ori-overflow-hidden ${selectedValue === ratingValue ? "ori-font-white" : ""} ${(selectedValue === ratingValue && ratingValue <= lowCount) ? "ori-bg-danger" : ""} ${(selectedValue === ratingValue && ratingValue > lowCount && ratingValue <= (lowCount + midCount)) ? "ori-bg-yellow" : ""} ${(selectedValue === ratingValue && ratingValue > (lowCount + midCount)) ? "ori-bg-green" : ""}`}
                       onClick={() => handleRatingClick(ratingValue)}
                     >
                       {ratingValue}
@@ -126,27 +107,27 @@ const RatingItem = ({
             </div>
             {
               (eachItemText.length === 0 || eachItemText.length !== totalCount) &&
-              <div className='ori-flex ori-t-mrgn-5 ori-font-xs ori-overflow-hidden'>
+              <div className="ori-flex ori-t-mrgn-5 ori-font-xs ori-overflow-hidden">
                 <div style={{ width: `${includeZero ? (lowCount + 1) * eachWidth : lowCount * eachWidth}%` }}>
                   {
                     chatbot_setting.show_feedback_rating_linebar &&
-                    <div className='ori-bg-danger' style={{ height: '5px' }} />
+                    <div className="ori-bg-danger" style={{ height: "5px" }} />
                   }
-                  <p className='ori-font-light'>{lowText}</p>
+                  <p className="ori-font-light">{lowText}</p>
                 </div>
                 <div style={{ width: `${midCount * eachWidth}%` }}>
                   {
                     chatbot_setting.show_feedback_rating_linebar &&
-                    <div className='ori-bg-yellow' style={{ height: '5px' }} />
+                    <div className="ori-bg-yellow" style={{ height: "5px" }} />
                   }
-                  <p className='ori-font-light'>{midText}</p>
+                  <p className="ori-font-light">{midText}</p>
                 </div>
                 <div style={{ width: `${highCount * eachWidth}%` }}>
                   {
                     chatbot_setting.show_feedback_rating_linebar &&
-                    <div className='ori-bg-green' style={{ height: '5px' }} />
+                    <div className="ori-bg-green" style={{ height: "5px" }} />
                   }
-                  <p className='ori-font-light'>{highText}</p>
+                  <p className="ori-font-light">{highText}</p>
                 </div>
               </div>
             }
@@ -177,9 +158,9 @@ RatingItem.defaultProps = {
   lowCount: 6, // means first 6 boxes will refer lowCount
   midCount: 2, // second 2 boxes will indicates midCount
   highCount: 2, //last 2 boxes will indicates highCount
-  lowText: 'Not at all satisfied', // text for lowCount
-  midText: 'Satisfied', // text for midCount
-  highText: 'Extremely satisfied', // text for highCount
+  lowText: "Not at all satisfied", // text for lowCount
+  midText: "Satisfied", // text for midCount
+  highText: "Extremely satisfied", // text for highCount
   includeZero: false, // either start with zero or one
   eachItemText: [] // if it has value, each text will display below each box 
 }

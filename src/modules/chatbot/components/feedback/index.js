@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import CloseIcon from 'react-icons/lib/md/close';
 
 import './index.scss';
@@ -69,12 +68,7 @@ class FeedbackComponent extends React.PureComponent {
         {
           lang => (
             <div
-              className={classNames("ori-absolute ori-flex-column ori-flex-center ori-pad-10 oriFeedbackOverlayContainer",
-                {
-                  "ori-fade-in": isMounted,
-                  "ori-fade-out": !isMounted
-                }
-              )}
+              className={`ori-absolute ori-flex-column ori-flex-center ori-pad-10 oriFeedbackOverlayContainer ${isMounted ? "ori-fade-in" : "ori-fade-out"}`}
               style={{
                 animationDuration: `${delayUnmountTime}ms`
               }}
@@ -95,14 +89,10 @@ class FeedbackComponent extends React.PureComponent {
                 </div>
                 <ShowMessage
                   isMounted={!feedback_failed && !feedback_success && !is_internet_connected && isMounted}
-                  delayMountTime={500}
-                  delayUnmountTime={500}
-                  size={45}
-                  color="danger"
+                  iconClass="ori-font-danger"
                   message={translator.text[lang].connectionLost}
                   title={translator.text[lang].error}
                   chainBreak
-                  fontLight
                 />
                 <FeedbackBody
                   handleSelectedRating={this.handleSelectedRating}
@@ -116,23 +106,15 @@ class FeedbackComponent extends React.PureComponent {
                   title={translator.text[lang].success}
                   message={translator.text[lang].feedbackSuccess}
                   isMounted={feedback_success && isMounted}
-                  delayMountTime={500}
-                  delayUnmountTime={500}
-                  size={45}
-                  color="green"
+                  iconClass="ori-font-green"
                   success
-                  fontLight
                 />
                 <ShowMessage
                   title={translator.text[lang].failed}
                   message={translator.text[lang].feedbackFailed}
                   isMounted={feedback_failed && isMounted}
-                  delayMountTime={500}
-                  delayUnmountTime={500}
-                  size={45}
-                  color="danger"
+                  iconClass="ori-font-danger"
                   failed
-                  fontLight
                 />
               </div>
             </div>
