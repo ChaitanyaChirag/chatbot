@@ -270,7 +270,7 @@ const checkSocketAndEmit = (socket, store, event, callback) => {
       type: actionTypes.MAKE_SOCKET_CONNECTION,
       callback
     })
-    if (!socket && chatbot_setting.ga4_enable)
+    if (!socket && chatbot_setting.ga4)
       ReactGA.send({
         hitType: "event",
         eventCategory: "UserInteraction",
