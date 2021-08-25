@@ -22,8 +22,7 @@ import {
 import {
   chatbot_setting,
   chatbot_default_messages,
-  brand_features,
-  adster_settings
+  brand_features
 } from '../../config/brandSetup';
 import {
   log,
@@ -271,7 +270,7 @@ const checkSocketAndEmit = (socket, store, event, callback) => {
       type: actionTypes.MAKE_SOCKET_CONNECTION,
       callback
     })
-    if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && !socket && adster_settings.ga4_sync)
+    if (!socket && chatbot_setting.ga4_enable)
       ReactGA.send({
         hitType: "event",
         eventCategory: "UserInteraction",
