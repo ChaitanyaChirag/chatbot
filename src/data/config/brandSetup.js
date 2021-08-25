@@ -47,12 +47,13 @@ export const translator = {
 export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
   trigger_type: TYPES.DEFAULT,
+  ga4: false, // to enable Google ANalytics 4
   show_trigger_close: true,
   image_type_brand_name: false,
   security: {
     enable: false,
     code: "123456",
-  }, 
+  },
   message_footer: {
     enable: true,
     voting: true,
@@ -169,7 +170,7 @@ export const chatbot_setting = {
   auto_hide_notification_bubbles: {
     enable: false,
     delay: 10000 // in ms
-  }
+  },
 };
 
 export const chatbot_default_messages = {
