@@ -68,7 +68,7 @@ const Header = React.memo(({ is_internet_connected, is_socket_connected }) => (
                 chatbot_setting.chatbot_type !== CHATBOT_TYPE.ADSTER &&
                 <span className="ori-font-header-light ori-font-xs">
                   <span
-                    className={`ori-r-mrgn-5 ori-border-circle ori-display-inline-block ${!is_internet_connected ? "ori-bg-danger" : ""} ${(is_internet_connected && !is_socket_connected) ? "ori-bg-warning" : ""} ${(is_internet_connected && is_socket_connected) ? "ori-bg-green": ""}`}
+                    className={`ori-absolute ori-border-circle ${!is_internet_connected ? "ori-bg-danger" : (!is_socket_connected ? "ori-bg-warning" : "ori-bg-green")}`}
                     style={{
                       verticalAlign: "middle",
                       height: "6px",
