@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "antd": "4.16.11",
-    "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "message-types": "^5.0.0",
     "node-sass": "^4.13.0",
