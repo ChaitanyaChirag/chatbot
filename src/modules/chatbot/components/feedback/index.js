@@ -89,14 +89,10 @@ class FeedbackComponent extends React.PureComponent {
                 </div>
                 <ShowMessage
                   isMounted={!feedback_failed && !feedback_success && !is_internet_connected && isMounted}
-                  delayMountTime={500}
-                  delayUnmountTime={500}
-                  size={45}
-                  color="danger"
+                  iconClass="ori-font-danger"
                   message={translator.text[lang].connectionLost}
                   title={translator.text[lang].error}
                   chainBreak
-                  fontLight
                 />
                 <FeedbackBody
                   handleSelectedRating={this.handleSelectedRating}
@@ -110,23 +106,15 @@ class FeedbackComponent extends React.PureComponent {
                   title={translator.text[lang].success}
                   message={translator.text[lang].feedbackSuccess}
                   isMounted={feedback_success && isMounted}
-                  delayMountTime={500}
-                  delayUnmountTime={500}
-                  size={45}
-                  color="green"
+                  iconClass="ori-font-green"
                   success
-                  fontLight
                 />
                 <ShowMessage
                   title={translator.text[lang].failed}
                   message={translator.text[lang].feedbackFailed}
                   isMounted={feedback_failed && isMounted}
-                  delayMountTime={500}
-                  delayUnmountTime={500}
-                  size={45}
-                  color="danger"
+                  iconClass="ori-font-danger"
                   failed
-                  fontLight
                 />
               </div>
             </div>
