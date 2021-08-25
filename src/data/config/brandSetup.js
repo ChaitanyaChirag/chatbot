@@ -47,7 +47,7 @@ export const translator = {
 export const chatbot_setting = {
   chatbot_type: CHATBOT_TYPE.DEFAULT, // default, fullScreen, adster
   trigger_type: TYPES.DEFAULT,
-  ga4: false, // to enable Google ANalytics 4
+  ga4: false, // to enable Google ANalytics 4. please ensure your ga4MeasurementId before enabling it
   show_trigger_close: true,
   image_type_brand_name: false,
   security: {
