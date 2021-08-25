@@ -1,23 +1,23 @@
-import React, { lazy, Suspense, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import Button from "antd/lib/button";
-import Avatar from "antd/lib/avatar";
-import Input from "antd/lib/input";
-import Select from "antd/lib/select";
+import React, { lazy, Suspense, useEffect, useRef } from "react"
+import PropTypes from "prop-types"
+import Button from "antd/lib/button"
+import Avatar from "antd/lib/avatar"
+import Input from "antd/lib/input"
+import Select from "antd/lib/select"
 
-import { chatbot_setting, translator } from "../../../../data/config/brandSetup";
+import { chatbot_setting, translator } from "../../../../data/config/brandSetup"
 import chatbotStyle from "../../../../data/config/chatbotStyle"
 
-import { LangContext } from "../../../context";
+import { LangContext } from "../../../context"
 
-import DelayComponent from "../../../../components/delaycomponent";
+import DelayComponent from "../../../../components/delaycomponent"
 
 import { showMessage } from "../../../../data/config/utils"
 
-const PoweredBy = lazy(() => import("../../../../components/PoweredBy"));
+const PoweredBy = lazy(() => import("../../../../components/PoweredBy"))
 const RatingItem = lazy(() => import("../../../../components/RatingItem"))
 
-const { Option } = Select;
+const { Option } = Select
 
 const EndChat = ({
   isMounted,
@@ -63,8 +63,8 @@ const EndChat = ({
           onClickCancel={cancelEndConversation}
           onClickOk={confirmEndConversation}
         />
-      );
-  };
+      )
+  }
 
   const renderResolvedChatInfo = lang => {
     if (end_chat.show_resolved_card)
@@ -74,8 +74,8 @@ const EndChat = ({
           ok_text={translator.text[lang].ok}
           onClickOk={confirmEndConversation}
         />
-      );
-  };
+      )
+  }
 
   const renderDynamicForm = lang => {
     if (end_chat.show_form_card)
@@ -102,7 +102,7 @@ const EndChat = ({
                         onChange={handleFormInputChange}
                       />
                     </div>
-                  );
+                  )
 
                 case "textarea":
                   return (
@@ -122,7 +122,7 @@ const EndChat = ({
                         onChange={handleFormInputChange}
                       />
                     </div>
-                  );
+                  )
 
                 case "rating":
                   return (
@@ -133,7 +133,7 @@ const EndChat = ({
                         onChange={handleFormItemChange}
                       />
                     </Suspense>
-                  );
+                  )
 
                 case "select":
                   return (
@@ -160,15 +160,15 @@ const EndChat = ({
                               >
                                 {option.name}
                               </Option>
-                            );
+                            )
                           })
                         }
 
                       </Select>
                     </div>
-                  );
+                  )
 
-                default: return null;
+                default: return null
               }
             })
           }
@@ -190,8 +190,8 @@ const EndChat = ({
             </Button>
           </div>
         </div>
-      );
-  };
+      )
+  }
 
   return (
     <LangContext.Consumer>
@@ -257,12 +257,12 @@ const EndChat = ({
         )
       }
     </LangContext.Consumer>
-  );
+  )
 }
 
 
 const InfoCard = props => {
-  const { title, ok_text, onClickCancel, onClickOk } = props;
+  const { title, ok_text, onClickCancel, onClickOk } = props
   return (
     <LangContext.Consumer>
       {
@@ -292,8 +292,8 @@ const InfoCard = props => {
         )
       }
     </LangContext.Consumer>
-  );
-};
+  )
+}
 
 InfoCard.propTypes = {
   is_socket_connected: PropTypes.bool,
@@ -301,11 +301,11 @@ InfoCard.propTypes = {
   ok_text: PropTypes.string,
   onClickCancel: PropTypes.func,
   onClickOk: PropTypes.func,
-};
+}
 
 InfoCard.defaultProps = {
   is_socket_connected: false,
-};
+}
 
 EndChat.propTypes = {
   isMounted: PropTypes.bool,
@@ -316,11 +316,11 @@ EndChat.propTypes = {
   handleFormItemChange: PropTypes.func,
   submitForm: PropTypes.func,
   skipForm: PropTypes.func
-};
+}
 
 EndChat.defaultProps = {
   is_socket_connected: false,
   end_chat: {},
-};
+}
 
-export default DelayComponent(EndChat);
+export default DelayComponent(EndChat)
