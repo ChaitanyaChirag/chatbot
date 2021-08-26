@@ -2,13 +2,14 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import Button from "antd/lib/button"
 
-import { chatbot_setting } from "../../data/config/brandSetup"
+import { chatbot_setting, translator } from "../../data/config/brandSetup"
 
 const Buttons = ({
   message,
   disabled,
   pagination,
-  onClick
+  onClick,
+  lang
 }) => {
   const [page, setPage] = useState({
     showAll: false,
@@ -57,7 +58,7 @@ const Buttons = ({
             className="ori-b-mrgn-5 ori-lr-mrgn-3 ori-btn-bubble-outer"
             onClick={showAllButtons}
           >
-            Show more
+            {translator.text[lang].show_more}
           </Button>
         }
         {
@@ -67,7 +68,7 @@ const Buttons = ({
             className="ori-b-mrgn-5 ori-lr-mrgn-3 ori-btn-bubble-outer"
             onClick={showLessButtons}
           >
-            Show less
+            {translator.text[lang].show_less}
           </Button>
         }
       </div>
