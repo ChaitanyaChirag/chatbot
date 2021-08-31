@@ -380,7 +380,6 @@ class ChatBotConversation extends React.PureComponent {
                                 message={message}
                                 disabled={btn_disabled}
                                 onClick={handleMsgBtnClick}
-                                lang={lang}
                               />
                             </Suspense>
                           </ErrorBoundary>
