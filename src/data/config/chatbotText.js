@@ -123,6 +123,6 @@ export const arabic = {
       ]
     }
   },
-  show_more: "Show more",
-  show_less: "Show less"
+  show_more: "إظهار المزيد",
+  show_less: "تظهر أقل"
 }
