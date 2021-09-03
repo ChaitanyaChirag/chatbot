@@ -39,6 +39,8 @@ export const english = {
   failed: "Failed",
   close: "Close",
   send: "Send",
+  show_more: "Show more",
+  show_less: "Show less",
   security_prompt: "This is a confidential URL. To access this URL please enter your security code.",
   typewriter_data: ['Click here to type your query...'],
   info_content: {
@@ -61,9 +63,7 @@ export const english = {
         }
       ]
     }
-  },
-  show_more: "Show more",
-  show_less: "Show less"
+  }
 }
 
 export const arabic = {
@@ -101,6 +101,8 @@ export const arabic = {
   failed: "Failed",
   close: "Close",
   send: "Send",
+  show_more: "إظهار المزيد",
+  show_less: "تظهر أقل",
   security_prompt: "This is a confidential URL. To access this URL please enter your security code.",
   info_content: {
     [INFO_CONTENT_TYPE.PRIVACY_POLICY]: { // define privacy policy content here
@@ -122,7 +124,5 @@ export const arabic = {
         }
       ]
     }
-  },
-  show_more: "إظهار المزيد",
-  show_less: "تظهر أقل"
+  }
 }
