@@ -61,7 +61,9 @@ export const english = {
         }
       ]
     }
-  }
+  },
+  show_more: "Show more",
+  show_less: "Show less"
 }
 
 export const arabic = {
@@ -120,5 +122,7 @@ export const arabic = {
         }
       ]
     }
-  }
+  },
+  show_more: "إظهار المزيد",
+  show_less: "تظهر أقل"
 }
