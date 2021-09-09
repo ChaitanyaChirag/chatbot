@@ -34,11 +34,15 @@ const chatbotStyle = {
   footerContainer: {},
   footerBorder: {},
   conversationContainer: {},
+  stackViewConversationContainer: {
+    cursor: "pointer",
+    padding: "25px 30px 0px 40px"
+  },
   receiverBubbleContainer: {},
   senderBubbleContainer: {},
   stackViewNotificationBot: {
     width: "320px",
-    bottom: "100px",
+    bottom: "95px",
     maxWidth: "100%"
   },
 

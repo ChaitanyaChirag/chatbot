@@ -119,8 +119,8 @@ class ChatBotConversation extends React.PureComponent {
           lang => (
             <div
               id="oriChatbotConversationContainer"
-              className={`ori-t-pad-10 ori-b-pad-40 ori-lr-pad-50 oriChatBotConversationContainer ${stack_view ? "ori-cursor-ptr ori-no-b-pad" : ""}`}
-              style={chatbotStyle.conversationContainer}
+              className="ori-t-pad-10 ori-b-pad-40 ori-lr-pad-50 oriChatBotConversationContainer"
+              style={stack_view ? chatbotStyle.stackViewConversationContainer : chatbotStyle.conversationContainer}
               ref={this.chatbodyRef}
               onClick={this.onClickChatbody}
             >

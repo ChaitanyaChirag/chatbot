@@ -79,8 +79,9 @@ class NotificationBot extends React.PureComponent {
           }
           {
             stack_view &&
-            <div className="ori-absolute ori-animated ori-zoom-in ori-cursor-ptr ori-font-white stackCloseContainer" onClick={this.handleNotificationBotClose}>
-              <CloseIcon size={16} className="ori-border-circle ori-bg-black-light alignStackClose" />
+            <div 
+              className="ori-absolute ori-animated ori-zoom-in ori-cursor-ptr ori-font-white stackCloseContainer" onClick={this.handleNotificationBotClose}>
+              <CloseIcon size={22} className="ori-border-circle ori-bg-black-light alignStackClose" />
             </div>
           }
           <Suspense fallback={null}>
