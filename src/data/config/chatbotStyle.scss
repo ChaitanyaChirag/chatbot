@@ -19,6 +19,21 @@
     border-radius: 3px;
 }
 
+.stackViewCloseIcon {
+    display: flex;
+    cursor: pointer;
+    color: $white;
+    background-color: #8a8989;
+    top: 5px;
+    right: 10px;
+    border-radius: 50%;
+    padding: 2px;
+
+    &:hover {
+        background-color: $black-light;
+    }
+}
+
 // ------------------------------------------------------------
 
 .senderBubble, .stackViewNotificationBubble {

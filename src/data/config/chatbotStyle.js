@@ -21,7 +21,7 @@ const chatbotStyle = {
   notificationReceiverBubbleClass: "notificationReceiverBubble",
   stackViewNotificationBubbleClass: "stackViewNotificationBubble",
   quickReplyWrapperClass: "ori-absolute ori-align-bottom-full quickReplyWrapper",
-
+  stackViewCloseIconClass: "stackViewCloseIcon",
   //------------------------- styles --------------------------------
   chatbotContainer: {
     backgroundImage: `url(${translator.assets[translator.getLanguage()].background})`

@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import PropTypes from "prop-types"
 import CloseIcon from "react-icons/lib/md/close"
+import Button from "antd/lib/button"
 
 import "./index.scss"
 
@@ -79,9 +80,11 @@ class NotificationBot extends React.PureComponent {
           }
           {
             stack_view &&
-            <div 
-              className="ori-absolute ori-animated ori-zoom-in ori-cursor-ptr ori-font-white stackCloseContainer" onClick={this.handleNotificationBotClose}>
-              <CloseIcon size={22} className="ori-border-circle ori-bg-black-light alignStackClose" />
+            <div
+              className={`ori-absolute ${chatbotStyle.stackViewCloseIconClass}`}
+              onClick={this.handleNotificationBotClose}
+            >
+              <CloseIcon size={18} />
             </div>
           }
           <Suspense fallback={null}>
