@@ -171,5 +171,6 @@ export const GOOGLE_ENABLER_EVENTS = {
   END_CHAT: "End Chat",
   PRIVACY_POLICY: "Privacy Policy",
   TERMS_AND_CONDITIONS: "TnC",
-  CHAT_RESET: "Chat Reset"
+  CHAT_RESET: "Chat Reset",
+  CHAT_SESSION_START: "Chat Session Start"
 }
