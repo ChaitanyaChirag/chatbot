@@ -72,12 +72,12 @@ const registerSocketListener = (store, socket) => {
           data.adSegment = page_details.banner_key
           data.bannerWidth = page_details.banner_width
           data.bannerHeight = page_details.banner_height
-          if (window.parent)
-            window.parent.postMessage({
-              type: "exit",
-              func: GOOGLE_ENABLER_EVENTS.CHAT_SESSION_START,
-              message: window.location.hostname
-            }, '*')
+          // if (window.parent)
+          //   window.parent.postMessage({
+          //     type: "exit",
+          //     func: GOOGLE_ENABLER_EVENTS.CHAT_SESSION_START,
+          //     message: window.location.hostname
+          //   }, '*')
         }
         if (chatbot_setting.auto_emit_message.send_brand_data)
           data.brandData = brand_features.getBrandData()
