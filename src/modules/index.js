@@ -351,12 +351,12 @@ class AppContainer extends Component {
     if (!this.userFirstEmit && (chat_details.messages.length <= defaultMessageLength || chatbot_setting.send_brand_data_on_user_first_msg)) {
       this.userFirstEmit = true
       data.brandData = brand_features.getBrandData()
-      if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
-        window.parent.postMessage({
-          type: "exit",
-          func: GOOGLE_ENABLER_EVENTS.CHAT_SESSION_START,
-          message: window.location.hostname
-        }, '*')
+      // if (chatbot_setting.chatbot_type === CHATBOT_TYPE.ADSTER && window.parent)
+      //   window.parent.postMessage({
+      //     type: "exit",
+      //     func: GOOGLE_ENABLER_EVENTS.CHAT_SESSION_START,
+      //     message: window.location.hostname
+      //   }, '*')
     }
 
     if (android || ios) {
