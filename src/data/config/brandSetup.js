@@ -81,6 +81,7 @@ export const chatbot_setting = {
     update_last_emit: false,
     initial_delay_for_default_msg: 5000
   },
+  timestamp_tag: true,
   speech_recognition: true,
   minimize_bot: true,
   header_end_chat: true,

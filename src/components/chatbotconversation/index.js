@@ -156,7 +156,7 @@ class ChatBotConversation extends React.PureComponent {
                     sender_img_url = message.senderInfo.imgUrl && message.senderInfo.imgUrl.trim().length > 0 ? message.senderInfo.imgUrl : "";
                   }
 
-                  const show_timestamp_tag = notification_bot ? false : (index === 0 ? true : (message.timestamp ? this.isTimeStampTagVisible(message.timestamp, messages[index - 1].timestamp) : false));
+                  const show_timestamp_tag = notification_bot || !chatbot_setting.timestamp_tag ? false : (index === 0 ? true : (message.timestamp ? this.isTimeStampTagVisible(message.timestamp, messages[index - 1].timestamp) : false));
 
                   if (system && message.type === MESSAGE_TYPES.SYSTEM_TEXT) {
                     return (
