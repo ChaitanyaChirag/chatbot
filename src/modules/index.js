@@ -279,21 +279,24 @@ class AppContainer extends Component {
   };
 
   handleSocketConnection = bool => {
-    const { chat_details, actions } = this.props;
-    actions.handleChatbotInterface(bool);
-    if (bool) {
-      const android = isAndroid();
-      const ios = isIOS();
-      if (chatbot_setting.emit_unread_msg_seen)
-        actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
-      else if (!chat_details.is_socket_connected && !android && !ios)
-        actions.makeSocketConnection()
-      // const payload = {
-      //   clientPsid: chat_details.psid,
-      //   senderPsid: chat_details.psid,
-      // };
-      // actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
-    }
+
+    brand_features.doSomethingBeforeLoadChatbotThenContinue(() => {
+      const { chat_details, actions } = this.props;
+      actions.handleChatbotInterface(bool);
+      if (bool) {
+        const android = isAndroid();
+        const ios = isIOS();
+        if (chatbot_setting.emit_unread_msg_seen)
+          actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
+        else if (!chat_details.is_socket_connected && !android && !ios)
+          actions.makeSocketConnection()
+        // const payload = {
+        //   clientPsid: chat_details.psid,
+        //   senderPsid: chat_details.psid,
+        // };
+        // actions.emitCustomEvent(EVENTS.MESSAGE_SEEN, payload);
+      }
+    })
   };
 
   handleOfferSelection = (offer_id, offer_name) => {

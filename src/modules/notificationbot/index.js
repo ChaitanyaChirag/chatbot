@@ -1,11 +1,10 @@
 import React, { lazy, Suspense } from "react"
 import PropTypes from "prop-types"
 import CloseIcon from "react-icons/lib/md/close"
-import Button from "antd/lib/button"
 
 import "./index.scss"
 
-import { chatbot_setting } from "../../data/config/brandSetup"
+import { brand_features, chatbot_setting } from "../../data/config/brandSetup"
 import { LOCAL_STORAGE, EVENTS } from "../../data/config/constants"
 import { getPreviousMessageData } from "../../data/config/utils"
 import chatbotStyle from "../../data/config/chatbotStyle"
@@ -41,9 +40,11 @@ class NotificationBot extends React.PureComponent {
     const { actions, chat_details } = this.props
     localStorage.removeItem(LOCAL_STORAGE.UNSEEN_MESSAGES + chat_details.psid)
     actions.updateChatsState({ unseen_messages: [] })
-    actions.handleChatbotInterface(true)
-    if (chatbot_setting.emit_unread_msg_seen)
-      actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
+    brand_features.doSomethingBeforeLoadChatbotThenContinue(() => {
+      actions.handleChatbotInterface(true)
+      if (chatbot_setting.emit_unread_msg_seen)
+        actions.emitCustomEvent(EVENTS.UNREAD_MESSAGE_SEEN, { clientPsid: chat_details.psid })
+    })
   }
 
   render() {

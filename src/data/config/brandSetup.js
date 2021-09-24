@@ -308,6 +308,11 @@ export const brand_features = {
 
     //=================== END ===================
   },
+  doSomethingBeforeLoadChatbotThenContinue(continueExecution) {
+    //=========== BRAND SPECIFIC LOGIC BEFORE LOAD CHATBOT APP ==========
+    continueExecution()
+    //=================== END ===================
+  }
 }
 
 export const adster_settings = {
