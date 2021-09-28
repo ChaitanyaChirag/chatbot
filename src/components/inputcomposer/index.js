@@ -156,7 +156,7 @@ class InputComposer extends React.PureComponent {
                 showTypeWriter ?
                   <Suspense fallback={null}>
                     <TypeWriter
-                      className="ori-l-mrgn-10 ori-font-md ori-t-pad-3"
+                      className="ori-l-mrgn-10 ori-font-md ori-tb-pad-3"
                       textData={translator.text[lang].typewriter_data}
                       onClick={this.hideTypeWriter}
                     />
@@ -166,7 +166,7 @@ class InputComposer extends React.PureComponent {
                       placeholder={
                         is_input_lock ? input_lock_text : (listening ? translator.text[lang].listening : translator.text[lang].typeYourQuery)
                       }
-                      className="ori-lr-mrgn-10 inputField"
+                      className="ori-lr-mrgn-10 ori-tb-pad-3 inputField"
                       autoSize={{
                         minRows: 1,
                         maxRows: this.is_android && !this.android_input_max_rows_updated ? 1 : 3
